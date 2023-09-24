@@ -19,8 +19,10 @@
 			</div>
 		</div>
 		<div class="sidebar-body">
-			<div class="chats">
-				<div class="chat">
+			{#each Array(10) as _, index}
+				{@const is_active = index == 0}
+
+				<div class="chat" style="background: {is_active && "var(--primary-color)"};">
 					<div class="chat-image">
 						<img src="https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg" />
 					</div>
@@ -30,14 +32,14 @@
 								<span class="chat-name">Anya Forger</span>
 								<!-- Verified badge -->
 							</div>
-							<span class="chat-date">1:37 PM</span>
+							<span class="chat-date" style="color: {is_active && "white"};">1:37 PM</span>
 						</div>
-						<span class="chat-msg">
+						<span class="chat-msg" style="color: {is_active && "white"};">
 							Hi wassup! I've something to tell you, so please reply when you're free
 						</span>
 					</div>
 				</div>
-			</div>
+			{/each}
 		</div>
 	</div>
 	<chat></chat>
@@ -53,6 +55,8 @@
 		width: 100%;
 		height: 100vh;
 		background: var(--surface-color);
+		display: flex;
+		flex-direction: column;
 
 		.sidebar-head {
 			display: flex;
@@ -133,62 +137,61 @@
 
 		.sidebar-body {
 			padding: 0.75rem;
+			overflow-y: scroll;
 
-			.chats {
+			scrollbar-width: thin;
+
+			.chat {
+				cursor: pointer;
 				display: flex;
-				flex-direction: column;
+				align-items: center;
+				gap: 0.75rem;
+				color: white;
 				padding: 0.75rem;
-				background: var(--primary-color);
 				border-radius: 0.75rem;
 
-				.chat {
-					cursor: pointer;
+				&-image {
+					width: 5rem;
+					aspect-ratio: 1/1;
+					border-radius: 50%;
+					overflow: hidden;
+
+					img {
+						width: 100%;
+						height: 100%;
+					}
+				}
+
+				&-info {
+					width: 100%;
 					display: flex;
-					align-items: center;
-					gap: 0.75rem;
-					color: white;
+					flex-direction: column;
+					gap: 0.25rem;
 
-					&-image {
-						width: 5rem;
-						aspect-ratio: 1/1;
-						border-radius: 50%;
-						overflow: hidden;
+					.chat-name-date {
+						display: flex;
+						align-items: start;
+						justify-content: space-between;
 
-						img {
-							width: 100%;
-							height: 100%;
+						.chat-name {
+							font-size: 1.15rem;
+							font-weight: 500;
+						}
+
+						.chat-date {
+							font-size: 0.9rem;
+							color: #aaaaaa;
 						}
 					}
 
-					&-info {
-						width: 100%;
-						display: flex;
-						flex-direction: column;
-						gap: 0.25rem;
-
-						.chat-name-date {
-							display: flex;
-							align-items: start;
-							justify-content: space-between;
-
-							.chat-name {
-								font-size: 1.15rem;
-								font-weight: 500;
-							}
-
-							.chat-date {
-								font-size: 0.9rem;
-							}
-						}
-
-						.chat-msg {
-							font-size: 1.1rem;
-							font-weight: 400;
-							display: -webkit-box;
-							-webkit-line-clamp: 1;
-							-webkit-box-orient: vertical;
-							overflow: hidden;
-						}
+					.chat-msg {
+						color: #aaaaaa;
+						font-size: 1.1rem;
+						font-weight: 400;
+						display: -webkit-box;
+						-webkit-line-clamp: 1;
+						-webkit-box-orient: vertical;
+						overflow: hidden;
 					}
 				}
 			}
