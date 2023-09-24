@@ -18,10 +18,29 @@
 				<input placeholder="Search" />
 			</div>
 		</div>
+		<div class="sidebar-body">
+			<div class="chats">
+				<div class="chat">
+					<div class="chat-image">
+						<img src="https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg" />
+					</div>
+					<div class="chat-info">
+						<div class="chat-name-date">
+							<div class="chat-name-badge">
+								<span class="chat-name">Anya Forger</span>
+								<!-- Verified badge -->
+							</div>
+							<span class="chat-date">1:37 PM</span>
+						</div>
+						<span class="chat-msg">
+							Hi wassup! I've something to tell you, so please reply when you're free
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<chat>
-		chat
-	</chat>
+	<chat></chat>
 </main>
 
 <style lang="scss">
@@ -33,7 +52,7 @@
 	.sidebar {
 		width: 100%;
 		height: 100vh;
-		background: #212121;
+		background: var(--surface-color);
 
 		.sidebar-head {
 			display: flex;
@@ -60,7 +79,6 @@
 
 			.search {
 				width: 100%;
-				margin-right: 0.75rem;
 				position: relative;
 				display: flex;
 				align-items: center;
@@ -86,7 +104,7 @@
 					color: white;
 					font-size: 1.1rem;
 					font-weight: 500;
-					caret-color: #8774e1;
+					caret-color: var(--primary-color);
 					transition: 0.1s ease-in-out;
 
 					&::placeholder {
@@ -100,14 +118,77 @@
 					}
 
 					&:focus {
-						border-color: #8774e1;
+						border-color: var(--primary-color);
 					}
 				}
 				// Change search icon color on focus
 				&:focus-within {
 					.search-icon {
-						color: #8774e1;
+						color: var(--primary-color);
 						opacity: 1;
+					}
+				}
+			}
+		}
+
+		.sidebar-body {
+			padding: 0.75rem;
+
+			.chats {
+				display: flex;
+				flex-direction: column;
+				padding: 0.75rem;
+				background: var(--primary-color);
+				border-radius: 0.75rem;
+
+				.chat {
+					cursor: pointer;
+					display: flex;
+					align-items: center;
+					gap: 0.75rem;
+					color: white;
+
+					&-image {
+						width: 5rem;
+						aspect-ratio: 1/1;
+						border-radius: 50%;
+						overflow: hidden;
+
+						img {
+							width: 100%;
+							height: 100%;
+						}
+					}
+
+					&-info {
+						width: 100%;
+						display: flex;
+						flex-direction: column;
+						gap: 0.25rem;
+
+						.chat-name-date {
+							display: flex;
+							align-items: start;
+							justify-content: space-between;
+
+							.chat-name {
+								font-size: 1.15rem;
+								font-weight: 500;
+							}
+
+							.chat-date {
+								font-size: 0.9rem;
+							}
+						}
+
+						.chat-msg {
+							font-size: 1.1rem;
+							font-weight: 400;
+							display: -webkit-box;
+							-webkit-line-clamp: 1;
+							-webkit-box-orient: vertical;
+							overflow: hidden;
+						}
 					}
 				}
 			}
