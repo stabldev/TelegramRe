@@ -1,6 +1,12 @@
 <script lang="ts">
 	import Menu from "$lib/icons/menu.svelte";
 	import Search from "$lib/icons/search.svelte";
+
+	// testing variable
+	let active_chat_index: number = 0;
+	const change_chat_index = (index: number) => {
+		active_chat_index = index;
+	};
 </script>
 
 <main>
@@ -20,9 +26,13 @@
 		</div>
 		<div class="sidebar-body">
 			{#each Array(10) as _, index}
-				{@const is_active = index == 0}
+				{@const is_active = active_chat_index == index}
 
-				<div class="chat" style="background: {is_active && "var(--primary-color)"};">
+				<div
+					on:mousedown={() => change_chat_index(index)}
+					class="chat"
+					class:active={is_active}
+				>
 					<div class="chat-image">
 						<img src="https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg" />
 					</div>
@@ -32,9 +42,15 @@
 								<span class="chat-name">Anya Forger</span>
 								<!-- Verified badge -->
 							</div>
-							<span class="chat-date" style="color: {is_active && "white"};">1:37 PM</span>
+							<span
+								class="chat-date"
+								class:active={is_active}
+							>1:37 PM</span>
 						</div>
-						<span class="chat-msg" style="color: {is_active && "white"};">
+						<span
+							class="chat-msg"
+							class:active={is_active}
+						>
 							Hi wassup! I've something to tell you, so please reply when you're free
 						</span>
 					</div>
@@ -150,6 +166,14 @@
 				padding: 0.75rem;
 				border-radius: 0.75rem;
 
+				&.active {
+					background: var(--primary-color);
+				}
+
+				&:hover:not(.active) {
+					background: rgba(170, 170, 170, 0.08);
+				}
+
 				&-image {
 					width: 5rem;
 					aspect-ratio: 1/1;
@@ -181,6 +205,10 @@
 						.chat-date {
 							font-size: 0.9rem;
 							color: #aaaaaa;
+
+							&.active {
+								color: white;
+							}
 						}
 					}
 
@@ -192,6 +220,10 @@
 						-webkit-line-clamp: 1;
 						-webkit-box-orient: vertical;
 						overflow: hidden;
+
+						&.active {
+							color: white;
+						}
 					}
 				}
 			}
