@@ -14,3 +14,25 @@ body {
 	box-sizing: border-box;
 	font-family: 'Roboto', sans-serif;
 }
+
+button {
+	border: none;
+	outline: none;
+}
+
+.btn {
+	cursor: pointer;
+	background: none;
+	border: none;
+	outline: none;
+	color: var(--secondary-color);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	padding: 0.5rem;
+
+	&:hover {
+		background: var(--surface-light-color);
+	}
+}

@@ -37,7 +37,7 @@
 	<div class="sidebar">
 		<div class="sidebar-head">
 			<div class="menu">
-				<button>
+				<button class="btn">
 					<Menu variant="bars" />
 				</button>
 			</div>
@@ -110,6 +110,8 @@
 		background: url(https://img.freepik.com/free-photo/3d-mountain-landscape-with-purple-sunset-sky_1048-8133.jpg?w=826&t=st=1695646024~exp=1695646624~hmac=08c531f7a5ca1c1cd56167e3ad3175568b1f923e1c507ea154f056e96e0d292b);
 		background-position: center;
 		background-size: cover;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.sidebar {
@@ -127,20 +129,6 @@
 
 			.menu button {
 				width: 3rem;
-				cursor: pointer;
-				background: none;
-				border: none;
-				outline: none;
-				color: var(--secondary-color);
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				border-radius: 50%;
-				padding: 0.5rem;
-
-				&:hover {
-					background: var(--surface-light-color);
-				}
 			}
 
 			.search {
