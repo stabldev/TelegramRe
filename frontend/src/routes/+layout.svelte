@@ -38,7 +38,7 @@
 		<div class="sidebar-head">
 			<div class="menu">
 				<button>
-					<Menu style="width: 2rem;" />
+					<Menu variant="bars" />
 				</button>
 			</div>
 			<div class="search">
@@ -113,11 +113,11 @@
 	}
 
 	.sidebar {
-		width: 100%;
 		height: 100vh;
 		background: var(--surface-color);
 		display: flex;
 		flex-direction: column;
+		border-right: 0.2rem solid var(--surface-dark-color);
 
 		.sidebar-head {
 			display: flex;
@@ -126,6 +126,7 @@
 			padding: 0.75rem 1rem;
 
 			.menu button {
+				width: 3rem;
 				cursor: pointer;
 				background: none;
 				border: none;
