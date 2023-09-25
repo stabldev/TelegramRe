@@ -1,4 +1,4 @@
-import { FormatDate } from "./format_time";
+import { FormatDate } from "$functions/format_date";
 import { expect, test } from "vitest";
 
 test("format date test", () => {

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { FormatDate } from "$lib/functions/format_time";
-	import Menu from "$lib/icons/menu.svelte";
-	import Search from "$lib/icons/search.svelte";
+	import { FormatDate } from "$functions/format_date";
+	import Menu from "$icons/menu.svelte";
+	import Search from "$icons/search.svelte";
 
 	// testing variable
 	let active_chat_index: number = 0;
