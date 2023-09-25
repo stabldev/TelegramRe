@@ -89,7 +89,7 @@
 				background: none;
 				border: none;
 				outline: none;
-				color: #aaaaaa;
+				color: var(--secondary-color);
 				display: flex;
 				align-items: center;
 				justify-content: center;
@@ -97,7 +97,7 @@
 				padding: 0.5rem;
 
 				&:hover {
-					background: #2B2B2B;
+					background: var(--surface-light-color);
 				}
 			}
 
@@ -112,7 +112,7 @@
 					width: 1.5rem;
 					position:
 					absolute;
-					color: #aaaaaa;
+					color: var(--secondary-color);
 					opacity: 0.6;
 					padding-left: 1rem;
 					transition: 0.1s ease-in-out;
@@ -122,7 +122,7 @@
 					width: 100%;
 					outline: none;
 					background: #181818;
-					border: 0.2rem solid #2B2B2B;
+					border: 0.2rem solid var(--surface-light-color);
 					padding: 0.8rem 3rem;
 					border-radius: 10rem;
 					color: white;
@@ -176,7 +176,7 @@
 				}
 
 				&:hover:not(.active) {
-					background: rgba(170, 170, 170, 0.08);
+					background: var(--surface-light-color);
 				}
 
 				&-image {
@@ -209,7 +209,7 @@
 
 						.chat-date {
 							font-size: 0.9rem;
-							color: #aaaaaa;
+							color: var(--secondary-color);
 
 							&.active {
 								color: white;
@@ -218,7 +218,7 @@
 					}
 
 					.chat-msg {
-						color: #aaaaaa;
+						color: var(--secondary-color);
 						font-size: 1.1rem;
 						font-weight: 400;
 						display: -webkit-box;
