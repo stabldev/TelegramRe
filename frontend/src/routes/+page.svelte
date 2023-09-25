@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { FormatDate } from "$lib/functions/format_time";
 	import Menu from "$lib/icons/menu.svelte";
 	import Search from "$lib/icons/search.svelte";
 
@@ -15,28 +16,16 @@
 			username: "anya-forger",
 			profile: "https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg",
 			message: "Hi wassup! I've something to tell you, so please reply when you're free",
-			time: "2023-09-25T15:38:51.162Z"
+			time: new FormatDate("2023-09-25T15:38:51.162Z").format_to_relative_time
 		},
 		{
 			sender_name: "Toshinou Kyouko",
 			username: "kyouko",
 			profile: "https://pbs.twimg.com/media/D2v3DBuXQAAMFIb.jpg",
 			message: "Here is my gift for your birthday <3",
-			time: "2023-09-25T12:38:51.162Z"
+			time: new FormatDate("2023-09-24T12:38:51.162Z").format_to_relative_time
 		}
 	];
-
-	const format_time = (time: string) => {
-		const date = new Date(time);
-
-		const options: Intl.DateTimeFormatOptions = {
-			hour: "numeric",
-			minute: "numeric",
-			hour12: true
-		};
-
-		return date.toLocaleTimeString([], options);
-	};
 </script>
 
 <main>
@@ -80,7 +69,7 @@
 								class="chat-date"
 								class:active={is_active}
 							>
-								{format_time(chat.time)}
+								{chat.time}
 							</span>
 						</div>
 						<span
