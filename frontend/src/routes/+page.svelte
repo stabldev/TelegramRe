@@ -158,6 +158,7 @@
 			scrollbar-width: thin;
 
 			.chat {
+				user-select: none;
 				cursor: pointer;
 				display: flex;
 				align-items: center;
