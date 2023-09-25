@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { FormatDate } from "$functions/format_date";
+	import { FormatString } from "$functions/format_string";
 	import { page } from "$app/stores";
 	import { goto } from "$app/navigation";
 	// icons
@@ -13,17 +14,17 @@
 	const chat_mapping = [
 		{
 			sender_name: "Anya Forger",
-			username: "@anya-forger",
+			username: "anya-forger",
 			profile: "https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg",
 			message: "Hi wassup! I've something to tell you, so please reply when you're free",
-			time: new FormatDate("2023-09-25T15:38:51.162Z").format_to_relative_time
+			time: "2023-09-25T15:38:51.162Z"
 		},
 		{
 			sender_name: "Toshinou Kyouko",
-			username: "@kyouko",
+			username: "kyouko",
 			profile: "https://pbs.twimg.com/media/D2v3DBuXQAAMFIb.jpg",
 			message: "Here is my gift for your birthday <3",
-			time: new FormatDate("2023-09-24T12:38:51.162Z").format_to_relative_time
+			time: "2023-09-24T12:38:51.162Z"
 		}
 	];
 </script>
@@ -49,11 +50,14 @@
 		</div>
 		<div class="sidebar-body">
 			{#each chat_mapping as chat}
-				{@const is_active = $page.url.pathname.slice(1) === chat.username}
+				{@const username_with_symbol = new FormatString(chat.username).add_at_symbol}
+				{@const formated_time = new FormatDate(chat.time).format_to_relative_time}
+				<!-- check if chat is active by current url pathname -->
+				{@const is_active = $page.url.pathname.slice(1) === username_with_symbol}
 
 				<!-- svelte-ignore a11y-no-static-element-interactions -->
 				<div
-					on:mousedown={() => goto(`/${chat.username}`)}
+					on:mousedown={() => goto(`/${username_with_symbol}`)}
 					class="chat"
 					class:active={is_active}
 				>
@@ -73,7 +77,7 @@
 								class="chat-date"
 								class:active={is_active}
 							>
-								{chat.time}
+								{formated_time}
 							</span>
 						</div>
 						<span
