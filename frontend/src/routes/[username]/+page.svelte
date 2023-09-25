@@ -20,6 +20,11 @@
 			time: "2023-09-25T15:35:51.162Z"
 		},
 		{
+			sender: "tokito",
+			message: "Its me Tokito",
+			time: "2023-09-25T15:35:51.162Z"
+		},
+		{
 			sender: "anya-forger",
 			message: "Hey! I'm good",
 			time: "2023-09-25T15:38:51.162Z"
@@ -180,7 +185,7 @@
 					background: var(--primary-color);
 					height: 2rem;
 					padding: 0.25rem 1rem;
-					border-radius: 1.5rem 2rem 2rem 1.5rem;
+					border-radius: 1.5rem 2rem 2rem 0.75rem;
 
 					.message {
 						align-self: center;
@@ -199,15 +204,15 @@
 
 					&.chat-me {
 						align-self: self-end;
-						border-radius: 2rem 1.5rem 1.5rem 2rem;
+						border-radius: 2rem 1.5rem 0.75rem 2rem;
 
 						&.last-message {
-							border-radius: 2rem 1.5rem 0.75rem 2rem;
+							border-radius: 2rem 0.75rem 0.75rem 2rem;
 						}
 					}
 
 					&.last-message {
-						border-radius: 1.5rem 2rem 2rem 0.75rem;
+						border-radius: 0.75rem 2rem 2rem 0.75rem;
 					}
 				}
 			}
