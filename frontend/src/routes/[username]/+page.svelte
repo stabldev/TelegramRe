@@ -243,9 +243,9 @@
 						background: none;
 						border: none;
 						outline: none;
-						font-size: 1rem;
+						font-size: 1.1rem;
 						color: white;
-						caret-color: var(--primary-color);
+						caret-color: var(--secondary-color);
 
 						&::placeholder {
 							color: var(--secondary-color);
