@@ -3,9 +3,9 @@ export class FormatString {
 
 	constructor(string: string) {
 		this.#string = string;
-	};
+	}
 
 	public get add_at_symbol(): string {
 		return `@${this.#string}`;
-	};
-};
+	}
+}
