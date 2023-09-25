@@ -68,8 +68,9 @@
 		<div class="chats">
 			{#each chat_mapping as chat, index}
 				{@const formated_time = new FormatDate(chat.time).format_to_relative_time}
-				{@const sender_is_me = $page.url.pathname.slice(1) !== new FormatString(chat.sender).add_at_symbol}
-
+				{@const formated_sender_name = new FormatString(chat.sender).add_at_symbol}
+				<!-- boolean checks -->
+				{@const sender_is_me = $page.url.pathname.slice(1) !== formated_sender_name}
 				{@const is_last_message = (() => {
 					if (index === chat_mapping.length - 1) return true;
 					else if (chat.sender !== chat_mapping[index + 1].sender) return true;
@@ -109,7 +110,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		height: 4.5rem;
+		height: 5rem;
 		background: var(--surface-color);
 
 		.chat-user {
@@ -176,16 +177,16 @@
 				flex-direction: column;
 				gap: 0.2rem;
 				padding-right: 5rem;
-				padding-bottom: 0.75rem;
+				padding-bottom: 0.5rem;
 
 				.chat {
 					align-self: self-start;
 					display: flex;
 					gap: 0.5rem;
-					background: var(--primary-color);
 					height: 2rem;
 					padding: 0.25rem 1rem;
-					border-radius: 1.5rem 2rem 2rem 0.75rem;
+					border-radius: 2rem 2rem 2rem 0.75rem;
+					background: var(--surface-color);
 
 					.message {
 						align-self: center;
@@ -195,7 +196,7 @@
 
 					.time {
 						align-self: self-end;
-						font-size: 0.8rem;
+						font-size: 0.75rem;
 						text-transform: uppercase;
 						color: white;
 						opacity: 0.7;
@@ -204,7 +205,8 @@
 
 					&.chat-me {
 						align-self: self-end;
-						border-radius: 2rem 1.5rem 0.75rem 2rem;
+						border-radius: 2rem 2rem 0.75rem 2rem;
+						background: var(--primary-color);
 
 						&.last-message {
 							border-radius: 2rem 0.75rem 0.75rem 2rem;
