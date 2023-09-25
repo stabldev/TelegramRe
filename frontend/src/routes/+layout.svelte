@@ -1,29 +1,26 @@
 <script lang="ts">
 	import { FormatDate } from "$functions/format_date";
+	import { page } from "$app/stores";
+	import { goto } from "$app/navigation";
+	// icons
 	import Menu from "$icons/menu.svelte";
 	import Pencil from "$icons/pencil.svelte";
 	import Search from "$icons/search.svelte";
 	// global style
 	import "../app.scss";
 
-	// testing variable
-	let active_chat_index: number = 0;
-	const change_chat_index = (index: number) => {
-		active_chat_index = index;
-	};
-
 	// mock chat data
 	const chat_mapping = [
 		{
 			sender_name: "Anya Forger",
-			username: "anya-forger",
+			username: "@anya-forger",
 			profile: "https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg",
 			message: "Hi wassup! I've something to tell you, so please reply when you're free",
 			time: new FormatDate("2023-09-25T15:38:51.162Z").format_to_relative_time
 		},
 		{
 			sender_name: "Toshinou Kyouko",
-			username: "kyouko",
+			username: "@kyouko",
 			profile: "https://pbs.twimg.com/media/D2v3DBuXQAAMFIb.jpg",
 			message: "Here is my gift for your birthday <3",
 			time: new FormatDate("2023-09-24T12:38:51.162Z").format_to_relative_time
@@ -51,12 +48,12 @@
 			</div>
 		</div>
 		<div class="sidebar-body">
-			{#each chat_mapping as chat, index}
-				{@const is_active = active_chat_index == index}
+			{#each chat_mapping as chat}
+				{@const is_active = $page.url.pathname.slice(1) === chat.username}
 
 				<!-- svelte-ignore a11y-no-static-element-interactions -->
 				<div
-					on:mousedown={() => change_chat_index(index)}
+					on:mousedown={() => goto(`/${chat.username}`)}
 					class="chat"
 					class:active={is_active}
 				>
