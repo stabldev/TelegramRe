@@ -28,13 +28,17 @@
 			{#each Array(10) as _, index}
 				{@const is_active = active_chat_index == index}
 
+				<!-- svelte-ignore a11y-no-static-element-interactions -->
 				<div
 					on:mousedown={() => change_chat_index(index)}
 					class="chat"
 					class:active={is_active}
 				>
 					<div class="chat-image">
-						<img src="https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg" />
+						<img
+							src="https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg"
+							alt=""
+						/>
 					</div>
 					<div class="chat-info">
 						<div class="chat-name-date">
