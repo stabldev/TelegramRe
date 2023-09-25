@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { FormatDate } from "$functions/format_date";
 	import Menu from "$icons/menu.svelte";
+	import Pencil from "$icons/pencil.svelte";
 	import Search from "$icons/search.svelte";
 
 	// testing variable
@@ -81,6 +82,10 @@
 					</div>
 				</div>
 			{/each}
+
+			<div class="floating-btn">
+				<Pencil />
+			</div>
 		</div>
 	</div>
 	<chat></chat>
@@ -131,8 +136,7 @@
 				.search-icon {
 					display: flex;
 					width: 1.5rem;
-					position:
-					absolute;
+					position: absolute;
 					color: var(--secondary-color);
 					opacity: 0.6;
 					padding-left: 1rem;
@@ -177,8 +181,10 @@
 		}
 
 		.sidebar-body {
+			position: relative;
 			padding: 0.75rem;
 			overflow-y: scroll;
+			height: 100%;
 
 			scrollbar-width: thin;
 
@@ -253,6 +259,19 @@
 						}
 					}
 				}
+			}
+
+			.floating-btn {
+				position: absolute;
+				bottom: 1rem;
+				right: 1rem;
+				width: 2rem;
+				display: flex;
+				color: white;
+				background: var(--primary-color);
+				padding: 1rem;
+				border-radius: 50%;
+				cursor: pointer;
 			}
 		}
 	}
