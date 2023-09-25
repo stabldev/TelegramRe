@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { page } from "$app/stores";
+	import { FormatDate } from "$functions/format_date";
+	import { FormatString } from "$functions/format_string";
 	import Clip from "$icons/clip.svelte";
 	import Emoji from "$icons/emoji.svelte";
 	import Menu from "$icons/menu.svelte";
@@ -14,7 +17,7 @@
 		{
 			sender: "tokito",
 			message: "Hi wassup!",
-			time: "2023-09-25T15:38:51.162Z"
+			time: "2023-09-25T15:35:51.162Z"
 		},
 		{
 			sender: "anya-forger",
@@ -58,7 +61,18 @@
 <div class="chat-body">
 	<div class="chat-area">
 		<div class="chats">
-			
+			{#each chat_mapping as chat}
+				{@const formated_time = new FormatDate(chat.time).format_to_relative_time}
+				{@const sender_is_me = $page.url.pathname.slice(1) !== new FormatString(chat.sender).add_at_symbol}
+
+				<div
+					class="chat"
+					class:chat-me={sender_is_me}
+				>
+					<span class="message">{chat.message}</span>
+					<span class="time">{formated_time}</span>
+				</div>
+			{/each}
 		</div>
 		<div class="message-area">
 			<div class="message-input">
@@ -144,6 +158,44 @@
 
 		.chat-area {
 			width: 60%;
+
+			.chats {
+				display: flex;
+				flex-direction: column;
+				gap: 0.2rem;
+				padding-right: 5rem;
+				padding-bottom: 0.75rem;
+
+				.chat {
+					align-self: self-start;
+					display: flex;
+					gap: 0.5rem;
+					background: var(--primary-color);
+					height: 2rem;
+					padding: 0.25rem 1rem;
+					border-radius: 1.5rem 2rem 2rem 0.75rem;
+
+					.message {
+						align-self: center;
+						color: white;
+						font-size: 1.1rem;
+					}
+
+					.time {
+						align-self: self-end;
+						font-size: 0.9rem;
+						text-transform: uppercase;
+						color: white;
+						opacity: 0.65;
+						user-select: none;
+					}
+
+					&.chat-me {
+						align-self: self-end;
+						border-radius: 2rem 1.5rem 0.75rem 2rem;
+					}
+				}
+			}
 
 			.message-area {
 				display: flex;
