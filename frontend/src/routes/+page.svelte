@@ -7,6 +7,36 @@
 	const change_chat_index = (index: number) => {
 		active_chat_index = index;
 	};
+
+	// mock chat data
+	const chat_mapping = [
+		{
+			sender_name: "Anya Forger",
+			username: "anya-forger",
+			profile: "https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg",
+			message: "Hi wassup! I've something to tell you, so please reply when you're free",
+			time: "2023-09-25T15:38:51.162Z"
+		},
+		{
+			sender_name: "Toshinou Kyouko",
+			username: "kyouko",
+			profile: "https://pbs.twimg.com/media/D2v3DBuXQAAMFIb.jpg",
+			message: "Here is my gift for your birthday <3",
+			time: "2023-09-25T12:38:51.162Z"
+		}
+	];
+
+	const format_time = (time: string) => {
+		const date = new Date(time);
+
+		const options: Intl.DateTimeFormatOptions = {
+			hour: "numeric",
+			minute: "numeric",
+			hour12: true
+		};
+
+		return date.toLocaleTimeString([], options);
+	};
 </script>
 
 <main>
@@ -25,7 +55,7 @@
 			</div>
 		</div>
 		<div class="sidebar-body">
-			{#each Array(10) as _, index}
+			{#each chat_mapping as chat, index}
 				{@const is_active = active_chat_index == index}
 
 				<!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -36,26 +66,28 @@
 				>
 					<div class="chat-image">
 						<img
-							src="https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg"
+							src={chat.profile}
 							alt=""
 						/>
 					</div>
 					<div class="chat-info">
 						<div class="chat-name-date">
 							<div class="chat-name-badge">
-								<span class="chat-name">Anya Forger</span>
+								<span class="chat-name">{chat.sender_name}</span>
 								<!-- Verified badge -->
 							</div>
 							<span
 								class="chat-date"
 								class:active={is_active}
-							>1:37 PM</span>
+							>
+								{format_time(chat.time)}
+							</span>
 						</div>
 						<span
 							class="chat-msg"
 							class:active={is_active}
 						>
-							Hi wassup! I've something to tell you, so please reply when you're free
+							{chat.message}
 						</span>
 					</div>
 				</div>
@@ -210,6 +242,7 @@
 						.chat-date {
 							font-size: 0.9rem;
 							color: var(--secondary-color);
+							text-transform: uppercase;
 
 							&.active {
 								color: white;
