@@ -61,13 +61,20 @@
 <div class="chat-body">
 	<div class="chat-area">
 		<div class="chats">
-			{#each chat_mapping as chat}
+			{#each chat_mapping as chat, index}
 				{@const formated_time = new FormatDate(chat.time).format_to_relative_time}
 				{@const sender_is_me = $page.url.pathname.slice(1) !== new FormatString(chat.sender).add_at_symbol}
+
+				{@const is_last_message = (() => {
+					if (index === chat_mapping.length - 1) return true;
+					else if (chat.sender !== chat_mapping[index + 1].sender) return true;
+					else return false;
+				})()}
 
 				<div
 					class="chat"
 					class:chat-me={sender_is_me}
+					class:last-message={is_last_message}
 				>
 					<span class="message">{chat.message}</span>
 					<span class="time">{formated_time}</span>
@@ -173,7 +180,7 @@
 					background: var(--primary-color);
 					height: 2rem;
 					padding: 0.25rem 1rem;
-					border-radius: 1.5rem 2rem 2rem 0.75rem;
+					border-radius: 1.5rem 2rem 2rem 1.5rem;
 
 					.message {
 						align-self: center;
@@ -183,16 +190,24 @@
 
 					.time {
 						align-self: self-end;
-						font-size: 0.9rem;
+						font-size: 0.8rem;
 						text-transform: uppercase;
 						color: white;
-						opacity: 0.65;
+						opacity: 0.7;
 						user-select: none;
 					}
 
 					&.chat-me {
 						align-self: self-end;
-						border-radius: 2rem 1.5rem 0.75rem 2rem;
+						border-radius: 2rem 1.5rem 1.5rem 2rem;
+
+						&.last-message {
+							border-radius: 2rem 1.5rem 0.75rem 2rem;
+						}
+					}
+
+					&.last-message {
+						border-radius: 1.5rem 2rem 2rem 0.75rem;
 					}
 				}
 			}
