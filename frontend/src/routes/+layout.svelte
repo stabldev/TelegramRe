@@ -11,7 +11,13 @@
 	import "../app.scss";
 
 	// mock chat data
-	const chat_mapping = [
+	const chat_mapping: Array<{
+		sender_name: string;
+		username: string;
+		profile: string;
+		message: string;
+		time: string;
+	}> = [
 		{
 			sender_name: "Anya Forger",
 			username: "anya-forger",
