@@ -14,7 +14,6 @@
 	import Search from "$icons/search.svelte";
 	import Send from "$icons/send.svelte";
 	import { SvelteComponent, afterUpdate } from "svelte";
-	import { slide } from "svelte/transition";
 
 	// mock chat data
 	let chat_data: [string, {
@@ -57,7 +56,10 @@
 
 </script>
 
-<div class="chat-container">
+<div
+	class="chat-container"
+	style="width: {profile_sidebar_open ? "calc(100% - 25rem)" : "100%"};"
+>
 	<div class="chat-header">
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div
@@ -143,72 +145,76 @@
 	</div>
 </div>
 
-{#if profile_sidebar_open}
-	<div class="chater-profile" transition:slide={{ axis: "x" }}>
-		<div class="profile-head">
-			<div class="left-controls">
-				<!-- svelte-ignore a11y-no-static-element-interactions -->
-				<div
-					on:mousedown={toggle_profile_sidebar}
-					class="close-btn btn"
-				>
-					<Close />
-				</div>
-				<span>Profile</span>
-			</div>
-			<div class="edit-btn btn">
-				<Pencil variant="outline" />
-			</div>
-		</div>
-
-		<div class="profile-wrapper">
+<div
+	class="chater-profile"
+	style="
+		transform: translateX({profile_sidebar_open ? 0 : "25rem"});
+		border-left-width: {profile_sidebar_open ? "0.2rem" : 0};
+	"
+>
+	<div class="profile-head">
+		<div class="left-controls">
+			<!-- svelte-ignore a11y-no-static-element-interactions -->
 			<div
-				class="profile-body"
-				style="
-					background: url(https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg);
-					background-size: cover;
-				"
+				on:mousedown={toggle_profile_sidebar}
+				class="close-btn btn"
 			>
-				<div class="gradient">
-					<span class="name">Anya Forger</span>
-					<span class="last-seen">last seen recently</span>
-				</div>
+				<Close />
 			</div>
-
-			<div class="user-info">
-				{#each Object.entries(user_info_mapping) as info}
-					{@const label = info[0]}
-					{@const text = info[1].text}
-					{@const component = info[1].component}
-
-					<!-- svelte-ignore a11y-no-static-element-interactions -->
-					<div
-						class="info-box"
-						on:mousedown={() => {
-							navigator.clipboard.writeText(text)
-								.then(() => console.log("copied"))
-								.catch(() => console.log("error"))
-						}}
-					>
-						<div class="symbol">
-							<svelte:component this={component} />
-						</div>
-						<div class="info">
-							<span class="info-data">{text}</span>
-							<span class="info-label">{label}</span>
-						</div>
-					</div>
-				{/each}
-			</div>
+			<span>Profile</span>
+		</div>
+		<div class="edit-btn btn">
+			<Pencil variant="outline" />
 		</div>
 	</div>
-{/if}
+
+	<div class="profile-wrapper">
+		<div
+			class="profile-body"
+			style="
+				background: url(https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg);
+				background-size: cover;
+			"
+		>
+			<div class="gradient">
+				<span class="name">Anya Forger</span>
+				<span class="last-seen">last seen recently</span>
+			</div>
+		</div>
+
+		<div class="user-info">
+			{#each Object.entries(user_info_mapping) as info}
+				{@const label = info[0]}
+				{@const text = info[1].text}
+				{@const component = info[1].component}
+
+				<!-- svelte-ignore a11y-no-static-element-interactions -->
+				<div
+					class="info-box"
+					on:mousedown={() => {
+						navigator.clipboard.writeText(text)
+							.then(() => console.log("copied"))
+							.catch(() => console.log("error"))
+					}}
+				>
+					<div class="symbol">
+						<svelte:component this={component} />
+					</div>
+					<div class="info">
+						<span class="info-data">{text}</span>
+						<span class="info-label">{label}</span>
+					</div>
+				</div>
+			{/each}
+		</div>
+	</div>
+</div>
 
 <style lang="scss">
 	.chat-container {
 		display: flex;
 		flex-direction: column;
-		width: 100%;
+		transition: 0.3s ease-in-out;
 	}
 
 	.chat-header {
@@ -391,6 +397,8 @@
 	}
 
 	.chater-profile {
+		position: absolute;
+		right: 0;
 		height: 100vh;
 		width: 25rem;
 		flex-shrink: 0;
@@ -398,6 +406,7 @@
 		border-left: 0.2rem solid var(--surface-dark-color);
 		display: flex;
 		flex-direction: column;
+		transition: 0.3s ease-in-out;
 
 		.profile-head {
 			display: flex;

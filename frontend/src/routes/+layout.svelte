@@ -108,6 +108,8 @@
 
 <style lang="scss">
 	main {
+		width: 100vw;
+		overflow: hidden;
 		display: grid;
 		grid-template-columns: 30rem auto;
 	}
@@ -117,6 +119,7 @@
 		background-position: center;
 		background-size: cover;
 		display: flex;
+		position: relative;
 	}
 
 	.sidebar {
