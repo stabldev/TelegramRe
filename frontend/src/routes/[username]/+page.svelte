@@ -3,8 +3,10 @@
 	import { FormatDate } from "$functions/format_date";
 	import { FormatString } from "$functions/format_string";
 	import Clip from "$icons/clip.svelte";
+	import Close from "$icons/close.svelte";
 	import Emoji from "$icons/emoji.svelte";
 	import Menu from "$icons/menu.svelte";
+	import Pencil from "$icons/pencil.svelte";
 	import Search from "$icons/search.svelte";
 	import Send from "$icons/send.svelte";
 
@@ -38,79 +40,115 @@
 
 </script>
 
-<div class="chat-header">
-	<div class="chat-user">
-		<img
-			src="https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg"
-			alt=""
-		/>
-		<div class="user">
-			<span class="user-name">
-				Anya Forger
-			</span>
-			<span class="user-last-seen">
-				last seen recently
-			</span>
+<div class="chat-container">
+	<div class="chat-header">
+		<div class="chat-user">
+			<img
+				src="https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg"
+				alt=""
+			/>
+			<div class="user">
+				<span class="user-name">
+					Anya Forger
+				</span>
+				<span class="user-last-seen">
+					last seen recently
+				</span>
+			</div>
+		</div>
+		<div class="chat-options">
+			<div class="search-icon btn">
+				<Search />
+			</div>
+			<div class="dot-menu-icon btn">
+				<Menu variant="dots" />
+			</div>
 		</div>
 	</div>
-	<div class="chat-options">
-		<div class="search-icon btn">
-			<Search />
-		</div>
-		<div class="dot-menu-icon btn">
-			<Menu variant="dots" />
+
+	<div class="chat-body">
+		<div class="chat-area">
+			<div class="chats">
+				{#each chat_mapping as chat, index}
+					{@const formated_time = new FormatDate(chat.time).format_to_relative_time}
+					{@const formated_sender_name = new FormatString(chat.sender).add_at_symbol}
+					<!-- boolean checks -->
+					{@const sender_is_me = $page.url.pathname.slice(1) !== formated_sender_name}
+					{@const is_last_message = (() => {
+						if (index === chat_mapping.length - 1) return true;
+						else if (chat.sender !== chat_mapping[index + 1].sender) return true;
+						else return false;
+					})()}
+
+					<div
+						class="chat"
+						class:chat-me={sender_is_me}
+						class:last-message={is_last_message}
+					>
+						<span class="message">{chat.message}</span>
+						<span class="time">{formated_time}</span>
+					</div>
+				{/each}
+			</div>
+			<div class="message-area">
+				<div class="message-input">
+					<div class="emoji-icon btn">
+						<Emoji />
+					</div>
+					<input placeholder="Message" type="text">
+					<div class="clip-icon btn">
+						<Clip />
+					</div>
+				</div>
+				<button class="message-submit">
+					<Send />
+				</button>
+			</div>
 		</div>
 	</div>
 </div>
 
-<div class="chat-body">
-	<div class="chat-area">
-		<div class="chats">
-			{#each chat_mapping as chat, index}
-				{@const formated_time = new FormatDate(chat.time).format_to_relative_time}
-				{@const formated_sender_name = new FormatString(chat.sender).add_at_symbol}
-				<!-- boolean checks -->
-				{@const sender_is_me = $page.url.pathname.slice(1) !== formated_sender_name}
-				{@const is_last_message = (() => {
-					if (index === chat_mapping.length - 1) return true;
-					else if (chat.sender !== chat_mapping[index + 1].sender) return true;
-					else return false;
-				})()}
-
-				<div
-					class="chat"
-					class:chat-me={sender_is_me}
-					class:last-message={is_last_message}
-				>
-					<span class="message">{chat.message}</span>
-					<span class="time">{formated_time}</span>
-				</div>
-			{/each}
-		</div>
-		<div class="message-area">
-			<div class="message-input">
-				<div class="emoji-icon btn">
-					<Emoji />
-				</div>
-				<input placeholder="Message" type="text">
-				<div class="clip-icon btn">
-					<Clip />
-				</div>
+<div class="chater-profile">
+	<div class="profile-head">
+		<div class="left-controls">
+			<div class="close-btn btn">
+				<Close />
 			</div>
-			<button class="message-submit">
-				<Send />
-			</button>
+			<span>Profile</span>
+		</div>
+		<div class="edit-btn btn">
+			<Pencil variant="outline" />
+		</div>
+	</div>
+
+	<div
+		class="profile-body"
+		style="
+			background: url(https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg);
+			background-size: cover;
+		"
+	>
+		<div class="gradient">
+			<span class="name">Anya Forger</span>
+			<span class="last-seen">last seen recently</span>
 		</div>
 	</div>
 </div>
 
 <style lang="scss">
+	.chat-container {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+
 	.chat-header {
 		padding-inline: 1rem;
 		display: flex;
 		align-items: center;
+		flex-shrink: 0;
 		justify-content: space-between;
-		height: 5rem;
+		height: 4.5rem;
 		background: var(--surface-color);
 
 		.chat-user {
@@ -126,7 +164,6 @@
 			.user {
 				display: flex;
 				flex-direction: column;
-				gap: 0.15rem;
 
 				&-name {
 					color: white;
@@ -170,7 +207,7 @@
 		padding-bottom: 1rem;
 
 		.chat-area {
-			width: 60%;
+			width: 40rem;
 
 			.chats {
 				display: flex;
@@ -268,6 +305,69 @@
 					padding: 1rem;
 					border-radius: 50%;
 					cursor: pointer;
+				}
+			}
+		}
+	}
+
+	.chater-profile {
+		height: 100%;
+		width: 25rem;
+		flex-shrink: 0;
+		background: var(--surface-color);
+		border-left: 0.2rem solid var(--surface-dark-color);
+
+		.profile-head {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			height: 4.5rem;
+			padding-inline: 1rem;
+
+			.left-controls {
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+
+				span {
+					color: white;
+					font-size: 1.2rem;
+					font-weight: 500;
+				}
+			}
+
+			.close-btn {
+				width: 2rem;
+			}
+
+			.edit-btn {
+				width: 1.75rem;
+				padding: 0.65rem;
+			}
+		}
+
+		.profile-body {
+			aspect-ratio: 1/1;
+			display: flex;
+			flex-direction: column;
+			justify-content: end;
+
+			.gradient {
+				display: flex;
+				flex-direction: column;
+				padding: 1rem 2rem;
+				padding-top: 5rem;
+				background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+
+				.name {
+					color: white;
+					font-size: 1.5rem;
+					font-weight: 600;
+				}
+				.last-seen {
+					color: white;
+					opacity: 0.8;
+					font-size: 1rem;
 				}
 			}
 		}

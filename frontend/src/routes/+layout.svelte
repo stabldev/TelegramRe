@@ -91,7 +91,7 @@
 			{/each}
 
 			<div class="floating-btn">
-				<Pencil />
+				<Pencil variant="filled" />
 			</div>
 		</div>
 	</div>
@@ -111,7 +111,6 @@
 		background-position: center;
 		background-size: cover;
 		display: flex;
-		flex-direction: column;
 	}
 
 	.sidebar {
