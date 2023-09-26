@@ -9,6 +9,7 @@
 	import Pencil from "$icons/pencil.svelte";
 	import Search from "$icons/search.svelte";
 	import Send from "$icons/send.svelte";
+	import { slide } from "svelte/transition";
 
 	// mock chat data
 	const chat_mapping: Array<{
@@ -38,6 +39,13 @@
 		}
 	];
 
+	// profile sidebar
+	let profile_sidebar_open: boolean = false;
+	
+	function toggle_profile_sidebar() {
+		profile_sidebar_open = !profile_sidebar_open;
+	};
+
 </script>
 
 <div class="chat-container">
@@ -47,7 +55,11 @@
 				src="https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg"
 				alt=""
 			/>
-			<div class="user">
+			<!-- svelte-ignore a11y-no-static-element-interactions -->
+			<div
+				on:mousedown={toggle_profile_sidebar}
+				class="user"
+			>
 				<span class="user-name">
 					Anya Forger
 				</span>
@@ -108,32 +120,38 @@
 	</div>
 </div>
 
-<div class="chater-profile">
-	<div class="profile-head">
-		<div class="left-controls">
-			<div class="close-btn btn">
-				<Close />
+{#if profile_sidebar_open}
+	<div class="chater-profile" transition:slide={{ axis: "x" }}>
+		<div class="profile-head">
+			<div class="left-controls">
+				<!-- svelte-ignore a11y-no-static-element-interactions -->
+				<div
+					on:mousedown={toggle_profile_sidebar}
+					class="close-btn btn"
+				>
+					<Close />
+				</div>
+				<span>Profile</span>
 			</div>
-			<span>Profile</span>
+			<div class="edit-btn btn">
+				<Pencil variant="outline" />
+			</div>
 		</div>
-		<div class="edit-btn btn">
-			<Pencil variant="outline" />
-		</div>
-	</div>
 
-	<div
-		class="profile-body"
-		style="
-			background: url(https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg);
-			background-size: cover;
-		"
-	>
-		<div class="gradient">
-			<span class="name">Anya Forger</span>
-			<span class="last-seen">last seen recently</span>
+		<div
+			class="profile-body"
+			style="
+				background: url(https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg);
+				background-size: cover;
+			"
+		>
+			<div class="gradient">
+				<span class="name">Anya Forger</span>
+				<span class="last-seen">last seen recently</span>
+			</div>
 		</div>
 	</div>
-</div>
+{/if}
 
 <style lang="scss">
 	.chat-container {
@@ -164,6 +182,8 @@
 			.user {
 				display: flex;
 				flex-direction: column;
+				user-select: none;
+				cursor: pointer;
 
 				&-name {
 					color: white;
@@ -347,7 +367,7 @@
 		}
 
 		.profile-body {
-			aspect-ratio: 1/1;
+			height: 25rem;
 			display: flex;
 			flex-direction: column;
 			justify-content: end;
@@ -363,11 +383,13 @@
 					color: white;
 					font-size: 1.5rem;
 					font-weight: 600;
+					white-space: nowrap;
 				}
 				.last-seen {
 					color: white;
 					opacity: 0.8;
 					font-size: 1rem;
+					white-space: nowrap;
 				}
 			}
 		}
