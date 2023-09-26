@@ -2,9 +2,11 @@
 	import { page } from "$app/stores";
 	import { FormatDate } from "$functions/format_date";
 	import { FormatString } from "$functions/format_string";
+	import AtSymbol from "$icons/at_symbol.svelte";
 	import Clip from "$icons/clip.svelte";
 	import Close from "$icons/close.svelte";
 	import Emoji from "$icons/emoji.svelte";
+	import Info from "$icons/info.svelte";
 	import Menu from "$icons/menu.svelte";
 	import Pencil from "$icons/pencil.svelte";
 	import Search from "$icons/search.svelte";
@@ -50,16 +52,16 @@
 
 <div class="chat-container">
 	<div class="chat-header">
-		<div class="chat-user">
+		<!-- svelte-ignore a11y-no-static-element-interactions -->
+		<div
+			on:mousedown={toggle_profile_sidebar}
+			class="chat-user"
+		>
 			<img
 				src="https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg"
 				alt=""
 			/>
-			<!-- svelte-ignore a11y-no-static-element-interactions -->
-			<div
-				on:mousedown={toggle_profile_sidebar}
-				class="user"
-			>
+			<div class="user">
 				<span class="user-name">
 					Anya Forger
 				</span>
@@ -150,6 +152,29 @@
 				<span class="last-seen">last seen recently</span>
 			</div>
 		</div>
+
+		<div class="user-info">
+			<div class="info-box">
+				<div class="symbol">
+					<AtSymbol />
+				</div>
+				<div class="info">
+					<span class="info-data">anya-forger</span>
+					<span class="info-label">Username</span>
+				</div>
+			</div>
+			<div class="info-box">
+				<div class="symbol">
+					<Info />
+				</div>
+				<div class="info">
+					<span class="info-data">
+						Love to build cool things in browser!
+					</span>
+					<span class="info-label">Bio</span>
+				</div>
+			</div>
+		</div>
 	</div>
 {/if}
 
@@ -173,6 +198,9 @@
 			display: flex;
 			align-items: center;
 			gap: 1rem;
+			user-select: none;
+			cursor: pointer;
+			flex: 1;
 
 			img {
 				width: 3.25rem;
@@ -182,8 +210,6 @@
 			.user {
 				display: flex;
 				flex-direction: column;
-				user-select: none;
-				cursor: pointer;
 
 				&-name {
 					color: white;
@@ -383,13 +409,55 @@
 					color: white;
 					font-size: 1.5rem;
 					font-weight: 600;
-					white-space: nowrap;
 				}
 				.last-seen {
 					color: white;
 					opacity: 0.8;
 					font-size: 1rem;
-					white-space: nowrap;
+				}
+			}
+		}
+
+		.user-info {
+			padding: 0.75rem;
+			display: flex;
+			flex-direction: column;
+
+			.info-box {
+				display: flex;
+				align-items: center;
+				gap: 2rem;
+				padding: 0.75rem 1rem;
+				cursor: pointer;
+				border-radius: 0.75rem;
+				user-select: none;
+
+				&:hover {
+					background: var(--surface-light-color);
+				}
+
+				.symbol {
+					width: 2rem;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					color: var(--secondary-color);
+				}
+
+				.info {
+					display: flex;
+					flex-direction: column;
+					gap: 0.25rem;
+
+					&-data {
+						color: white;
+						font-size: 1.2rem;
+					}
+
+					&-label {
+						color: var(--secondary-color);
+						font-size: 1rem;
+					}
 				}
 			}
 		}
