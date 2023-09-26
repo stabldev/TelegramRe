@@ -20,7 +20,7 @@ export const addToast = (toast: Toast) => {
 
 	const merged_toast = {...defaults, ...toast};
 
-	toasts.update((toasts) => [merged_toast, ...toasts]);
+	toasts.update((toasts) => [...toasts, merged_toast]);
 	// dismiss toast after timeout
 	setTimeout(() => dismissToast(merged_toast.id), merged_toast.timeout);
 };
