@@ -37,20 +37,20 @@
 
 	const user_info_mapping: {
 		[key: string]: {
-			value: string;
+			text: string;
 			component: typeof SvelteComponent<{}>;
 		}
 	} = {
 		username: {
-			value: "anya-forger",
+			text: "anya-forger",
 			component: AtSymbol
 		},
 		bio: {
-			value: "Love to build cool things in browser",
+			text: "Love to build cool things in browser",
 			component: Info
 		},
 		link: {
-			value: "/@anya-forger",
+			text: "/@anya-forger",
 			component: Link
 		}
 	};
@@ -178,15 +178,23 @@
 			<div class="user-info">
 				{#each Object.entries(user_info_mapping) as info}
 					{@const label = info[0]}
-					{@const value = info[1].value}
+					{@const text = info[1].text}
 					{@const component = info[1].component}
 
-					<div class="info-box">
+					<!-- svelte-ignore a11y-no-static-element-interactions -->
+					<div
+						on:mousedown={() => {
+							navigator.clipboard.writeText(text)
+								.then(() => console.log("copied"))
+								.catch(() => console.log("error"))
+						}}
+						class="info-box"
+					>
 						<div class="symbol">
 							<svelte:component this={component} />
 						</div>
 						<div class="info">
-							<span class="info-data">{value}</span>
+							<span class="info-data">{text}</span>
 							<span class="info-label">{label}</span>
 						</div>
 					</div>
