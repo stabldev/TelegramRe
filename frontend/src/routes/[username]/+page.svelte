@@ -2,6 +2,7 @@
 	import { page } from "$app/stores";
 	import { FormatDate } from "$functions/format_date";
 	import { FormatString } from "$functions/format_string";
+	import { chat_mapping } from "$home/src/lib/data/chat_messages";
 	import AtSymbol from "$icons/at_symbol.svelte";
 	import Clip from "$icons/clip.svelte";
 	import Close from "$icons/close.svelte";
@@ -11,35 +12,20 @@
 	import Pencil from "$icons/pencil.svelte";
 	import Search from "$icons/search.svelte";
 	import Send from "$icons/send.svelte";
+	import { afterUpdate } from "svelte";
 	import { slide } from "svelte/transition";
 
 	// mock chat data
-	const chat_mapping: Array<{
-		sender: string,
-		message: string,
-		time: string
-	}> = [
-		{
-			sender: "tokito",
-			message: "Hi wassup!",
-			time: "2023-09-25T15:35:51.162Z"
-		},
-		{
-			sender: "tokito",
-			message: "Its me Tokito",
-			time: "2023-09-25T15:35:51.162Z"
-		},
-		{
-			sender: "anya-forger",
-			message: "Hey! I'm good",
-			time: "2023-09-25T15:38:51.162Z"
-		},
-		{
-			sender: "anya-forger",
-			message: "How's life?",
-			time: "2023-09-25T15:38:51.162Z"
-		}
-	];
+	let chat_data: [string, {
+		sender: string;
+		message: string;
+		time: string;
+	}[]] | undefined;
+
+	afterUpdate(() => {
+		chat_data = Object.entries(chat_mapping)
+		.find(([username]) => username === $page.url.pathname.slice(2));
+	});
 
 	// profile sidebar
 	let profile_sidebar_open: boolean = false;
@@ -83,26 +69,30 @@
 	<div class="chat-body">
 		<div class="chat-area">
 			<div class="chats">
-				{#each chat_mapping as chat, index}
-					{@const formated_time = new FormatDate(chat.time).format_to_relative_time}
-					{@const formated_sender_name = new FormatString(chat.sender).add_at_symbol}
-					<!-- boolean checks -->
-					{@const sender_is_me = $page.url.pathname.slice(1) !== formated_sender_name}
-					{@const is_last_message = (() => {
-						if (index === chat_mapping.length - 1) return true;
-						else if (chat.sender !== chat_mapping[index + 1].sender) return true;
-						else return false;
-					})()}
+				{#if chat_data}
+					{@const chat_mapping = chat_data[1]}
 
-					<div
-						class="chat"
-						class:chat-me={sender_is_me}
-						class:last-message={is_last_message}
-					>
-						<span class="message">{chat.message}</span>
-						<span class="time">{formated_time}</span>
-					</div>
-				{/each}
+					{#each chat_mapping as chat, index}
+						{@const formated_time = new FormatDate(chat.time).format_to_relative_time}
+						{@const formated_sender_name = new FormatString(chat.sender).add_at_symbol}
+						<!-- boolean checks -->
+						{@const sender_is_me = $page.url.pathname.slice(1) !== formated_sender_name}
+						{@const is_last_message = (() => {
+							if (index === chat_mapping.length - 1) return true;
+							else if (chat.sender !== chat_mapping[index + 1].sender) return true;
+							else return false;
+						})()}
+
+						<div
+							class="chat"
+							class:chat-me={sender_is_me}
+							class:last-message={is_last_message}
+						>
+							<span class="message">{chat.message}</span>
+							<span class="time">{formated_time}</span>
+						</div>
+					{/each}
+				{/if}
 			</div>
 			<div class="message-area">
 				<div class="message-input">
