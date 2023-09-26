@@ -8,11 +8,12 @@
 	import Close from "$icons/close.svelte";
 	import Emoji from "$icons/emoji.svelte";
 	import Info from "$icons/info.svelte";
+	import Link from "$icons/link.svelte";
 	import Menu from "$icons/menu.svelte";
 	import Pencil from "$icons/pencil.svelte";
 	import Search from "$icons/search.svelte";
 	import Send from "$icons/send.svelte";
-	import { afterUpdate } from "svelte";
+	import { SvelteComponent, afterUpdate } from "svelte";
 	import { slide } from "svelte/transition";
 
 	// mock chat data
@@ -32,6 +33,26 @@
 	
 	function toggle_profile_sidebar() {
 		profile_sidebar_open = !profile_sidebar_open;
+	};
+
+	const user_info_mapping: {
+		[key: string]: {
+			value: string;
+			component: typeof SvelteComponent<{}>;
+		}
+	} = {
+		username: {
+			value: "anya-forger",
+			component: AtSymbol
+		},
+		bio: {
+			value: "Love to build cool things in browser",
+			component: Info
+		},
+		link: {
+			value: "/@anya-forger",
+			component: Link
+		}
 	};
 
 </script>
@@ -140,39 +161,36 @@
 			</div>
 		</div>
 
-		<div
-			class="profile-body"
-			style="
-				background: url(https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg);
-				background-size: cover;
-			"
-		>
-			<div class="gradient">
-				<span class="name">Anya Forger</span>
-				<span class="last-seen">last seen recently</span>
+		<div class="profile-wrapper">
+			<div
+				class="profile-body"
+				style="
+					background: url(https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg);
+					background-size: cover;
+				"
+			>
+				<div class="gradient">
+					<span class="name">Anya Forger</span>
+					<span class="last-seen">last seen recently</span>
+				</div>
 			</div>
-		</div>
 
-		<div class="user-info">
-			<div class="info-box">
-				<div class="symbol">
-					<AtSymbol />
-				</div>
-				<div class="info">
-					<span class="info-data">anya-forger</span>
-					<span class="info-label">Username</span>
-				</div>
-			</div>
-			<div class="info-box">
-				<div class="symbol">
-					<Info />
-				</div>
-				<div class="info">
-					<span class="info-data">
-						Love to build cool things in browser!
-					</span>
-					<span class="info-label">Bio</span>
-				</div>
+			<div class="user-info">
+				{#each Object.entries(user_info_mapping) as info}
+					{@const label = info[0]}
+					{@const value = info[1].value}
+					{@const component = info[1].component}
+
+					<div class="info-box">
+						<div class="symbol">
+							<svelte:component this={component} />
+						</div>
+						<div class="info">
+							<span class="info-data">{value}</span>
+							<span class="info-label">{label}</span>
+						</div>
+					</div>
+				{/each}
 			</div>
 		</div>
 	</div>
@@ -292,7 +310,6 @@
 
 						&.last-message {
 							border-radius: 2rem 0.75rem 0.75rem 2rem;
-							margin-bottom: 0.5rem;
 						}
 
 						&.alone-message {
@@ -366,11 +383,13 @@
 	}
 
 	.chater-profile {
-		height: 100%;
+		height: 100vh;
 		width: 25rem;
 		flex-shrink: 0;
 		background: var(--surface-color);
 		border-left: 0.2rem solid var(--surface-dark-color);
+		display: flex;
+		flex-direction: column;
 
 		.profile-head {
 			display: flex;
@@ -378,6 +397,7 @@
 			justify-content: space-between;
 			height: 4.5rem;
 			padding-inline: 1rem;
+			flex-shrink: 0;
 
 			.left-controls {
 				display: flex;
@@ -401,71 +421,77 @@
 			}
 		}
 
-		.profile-body {
-			height: 25rem;
-			display: flex;
-			flex-direction: column;
-			justify-content: end;
+		.profile-wrapper {
+			height: 100%;
+			overflow-y: scroll;
 
-			.gradient {
+			.profile-body {
+				height: 25rem;
 				display: flex;
 				flex-direction: column;
-				padding: 1rem 2rem;
-				padding-top: 5rem;
-				background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+				justify-content: end;
 
-				.name {
-					color: white;
-					font-size: 1.5rem;
-					font-weight: 600;
-				}
-				.last-seen {
-					color: white;
-					opacity: 0.8;
-					font-size: 1rem;
-				}
-			}
-		}
-
-		.user-info {
-			padding: 0.75rem;
-			display: flex;
-			flex-direction: column;
-
-			.info-box {
-				display: flex;
-				align-items: center;
-				gap: 2rem;
-				padding: 0.75rem 1rem;
-				cursor: pointer;
-				border-radius: 0.75rem;
-				user-select: none;
-
-				&:hover {
-					background: var(--surface-light-color);
-				}
-
-				.symbol {
-					width: 2rem;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					color: var(--secondary-color);
-				}
-
-				.info {
+				.gradient {
 					display: flex;
 					flex-direction: column;
-					gap: 0.25rem;
+					padding: 1rem 2rem;
+					padding-top: 5rem;
+					background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
 
-					&-data {
+					.name {
 						color: white;
-						font-size: 1.2rem;
+						font-size: 1.5rem;
+						font-weight: 600;
+					}
+					.last-seen {
+						color: white;
+						opacity: 0.8;
+						font-size: 1rem;
+					}
+				}
+			}
+
+			.user-info {
+				padding: 0.75rem;
+				display: flex;
+				flex-direction: column;
+
+				.info-box {
+					display: flex;
+					align-items: center;
+					gap: 2rem;
+					padding: 0.75rem 1rem;
+					cursor: pointer;
+					border-radius: 0.75rem;
+					user-select: none;
+
+					&:hover {
+						background: var(--surface-light-color);
 					}
 
-					&-label {
+					.symbol {
+						width: 2rem;
+						display: flex;
+						align-items: center;
+						justify-content: center;
 						color: var(--secondary-color);
-						font-size: 1rem;
+					}
+
+					.info {
+						display: flex;
+						flex-direction: column;
+						gap: 0.25rem;
+
+						&-data {
+							color: white;
+							font-size: 1.2rem;
+						}
+
+						&-label {
+							text-transform: capitalize;
+							color: var(--secondary-color);
+							font-size: 1rem;
+						}
 					}
 				}
 			}
