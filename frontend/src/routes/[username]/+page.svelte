@@ -183,12 +183,12 @@
 
 					<!-- svelte-ignore a11y-no-static-element-interactions -->
 					<div
+						class="info-box"
 						on:mousedown={() => {
 							navigator.clipboard.writeText(text)
 								.then(() => console.log("copied"))
 								.catch(() => console.log("error"))
 						}}
-						class="info-box"
 					>
 						<div class="symbol">
 							<svelte:component this={component} />
