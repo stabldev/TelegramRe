@@ -25,7 +25,12 @@ export const chat_mapping: {
 			sender: "anya-forger",
 			message: "How's life?",
 			time: "2023-09-25T15:38:51.162Z"
-		}
+		},
+		{
+			sender: "tokito",
+			message: "Yup! but I miss you :)",
+			time: "2023-09-25T15:35:51.162Z"
+		},
 	],
 	"kyouko": [
 		{
@@ -47,6 +52,11 @@ export const chat_mapping: {
 			sender: "kyouko",
 			message: "Yea no worries, could you call me please?",
 			time: "2023-09-25T15:38:51.162Z"
-		}
+		},
+		{
+			sender: "tokito",
+			message: "Okay sure",
+			time: "2023-09-25T15:35:51.162Z"
+		},
 	],
 }

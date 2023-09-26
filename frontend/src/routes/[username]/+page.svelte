@@ -77,9 +77,18 @@
 						{@const formated_sender_name = new FormatString(chat.sender).add_at_symbol}
 						<!-- boolean checks -->
 						{@const sender_is_me = $page.url.pathname.slice(1) !== formated_sender_name}
+						<!-- check if sender is self -->
 						{@const is_last_message = (() => {
 							if (index === chat_mapping.length - 1) return true;
-							else if (chat.sender !== chat_mapping[index + 1].sender) return true;
+							else if (chat.sender !== chat_mapping[index + 1]?.sender) return true;
+							else return false;
+						})()}
+						<!-- check if message is alone -->
+						{@const is_alone_message = (() => {
+							if (index === 0 && chat_mapping.length === 1) return true;
+							else if (index === 0 && chat.sender !== chat_mapping[index + 1]?.sender) return true;
+							else if (index === chat_mapping.length - 1 && chat.sender !== chat_mapping[index - 1]?.sender) return true;
+							else if (chat.sender !== chat_mapping[index + 1]?.sender && chat.sender !== chat_mapping[index - 1]?.sender) return true;
 							else return false;
 						})()}
 
@@ -87,6 +96,7 @@
 							class="chat"
 							class:chat-me={sender_is_me}
 							class:last-message={is_last_message}
+							class:alone-message={is_alone_message}
 						>
 							<span class="message">{chat.message}</span>
 							<span class="time">{formated_time}</span>
@@ -250,7 +260,6 @@
 				flex-direction: column;
 				gap: 0.2rem;
 				padding-right: 5rem;
-				padding-bottom: 0.5rem;
 
 				.chat {
 					align-self: self-start;
@@ -283,11 +292,21 @@
 
 						&.last-message {
 							border-radius: 2rem 0.75rem 0.75rem 2rem;
+							margin-bottom: 0.5rem;
+						}
+
+						&.alone-message {
+							border-radius: 2rem 2rem 0.75rem 2rem;
 						}
 					}
 
 					&.last-message {
 						border-radius: 0.75rem 2rem 2rem 0.75rem;
+						margin-bottom: 0.5rem;
+					}
+
+					&.alone-message {
+						border-radius: 2rem 2rem 2rem 0.75rem;
 					}
 				}
 			}
