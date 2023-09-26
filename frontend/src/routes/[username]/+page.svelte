@@ -13,6 +13,7 @@
 	import Pencil from "$icons/pencil.svelte";
 	import Search from "$icons/search.svelte";
 	import Send from "$icons/send.svelte";
+	import { addToast } from "$store/toasts";
 	import { SvelteComponent, afterUpdate } from "svelte";
 
 	// mock chat data
@@ -40,15 +41,15 @@
 			component: typeof SvelteComponent<{}>;
 		}
 	} = {
-		username: {
+		"Username": {
 			text: "anya-forger",
 			component: AtSymbol
 		},
-		bio: {
+		"Bio": {
 			text: "Love to build cool things in browser",
 			component: Info
 		},
-		link: {
+		"Link": {
 			text: "/@anya-forger",
 			component: Link
 		}
@@ -193,8 +194,8 @@
 					class="info-box"
 					on:mousedown={() => {
 						navigator.clipboard.writeText(text)
-							.then(() => console.log("copied"))
-							.catch(() => console.log("error"))
+							.then(() => addToast({ message: `${label} copied to clipboard` }))
+							.catch(() => console.log("Something went wrong!"));
 					}}
 				>
 					<div class="symbol">
@@ -505,7 +506,6 @@
 						}
 
 						&-label {
-							text-transform: capitalize;
 							color: var(--secondary-color);
 							font-size: 1rem;
 						}

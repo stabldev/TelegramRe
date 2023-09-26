@@ -3,6 +3,7 @@
 	import { FormatString } from "$functions/format_string";
 	import { page } from "$app/stores";
 	import { goto } from "$app/navigation";
+	import Toasts from "$components/shared/Toasts.svelte";
 	// icons
 	import Menu from "$icons/menu.svelte";
 	import Pencil from "$icons/pencil.svelte";
@@ -38,6 +39,8 @@
 <svelte:head>
 	<title>Telegram Redition</title>
 </svelte:head>
+
+<Toasts />
 
 <main>
 	<div class="sidebar">
