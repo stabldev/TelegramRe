@@ -63,7 +63,10 @@
 		message_el.value = "";
 
 		// scroll to bottom after DOM updates
-		requestAnimationFrame(() => chat_area_el.scrollTop = chat_area_el.scrollHeight);
+		requestAnimationFrame(() => chat_area_el.scrollTo({
+			top: chat_area_el.scrollHeight,
+			behavior: "smooth"
+		}));
 	};
 
 	// profile sidebar
