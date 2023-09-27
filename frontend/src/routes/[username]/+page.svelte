@@ -21,6 +21,7 @@
 
 	// mock chat data
 	let chat_data: [string, {
+		id: number;
 		sender: string;
 		message: string;
 		time: string;
@@ -105,25 +106,28 @@
 		<div class="chat-area">
 			<div class="chats">
 				{#if chat_data}
-					{@const chat_mapping = chat_data[1]}
-
-					{#each chat_mapping as chat, index}
+					{#each chat_data[1] as chat, index (chat.id)}
 						{@const formated_time = new FormatDate(chat.time).format_to_relative_time}
 						{@const formated_sender_name = new FormatString(chat.sender).add_at_symbol}
 						<!-- boolean checks -->
 						{@const sender_is_me = $page.url.pathname.slice(1) !== formated_sender_name}
 						<!-- check if sender is self -->
 						{@const is_last_message = (() => {
-							if (index === chat_mapping.length - 1) return true;
-							else if (chat.sender !== chat_mapping[index + 1]?.sender) return true;
+							if (index === chat_data[1].length - 1) return true;
+							else if (chat.sender !== chat_data[1][index + 1]?.sender) return true;
 							else return false;
 						})()}
 						<!-- check if message is alone -->
 						{@const is_alone_message = (() => {
-							if (index === 0 && chat_mapping.length === 1) return true;
-							else if (index === 0 && chat.sender !== chat_mapping[index + 1]?.sender) return true;
-							else if (index === chat_mapping.length - 1 && chat.sender !== chat_mapping[index - 1]?.sender) return true;
-							else if (chat.sender !== chat_mapping[index + 1]?.sender && chat.sender !== chat_mapping[index - 1]?.sender) return true;
+							if (index === 0 && chat_data[1].length === 1) return true;
+							else if (index === 0 && chat.sender !== chat_data[1][index + 1]?.sender) return true;
+							else if (index === chat_data[1].length - 1 && chat.sender !== chat_data[1][index - 1]?.sender) return true;
+							else if (chat.sender !== chat_data[1][index + 1]?.sender && chat.sender !== chat_data[1][index - 1]?.sender) return true;
+							else return false;
+						})()}
+						<!-- check if message is on middle -->
+						{@const is_middle_message = (() => {
+							if (chat.sender === chat_data[1][index - 1]?.sender && chat.sender === chat_data[1][index + 1]?.sender) return true;
 							else return false;
 						})()}
 
@@ -132,6 +136,7 @@
 							class:chat-me={sender_is_me}
 							class:last-message={is_last_message}
 							class:alone-message={is_alone_message}
+							class:middle-message={is_middle_message}
 						>
 							<span class="message">{chat.message}</span>
 							<span class="time">{formated_time}</span>
@@ -346,21 +351,29 @@
 						background: var(--primary-color);
 
 						&.last-message {
-							border-radius: 2rem 0.75rem 0.75rem 2rem;
+							border-radius: 2rem 0.75rem 2rem 2rem;
 						}
 
 						&.alone-message {
 							border-radius: 2rem 2rem 0.75rem 2rem;
 						}
+
+						&.middle-message {
+							border-radius: 2rem 0.75rem 0.75rem 2rem;
+						}
 					}
 
 					&.last-message {
-						border-radius: 0.75rem 2rem 2rem 0.75rem;
+						border-radius: 0.75rem 2rem 2rem 2rem;
 						margin-bottom: 0.5rem;
 					}
 
 					&.alone-message {
 						border-radius: 2rem 2rem 2rem 0.75rem;
+					}
+
+					&.middle-message {
+						border-radius: 0.75rem 2rem 2rem 0.75rem;
 					}
 				}
 			}
