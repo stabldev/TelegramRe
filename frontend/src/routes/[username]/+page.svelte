@@ -420,6 +420,7 @@
 
 					&.last-message {
 						border-radius: 0.75rem 2rem 2rem 2rem;
+						margin-bottom: 0.5rem;
 					}
 
 					&.alone-message {
