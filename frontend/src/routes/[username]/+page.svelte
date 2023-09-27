@@ -195,7 +195,7 @@
 					on:mousedown={() => {
 						navigator.clipboard.writeText(text)
 							.then(() => addToast({ message: `${label} copied to clipboard` }))
-							.catch(() => console.log("Something went wrong!"));
+							.catch(() => addToast({ message: `Couldn't copy ${label} to clipboard` }));
 					}}
 				>
 					<div class="symbol">
