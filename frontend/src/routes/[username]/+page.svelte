@@ -16,9 +16,22 @@
 	import Tick from "$icons/tick.svelte";
 	import { addToast } from "$store/toasts";
 	import { SvelteComponent, afterUpdate } from "svelte";
+	import { slide } from "svelte/transition";
+
+	// types
+	type Chat = {
+		id: number;
+		sender: string;
+		message: string;
+		time: string;
+		seen: boolean;
+	}
 
 	// variables
 	let message_el: HTMLInputElement;
+	let new_chat: Chat,
+		is_new_chat_added: boolean = false;
+	const CHAT_TRANSITION_DURATION: number = 200;
 
 	// mock chat data
 	let chat_data: [string, {
@@ -35,9 +48,24 @@
 	});
 
 	// send message
-	function send_message(event: Event) {;
-		const message = message_el.value;
-		
+	function send_message(event: Event): void {;
+		const chat: Chat = {
+			id: Math.floor(Math.random() * 10000),
+			sender: "tokito",
+			message: message_el.value,
+			time: new Date().toISOString(),
+			seen: false
+		};
+		// guard clause
+		if(!chat_data) return;
+
+		chat_data[1].push(chat);
+		// update new_chat for transition
+		new_chat = chat;
+		is_new_chat_added = true;
+		// remove transition
+		setTimeout(() => is_new_chat_added = false, CHAT_TRANSITION_DURATION);
+
 		// clear message input
 		message_el.value = "";
 	};
@@ -140,6 +168,7 @@
 							class:last-message={is_last_message}
 							class:alone-message={is_alone_message}
 							class:middle-message={is_middle_message}
+							in:slide={{ duration: is_new_chat_added && chat === new_chat ? CHAT_TRANSITION_DURATION : 0 }}
 						>
 							<span class="message">{chat.message}</span>
 							<span class="time">{formated_time}</span>
