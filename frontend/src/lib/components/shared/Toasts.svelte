@@ -1,11 +1,15 @@
 <script lang="ts">
 	import { toasts } from "$store/toasts";
+	import { fade } from "svelte/transition";
 </script>
 
 {#if $toasts}
 	<div class="toasts-container">
 		{#each $toasts as toast (toast.id)}
-			<div class="toast">
+			<div
+				transition:fade={{ duration: 100 }}
+				class="toast"
+			>
 				{toast.message}
 			</div>
 		{/each}
