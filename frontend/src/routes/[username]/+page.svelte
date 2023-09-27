@@ -160,11 +160,14 @@
 							if (chat.sender === chat_data[1][index - 1]?.sender && chat.sender === chat_data[1][index + 1]?.sender) return true;
 							else return false;
 						})()}
+						<!-- check if message is very last -->
+						{@const is_very_last_message = index === chat_data[1].length - 1 ? true : false}
 
 						<div
 							class="chat"
 							class:chat-me={sender_is_me}
 							class:last-message={is_last_message}
+							class:very-last-message={is_very_last_message}
 							class:alone-message={is_alone_message}
 							class:middle-message={is_middle_message}
 						>
@@ -421,6 +424,10 @@
 					&.last-message {
 						border-radius: 0.75rem 2rem 2rem 2rem;
 						margin-bottom: 0.5rem;
+					}
+
+					&.very-last-message {
+						margin-bottom: 0;
 					}
 
 					&.alone-message {
