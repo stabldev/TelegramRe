@@ -13,6 +13,7 @@
 	import Pencil from "$icons/pencil.svelte";
 	import Search from "$icons/search.svelte";
 	import Send from "$icons/send.svelte";
+	import Tick from "$icons/tick.svelte";
 	import { addToast } from "$store/toasts";
 	import { SvelteComponent, afterUpdate } from "svelte";
 
@@ -25,6 +26,7 @@
 		sender: string;
 		message: string;
 		time: string;
+		seen: boolean;
 	}[]] | undefined;
 
 	afterUpdate(() => {
@@ -111,6 +113,7 @@
 						{@const formated_sender_name = new FormatString(chat.sender).add_at_symbol}
 						<!-- boolean checks -->
 						{@const sender_is_me = $page.url.pathname.slice(1) !== formated_sender_name}
+						{@const message_seen = chat.seen}
 						<!-- check if sender is self -->
 						{@const is_last_message = (() => {
 							if (index === chat_data[1].length - 1) return true;
@@ -140,6 +143,22 @@
 						>
 							<span class="message">{chat.message}</span>
 							<span class="time">{formated_time}</span>
+
+							{#if sender_is_me}
+								<div class="seen-status-icon">
+									{#if message_seen}
+										<Tick
+											variant="double"
+											style="width: 1.25rem;"
+										/>
+									{:else}
+										<Tick
+											variant="single"
+											style="width: 1.1rem;"
+										/>
+									{/if}
+								</div>
+							{/if}
 						</div>
 					{/each}
 				{/if}
@@ -343,6 +362,12 @@
 						color: white;
 						opacity: 0.7;
 						user-select: none;
+					}
+
+					.seen-status-icon {
+						align-self: self-end;
+						display: flex;
+						color: white;
 					}
 
 					&.chat-me {
