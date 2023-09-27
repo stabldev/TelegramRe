@@ -28,9 +28,8 @@
 	}
 
 	// variables
-	let message_el: HTMLInputElement;
-	let new_chat: Chat,
-		is_new_chat_added: boolean = false;
+	let message_el: HTMLInputElement,
+		chat_area_el: HTMLElement;
 	const CHAT_TRANSITION_DURATION: number = 200;
 
 	// mock chat data
@@ -60,14 +59,11 @@
 		if(!chat_data) return;
 
 		chat_data[1].push(chat);
-		// update new_chat for transition
-		new_chat = chat;
-		is_new_chat_added = true;
-		// remove transition
-		setTimeout(() => is_new_chat_added = false, CHAT_TRANSITION_DURATION);
-
 		// clear message input
 		message_el.value = "";
+
+		// scroll to bottom after DOM updates
+		requestAnimationFrame(() => chat_area_el.scrollTop = chat_area_el.scrollHeight);
 	};
 
 	// profile sidebar
@@ -134,7 +130,10 @@
 
 	<div class="chat-body">
 		<div class="chat-area">
-			<div class="chats">
+			<div
+				bind:this={chat_area_el}
+				class="chats"
+			>
 				{#if chat_data}
 					{#each chat_data[1] as chat, index (chat.id)}
 						{@const formated_time = new FormatDate(chat.time).format_to_relative_time}
@@ -168,7 +167,6 @@
 							class:last-message={is_last_message}
 							class:alone-message={is_alone_message}
 							class:middle-message={is_middle_message}
-							in:slide={{ duration: is_new_chat_added && chat === new_chat ? CHAT_TRANSITION_DURATION : 0 }}
 						>
 							<span class="message">{chat.message}</span>
 							<span class="time">{formated_time}</span>
@@ -365,9 +363,11 @@
 				flex-direction: column;
 				gap: 0.2rem;
 				padding-right: 5rem;
-				max-height: calc(100vh - 9.5rem);
+				padding-top: 5rem;
+				max-height: calc(100vh - 15rem);
 				overflow-y: scroll;
 				scrollbar-width: none;
+				margin-bottom: 0.35rem;
 
 				.chat {
 					align-self: self-start;
@@ -420,7 +420,6 @@
 
 					&.last-message {
 						border-radius: 0.75rem 2rem 2rem 2rem;
-						margin-bottom: 0.5rem;
 					}
 
 					&.alone-message {
