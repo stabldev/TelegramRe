@@ -365,6 +365,9 @@
 				flex-direction: column;
 				gap: 0.2rem;
 				padding-right: 5rem;
+				max-height: calc(100vh - 9.5rem);
+				overflow-y: scroll;
+				scrollbar-width: none;
 
 				.chat {
 					align-self: self-start;
@@ -374,6 +377,7 @@
 					padding: 0.25rem 1rem;
 					border-radius: 2rem 2rem 2rem 0.75rem;
 					background: var(--surface-color);
+					flex-shrink: 0;
 
 					.message {
 						align-self: center;
