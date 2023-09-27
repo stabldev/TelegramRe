@@ -16,6 +16,9 @@
 	import { addToast } from "$store/toasts";
 	import { SvelteComponent, afterUpdate } from "svelte";
 
+	// variables
+	let message_el: HTMLInputElement;
+
 	// mock chat data
 	let chat_data: [string, {
 		sender: string;
@@ -27,6 +30,14 @@
 		chat_data = Object.entries(chat_mapping)
 		.find(([username]) => username === $page.url.pathname.slice(2));
 	});
+
+	// send message
+	function send_message(event: Event) {;
+		const message = message_el.value;
+		
+		// clear message input
+		message_el.value = "";
+	};
 
 	// profile sidebar
 	let profile_sidebar_open: boolean = false;
@@ -128,12 +139,23 @@
 					{/each}
 				{/if}
 			</div>
-			<div class="message-area">
+			<form
+				on:submit|preventDefault={send_message}
+				autocomplete="off"
+				class="message-area"
+			>
 				<div class="message-input">
 					<div class="emoji-icon btn">
 						<Emoji />
 					</div>
-					<input placeholder="Message" type="text">
+
+					<input
+						bind:this={message_el}
+						type="text"
+						name="message"
+						placeholder="Message"
+					>
+					
 					<div class="clip-icon btn">
 						<Clip />
 					</div>
@@ -141,7 +163,7 @@
 				<button class="message-submit">
 					<Send />
 				</button>
-			</div>
+			</form>
 		</div>
 	</div>
 </div>
