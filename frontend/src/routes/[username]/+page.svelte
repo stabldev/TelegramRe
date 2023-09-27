@@ -194,10 +194,7 @@
 
 <div
 	class="chater-profile"
-	style="
-		transform: translateX({profile_sidebar_open ? 0 : "25rem"});
-		border-left-width: {profile_sidebar_open ? "0.2rem" : 0};
-	"
+	style="transform: translateX({profile_sidebar_open ? 0 : "25rem"});"
 >
 	<div class="profile-head">
 		<div class="left-controls">
@@ -465,6 +462,7 @@
 		flex-shrink: 0;
 		background: var(--surface-color);
 		border-left: 0.2rem solid var(--surface-dark-color);
+		box-sizing: border-box;
 		display: flex;
 		flex-direction: column;
 		transition: 0.3s ease-in-out;
