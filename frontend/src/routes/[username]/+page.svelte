@@ -468,6 +468,7 @@
 		display: flex;
 		flex-direction: column;
 		transition: 0.3s ease-in-out;
+		transition-property: transform;
 
 		.profile-head {
 			display: flex;
