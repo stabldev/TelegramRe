@@ -75,9 +75,6 @@
 
 		// clear message input
 		message_el.value = "";
-
-		// scroll to bottom after DOM updates
-		requestAnimationFrame(() => chat_area_el.scrollTop = chat_area_el.scrollHeight);
 	};
 
 	// profile sidebar
