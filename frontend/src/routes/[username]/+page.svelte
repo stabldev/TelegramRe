@@ -15,8 +15,8 @@
 	import Send from "$icons/send.svelte";
 	import Tick from "$icons/tick.svelte";
 	import { addToast } from "$store/toasts";
-	import { SvelteComponent, afterUpdate } from "svelte";
-	import { slide } from "svelte/transition";
+	import { slide } from "$transitions/slide";
+	import { SvelteComponent, afterUpdate, tick } from "svelte";
 
 	// types
 	type Chat = {
@@ -28,9 +28,11 @@
 	}
 
 	// variables
+	let new_chat: Chat,
+		is_new_chat_added: boolean;
 	let message_el: HTMLInputElement,
 		chat_area_el: HTMLElement;
-	const CHAT_TRANSITION_DURATION: number = 200;
+	const CHAT_TRANSITION_DURATION = 400;
 
 	// mock chat data
 	let chat_data: [string, {
@@ -41,9 +43,16 @@
 		seen: boolean;
 	}[]] | undefined;
 
-	afterUpdate(() => {
+	afterUpdate(async () => {
 		chat_data = Object.entries(chat_mapping)
 		.find(([username]) => username === $page.url.pathname.slice(2));
+
+		// scroll chat_area to bottom on page change
+		await tick()
+		chat_area_el.scrollTo({
+			top: chat_area_el.scrollHeight,
+			behavior: "smooth"
+		});
 	});
 
 	// send message
@@ -58,15 +67,17 @@
 		// guard clause
 		if(!chat_data) return;
 
-		chat_data[1].push(chat);
+		chat_data[1].push(chat);		
+		// transition newly added chat element
+		new_chat = chat;
+		is_new_chat_added = true;
+		setTimeout(() => is_new_chat_added = false, CHAT_TRANSITION_DURATION);
+
 		// clear message input
 		message_el.value = "";
 
 		// scroll to bottom after DOM updates
-		requestAnimationFrame(() => chat_area_el.scrollTo({
-			top: chat_area_el.scrollHeight,
-			behavior: "smooth"
-		}));
+		requestAnimationFrame(() => chat_area_el.scrollTop = chat_area_el.scrollHeight);
 	};
 
 	// profile sidebar
@@ -95,7 +106,6 @@
 			component: Link
 		}
 	};
-
 </script>
 
 <div
@@ -173,6 +183,7 @@
 							class:very-last-message={is_very_last_message}
 							class:alone-message={is_alone_message}
 							class:middle-message={is_middle_message}
+							in:slide={{ duration: is_new_chat_added && chat == new_chat ? CHAT_TRANSITION_DURATION : 0 }}
 						>
 							<span class="message">{chat.message}</span>
 							<span class="time">{formated_time}</span>
