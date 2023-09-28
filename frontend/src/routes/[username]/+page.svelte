@@ -363,17 +363,18 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: end;
+		align-self: center;
+		width: 40rem;
 
 		.chats {
-			padding-inline: 18rem;
 			display: flex;
 			flex-direction: column;
 			gap: 0.2rem;
-			padding-top: 5rem;
+			padding-top: 1rem;
+			padding-right: 5rem;
 			margin-bottom: 0.35rem;
 			overflow-y: scroll;
-			scrollbar-width: thin;
-			scrollbar-color: var(--scrollbar-color) transparent;
+			scrollbar-width: none;
 
 			.chat {
 				align-self: self-start;
@@ -444,7 +445,6 @@
 		}
 
 		.message-area {
-			padding-inline: 18rem;
 			display: flex;
 			align-items: center;
 			justify-content: center;
