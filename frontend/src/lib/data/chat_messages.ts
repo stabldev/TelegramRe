@@ -32,7 +32,7 @@ export const chat_mapping: {
 		{
 			id: 4,
 			sender: 'anya-forger',
-			message: "So wassup",
+			message: 'So wassup',
 			time: '2023-09-25T15:38:51.162Z',
 			seen: true
 		},
