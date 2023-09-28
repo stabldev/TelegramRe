@@ -139,97 +139,95 @@
 	</div>
 
 	<div class="chat-body">
-		<div class="chat-area">
-			<div
-				bind:this={chat_area_el}
-				class="chats"
-			>
-				{#if chat_data}
-					{#each chat_data[1] as chat, index (chat.id)}
-						{@const formated_time = new FormatDate(chat.time).format_to_relative_time}
-						{@const formated_sender_name = new FormatString(chat.sender).add_at_symbol}
-						<!-- boolean checks -->
-						{@const sender_is_me = $page.url.pathname.slice(1) !== formated_sender_name}
-						{@const message_seen = chat.seen}
-						<!-- check if sender is self -->
-						{@const is_last_message = (() => {
-							if (index === chat_data[1].length - 1) return true;
-							else if (chat.sender !== chat_data[1][index + 1]?.sender) return true;
-							else return false;
-						})()}
-						<!-- check if message is alone -->
-						{@const is_alone_message = (() => {
-							if (index === 0 && chat_data[1].length === 1) return true;
-							else if (index === 0 && chat.sender !== chat_data[1][index + 1]?.sender) return true;
-							else if (index === chat_data[1].length - 1 && chat.sender !== chat_data[1][index - 1]?.sender) return true;
-							else if (chat.sender !== chat_data[1][index + 1]?.sender && chat.sender !== chat_data[1][index - 1]?.sender) return true;
-							else return false;
-						})()}
-						<!-- check if message is on middle -->
-						{@const is_middle_message = (() => {
-							if (chat.sender === chat_data[1][index - 1]?.sender && chat.sender === chat_data[1][index + 1]?.sender) return true;
-							else return false;
-						})()}
-						<!-- check if message is very last -->
-						{@const is_very_last_message = index === chat_data[1].length - 1 ? true : false}
+		<div
+			bind:this={chat_area_el}
+			class="chats"
+		>
+			{#if chat_data}
+				{#each chat_data[1] as chat, index (chat.id)}
+					{@const formated_time = new FormatDate(chat.time).format_to_relative_time}
+					{@const formated_sender_name = new FormatString(chat.sender).add_at_symbol}
+					<!-- boolean checks -->
+					{@const sender_is_me = $page.url.pathname.slice(1) !== formated_sender_name}
+					{@const message_seen = chat.seen}
+					<!-- check if sender is self -->
+					{@const is_last_message = (() => {
+						if (index === chat_data[1].length - 1) return true;
+						else if (chat.sender !== chat_data[1][index + 1]?.sender) return true;
+						else return false;
+					})()}
+					<!-- check if message is alone -->
+					{@const is_alone_message = (() => {
+						if (index === 0 && chat_data[1].length === 1) return true;
+						else if (index === 0 && chat.sender !== chat_data[1][index + 1]?.sender) return true;
+						else if (index === chat_data[1].length - 1 && chat.sender !== chat_data[1][index - 1]?.sender) return true;
+						else if (chat.sender !== chat_data[1][index + 1]?.sender && chat.sender !== chat_data[1][index - 1]?.sender) return true;
+						else return false;
+					})()}
+					<!-- check if message is on middle -->
+					{@const is_middle_message = (() => {
+						if (chat.sender === chat_data[1][index - 1]?.sender && chat.sender === chat_data[1][index + 1]?.sender) return true;
+						else return false;
+					})()}
+					<!-- check if message is very last -->
+					{@const is_very_last_message = index === chat_data[1].length - 1 ? true : false}
 
-						<div
-							class="chat"
-							class:chat-me={sender_is_me}
-							class:last-message={is_last_message}
-							class:very-last-message={is_very_last_message}
-							class:alone-message={is_alone_message}
-							class:middle-message={is_middle_message}
-							in:slide={{ duration: is_new_chat_added && chat == new_chat ? CHAT_TRANSITION_DURATION : 0 }}
-						>
-							<span class="message">{chat.message}</span>
-							<span class="time">{formated_time}</span>
-
-							{#if sender_is_me}
-								<div class="seen-status-icon">
-									{#if message_seen}
-										<Tick
-											variant="double"
-											style="width: 1.25rem;"
-										/>
-									{:else}
-										<Tick
-											variant="single"
-											style="width: 1.1rem;"
-										/>
-									{/if}
-								</div>
-							{/if}
-						</div>
-					{/each}
-				{/if}
-			</div>
-			<form
-				on:submit|preventDefault={send_message}
-				autocomplete="off"
-				class="message-area"
-			>
-				<div class="message-input">
-					<div class="emoji-icon btn">
-						<Emoji />
-					</div>
-
-					<input
-						bind:this={message_el}
-						type="text"
-						name="message"
-						placeholder="Message"
+					<div
+						class="chat"
+						class:chat-me={sender_is_me}
+						class:last-message={is_last_message}
+						class:very-last-message={is_very_last_message}
+						class:alone-message={is_alone_message}
+						class:middle-message={is_middle_message}
+						in:slide={{ duration: is_new_chat_added && chat == new_chat ? CHAT_TRANSITION_DURATION : 0 }}
 					>
-					
-					<div class="clip-icon btn">
-						<Clip />
+						<span class="message">{chat.message}</span>
+						<span class="time">{formated_time}</span>
+
+						{#if sender_is_me}
+							<div class="seen-status-icon">
+								{#if message_seen}
+									<Tick
+										variant="double"
+										style="width: 1.25rem;"
+									/>
+								{:else}
+									<Tick
+										variant="single"
+										style="width: 1.1rem;"
+									/>
+								{/if}
+							</div>
+						{/if}
 					</div>
-				</div>
-				<button class="message-submit">
-					<Send />
-				</button>
-			</form>
+				{/each}
+			{/if}
 		</div>
+		<form
+			on:submit|preventDefault={send_message}
+			autocomplete="off"
+			class="message-area"
+		>
+			<div class="message-input">
+				<div class="emoji-icon btn">
+					<Emoji />
+				</div>
+
+				<input
+					bind:this={message_el}
+					type="text"
+					name="message"
+					placeholder="Message"
+				>
+				
+				<div class="clip-icon btn">
+					<Clip />
+				</div>
+			</div>
+			<button class="message-submit">
+				<Send />
+			</button>
+		</form>
 	</div>
 </div>
 
@@ -308,7 +306,7 @@
 		align-items: center;
 		flex-shrink: 0;
 		justify-content: space-between;
-		height: 4.5rem;
+		height: var(--chat-header-height);
 		background: var(--surface-color);
 
 		.chat-user {
@@ -361,146 +359,140 @@
 	}
 
 	.chat-body {
-		position: relative;
-		width: 100%;
-		height: 100%;
+		height: calc(100vh - calc(var(--chat-header-height) + 1rem)); // 1rem for padding bottom
 		display: flex;
-		align-items: end;
-		justify-content: center;
-		padding-bottom: 1rem;
+		flex-direction: column;
+		justify-content: end;
 
-		.chat-area {
-			width: 40rem;
+		.chats {
+			padding-inline: 18rem;
+			display: flex;
+			flex-direction: column;
+			gap: 0.2rem;
+			padding-top: 5rem;
+			margin-bottom: 0.35rem;
+			overflow-y: scroll;
+			scrollbar-width: thin;
+			scrollbar-color: var(--scrollbar-color) transparent;
 
-			.chats {
+			.chat {
+				align-self: self-start;
 				display: flex;
-				flex-direction: column;
-				gap: 0.2rem;
-				padding-right: 5rem;
-				padding-top: 5rem;
-				max-height: calc(100vh - 15rem);
-				overflow-y: scroll;
-				scrollbar-width: none;
-				margin-bottom: 0.35rem;
+				gap: 0.5rem;
+				height: 2rem;
+				padding: 0.25rem 1rem;
+				border-radius: 2rem 2rem 2rem 0.75rem;
+				background: var(--surface-color);
+				flex-shrink: 0;
 
-				.chat {
-					align-self: self-start;
+				.message {
+					align-self: center;
+					color: white;
+					font-size: 1.1rem;
+				}
+
+				.time {
+					align-self: self-end;
+					font-size: 0.75rem;
+					text-transform: uppercase;
+					color: white;
+					opacity: 0.7;
+					user-select: none;
+				}
+
+				.seen-status-icon {
+					align-self: self-end;
 					display: flex;
-					gap: 0.5rem;
-					height: 2rem;
-					padding: 0.25rem 1rem;
-					border-radius: 2rem 2rem 2rem 0.75rem;
-					background: var(--surface-color);
-					flex-shrink: 0;
+					color: white;
+				}
 
-					.message {
-						align-self: center;
-						color: white;
-						font-size: 1.1rem;
-					}
-
-					.time {
-						align-self: self-end;
-						font-size: 0.75rem;
-						text-transform: uppercase;
-						color: white;
-						opacity: 0.7;
-						user-select: none;
-					}
-
-					.seen-status-icon {
-						align-self: self-end;
-						display: flex;
-						color: white;
-					}
-
-					&.chat-me {
-						align-self: self-end;
-						border-radius: 2rem 2rem 0.75rem 2rem;
-						background: var(--primary-color);
-
-						&.last-message {
-							border-radius: 2rem 0.75rem 2rem 2rem;
-						}
-
-						&.alone-message {
-							border-radius: 2rem 2rem 0.75rem 2rem;
-						}
-
-						&.middle-message {
-							border-radius: 2rem 0.75rem 0.75rem 2rem;
-						}
-					}
+				&.chat-me {
+					align-self: self-end;
+					border-radius: 2rem 2rem 0.75rem 2rem;
+					background: var(--primary-color);
 
 					&.last-message {
-						border-radius: 0.75rem 2rem 2rem 2rem;
-						margin-bottom: 0.5rem;
-					}
-
-					&.very-last-message {
-						margin-bottom: 0;
+						border-radius: 2rem 0.75rem 2rem 2rem;
 					}
 
 					&.alone-message {
-						border-radius: 2rem 2rem 2rem 0.75rem;
+						border-radius: 2rem 2rem 0.75rem 2rem;
 					}
 
 					&.middle-message {
-						border-radius: 0.75rem 2rem 2rem 0.75rem;
+						border-radius: 2rem 0.75rem 0.75rem 2rem;
 					}
+				}
+
+				&.last-message {
+					border-radius: 0.75rem 2rem 2rem 2rem;
+					margin-bottom: 0.5rem;
+				}
+
+				&.very-last-message {
+					margin-bottom: 0;
+				}
+
+				&.alone-message {
+					border-radius: 2rem 2rem 2rem 0.75rem;
+				}
+
+				&.middle-message {
+					border-radius: 0.75rem 2rem 2rem 0.75rem;
+				}
+			}
+		}
+
+		.message-area {
+			padding-inline: 18rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 1rem;
+
+			.message-input {
+				width: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 0.5rem;
+				background: var(--surface-color);
+				padding: 0.5rem;
+				border-radius: 1rem;
+
+				.emoji-icon {
+					width: 2rem;
+				}
+				input {
+					flex: 1;
+					background: none;
+					border: none;
+					outline: none;
+					font-size: 1.1rem;
+					color: white;
+					caret-color: var(--secondary-color);
+
+					&::placeholder {
+						color: var(--secondary-color);
+						opacity: 1;
+					}
+				}
+				.clip-icon {
+					width: 1.5rem;
+					padding: 0.75rem;
 				}
 			}
 
-			.message-area {
+			.message-submit {
+				width: 4rem;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				gap: 1rem;
-
-				.message-input {
-					width: 100%;
-					display: flex;
-					align-items: center;
-					justify-content: space-between;
-					gap: 0.5rem;
-					background: var(--surface-color);
-					padding: 0.5rem;
-					border-radius: 1rem;
-
-					.emoji-icon {
-						width: 2rem;
-					}
-					input {
-						flex: 1;
-						background: none;
-						border: none;
-						outline: none;
-						font-size: 1.1rem;
-						color: white;
-						caret-color: var(--secondary-color);
-
-						&::placeholder {
-							color: var(--secondary-color);
-							opacity: 1;
-						}
-					}
-					.clip-icon {
-						width: 1.5rem;
-						padding: 0.75rem;
-					}
-				}
-
-				.message-submit {
-					width: 4rem;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					color: white;
-					background: var(--primary-color);
-					padding: 1rem;
-					border-radius: 50%;
-					cursor: pointer;
-				}
+				color: white;
+				background: var(--primary-color);
+				padding: 1rem;
+				border-radius: 50%;
+				cursor: pointer;
 			}
 		}
 	}
