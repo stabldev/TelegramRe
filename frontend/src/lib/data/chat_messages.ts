@@ -11,28 +11,28 @@ export const chat_mapping: {
 		{
 			id: 1,
 			sender: 'tokito',
-			message: 'Hi wassup!',
+			message: 'Hi beauty!',
 			time: '2023-09-25T15:35:51.162Z',
 			seen: true
 		},
 		{
 			id: 2,
 			sender: 'tokito',
-			message: 'Its me Tokito',
+			message: 'Do you rememeber me?',
 			time: '2023-09-25T15:35:51.162Z',
 			seen: true
 		},
 		{
 			id: 3,
 			sender: 'anya-forger',
-			message: "Hey! I'm good",
+			message: "Owwh yes",
 			time: '2023-09-25T15:38:51.162Z',
 			seen: true
 		},
 		{
 			id: 4,
 			sender: 'anya-forger',
-			message: 'So wassup',
+			message: 'Hi Tokito',
 			time: '2023-09-25T15:38:51.162Z',
 			seen: true
 		},
@@ -46,46 +46,109 @@ export const chat_mapping: {
 		{
 			id: 6,
 			sender: 'tokito',
-			message: 'Yup! but I miss you :)',
+			message: 'You kind of almost always are on my mind.',
 			time: '2023-09-25T15:35:51.162Z',
-			seen: false
-		}
+			seen: true
+		},
+		{
+			id: 61,
+			sender: 'anya-forger',
+			message: 'Thanks brother',
+			time: '2023-09-25T15:35:51.162Z',
+			seen: true
+		},
+		{
+			id: 62,
+			sender: 'tokito',
+			message: ':")',
+			time: '2023-09-25T15:35:51.162Z',
+			seen: true
+		},
+		{
+			id: 63,
+			sender: 'tokito',
+			message: 'Sure',
+			time: '2023-09-25T15:35:51.162Z',
+			seen: true
+		},
 	],
 	kyouko: [
 		{
 			id: 7,
-			sender: 'kyouko',
-			message: 'Hi',
+			sender: 'tokito',
+			message: 'Hey Kyo!',
 			time: '2023-09-25T15:38:51.162Z',
 			seen: true
 		},
 		{
 			id: 8,
 			sender: 'tokito',
-			message: 'Hey Kyouko!',
-			time: '2023-09-25T15:35:51.162Z',
-			seen: true
-		},
-		{
-			id: 9,
-			sender: 'tokito',
-			message: 'Sorry for what happened yesterday',
+			message: 'Do you remember me?',
 			time: '2023-09-25T15:35:51.162Z',
 			seen: true
 		},
 		{
 			id: 10,
 			sender: 'kyouko',
-			message: 'Yea no worries, could you call me please?',
+			message: 'Uhh sorry?',
 			time: '2023-09-25T15:38:51.162Z',
 			seen: true
 		},
 		{
 			id: 11,
 			sender: 'tokito',
-			message: 'Okay sure',
+			message: ':")',
 			time: '2023-09-25T15:35:51.162Z',
-			seen: false
-		}
+			seen: true
+		},
+		{
+			id: 12,
+			sender: 'tokito',
+			message: 'Its me Tokito',
+			time: '2023-09-25T15:35:51.162Z',
+			seen: true
+		},
+		{
+			id: 13,
+			sender: 'tokito',
+			message: 'I"m a friend of your friend',
+			time: '2023-09-25T15:35:51.162Z',
+			seen: true
+		},
+		{
+			id: 14,
+			sender: 'kyouko',
+			message: 'Owwh okay?',
+			time: '2023-09-25T15:38:51.162Z',
+			seen: true
+		},
+		{
+			id: 15,
+			sender: 'kyouko',
+			message: 'Whats the matter',
+			time: '2023-09-25T15:38:51.162Z',
+			seen: true
+		},
+		{
+			id: 16,
+			sender: 'tokito',
+			message: 'You are so beautiful. You are like a ray of sunshine!',
+			time: '2023-09-25T15:35:51.162Z',
+			seen: true
+		},
+		{
+			id: 17,
+			sender: 'kyouko',
+			message: 'Okay thanks bro',
+			time: '2023-09-25T15:38:51.162Z',
+			seen: true
+		},
+		{
+			id: 18,
+			sender: 'tokito',
+			message: ':")',
+			time: '2023-09-25T15:35:51.162Z',
+			seen: true
+		},
 	]
 };
