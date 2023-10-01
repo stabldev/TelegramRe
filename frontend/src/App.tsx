@@ -1,9 +1,10 @@
 import type { Component } from 'solid-js';
+import Tick from './assets/icons/Tick';
 
 const App: Component = () => {
   return (
     <>
-      <h1>Telegram Redition</h1>
+      <Tick variant='double' />
     </>
   );
 };
