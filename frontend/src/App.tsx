@@ -1,10 +1,12 @@
 import type { Component } from 'solid-js';
-import Tick from './assets/icons/Tick';
+import Sidebar from './components/sidebar';
 
 const App: Component = () => {
   return (
     <>
-      <Tick variant='double' />
+      <main class='w-screen h-screen grid grid-cols-[25vw_1fr]'>
+        <Sidebar />
+      </main>
     </>
   );
 };
