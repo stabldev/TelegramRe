@@ -2,6 +2,7 @@ import { For } from "solid-js";
 import { FormatDate } from "../../functions/format_date";
 import { ProfileItem, ProfileItemType } from "./ProfileItem";
 import SearchHeader from "./SearchHeader";
+import Pencil from "../../assets/icons/Pencil";
 
 const profile_mapping: ProfileItemType[] = [
 	{
@@ -24,13 +25,16 @@ const profile_mapping: ProfileItemType[] = [
 
 export default function Sidebar() {
 	return (
-		<div class="bg-stone-900 w-full">
+		<div class="bg-stone-900 w-full h-screen relative grid grid-rows-[min-content_1fr_min-content]">
 			<SearchHeader />
-			<div>
+			<div class="overflow-y-scroll [scrollbar-width:_thin]">
 				<For each={profile_mapping}>
 					{(profile) => <ProfileItem {...profile} />}
 				</For>
 			</div>
+			<button class="absolute right-[1vw] bottom-[1vw] p-[1.25vw] rounded-full bg-stone-600">
+				<Pencil class="text-white text-[1.5vw]" />
+			</button>
 		</div>
 	);
 };
