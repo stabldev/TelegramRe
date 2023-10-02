@@ -19,10 +19,10 @@ export default function ChatHeader() {
 			</div>
 			{/* Mock icons ( will be replaced ) */}
 			<div class="flex items-center gap-[1vw] text-white/50 text-[1.35vw]">
-				<Search class="cursor-pointer hover:text-white/75 transition-colors" />
-				<Phone class="cursor-pointer hover:text-white/75 transition-colors" />
-				<Split class="cursor-pointer hover:text-white/75 transition-colors" />
-				<Bars class="cursor-pointer hover:text-white/75 transition-colors" variant="dots" />
+				<button><Search class="hover:text-white/75 transition-colors" /></button>
+				<button><Phone class="hover:text-white/75 transition-colors" /></button>
+				<button><Split class="hover:text-white/75 transition-colors" /></button>
+				<button><Bars class="hover:text-white/75 transition-colors" variant="dots" /></button>
 			</div>
 		</div>
 	);
