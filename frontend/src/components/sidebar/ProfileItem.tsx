@@ -16,7 +16,7 @@ export function ProfileItem(props: ProfileItemType) {
 	return (
 		<A
 			href={`/@${props.username}`}
-			class="w-full flex items-center gap-[1vw] px-[1vw] py-[0.75vw] hover:bg-stone-800"
+			class="w-full flex items-center gap-[1vw] px-[1vw] py-[0.75vw] hover:bg-stone-800 select-none"
 			activeClass="bg-stone-700 hover:!bg-stone-700"
 		>
 			<img class="w-[3.5vw] rounded-full" src={props.image} alt={props.name} />
