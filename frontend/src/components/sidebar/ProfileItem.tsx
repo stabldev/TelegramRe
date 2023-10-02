@@ -10,7 +10,7 @@ export type ProfileItemType = {
 	new_message: boolean;
 };
 
-export function ProfileItem(props: ProfileItemType) {
+export const ProfileItem = (props: ProfileItemType) => {
 	const formated_timestamp = new FormatDate(props.timestamp).format_to_relative_time;
 
 	return (

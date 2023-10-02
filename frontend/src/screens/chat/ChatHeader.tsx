@@ -1,9 +1,10 @@
+import { Component } from "solid-js";
 import Bars from "../../assets/icons/Menu";
 import Phone from "../../assets/icons/Phone";
 import Search from "../../assets/icons/Search";
 import Split from "../../assets/icons/Split";
 
-export default function ChatHeader() {
+export const ChatHeader: Component = () => {
 	return (
 		<div class="h-[3.75vw] flex items-center justify-between bg-stone-900 px-[1vw] select-none">
 			<div class="flex items-center gap-[1vw]">

@@ -1,7 +1,7 @@
-import { For } from "solid-js";
+import { Component, For } from "solid-js";
 import { FormatDate } from "../../functions/format_date";
 import { ProfileItem, ProfileItemType } from "./ProfileItem";
-import SearchHeader from "./SearchHeader";
+import { SearchHeader } from "./SearchHeader";
 import Pencil from "../../assets/icons/Pencil";
 
 const profile_mapping: ProfileItemType[] = [
@@ -23,7 +23,7 @@ const profile_mapping: ProfileItemType[] = [
 	}
 ];
 
-export default function Sidebar() {
+const Sidebar: Component = () => {
 	return (
 		<div class="bg-stone-900 w-full h-screen relative grid grid-rows-[min-content_1fr_min-content] border-r-[0.1vw] border-black/50">
 			<SearchHeader />
@@ -38,3 +38,5 @@ export default function Sidebar() {
 		</div>
 	);
 };
+
+export default Sidebar;

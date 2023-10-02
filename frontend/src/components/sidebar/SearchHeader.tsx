@@ -1,7 +1,8 @@
+import { Component } from "solid-js";
 import Menu from "../../assets/icons/Menu";
 import Search from "../../assets/icons/Search";
 
-export default function SearchHeader() {
+export const SearchHeader: Component = () => {
 	return (
 		<div class="h-[3.75vw] flex gap-[1vw] items-center px-[1vw]">
 			<button class="text-white/50 text-[1.25vw] hover:text-white/75 transition-colors">

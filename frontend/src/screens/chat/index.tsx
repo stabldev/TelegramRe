@@ -1,8 +1,9 @@
+import { Component } from "solid-js";
 import { ChatArea } from "./ChatArea";
-import ChatHeader from "./ChatHeader";
+import { ChatHeader } from "./ChatHeader";
 import { ChatInput } from "./ChatInput";
 
-export default function ChatScreen() {
+export const ChatScreen: Component = () => {
 	return (
 		<div class="grid grid-rows-[min-content_1fr_min-content] h-screen">
 			<ChatHeader />
@@ -11,3 +12,5 @@ export default function ChatScreen() {
 		</div>
 	);
 };
+
+export default ChatScreen;
