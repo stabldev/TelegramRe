@@ -14,7 +14,7 @@ export default function ProfileItem(props: ProfileItem) {
 			<div class="flex flex-col">
 				<div class="flex items-center justify-between">
 					<span class="text-[1.1vw] font-medium text-white">{props.name}</span>
-					<span class="text-white/75 text-[1vw]">{props.timestamp}</span>
+					<span class="uppercase text-white/75 text-[0.8vw]">{props.timestamp}</span>
 				</div>
 				<div>
 					<span class="line-clamp-1 text-white/75 text-[1vw]">{props.message}</span>

@@ -1,3 +1,4 @@
+import { FormatDate } from "../../functions/format_date";
 import ProfileItem from "./ProfileItem";
 import SearchHeader from "./SearchHeader";
 
@@ -11,7 +12,7 @@ export default function Sidebar() {
 					name="Anya Forger"
 					username="anya-forger"
 					message="Hi wassup! I've something to tell you, so please reply when you're free"
-					timestamp="2023-09-25T15:38:51.162Z"
+					timestamp={String(new FormatDate("2023-10-02T05:21:26Z").format_to_relative_time)}
 					new_message={false}
 				/>	
 			</div>
