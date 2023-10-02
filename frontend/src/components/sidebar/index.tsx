@@ -25,14 +25,14 @@ const profile_mapping: ProfileItemType[] = [
 
 export default function Sidebar() {
 	return (
-		<div class="bg-stone-900 w-full h-screen relative grid grid-rows-[min-content_1fr_min-content]">
+		<div class="bg-stone-900 w-full h-screen relative grid grid-rows-[min-content_1fr_min-content] border-r-[0.1vw] border-black/50">
 			<SearchHeader />
 			<div class="overflow-y-scroll [scrollbar-width:_thin]">
 				<For each={profile_mapping}>
 					{(profile) => <ProfileItem {...profile} />}
 				</For>
 			</div>
-			<button class="absolute right-[1vw] bottom-[1vw] p-[1.25vw] rounded-full bg-stone-600">
+			<button class="absolute right-[1vw] bottom-[1vw] p-[1.25vw] rounded-full bg-blue-500">
 				<Pencil class="text-white text-[1.5vw]" />
 			</button>
 		</div>

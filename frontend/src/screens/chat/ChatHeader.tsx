@@ -5,7 +5,7 @@ import Split from "../../assets/icons/Split";
 
 export default function ChatHeader() {
 	return (
-		<div class="h-[3.75vw] flex items-center justify-between bg-stone-900 px-[1.5vw] select-none">
+		<div class="h-[3.75vw] flex items-center justify-between bg-stone-900 px-[1vw] select-none">
 			<div class="flex items-center gap-[1vw]">
 				<img
 					src="https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg"
