@@ -1,5 +1,8 @@
 import { Route, Routes } from "@solidjs/router";
-import Chat from "../screens/chat";
+import { lazy } from "solid-js";
+
+// lazy imports
+const Chat = lazy(() => import("../screens/chat"));
 
 export default function AppRouter() {
 	return (
