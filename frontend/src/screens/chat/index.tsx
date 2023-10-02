@@ -1,5 +1,9 @@
+import ChatHeader from "./ChatHeader";
+
 export default function ChatScreen() {
 	return (
-		<h1>ChatScreen</h1>
+		<div>
+			<ChatHeader />
+		</div>
 	);
 };
