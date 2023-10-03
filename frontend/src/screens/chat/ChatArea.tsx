@@ -11,38 +11,39 @@ export const ChatArea = (props: { chat: ChatType[] }) => {
 			};
 			chats: ChatType[]
 		}[] = [];
-		let currentSender: {
+		// store previous data for comparing with new
+		let prevSender: {
 			name: string;
 			image: string;
 		} | null = null;
-		let currentChat: ChatType[] = [];
+		let prevChat: ChatType[] = [];
 
 		chat.forEach((message) => {
-			if (message.name === currentSender?.name) {
-				currentChat.push(message);
+			if (message.name === prevSender?.name) {
+				prevChat.push(message);
 			} else {
-				if (currentSender !== null) {
+				if (prevSender !== null) {
 					groupedChat.push({
 						sender: {
-							name: currentSender.name,
-							image: currentSender.image
+							name: prevSender.name,
+							image: prevSender.image
 						},
-						chats: currentChat
+						chats: prevChat
 					});
 				};
 
-				currentSender = {
+				prevSender = {
 					name: message.name,
 					image: message.image
 				};
-				currentChat = [message];
+				prevChat = [message];
 			};
 		});
 
-		if (currentSender !== null) {
+		if (prevSender !== null) {
 			groupedChat.push({
-				sender: currentSender,
-				chats: currentChat
+				sender: prevSender,
+				chats: prevChat
 			});
 		};
 
