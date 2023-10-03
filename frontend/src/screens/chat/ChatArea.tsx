@@ -68,7 +68,7 @@ export const ChatArea = (props: { chat: ChatType[] }) => {
 							<img
 								src={group.sender.image}
 								alt="anya-forger"
-								class="w-[2.15vw] rounded-full"
+								class="w-[2.15vw] rounded-full select-none"
 							/>
 							<div class="flex flex-col gap-[0.15vw]">
 								<For each={group.chats}>
