@@ -1,55 +1,9 @@
 import { For, Show, createSignal } from "solid-js";
 import { ChatBlock } from "./ChatBlock";
 import { ChatType } from "../../data/mock/chat_messages";
+import { groupChatBySender } from "../../functions/group_chat";
 
 export const ChatArea = (props: { chat: ChatType[] }) => {
-	function groupChatBySender(chat: ChatType[]) {
-		const groupedChat: {
-			sender: {
-				name: string;
-				image: string;
-			};
-			chats: ChatType[]
-		}[] = [];
-		// store previous data for comparing with new
-		let prevSender: {
-			name: string;
-			image: string;
-		} | null = null;
-		let prevChat: ChatType[] = [];
-
-		chat.forEach((message) => {
-			if (message.name === prevSender?.name) {
-				prevChat.push(message);
-			} else {
-				if (prevSender !== null) {
-					groupedChat.push({
-						sender: {
-							name: prevSender.name,
-							image: prevSender.image
-						},
-						chats: prevChat
-					});
-				};
-
-				prevSender = {
-					name: message.name,
-					image: message.image
-				};
-				prevChat = [message];
-			};
-		});
-
-		if (prevSender !== null) {
-			groupedChat.push({
-				sender: prevSender,
-				chats: prevChat
-			});
-		};
-
-		return groupedChat;
-	};
-
 	return (
 		<div
 			class="relative bg-contain overflow-y-scroll [scrollbar-width:_thin] p-[1vw] flex flex-col gap-[0.5vw] justify-end"
@@ -72,10 +26,12 @@ export const ChatArea = (props: { chat: ChatType[] }) => {
 							/>
 							<div class="flex flex-col gap-[0.15vw]">
 								<For each={group.chats}>
-									{(message) => (
+									{(message, i) => (
 										<ChatBlock
 											message={message}
 											self={isSelf}
+											lastMessage={message.name !== group.chats[i() + 1]?.name && group.chats.length !== 1}
+											middleMessage={message.name === group.chats[i() - 1]?.name && message.name === group.chats[i() + 1]?.name}
 										/>
 									)}
 								</For>

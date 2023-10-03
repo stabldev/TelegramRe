@@ -1,8 +1,8 @@
 import { Component, createEffect, createSignal } from "solid-js";
+import { useParams } from "@solidjs/router";
 import { ChatArea } from "./ChatArea";
 import { ChatHeader } from "./ChatHeader";
 import { ChatInput } from "./ChatInput";
-import { useParams } from "@solidjs/router";
 import { ChatType, chat_mapping } from "../../data/mock/chat_messages";
 
 export const ChatScreen: Component = () => {
