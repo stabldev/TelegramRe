@@ -1,10 +1,11 @@
 import { Component, For } from "solid-js";
 import { FormatDate } from "../../functions/format_date";
-import { ProfileItem, ProfileItemType } from "./ProfileItem";
+import { ProfileItem } from "./ProfileItem";
 import { SearchHeader } from "./SearchHeader";
 import Pencil from "../../assets/icons/Pencil";
+import { ProfileItemProps } from "../../types/ProfileItem";
 
-const profile_mapping: ProfileItemType[] = [
+const profile_mapping: ProfileItemProps[] = [
 	{
 		name: "Anya Forger",
 		username: "anya-forger",

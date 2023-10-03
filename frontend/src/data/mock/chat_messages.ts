@@ -1,14 +1,7 @@
-export type ChatType = {
-	id: number;
-	name: string;
-	image: string;
-	content: string;
-	time: string;
-	seen: boolean;
-};
+import { ChatProps } from "../../types/Chat";
 
 export const chat_mapping: {
-	[key: string]: ChatType[];
+	[key: string]: ChatProps[];
 } = {
 	'anya-forger': [
 		{

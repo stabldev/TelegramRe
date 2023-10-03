@@ -1,18 +1,18 @@
-import { ChatType } from "../data/mock/chat_messages";
+import { ChatProps } from "../types/Chat";
 
 type SenderType = {
 	name: string;
 	image: string;
 };
 
-export function groupChatBySender(chat: ChatType[]) {
+export function groupChatBySender(chat: ChatProps[]) {
 	const groupedChat: {
 		sender: SenderType;
-		chats: ChatType[];
+		chats: ChatProps[];
 	}[] = [];
 	// store previous data for comparing with new
 	let prevSender: SenderType | null = null;
-	let prevChat: ChatType[] = [];
+	let prevChat: ChatProps[] = [];
 
 	chat.forEach((message) => {
 		if (message.name === prevSender?.name) {

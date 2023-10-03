@@ -1,10 +1,10 @@
 import { Show } from "solid-js";
 import Tick from "../../assets/icons/Tick";
-import { ChatType } from "../../data/mock/chat_messages";
 import { FormatDate } from "../../functions/format_date";
+import { ChatProps } from "../../types/Chat";
 
 export const ChatBlock = (props: {
-	message: ChatType;
+	message: ChatProps;
 	self: boolean;
 	lastMessage: boolean;
 	middleMessage: boolean;

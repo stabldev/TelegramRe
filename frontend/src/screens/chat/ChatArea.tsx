@@ -1,9 +1,9 @@
 import { For, Show, createSignal } from "solid-js";
 import { ChatBlock } from "./ChatBlock";
-import { ChatType } from "../../data/mock/chat_messages";
 import { groupChatBySender } from "../../functions/group_chat";
+import { ChatProps } from "../../types/Chat";
 
-export const ChatArea = (props: { chat: ChatType[] }) => {
+export const ChatArea = (props: { chat: ChatProps[] }) => {
 	return (
 		<div
 			class="relative bg-contain overflow-y-scroll [scrollbar-width:_thin] p-[1vw] flex flex-col gap-[0.5vw] justify-end"

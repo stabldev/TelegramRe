@@ -3,11 +3,12 @@ import { useParams } from "@solidjs/router";
 import { ChatArea } from "./ChatArea";
 import { ChatHeader } from "./ChatHeader";
 import { ChatInput } from "./ChatInput";
-import { ChatType, chat_mapping } from "../../data/mock/chat_messages";
+import { chat_mapping } from "../../data/mock/chat_messages";
+import { ChatProps } from "../../types/Chat";
 
 export const ChatScreen: Component = () => {
 	const params = useParams<{ username: string; }>();
-	const [chat, setChat] = createSignal<ChatType[]>([]);
+	const [chat, setChat] = createSignal<ChatProps[]>([]);
 
 	createEffect(() => {
 		let matchedChat = Object.entries(chat_mapping).find(([key]) => key === params.username.slice(1));

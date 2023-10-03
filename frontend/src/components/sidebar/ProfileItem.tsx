@@ -1,16 +1,8 @@
 import { A } from "@solidjs/router";
 import { FormatDate } from "../../functions/format_date";
+import { ProfileItemProps } from "../../types/ProfileItem";
 
-export type ProfileItemType = {
-	image: string;
-	name: string;
-	username: string;
-	timestamp: string;
-	message: string;
-	new_message: boolean;
-};
-
-export const ProfileItem = (props: ProfileItemType) => {
+export const ProfileItem = (props: ProfileItemProps) => {
 	const formated_timestamp = new FormatDate(props.timestamp).format_to_relative_time;
 
 	return (
