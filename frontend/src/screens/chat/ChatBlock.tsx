@@ -26,10 +26,12 @@ export const ChatBlock = (props: {
 			<span class="self-end pb-[0.15vw] text-[0.75vw] uppercase text-white/80 select-none">
 				{formatedDate}
 			</span>
-			<Tick
-				variant={message.seen ? "double" : "single"}
-				class={`self-end pb-[0.2vw] text-white ${message.seen ? "text-[1.35vw]" : "text-[1.2vw]"}`}
-			/>
+			<Show when={self}>
+				<Tick
+					variant={message.seen ? "double" : "single"}
+					class={`self-end pb-[0.2vw] text-white ${message.seen ? "text-[1.35vw]" : "text-[1.2vw]"}`}
+				/>
+			</Show>
 		</div>
 	);
 };
