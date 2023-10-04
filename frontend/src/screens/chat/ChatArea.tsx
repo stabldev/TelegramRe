@@ -3,7 +3,7 @@ import { ChatBlock } from "./ChatBlock";
 import { groupChatBySender } from "../../functions/group_chat";
 import { ChatProps } from "../../types/Chat";
 
-export const ChatArea = (props: { chat: ChatProps[] }) => {
+export const ChatArea = (props: { chat: ChatProps[], ref: HTMLDivElement }) => {
 	return (
 		<div
 			class="relative bg-contain flex items-end"
@@ -13,6 +13,7 @@ export const ChatArea = (props: { chat: ChatProps[] }) => {
 			<div class="absolute inset-0 bg-black/95 -z-[9999]"></div>
 
 			<div
+				ref={props.ref}
 				class="pl-[1vw] pt-[5vw] pb-[1vw] flex flex-col gap-[0.5vw] w-full overflow-y-scroll [scrollbar-width:_thin] [scrollbar-color:_rgba(255,255,255,0.1)_transparent]"
 				style={{"max-height": "calc(100vh - 7.5vw)"}}
 			>

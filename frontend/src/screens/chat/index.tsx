@@ -10,6 +10,8 @@ export const ChatScreen: Component = () => {
 	const params = useParams<{ username: string; }>();
 	const [chat, setChat] = createSignal<ChatProps[]>([]);
 
+	let chatAreaRef: HTMLDivElement;
+
 	const handleAddMessage = (evt: CustomEvent) => {
 		const message = evt.detail;
 
@@ -23,6 +25,10 @@ export const ChatScreen: Component = () => {
 		};
 
 		setChat((prev) => [...prev, newChat]);
+		// scroll chat area to bottom
+		chatAreaRef.scrollTo({
+			top: chatAreaRef.scrollHeight
+		});
 	};
 
 	createEffect(() => {
@@ -33,7 +39,10 @@ export const ChatScreen: Component = () => {
 	return (
 		<div class="grid grid-rows-[min-content_1fr_min-content] h-screen">
 			<ChatHeader />
-			<ChatArea chat={chat()} />
+			<ChatArea
+				chat={chat()}
+				ref={chatAreaRef!}
+			/>
 			<ChatInput onMessage={handleAddMessage} />
 		</div>
 	);
