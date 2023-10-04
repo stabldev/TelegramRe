@@ -34,7 +34,15 @@ export const ChatScreen: Component = () => {
 	createEffect(() => {
 		let matchedChat = Object.entries(chat_mapping).find(([key]) => key === params.username.slice(1));
 		if (matchedChat) setChat(matchedChat[1]);
-	}, [params.username])
+
+		// scroll chat area to bottom
+		requestAnimationFrame(() => {
+			chatAreaRef.scrollTo({
+				top: chatAreaRef.scrollHeight,
+				behavior: "smooth"
+			});
+		});
+	}, [params.username]);
 
 	return (
 		<div class="grid grid-rows-[min-content_1fr_min-content] h-screen">
