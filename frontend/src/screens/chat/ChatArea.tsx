@@ -28,11 +28,11 @@ export const ChatArea = (props: Props) => {
 						const isSelf = group.sender.name === "tokito";
 
 						return (
-							<div class="flex items-end gap-[0.65vw]">
+							<div class="relative flex items-end gap-[0.65vw]">
 								<img
 									src={group.sender.image}
 									alt="anya-forger"
-									class="w-[2.15vw] rounded-full select-none"
+									class="sticky bottom-0 w-[2.15vw] rounded-full select-none"
 								/>
 								<div class="flex flex-col gap-[0.15vw]">
 									<For each={group.chats}>
