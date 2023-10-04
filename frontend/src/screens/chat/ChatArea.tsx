@@ -3,7 +3,12 @@ import { ChatBlock } from "./ChatBlock";
 import { groupChatBySender } from "../../functions/group_chat";
 import { ChatProps } from "../../types/Chat";
 
-export const ChatArea = (props: { chat: ChatProps[], ref: HTMLDivElement }) => {
+interface Props {
+	chat: ChatProps[],
+	ref: HTMLDivElement
+};
+
+export const ChatArea = (props: Props) => {
 	return (
 		<div
 			class="relative bg-contain flex items-end"

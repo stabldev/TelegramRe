@@ -3,12 +3,14 @@ import Tick from "../../assets/icons/Tick";
 import { FormatDate } from "../../functions/format_date";
 import { ChatProps } from "../../types/Chat";
 
-export const ChatBlock = (props: {
+interface Props {
 	message: ChatProps;
 	self: boolean;
 	lastMessage: boolean;
 	middleMessage: boolean;
-}) => {
+};
+
+export const ChatBlock = (props: Props) => {
 	// destructure message
 	const { message, self, lastMessage, middleMessage } = props;
 	const formatedDate = new FormatDate(message.time).format_to_relative_time;

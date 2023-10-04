@@ -12,8 +12,8 @@ export const ChatScreen: Component = () => {
 
 	let chatAreaRef: HTMLDivElement;
 
-	const handleAddMessage = (evt: CustomEvent) => {
-		const message = evt.detail;
+	const handleAddMessage = (e: CustomEvent) => {
+		const message = e.detail;
 
 		const newChat: ChatProps = {
 			id: Math.floor(Math.random() * 10000),

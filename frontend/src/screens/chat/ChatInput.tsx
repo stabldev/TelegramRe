@@ -6,15 +6,15 @@ import Mic from "../../assets/icons/Mic";
 import Send from "../../assets/icons/Send";
 
 interface Props {
-  	onMessage: (evt: CustomEvent<string>) => void;
+  	onMessage: (e: CustomEvent<string>) => void;
 };
 
 export const ChatInput = (props: Props) => {
 	const [message, setMessage]: Signal<string> = createSignal("");
 	const dispatch = createEventDispatcher(props);
 
-	const handleSubmit = (evt: SubmitEvent) => {
-		evt.preventDefault();
+	const handleSubmit = (e: SubmitEvent) => {
+		e.preventDefault();
 		dispatch("message", message(), { cancelable: true });
 		// clear input
 		setMessage("");
@@ -30,7 +30,7 @@ export const ChatInput = (props: Props) => {
 			</button>
 			<input
 				value={message()}
-				onInput={(evt) => setMessage(evt.currentTarget.value)}
+				onInput={(e) => setMessage(e.currentTarget.value)}
 				type="type"
 				autocomplete="off"
 				name="message"
