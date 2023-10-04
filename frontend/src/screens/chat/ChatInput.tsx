@@ -37,7 +37,7 @@ export const ChatInput = (props: Props) => {
 				autocomplete="off"
 				name="message"
 				placeholder="Write a message..."
-				class="flex-1 border-none outline-none bg-transparent text-white text-[1vw]"
+				class="flex-1 h-full border-none outline-none bg-transparent text-white text-[1vw]"
 			/>
 			<button
 				type="button"
