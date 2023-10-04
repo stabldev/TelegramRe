@@ -1,4 +1,4 @@
-import { Show, Signal, createSignal } from "solid-js";
+import { Show, createSignal } from "solid-js";
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import Clip from "../../assets/icons/Clip";
 import Emoji from "../../assets/icons/Emoji";
@@ -10,14 +10,16 @@ interface Props {
 };
 
 export const ChatInput = (props: Props) => {
-	const [message, setMessage]: Signal<string> = createSignal("");
+	const [message, setMessage] = createSignal<string>("");
 	const dispatch = createEventDispatcher(props);
 
 	const handleSubmit = (e: SubmitEvent) => {
 		e.preventDefault();
+		// if no value then dont add empty message
+		if (!message()) return;
+		// else dispatch custom event
 		dispatch("message", message(), { cancelable: true });
-		// clear input
-		setMessage("");
+		setMessage(""); // clear input
 	};
 
 	return (
