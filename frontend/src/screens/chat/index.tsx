@@ -10,6 +10,21 @@ export const ChatScreen: Component = () => {
 	const params = useParams<{ username: string; }>();
 	const [chat, setChat] = createSignal<ChatProps[]>([]);
 
+	const handleAddMessage = (evt: CustomEvent) => {
+		const message = evt.detail;
+
+		const newChat: ChatProps = {
+			id: Math.floor(Math.random() * 10000),
+			name: "tokito",
+			image: "https://avatars.githubusercontent.com/u/114811070?v=4",
+			content: message,
+			time: new Date().toISOString(),
+			seen: false
+		};
+
+		setChat((prev) => [...prev, newChat]);
+	};
+
 	createEffect(() => {
 		let matchedChat = Object.entries(chat_mapping).find(([key]) => key === params.username.slice(1));
 		if (matchedChat) setChat(matchedChat[1]);
@@ -19,7 +34,7 @@ export const ChatScreen: Component = () => {
 		<div class="grid grid-rows-[min-content_1fr_min-content] h-screen">
 			<ChatHeader />
 			<ChatArea chat={chat()} />
-			<ChatInput />
+			<ChatInput onMessage={handleAddMessage} />
 		</div>
 	);
 };

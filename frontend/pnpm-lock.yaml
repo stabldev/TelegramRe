@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@solid-primitives/event-dispatcher':
+    specifier: ^0.0.105
+    version: 0.0.105(solid-js@1.7.6)
   '@solidjs/router':
     specifier: ^0.8.3
     version: 0.8.3(solid-js@1.7.6)
@@ -703,6 +706,14 @@ packages:
       '@solid-primitives/utils': 6.2.0(solid-js@1.7.6)
       solid-js: 1.7.6
     dev: true
+
+  /@solid-primitives/event-dispatcher@0.0.105(solid-js@1.7.6):
+    resolution: {integrity: sha512-VWHULLNKc4kuuhIY9UcmgacUun+RQXMRx3dLXv+T1a2YjB1RJQ5mrygJvqx+rX8tIUIYPX12XNSJoTX2g36Djw==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      solid-js: 1.7.6
+    dev: false
 
   /@solid-primitives/event-listener@2.2.13(solid-js@1.7.6):
     resolution: {integrity: sha512-8GtVEq0ECZoa5Klo1jjfGPfwg0zVJ8TNnNkWu8FqRkh0CkhbhCVJAKwjleem9K/qL6zUDfJihLjhqGBTBbb+8w==}

@@ -1,17 +1,22 @@
-import { Component, Show, Signal, createSignal } from "solid-js";
+import { Show, Signal, createSignal } from "solid-js";
+import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import Clip from "../../assets/icons/Clip";
 import Emoji from "../../assets/icons/Emoji";
 import Mic from "../../assets/icons/Mic";
 import Send from "../../assets/icons/Send";
 
-export const ChatInput: Component = () => {
+interface Props {
+  	onMessage: (evt: CustomEvent<string>) => void;
+};
+
+export const ChatInput = (props: Props) => {
 	const [message, setMessage]: Signal<string> = createSignal("");
+	const dispatch = createEventDispatcher(props);
 
-	const handleSubmit = (event: SubmitEvent) => {
-		event.preventDefault();
-		/* logic for adding message */
-
-		/* logic for adding message */
+	const handleSubmit = (evt: SubmitEvent) => {
+		evt.preventDefault();
+		dispatch("message", message(), { cancelable: true });
+		// clear input
 		setMessage("");
 	};
 
@@ -25,7 +30,7 @@ export const ChatInput: Component = () => {
 			</button>
 			<input
 				value={message()}
-				onInput={(e) => setMessage(e.currentTarget.value)}
+				onInput={(evt) => setMessage(evt.currentTarget.value)}
 				type="type"
 				autocomplete="off"
 				name="message"
