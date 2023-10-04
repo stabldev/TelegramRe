@@ -1,6 +1,6 @@
 import type { Component } from 'solid-js';
 import Sidebar from './components/sidebar';
-import AppRouter from "./router";
+import { AppRouter } from "./router";
 
 const App: Component = () => {
     return (
