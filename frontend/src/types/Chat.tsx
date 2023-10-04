@@ -4,5 +4,5 @@ export type ChatProps = {
 	image: string;
 	content: string;
 	time: string;
-	seen: boolean;
+	status: "seen" | "send" | "sending";
 };

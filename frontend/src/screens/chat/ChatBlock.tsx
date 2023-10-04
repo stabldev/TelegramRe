@@ -1,7 +1,8 @@
-import { Show } from "solid-js";
+import { Match, Show, Switch } from "solid-js";
 import Tick from "../../assets/icons/Tick";
 import { FormatDate } from "../../functions/format_date";
 import { ChatProps } from "../../types/Chat";
+import CLock from "../../assets/icons/Clock";
 
 interface Props {
 	message: ChatProps;
@@ -29,10 +30,22 @@ export const ChatBlock = (props: Props) => {
 				{formatedDate}
 			</span>
 			<Show when={self}>
-				<Tick
-					variant={message.seen ? "double" : "single"}
-					class={`self-end pb-[0.2vw] text-white ${message.seen ? "text-[1.35vw]" : "text-[1.2vw]"}`}
-				/>
+				<Switch fallback={
+					<CLock class="self-end pb-[0.2vw] text-white text-[1.2vw]" />
+				}>
+					<Match when={message.status === "seen"}>
+						<Tick
+							variant="double"
+							class="self-end pb-[0.2vw] text-white text-[1.35vw]"
+						/>
+					</Match>
+					<Match when={message.status === "send"}>
+						<Tick
+							variant="single"
+							class="self-end pb-[0.2vw] text-white text-[1.2vw]"
+						/>
+					</Match>
+				</Switch>
 			</Show>
 		</div>
 	);

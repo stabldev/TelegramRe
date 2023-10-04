@@ -21,7 +21,7 @@ export const ChatScreen: Component = () => {
 			image: "https://avatars.githubusercontent.com/u/114811070?v=4",
 			content: message,
 			time: new Date().toISOString(),
-			seen: false
+			status: "sending"
 		};
 
 		setChat((prev) => [...prev, newChat]);
