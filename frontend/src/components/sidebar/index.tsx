@@ -18,7 +18,7 @@ const profile_mapping: ProfileItemProps[] = [
 		name: "Toshinou Kyouko",
 		username: "kyouko",
 		image: "https://pbs.twimg.com/media/D2v3DBuXQAAMFIb.jpg",
-		message: "Here is my gift for your birthday <3",
+		message: "Goodbye, Tokito! Have a great day!",
 		timestamp: "2023-10-01T05:21:26Z",
 		new_message: false
 	}
