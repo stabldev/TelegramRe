@@ -11,11 +11,11 @@ interface Props {
 };
 
 export const ChatArea = (props: Props) => {
-	const [showScrollBtn, setShowScrollBtn] = createSignal(false);
+	const [scrollEndReached, setScrollEndReached] = createSignal(false);
 
 	const handleScroll = (e: UIEvent) => {
 		const { scrollTop, scrollHeight, clientHeight } = e.target as HTMLDivElement;
-		setShowScrollBtn(Math.abs(scrollHeight - clientHeight - scrollTop) < 1);
+		setScrollEndReached(Math.abs(scrollHeight - clientHeight - scrollTop) < 1);
 	};
 
 	const scrollChatArea = (e: MouseEvent) => {
@@ -63,9 +63,12 @@ export const ChatArea = (props: Props) => {
 				</For>
 			</div>
 			<button
-				hidden={showScrollBtn()}
-				class="absolute right-[1vw] bottom-[1vw] p-[0.5vw] rounded-full bg-stone-800"
 				onClick={scrollChatArea}
+				class="absolute right-[1vw] bottom-[1vw] p-[0.5vw] rounded-full bg-stone-800 transition-opacity"
+				style={{
+					"opacity": scrollEndReached() ? 0 : 100,
+					"pointer-events": scrollEndReached() ? "none" : "auto"
+				}}
 			>
 				<Arrow
 					variant="down"
