@@ -1,6 +1,9 @@
-export function scrollToBottom(el: HTMLElement, smooth: boolean) {
+export const scrollToBottom = (
+	el: HTMLElement,
+	options: { behavior: "smooth" | "instant" }
+) => {
 	el.scrollTo({
 		top: el.scrollHeight,
-		behavior: smooth ? "smooth" : "instant"
+		behavior: options.behavior,
 	});
 };

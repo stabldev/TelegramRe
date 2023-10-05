@@ -22,7 +22,7 @@ export const ChatArea = (props: Props) => {
 		const target = e.target as HTMLButtonElement;
 		const chatAreaEl = target.parentElement?.previousElementSibling as HTMLDivElement;
 
-		scrollToBottom(chatAreaEl, true);
+		scrollToBottom(chatAreaEl, { behavior: "smooth" });
 	};
 
 	return (

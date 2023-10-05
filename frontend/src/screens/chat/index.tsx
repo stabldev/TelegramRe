@@ -27,7 +27,7 @@ export const ChatScreen: Component = () => {
 
 		setChat((prev) => [...prev, newChat]);
 		// scroll chat area to bottom
-		scrollToBottom(chatAreaRef, false);
+		scrollToBottom(chatAreaRef, { behavior: "instant" });
 	};
 
 	createEffect(() => {
@@ -36,7 +36,7 @@ export const ChatScreen: Component = () => {
 
 		// scroll chat area to bottom
 		requestAnimationFrame(() => {
-			scrollToBottom(chatAreaRef, false);
+			scrollToBottom(chatAreaRef, { behavior: "instant" });
 		});
 	}, [params.username]);
 
