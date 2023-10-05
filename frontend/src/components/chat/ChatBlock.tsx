@@ -1,8 +1,8 @@
 import { Match, Show, Switch } from "solid-js";
-import Tick from "../../assets/icons/Tick";
 import { FormatDate } from "../../functions/format_date";
 import { ChatProps } from "../../types/Chat";
 import CLock from "../../assets/icons/Clock";
+import Tick from "../../assets/icons/Tick";
 
 interface Props {
 	message: ChatProps;

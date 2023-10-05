@@ -1,11 +1,11 @@
 import { For, Show, createSignal } from "solid-js";
-import { ChatBlock } from "./ChatBlock";
 import { groupChatBySender } from "../../functions/group_chat";
 import { ChatProps } from "../../types/Chat";
+import { ChatBlock } from "../../components/chat/ChatBlock";
 
 interface Props {
-	chat: ChatProps[],
-	ref: HTMLDivElement
+	chat: ChatProps[];
+	ref: HTMLDivElement;
 };
 
 export const ChatArea = (props: Props) => {
