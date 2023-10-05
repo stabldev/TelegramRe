@@ -18,7 +18,7 @@ export const ChatArea = (props: Props) => {
 		setShowScrollBtn(Math.abs(scrollHeight - clientHeight - scrollTop) < 1);
 	};
 
-	function scrollChatArea(e: MouseEvent) {
+	const scrollChatArea = (e: MouseEvent) => {
 		const target = e.target as HTMLButtonElement;
 		const chatAreaEl = target.parentElement?.previousElementSibling as HTMLDivElement;
 
