@@ -26,8 +26,13 @@ export const ChatScreen: Component = () => {
 
 		setChat((prev) => [...prev, newChat]);
 		// scroll chat area to bottom
-		chatAreaRef.scrollTo({
-			top: chatAreaRef.scrollHeight
+		scrollToBottom(chatAreaRef, false);
+	};
+
+	function scrollToBottom(el: HTMLElement, smooth: boolean) {
+		el.scrollTo({
+			top: el.scrollHeight,
+			behavior: smooth ? "smooth" : "instant"
 		});
 	};
 
@@ -37,10 +42,7 @@ export const ChatScreen: Component = () => {
 
 		// scroll chat area to bottom
 		requestAnimationFrame(() => {
-			chatAreaRef.scrollTo({
-				top: chatAreaRef.scrollHeight,
-				behavior: "smooth"
-			});
+			scrollToBottom(chatAreaRef, false);
 		});
 	}, [params.username]);
 
