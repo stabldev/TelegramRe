@@ -3,6 +3,7 @@ import { groupChatBySender } from "../../functions/group_chat";
 import { ChatProps } from "../../types/Chat";
 import { ChatBlock } from "../../components/chat/ChatBlock";
 import Arrow from "../../assets/icons/Arrow";
+import { scrollToBottom } from "../../functions/scroll_to_bottom";
 
 interface Props {
 	chat: ChatProps[];
@@ -21,10 +22,7 @@ export const ChatArea = (props: Props) => {
 		const target = e.target as HTMLButtonElement;
 		const chatAreaEl = target.parentElement?.previousElementSibling as HTMLDivElement;
 
-		chatAreaEl.scrollTo({
-			top: chatAreaEl.scrollHeight,
-			behavior: "smooth"
-		});
+		scrollToBottom(chatAreaEl, true);
 	};
 
 	return (
@@ -66,7 +64,7 @@ export const ChatArea = (props: Props) => {
 			</div>
 			<button
 				hidden={showScrollBtn()}
-				class="absolute right-[1vw] bottom-[1vw] p-[0.75vw] rounded-full bg-stone-800"
+				class="absolute right-[1vw] bottom-[1vw] p-[0.5vw] rounded-full bg-stone-800"
 				onClick={scrollChatArea}
 			>
 				<Arrow
