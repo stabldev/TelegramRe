@@ -10,13 +10,7 @@ interface Props {
 
 export const ChatArea = (props: Props) => {
 	return (
-		<div
-			class="relative bg-contain flex items-end"
-			style={{"background-image": "url(https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/pattern-20.svg)"}}
-		>
-			{/*dark overlay for background-image*/}
-			<div class="absolute inset-0 bg-black/95 -z-[9999]"></div>
-
+		<div class="flex items-end">
 			<div
 				ref={props.ref}
 				class="pl-[1vw] pt-[5vw] pb-[1vw] flex flex-col gap-[0.5vw] w-full overflow-y-scroll [scrollbar-width:_thin] [scrollbar-color:_rgba(255,255,255,0.1)_transparent]"
