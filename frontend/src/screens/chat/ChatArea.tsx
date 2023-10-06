@@ -2,8 +2,6 @@ import { For, Show, createEffect, createSignal } from "solid-js";
 import { groupChatBySender } from "../../functions/group_chat";
 import { ChatProps } from "../../types/Chat";
 import { ChatBlock } from "../../components/chat/ChatBlock";
-import Arrow from "../../assets/icons/Arrow";
-import { scrollToBottom } from "../../functions/scroll_to_bottom";
 
 interface Props {
 	chat: ChatProps[];
@@ -11,27 +9,12 @@ interface Props {
 };
 
 export const ChatArea = (props: Props) => {
-	const [scrollEndReached, setScrollEndReached] = createSignal(false);
-
-	const handleScroll = (e: UIEvent) => {
-		const { scrollTop, scrollHeight, clientHeight } = e.target as HTMLDivElement;
-		setScrollEndReached(Math.abs(scrollHeight - clientHeight - scrollTop) < 1);
-	};
-
-	const scrollChatArea = (e: MouseEvent) => {
-		const target = e.target as HTMLButtonElement;
-		const chatAreaEl = target.parentElement?.previousElementSibling as HTMLDivElement;
-
-		scrollToBottom(chatAreaEl, { behavior: "smooth" });
-	};
-
 	return (
 		<div class="relative flex items-end">
 			<div
 				ref={props.ref}
 				class="pl-[1vw] pt-[5vw] pb-[1vw] flex flex-col gap-[0.5vw] w-full overflow-y-scroll [scrollbar-width:_thin] [scrollbar-color:_rgba(255,255,255,0.1)_transparent]"
 				style={{"max-height": "calc(100vh - 7.5vw)"}}
-				onScroll={handleScroll}
 			>
 				<For each={groupChatBySender(props.chat)}>
 					{(group) => {
@@ -62,19 +45,6 @@ export const ChatArea = (props: Props) => {
 					}}
 				</For>
 			</div>
-			<button
-				onClick={scrollChatArea}
-				class="absolute right-[1vw] bottom-[1vw] p-[0.5vw] rounded-full bg-stone-800 transition-opacity"
-				style={{
-					"opacity": scrollEndReached() ? 0 : 100,
-					"pointer-events": scrollEndReached() ? "none" : "auto"
-				}}
-			>
-				<Arrow
-					variant="down"
-					class="text-white/50 text-[2vw]"
-				/>
-			</button>
 		</div>
 	);
 };
