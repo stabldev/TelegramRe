@@ -5,9 +5,12 @@ import { Component, lazy } from "solid-js";
 const Chat = lazy(() => import("../screens/chat"));
 
 export const AppRouter: Component = () => {
-	return (
-		<Routes>
-			<Route path="/:username" component={Chat} />
-		</Routes>
-	);
+  return (
+    <Routes>
+      <Route
+        path="/:username"
+        component={Chat}
+      />
+    </Routes>
+  );
 };
