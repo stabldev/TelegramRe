@@ -14,9 +14,6 @@ dependencies:
   solid-js:
     specifier: ^1.7.6
     version: 1.7.6
-  solid-textarea-autosize:
-    specifier: ^0.0.5
-    version: 0.0.5(solid-js@1.7.6)
 
 devDependencies:
   autoprefixer:
@@ -28,6 +25,9 @@ devDependencies:
   solid-devtools:
     specifier: ^0.27.3
     version: 0.27.3(solid-js@1.7.6)(vite@4.4.11)
+  solid-textarea-autosize:
+    specifier: ^0.0.5
+    version: 0.0.5(solid-js@1.7.6)
   tailwindcss:
     specifier: ^3.3.3
     version: 3.3.3
@@ -1565,7 +1565,7 @@ packages:
       solid-js: '>=1.0.0'
     dependencies:
       solid-js: 1.7.6
-    dev: false
+    dev: true
 
   /source-map-js@1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
