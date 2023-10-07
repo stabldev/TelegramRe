@@ -13,6 +13,7 @@ interface Props {
 export const ChatInput = (props: Props) => {
 	const [message, setMessage] = createSignal<string>("");
 	const dispatch = createEventDispatcher(props);
+	let inputRef: HTMLTextAreaElement;
 
 	const handleSubmit = (e?: SubmitEvent) => {
 		e?.preventDefault();
@@ -21,6 +22,7 @@ export const ChatInput = (props: Props) => {
 		// else dispatch custom event
 		dispatch("message", message(), { cancelable: true });
 		setMessage(""); // clear input
+		inputRef.focus();
 	};
 
 	const handleKeyDown = (e: KeyboardEvent) => {
@@ -39,6 +41,7 @@ export const ChatInput = (props: Props) => {
 				<Clip />
 			</button>
 			<TextareaAutosize
+				ref={(ref) => inputRef = ref}
 				value={message()}
 				onInput={(e) => setMessage(e.currentTarget.value)}
 				onKeyDown={handleKeyDown}
