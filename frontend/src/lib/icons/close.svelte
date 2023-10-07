@@ -1,8 +1,0 @@
-<script lang="ts">
-	import type { SVGAttributes } from "svelte/elements";
-	type $$Props = SVGAttributes<SVGElement>;
-</script>
-
-<svg {...$$props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-	<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144m224 0L144 368"/>
-</svg>
