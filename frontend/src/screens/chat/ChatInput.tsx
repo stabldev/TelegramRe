@@ -14,13 +14,20 @@ export const ChatInput = (props: Props) => {
 	const [message, setMessage] = createSignal<string>("");
 	const dispatch = createEventDispatcher(props);
 
-	const handleSubmit = (e: SubmitEvent) => {
-		e.preventDefault();
+	const handleSubmit = (e?: SubmitEvent) => {
+		e?.preventDefault();
 		// if no value then dont add empty message
 		if (!message()) return;
 		// else dispatch custom event
 		dispatch("message", message(), { cancelable: true });
 		setMessage(""); // clear input
+	};
+
+	const handleKeyDown = (e: KeyboardEvent) => {
+		if (e.key === "Enter" && !e.shiftKey) {
+			e.preventDefault();
+			handleSubmit();
+		};
 	};
 
 	return (
@@ -34,10 +41,12 @@ export const ChatInput = (props: Props) => {
 			<TextareaAutosize
 				value={message()}
 				onInput={(e) => setMessage(e.currentTarget.value)}
+				onKeyDown={handleKeyDown}
 				class="resize-none flex-1 border-none outline-none bg-transparent text-white text-[1vw] [scrollbar-width:none]"
 				placeholder="Write a message..."
 				maxRows={5}
 			/>
+
 			<button
 				type="button"
 				class="text-[1.5vw] text-white/50 hover:text-white/75 transition-colors"
