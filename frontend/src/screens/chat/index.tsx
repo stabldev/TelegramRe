@@ -43,7 +43,7 @@ export const ChatScreen: Component = () => {
 	}, [params.username]);
 
 	return (
-		<div class="relative w-full h-full">
+		<div class="relative grid grid-rows-[min-content_1fr]">
 			<ChatHeader />
 			<ChatArea
 				chat={chat()}
