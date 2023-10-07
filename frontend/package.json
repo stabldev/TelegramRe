@@ -21,6 +21,7 @@
   "dependencies": {
     "@solid-primitives/event-dispatcher": "^0.0.105",
     "@solidjs/router": "^0.8.3",
-    "solid-js": "^1.7.6"
+    "solid-js": "^1.7.6",
+    "solid-textarea-autosize": "^0.0.5"
   }
 }

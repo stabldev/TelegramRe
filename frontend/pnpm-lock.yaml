@@ -14,6 +14,9 @@ dependencies:
   solid-js:
     specifier: ^1.7.6
     version: 1.7.6
+  solid-textarea-autosize:
+    specifier: ^0.0.5
+    version: 0.0.5(solid-js@1.7.6)
 
 devDependencies:
   autoprefixer:
@@ -1555,6 +1558,14 @@ packages:
       '@babel/types': 7.22.5
       solid-js: 1.7.6
     dev: true
+
+  /solid-textarea-autosize@0.0.5(solid-js@1.7.6):
+    resolution: {integrity: sha512-le/X+VLr4G3PEE/gZuKBDNqh5e9OoNiIYIN0fSebAuOABxJIY/Eh/9rjDEMB8DbPdeD/wHIVk4Wd9zBvFFIt1A==}
+    peerDependencies:
+      solid-js: '>=1.0.0'
+    dependencies:
+      solid-js: 1.7.6
+    dev: false
 
   /source-map-js@1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}

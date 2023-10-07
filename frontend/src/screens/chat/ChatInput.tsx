@@ -1,5 +1,6 @@
 import { Show, createSignal } from "solid-js";
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
+import TextareaAutosize from "solid-textarea-autosize";
 import Clip from "../../assets/icons/Clip";
 import Emoji from "../../assets/icons/Emoji";
 import Mic from "../../assets/icons/Mic";
@@ -23,21 +24,19 @@ export const ChatInput = (props: Props) => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit} class="h-[3.75vw] flex gap-[1vw] items-center bg-stone-900 px-[1vw]">
+		<form onSubmit={handleSubmit} class="absolute bottom-0 w-full flex gap-[1vw] items-end bg-stone-900 p-[1vw]">
 			<button
 				type="button"
 				class="text-[1.75vw] text-white/50 hover:text-white/75 transition-colors"
 			>
 				<Clip />
 			</button>
-			<input
+			<TextareaAutosize
 				value={message()}
 				onInput={(e) => setMessage(e.currentTarget.value)}
-				type="type"
-				autocomplete="off"
-				name="message"
+				class="resize-none flex-1 border-none outline-none bg-transparent text-white text-[1vw] [scrollbar-width:none]"
 				placeholder="Write a message..."
-				class="flex-1 h-full border-none outline-none bg-transparent text-white text-[1vw]"
+				maxRows={5}
 			/>
 			<button
 				type="button"
