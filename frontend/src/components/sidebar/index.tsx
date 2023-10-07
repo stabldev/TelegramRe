@@ -1,5 +1,4 @@
 import { Component, For } from "solid-js";
-import { FormatDate } from "../../functions/format_date";
 import { ProfileItem } from "./ProfileItem";
 import { SearchHeader } from "./SearchHeader";
 import Pencil from "../../assets/icons/Pencil";

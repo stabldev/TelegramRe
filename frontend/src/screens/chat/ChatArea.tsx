@@ -1,4 +1,4 @@
-import { For, Show, createEffect, createSignal } from "solid-js";
+import { For } from "solid-js";
 import { groupChatBySender } from "../../functions/group_chat";
 import { ChatProps } from "../../types/Chat";
 import { ChatBlock } from "../../components/chat/ChatBlock";

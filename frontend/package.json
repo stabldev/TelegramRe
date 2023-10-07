@@ -12,11 +12,12 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@solid-primitives/event-dispatcher": "^0.0.105",
     "@solidjs/router": "^0.8.3",
     "solid-js": "^1.7.6"
   },
   "devDependencies": {
+    "@solid-primitives/destructure": "^0.1.14",
+    "@solid-primitives/event-dispatcher": "^0.0.105",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
     "autoprefixer": "^10.4.16",

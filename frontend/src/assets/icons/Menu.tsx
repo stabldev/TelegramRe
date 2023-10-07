@@ -12,7 +12,7 @@ export default function Bars(props: VariantIcon) {
           stroke-width="0"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
-          style={{"overflow":"visible"}}
+          style={{ overflow: "visible" }}
           height="1em"
           width="1em"
         >
@@ -26,7 +26,7 @@ export default function Bars(props: VariantIcon) {
         stroke-width="0"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 448 512"
-        style={{"overflow":"visible"}}
+        style={{ overflow: "visible" }}
         height="1em"
         width="1em"
       >

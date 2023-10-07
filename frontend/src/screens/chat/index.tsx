@@ -42,7 +42,7 @@ export const ChatScreen: Component = () => {
     requestAnimationFrame(() => {
       scrollToBottom(chatAreaRef, { behavior: "instant" });
     });
-  }, );
+  });
 
   return (
     <div class="relative grid grid-rows-[min-content_1fr]">

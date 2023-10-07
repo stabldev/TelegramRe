@@ -8,7 +8,7 @@ export default function CLock(props: Icon) {
       stroke-width="0"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 1024 1024"
-      style={{"overflow":"visible"}}
+      style={{ overflow: "visible" }}
       height="1em"
       width="1em"
     >
