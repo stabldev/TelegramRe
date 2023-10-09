@@ -1,4 +1,4 @@
-import { Show, createSignal, onMount } from "solid-js";
+import { Show, createSignal } from "solid-js";
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import TextareaAutosize from "solid-textarea-autosize";
 import Clip from "../../assets/icons/Clip";
@@ -8,7 +8,7 @@ import Send from "../../assets/icons/Send";
 
 interface Props {
   onMessage: (e: CustomEvent<string>) => void;
-}
+};
 
 export const ChatInput = (props: Props) => {
   const [message, setMessage] = createSignal<string>("");
@@ -29,17 +29,8 @@ export const ChatInput = (props: Props) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSubmit();
-    }
-  };
-
-  onMount(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === "\\") inputRef.focus();
     };
-
-    document.body.addEventListener("keypress", handleKeyPress, true);
-    return document.body.addEventListener("keypress", handleKeyPress, true);
-  });
+  };
 
   return (
     <form
@@ -61,9 +52,6 @@ export const ChatInput = (props: Props) => {
         placeholder="Write a message..."
         maxRows={5}
       />
-      <span class="grid aspect-square h-[1.5vw] select-none place-items-center rounded-[0.25vw] bg-stone-800 text-[0.75vw] text-white/75">
-        \\
-      </span>
       <button
         type="button"
         class="text-[1.5vw] text-white/50 transition-colors hover:text-white/75"
