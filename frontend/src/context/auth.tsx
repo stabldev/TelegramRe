@@ -1,13 +1,19 @@
-import { Accessor, JSX, createContext, createSignal, useContext } from "solid-js";
+import {
+	Accessor,
+	JSX,
+	createContext,
+	createSignal,
+	useContext
+} from "solid-js";
 
 const AuthContext = createContext<AuthStore>();
 
 type AuthStore = [
 	user: Accessor<{
-		id: number,
-		username: string,
-		name: string,
-		image: string
+		id: number;
+		username: string;
+		name: string;
+		image: string;
 	}>
 ];
 
@@ -26,8 +32,8 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 			{props.children}
 		</AuthContext.Provider>
 	);
-};
+}
 
 export function useAuth() {
 	return useContext(AuthContext)!;
-};
+}

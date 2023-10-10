@@ -9,53 +9,53 @@ import { scrollToBottom } from "../../functions/scroll_to_bottom";
 import { useAuth } from "../../context/auth";
 
 export const ChatScreen: Component = () => {
-  const params = useParams<{ username: string }>();
-  const [chat, setChat] = createSignal<ChatProps[]>([]);
-  const [user] = useAuth();
+	const params = useParams<{ username: string }>();
+	const [chat, setChat] = createSignal<ChatProps[]>([]);
+	const [user] = useAuth();
 
-  let chatAreaRef: HTMLDivElement;
+	let chatAreaRef: HTMLDivElement;
 
-  const handleAddMessage = (e: CustomEvent) => {
-    const message = e.detail;
+	const handleAddMessage = (e: CustomEvent) => {
+		const message = e.detail;
 
-    const newChat: ChatProps = {
-      id: Math.floor(Math.random() * 10000),
-      username: user().username,
-      image: "https://avatars.githubusercontent.com/u/114811070?v=4",
-      content: message,
-      time: new Date().toISOString(),
-      status: "sending"
-    };
+		const newChat: ChatProps = {
+			id: Math.floor(Math.random() * 10000),
+			username: user().username,
+			image: "https://avatars.githubusercontent.com/u/114811070?v=4",
+			content: message,
+			time: new Date().toISOString(),
+			status: "sending"
+		};
 
-    setChat((prev) => [...prev, newChat]);
-    // scroll chat area to bottom
-    requestAnimationFrame(() => {
-      scrollToBottom(chatAreaRef, { behavior: "instant" });
-    });
-  };
+		setChat((prev) => [...prev, newChat]);
+		// scroll chat area to bottom
+		requestAnimationFrame(() => {
+			scrollToBottom(chatAreaRef, { behavior: "instant" });
+		});
+	};
 
-  createEffect(() => {
-    const matchedChat = Object.entries(chat_mapping).find(
-      ([key]) => key === params.username.slice(1)
-    );
-    if (matchedChat) setChat(matchedChat[1]);
+	createEffect(() => {
+		const matchedChat = Object.entries(chat_mapping).find(
+			([key]) => key === params.username.slice(1)
+		);
+		if (matchedChat) setChat(matchedChat[1]);
 
-    // scroll chat area to bottom
-    requestAnimationFrame(() => {
-      scrollToBottom(chatAreaRef, { behavior: "instant" });
-    });
-  });
+		// scroll chat area to bottom
+		requestAnimationFrame(() => {
+			scrollToBottom(chatAreaRef, { behavior: "instant" });
+		});
+	});
 
-  return (
-    <div class="relative grid grid-rows-[min-content_1fr]">
-      <ChatHeader />
-      <ChatArea
-        chat={chat()}
-        ref={chatAreaRef!}
-      />
-      <ChatInput onMessage={handleAddMessage} />
-    </div>
-  );
+	return (
+		<div class="relative grid grid-rows-[min-content_1fr]">
+			<ChatHeader />
+			<ChatArea
+				chat={chat()}
+				ref={chatAreaRef!}
+			/>
+			<ChatInput onMessage={handleAddMessage} />
+		</div>
+	);
 };
 
 export default ChatScreen;
