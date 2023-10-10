@@ -1,6 +1,6 @@
 export type ChatProps = {
   id: number;
-  name: string;
+  username: string;
   image: string;
   content: string;
   time: string;

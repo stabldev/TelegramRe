@@ -1,7 +1,7 @@
 import { ChatProps } from "../types/Chat";
 
 type SenderType = {
-  name: string;
+  username: string;
   image: string;
 };
 
@@ -15,13 +15,13 @@ export function groupChatBySender(chat: ChatProps[]) {
   let prevChat: ChatProps[] = [];
 
   chat.forEach((message) => {
-    if (message.name === prevSender?.name) {
+    if (message.username === prevSender?.username) {
       prevChat.push(message);
     } else {
       if (prevSender !== null) {
         groupedChat.push({
           sender: {
-            name: prevSender.name,
+            username: prevSender.username,
             image: prevSender.image
           },
           chats: prevChat
@@ -29,7 +29,7 @@ export function groupChatBySender(chat: ChatProps[]) {
       }
 
       prevSender = {
-        name: message.name,
+        username: message.username,
         image: message.image
       };
       prevChat = [message];

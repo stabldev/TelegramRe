@@ -6,10 +6,12 @@ import { ChatInput } from "./ChatInput";
 import { chat_mapping } from "../../data/mock/chat_messages";
 import { ChatProps } from "../../types/Chat";
 import { scrollToBottom } from "../../functions/scroll_to_bottom";
+import { useAuth } from "../../context/auth";
 
 export const ChatScreen: Component = () => {
   const params = useParams<{ username: string }>();
   const [chat, setChat] = createSignal<ChatProps[]>([]);
+  const [user] = useAuth();
 
   let chatAreaRef: HTMLDivElement;
 
@@ -18,7 +20,7 @@ export const ChatScreen: Component = () => {
 
     const newChat: ChatProps = {
       id: Math.floor(Math.random() * 10000),
-      name: "tokito",
+      username: user().username,
       image: "https://avatars.githubusercontent.com/u/114811070?v=4",
       content: message,
       time: new Date().toISOString(),
