@@ -5,8 +5,7 @@ import { destructure } from "@solid-primitives/destructure";
 
 export const ProfileItem = (props: ProfileItemProps) => {
 	const { image, message, name, timestamp, username } = destructure(props);
-	const formated_timestamp = new FormatDate(timestamp())
-		.format_to_relative_time;
+	const formated_timestamp = new FormatDate(timestamp()).format_to_relative_time;
 
 	return (
 		<A
@@ -21,17 +20,11 @@ export const ProfileItem = (props: ProfileItemProps) => {
 			/>
 			<div class="flex w-full flex-col">
 				<div class="flex items-center justify-between">
-					<span class="text-[1.1vw] font-medium text-white">
-						{name()}
-					</span>
-					<span class="text-[0.8vw] uppercase text-white/75">
-						{formated_timestamp}
-					</span>
+					<span class="text-[1.1vw] font-medium text-white">{name()}</span>
+					<span class="text-[0.8vw] uppercase text-white/75">{formated_timestamp}</span>
 				</div>
 				<div>
-					<span class="line-clamp-1 text-[1vw] text-white/75">
-						{message()}
-					</span>
+					<span class="line-clamp-1 text-[1vw] text-white/75">{message()}</span>
 				</div>
 			</div>
 		</A>

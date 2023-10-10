@@ -14,12 +14,8 @@ export const ChatHeader: Component = () => {
 					class="w-[2.5vw] rounded-full"
 				/>
 				<div class="flex flex-col gap-[0.25vw] leading-none">
-					<span class="text-[1vw] font-medium text-white">
-						Anya Forger
-					</span>
-					<span class="text-[0.9vw] text-white/50">
-						last seen recently
-					</span>
+					<span class="text-[1vw] font-medium text-white">Anya Forger</span>
+					<span class="text-[0.9vw] text-white/50">last seen recently</span>
 				</div>
 			</div>
 			{/* Mock icons ( will be replaced ) */}

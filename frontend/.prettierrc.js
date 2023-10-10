@@ -7,6 +7,6 @@ module.exports = {
 	singleAttributePerLine: true,
 	htmlWhitespaceSensitivity: "ignore",
 	arrowParens: "always",
-	printWidth: 80,
+	printWidth: 400,
 	plugins: ["prettier-plugin-tailwindcss"]
 };

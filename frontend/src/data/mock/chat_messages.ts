@@ -226,8 +226,7 @@ export const chat_mapping: {
 			id: 19,
 			username: "tokitouq",
 			image: "https://avatars.githubusercontent.com/u/114811070?v=4",
-			content:
-				"Do you have any recommendations for a new anime to watch?",
+			content: "Do you have any recommendations for a new anime to watch?",
 			time: "2023-09-26T10:55:36.162Z",
 			status: "seen"
 		},

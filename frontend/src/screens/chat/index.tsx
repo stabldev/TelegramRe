@@ -35,9 +35,7 @@ export const ChatScreen: Component = () => {
 	};
 
 	createEffect(() => {
-		const matchedChat = Object.entries(chat_mapping).find(
-			([key]) => key === params.username.slice(1)
-		);
+		const matchedChat = Object.entries(chat_mapping).find(([key]) => key === params.username.slice(1));
 		if (matchedChat) setChat(matchedChat[1]);
 
 		// scroll chat area to bottom
