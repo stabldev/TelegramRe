@@ -5,6 +5,12 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@solid-primitives/destructure':
+    specifier: ^0.1.14
+    version: 0.1.14(solid-js@1.8.1)
+  '@solid-primitives/event-dispatcher':
+    specifier: ^0.0.105
+    version: 0.0.105(solid-js@1.8.1)
   '@solidjs/meta':
     specifier: ^0.28.6
     version: 0.28.6(solid-js@1.8.1)
@@ -1638,6 +1644,31 @@ packages:
 
   /@sideway/pinpoint@2.0.0:
     resolution: {integrity: sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ==}
+
+  /@solid-primitives/destructure@0.1.14(solid-js@1.8.1):
+    resolution: {integrity: sha512-zZh4ndBerokw+MKqjkp00PPnpZs9nfferQxkBlr3yvNTu4OoxmnRJciYNC1tYsGKRrFGJoHf31rgVedTLfXssA==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      '@solid-primitives/utils': 6.2.1(solid-js@1.8.1)
+      solid-js: 1.8.1
+    dev: false
+
+  /@solid-primitives/event-dispatcher@0.0.105(solid-js@1.8.1):
+    resolution: {integrity: sha512-VWHULLNKc4kuuhIY9UcmgacUun+RQXMRx3dLXv+T1a2YjB1RJQ5mrygJvqx+rX8tIUIYPX12XNSJoTX2g36Djw==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      solid-js: 1.8.1
+    dev: false
+
+  /@solid-primitives/utils@6.2.1(solid-js@1.8.1):
+    resolution: {integrity: sha512-TsecNzxiO5bLfzqb4OOuzfUmdOROcssuGqgh5rXMMaasoFZ3GoveUgdY1wcf17frMJM7kCNGNuK34EjErneZkg==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      solid-js: 1.8.1
+    dev: false
 
   /@solidjs/meta@0.28.6(solid-js@1.8.1):
     resolution: {integrity: sha512-mplUfmp7tjGgDTiVbEAqkWDLpr0ZNyR1+OOETNyJt759MqPzh979X3oJUk8SZisGII0BNycmHDIGc0Shqx7bIg==}
