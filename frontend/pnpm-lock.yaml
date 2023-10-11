@@ -34,6 +34,9 @@ devDependencies:
   solid-start-node:
     specifier: ^0.3.6
     version: 0.3.6(solid-start@0.3.6)(vite@4.4.11)
+  solid-textarea-autosize:
+    specifier: ^0.0.5
+    version: 0.0.5(solid-js@1.8.1)
   tailwindcss:
     specifier: ^3.3.3
     version: 3.3.3
@@ -3086,6 +3089,14 @@ packages:
     transitivePeerDependencies:
       - '@nuxt/kit'
       - supports-color
+
+  /solid-textarea-autosize@0.0.5(solid-js@1.8.1):
+    resolution: {integrity: sha512-le/X+VLr4G3PEE/gZuKBDNqh5e9OoNiIYIN0fSebAuOABxJIY/Eh/9rjDEMB8DbPdeD/wHIVk4Wd9zBvFFIt1A==}
+    peerDependencies:
+      solid-js: '>=1.0.0'
+    dependencies:
+      solid-js: 1.8.1
+    dev: true
 
   /source-map-js@1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
