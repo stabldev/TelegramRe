@@ -9,9 +9,7 @@ type User = {
 	image: string;
 };
 
-type AuthStore = [
-	user: Accessor<User | undefined>
-];
+type AuthStore = [user: Accessor<User | undefined>];
 
 export function AuthProvider(props: { children?: JSX.Element }) {
 	const [user, setUser] = createSignal<User | undefined>();
