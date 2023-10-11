@@ -1,8 +1,8 @@
 import { Component } from "solid-js";
-import Bars from "../../assets/icons/Menu";
-import Phone from "../../assets/icons/Phone";
-import Search from "../../assets/icons/Search";
-import Split from "../../assets/icons/Split";
+import Bars from "~/icons/Menu";
+import Phone from "~/icons/Phone";
+import Search from "~/icons/Search";
+import Split from "~/icons/Split";
 
 export const ChatHeader: Component = () => {
 	return (

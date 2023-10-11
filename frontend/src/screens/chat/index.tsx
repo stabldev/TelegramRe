@@ -1,12 +1,12 @@
 import { Component, createEffect, createSignal } from "solid-js";
 import { useParams } from "@solidjs/router";
-import { ChatArea } from "./ChatArea";
 import { ChatHeader } from "./ChatHeader";
 import { ChatInput } from "./ChatInput";
-import { chat_mapping } from "../../data/mock/chat_messages";
-import { ChatProps } from "../../types/Chat";
-import { scrollToBottom } from "../../functions/scroll_to_bottom";
-import { useAuth } from "../../context/auth";
+import { ChatArea } from "./ChatArea";
+import { chat_mapping } from "~/data/mock/chat_messages";
+import { ChatProps } from "~/types/Chat";
+import { scrollToBottom } from "~/functions/scroll_to_bottom";
+import { useAuth } from "~/context/auth";
 
 export const ChatScreen: Component = () => {
 	const params = useParams<{ username: string }>();
@@ -20,7 +20,7 @@ export const ChatScreen: Component = () => {
 
 		const newChat: ChatProps = {
 			id: Math.floor(Math.random() * 10000),
-			username: user().username,
+			username: user()!.username,
 			image: "https://avatars.githubusercontent.com/u/114811070?v=4",
 			content: message,
 			time: new Date().toISOString(),
@@ -30,7 +30,7 @@ export const ChatScreen: Component = () => {
 		setChat((prev) => [...prev, newChat]);
 		// scroll chat area to bottom
 		requestAnimationFrame(() => {
-			scrollToBottom(chatAreaRef, { behavior: "instant" });
+			scrollToBottom(chatAreaRef, { behavior: "auto" });
 		});
 	};
 
@@ -40,7 +40,7 @@ export const ChatScreen: Component = () => {
 
 		// scroll chat area to bottom
 		requestAnimationFrame(() => {
-			scrollToBottom(chatAreaRef, { behavior: "instant" });
+			scrollToBottom(chatAreaRef, { behavior: "auto" });
 		});
 	});
 

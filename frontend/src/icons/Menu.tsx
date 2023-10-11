@@ -1,7 +1,7 @@
 import { Show } from "solid-js";
-import { VariantIcon } from "../../types/Icon";
+import { VariantIcon } from "~/types/Icon";
 
-export default function Bars(props: VariantIcon) {
+export default function Menu(props: VariantIcon) {
 	return (
 		<Show
 			when={props.variant === "bars"}

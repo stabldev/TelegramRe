@@ -1,4 +1,4 @@
-import { Icon } from "../../types/Icon";
+import { Icon } from "~/types/Icon";
 
 export default function Split(props: Icon) {
 	return (

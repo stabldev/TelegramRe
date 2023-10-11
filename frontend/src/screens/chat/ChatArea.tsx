@@ -1,8 +1,8 @@
 import { For } from "solid-js";
-import { groupChatBySender } from "../../functions/group_chat";
-import { ChatProps } from "../../types/Chat";
-import { ChatBlock } from "../../components/chat/ChatBlock";
-import { useAuth } from "../../context/auth";
+import { groupChatBySender } from "~/functions/group_chat";
+import { ChatProps } from "~/types/Chat";
+import { ChatBlock } from "~/components/chat/ChatBlock";
+import { useAuth } from "~/context/auth";
 
 interface Props {
 	chat: ChatProps[];

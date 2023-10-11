@@ -1,7 +1,7 @@
-import { A } from "@solidjs/router";
-import { FormatDate } from "../../functions/format_date";
-import { ProfileItemProps } from "../../types/ProfileItem";
+import { A } from "solid-start";
 import { destructure } from "@solid-primitives/destructure";
+import { FormatDate } from "~/functions/format_date";
+import { ProfileItemProps } from "~/types/ProfileItem";
 
 export const ProfileItem = (props: ProfileItemProps) => {
 	const { image, message, name, timestamp, username } = destructure(props);

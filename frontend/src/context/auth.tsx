@@ -1,22 +1,27 @@
-import { Accessor, JSX, createContext, createSignal, useContext } from "solid-js";
+import { Accessor, JSX, createContext, createSignal, useContext, createEffect } from "solid-js";
 
 const AuthContext = createContext<AuthStore>();
 
-type AuthStore = [
-	user: Accessor<{
-		id: number;
-		username: string;
-		name: string;
-		image: string;
-	}>
-];
+type User = {
+	id: number;
+	username: string;
+	name: string;
+	image: string;
+};
+
+type AuthStore = [user: Accessor<User | undefined>];
 
 export function AuthProvider(props: { children?: JSX.Element }) {
-	const [user, setUser] = createSignal({
-		id: 1,
-		username: "tokitouq",
-		name: "Tokito",
-		image: "https://avatars.githubusercontent.com/u/114811070?v=4"
+	const [user, setUser] = createSignal<User | undefined>();
+
+	createEffect(() => {
+		// fetch from backend
+		setUser({
+			id: 1,
+			username: "tokitouq",
+			name: "Tokito",
+			image: "https://avatars.githubusercontent.com/u/114811070?v=4"
+		});
 	});
 
 	const context_value: AuthStore = [user];

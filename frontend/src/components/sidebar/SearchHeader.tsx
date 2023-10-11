@@ -1,6 +1,6 @@
 import { Component } from "solid-js";
-import Menu from "../../assets/icons/Menu";
-import Search from "../../assets/icons/Search";
+import Menu from "~/icons/Menu";
+import Search from "~/icons/Search";
 
 export const SearchHeader: Component = () => {
 	return (
