@@ -5,6 +5,7 @@ from django.db import models
 
 class CustomUser(AbstractUser):
 	# extra fields
+	is_verified = models.BooleanField(default=False)
 	bio = models.TextField(blank=True)
 	avatar = models.ImageField(
 		upload_to="avatar/",

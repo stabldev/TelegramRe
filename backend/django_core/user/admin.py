@@ -14,15 +14,17 @@ class CustomUserAdmin(UserAdmin):
 		"get_username",
 		"first_name",
 		"last_name",
-		"is_staff"
+		"is_verified",
+		"is_staff",
 	)
 
 	list_filter = (
+		"is_verified",
 		"is_active",
-		"is_staff"
+		"is_staff",
 	)
 
 	readonly_fields =  (
 		"date_joined",
-		"last_login"
+		"last_login",
 	)
