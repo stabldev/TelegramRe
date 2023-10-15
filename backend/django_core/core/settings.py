@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # User above django auth
-    "user",
+    "apps.user",
     # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
