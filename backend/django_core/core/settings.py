@@ -32,14 +32,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # User above django auth
+    "user",
+    # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Apps
-    "user",
+    # 3rd party django apps
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
