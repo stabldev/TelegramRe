@@ -124,6 +124,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Media files ( Images, Videos )
+# https://docs.djangoproject.com/en/4.2/howto/static-files/#serving-uploaded-files-in-development
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = Path(BASE_DIR, "media")
 
