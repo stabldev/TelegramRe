@@ -11,7 +11,7 @@
 	"devDependencies": {
 		"@solid-primitives/destructure": "^0.1.14",
 		"@solid-primitives/event-dispatcher": "^0.0.105",
-		"@typescript-eslint/eslint-plugin": "^6.7.5",
+		"@typescript-eslint/eslint-plugin": "^6.8.0",
 		"@typescript-eslint/parser": "^6.7.5",
 		"autoprefixer": "^10.4.15",
 		"eslint": "^8.51.0",
