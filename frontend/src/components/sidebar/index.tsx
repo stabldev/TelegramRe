@@ -25,14 +25,16 @@ const profile_mapping: ProfileItemProps[] = [
 
 const Sidebar: Component = () => {
 	return (
-		<div class="relative grid h-screen w-full grid-rows-[min-content_1fr_min-content] border-r-[0.1vw] border-black/50 bg-stone-900">
-			<SearchHeader />
-			<div class="overflow-y-scroll [scrollbar-width:_thin]">
-				<For each={profile_mapping}>{(profile) => <ProfileItem {...profile} />}</For>
+		<div class="">
+			<div class="relative grid h-screen w-full grid-rows-[min-content_1fr_min-content] border-r-[0.1vw] border-black/50 bg-stone-900">
+				<SearchHeader />
+				<div class="overflow-y-scroll [scrollbar-width:_thin] px-[1vw] flex flex-col gap-[0.5vw]">
+					<For each={profile_mapping}>{(profile) => <ProfileItem {...profile} />}</For>
+				</div>
+				<button class="absolute bottom-[1vw] right-[1vw] rounded-full bg-blue-500 p-[1.25vw]">
+					<Pencil class="text-[1.5vw] text-white" />
+				</button>
 			</div>
-			<button class="absolute bottom-[1vw] right-[1vw] rounded-full bg-blue-500 p-[1.25vw]">
-				<Pencil class="text-[1.5vw] text-white" />
-			</button>
 		</div>
 	);
 };
