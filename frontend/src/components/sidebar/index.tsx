@@ -27,7 +27,7 @@ const Sidebar: Component = () => {
 	return (
 		<div class="relative grid h-screen w-full grid-rows-[min-content_1fr_min-content] border-r-[0.1vw] border-black/50 bg-stone-900">
 			<SearchHeader />
-			<div class="overflow-y-scroll [scrollbar-width:_thin]">
+			<div class="overflow-y-scroll [scrollbar-width:_thin] px-[1vw]">
 				<For each={profile_mapping}>{(profile) => <ProfileItem {...profile} />}</For>
 			</div>
 			<button class="absolute bottom-[1vw] right-[1vw] rounded-full bg-blue-500 p-[1.25vw]">
