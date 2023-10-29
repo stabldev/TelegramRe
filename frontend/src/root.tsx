@@ -1,7 +1,6 @@
 // @refresh reload
 import { Suspense } from "solid-js";
 import { Body, ErrorBoundary, FileRoutes, Head, Html, Meta, Routes, Scripts, Title } from "solid-start";
-import Sidebar from "./components/sidebar";
 import { AuthProvider } from "./context/auth";
 import "./root.css";
 
