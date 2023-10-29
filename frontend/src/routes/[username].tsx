@@ -1,5 +1,10 @@
+import { DefaultLayout } from "~/layouts/default_layout";
 import ChatScreen from "~/screens/chat";
 
 export default function Username() {
-	return <ChatScreen />;
+	return (
+		<DefaultLayout>
+			<ChatScreen />
+		</DefaultLayout>
+	)
 }
