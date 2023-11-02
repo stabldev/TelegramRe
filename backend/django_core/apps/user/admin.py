@@ -9,86 +9,82 @@ from .models import CustomUser
 
 USER_MODEL: type[CustomUser] = get_user_model()
 
+
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
-	add_form = CustomUserCreationForm
-	form = CustomUserChangeForm
-	model = USER_MODEL
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
+    model = USER_MODEL
 
-	list_display = (
-		"get_username",
-		"first_name",
-		"last_name",
-		"is_verified",
-		"is_staff",
-	)
+    list_display = (
+        "get_username",
+        "first_name",
+        "last_name",
+        "is_verified",
+        "is_staff",
+    )
 
-	list_filter = (
-		"is_verified",
-		"is_active",
-		"is_staff",
-	)
+    list_filter = (
+        "is_verified",
+        "is_active",
+        "is_staff",
+    )
 
-	readonly_fields =  (
-		"date_joined",
-		"last_login",
-	)
+    readonly_fields = (
+        "date_joined",
+        "last_login",
+    )
 
-	# Overrite fieldsets to include additional fields
-	fieldsets = (
+    # Overrite fieldsets to include additional fields
+    fieldsets = (
         (
-        	None,
-        	{
-        		'fields': (
-    				'username',
-    				'password',
-    			)
-        	},
+            None,
+            {
+                "fields": (
+                    "username",
+                    "password",
+                )
+            },
         ),
         (
-        	_('Personal info'),
-    		{
-    			'fields': (
-    				'first_name',
-    				'last_name',
-    				'email',
-    				'avatar',
-    				'bio',
-    				'is_verified',
-    			)
-    		}
-    	),
-        (
-        	_('Permissions'),
-        	{
-        		'fields': (
-        			'is_active',
-        			'is_staff',
-        			'is_superuser',
-        			'groups',
-        			'user_permissions'
-        		)
-        	}
+            _("Personal info"),
+            {
+                "fields": (
+                    "first_name",
+                    "last_name",
+                    "email",
+                    "avatar",
+                    "bio",
+                    "is_verified",
+                )
+            },
         ),
         (
-        	_('Date and time'),
-        	{
-        		'fields': (
-        			'last_login',
-        			'date_joined'
-        		)
-        	}
+            _("Permissions"),
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                )
+            },
         ),
-	)
+        (_("Date and time"), {"fields": ("last_login", "date_joined")}),
+    )
 
-	# Overrite add_fieldsets to include additional fields
-	add_fieldsets = (
-		((None, {
-            'classes': ('wide',),
-            'fields': (
-            	'username',
-            	'password1',
-            	'password2',
-            ),
-        }),)
-	)
+    # Overrite add_fieldsets to include additional fields
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "username",
+                    "password1",
+                    "password2",
+                ),
+            },
+        ),
+    )
