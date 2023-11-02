@@ -5,15 +5,21 @@ import dynamic_filenames
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('user', '0004_customuser_is_verified'),
+        ("user", "0004_customuser_is_verified"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='customuser',
-            name='avatar',
-            field=models.ImageField(blank=True, default=None, null=True, upload_to=dynamic_filenames.FilePattern(filename_pattern='avatar/{uuid:s}{ext}')),
+            model_name="customuser",
+            name="avatar",
+            field=models.ImageField(
+                blank=True,
+                default=None,
+                null=True,
+                upload_to=dynamic_filenames.FilePattern(
+                    filename_pattern="avatar/{uuid:s}{ext}"
+                ),
+            ),
         ),
     ]

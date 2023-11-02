@@ -4,12 +4,14 @@ from .models import CustomUser
 
 USER_MODEL: type[CustomUser] = get_user_model()
 
+
 class CustomUserChangeForm(UserChangeForm):
-	class Meta:
-		model = USER_MODEL
-		fields = "__all__"
+    class Meta:
+        model = USER_MODEL
+        fields = "__all__"
+
 
 class CustomUserCreationForm(UserCreationForm):
-	class Meta:
-		model = USER_MODEL
-		fields = "__all__"
+    class Meta:
+        model = USER_MODEL
+        fields = "__all__"
