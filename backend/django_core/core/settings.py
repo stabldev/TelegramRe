@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 3rd party django apps
     'django_cleanup.apps.CleanupConfig',
+    # Custom apps
+    'apps.chat',
 ]
 
 MIDDLEWARE = [
