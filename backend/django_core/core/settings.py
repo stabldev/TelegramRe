@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     # 3rd party django apps
     "django_cleanup.apps.CleanupConfig",
     # Custom apps
+    "apps.api",
     "apps.chat",
 ]
 
