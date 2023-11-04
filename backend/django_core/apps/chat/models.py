@@ -25,10 +25,10 @@ class ChatMessage(models.Model):
 
 	@property
 	def get_sender(self):
-		sender = next(iter(CustomUser.objects.filter(id=self.user.id)), None)
+		sender = CustomUser.objects.filter(id=self.sender.id).first()
 		return sender
 
 	@property
 	def get_reciever(self):
-		reciever = next(iter(CustomUser.objects.filter(id=self.user.id)), None)
+		reciever = CustomUser.objects.filter(id=self.reciever.id).first()
 		return reciever
