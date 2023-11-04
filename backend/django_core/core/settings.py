@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 3rd party django apps
     "django_cleanup.apps.CleanupConfig",
+    # Django rest
+    "rest_framework",
     # Custom apps
     "apps.api",
     "apps.chat",
