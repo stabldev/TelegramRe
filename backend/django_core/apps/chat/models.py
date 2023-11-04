@@ -1,12 +1,12 @@
 from django.db import models
 
-from django_core.apps.user.models import CustomUser
+from apps.user.models import CustomUser
 
 # Create your models here.
 class ChatMessage(models.Model):
-	user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, related_name="user")
-	sender = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, related_name="sender")
-	reciever = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, related_name="reciever")
+	user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name="user")
+	sender = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name="sender")
+	reciever = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name="reciever")
 
 	message = models.TextField()
 	is_read = models.BooleanField(default=False)
