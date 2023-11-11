@@ -27,6 +27,7 @@ class CustomUserAdmin(UserAdmin):
     # return username starts with '@'
     def get_custom_username(self, obj):
         return f"@{obj.username}"
+
     get_custom_username.short_description = "username"
 
     list_filter = (

@@ -10,4 +10,5 @@ class ChatMessageAdmin(admin.ModelAdmin):
 
     def get_message(self, obj):
         return f"{obj.message[0:50]}..."
+
     get_message.short_description = "message"
