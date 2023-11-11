@@ -2,8 +2,9 @@ from django.db import models
 
 from apps.user.models import CustomUser
 
-# Create your models here.
+
 class ChatMessage(models.Model):
+    # fmt: off
 	user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name="user")
 	sender = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name="sender")
 	reciever = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name="reciever")
@@ -11,6 +12,7 @@ class ChatMessage(models.Model):
 	message = models.TextField()
 	is_read = models.BooleanField(default=False)
 	date = models.DateTimeField(auto_now_add=True)
+	# fmt: off
 
 	class Meta:
 		# DB
