@@ -17,12 +17,17 @@ class CustomUserAdmin(UserAdmin):
     model = USER_MODEL
 
     list_display = (
-        "get_username",
+        "get_custom_username",
         "first_name",
         "last_name",
         "is_verified",
         "is_staff",
     )
+
+    # return username starts with '@'
+    def get_custom_username(self, obj):
+        return f"@{obj.username}"
+    get_custom_username.short_description = "username"
 
     list_filter = (
         "is_verified",
