@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from apps.user.models import CustomUser
+from apps.chat.models import ChatMessage
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -18,3 +19,8 @@ class ProfileSerializer(serializers.ModelSerializer):
             "last_login",
             "date_joined",
         ]
+
+class ChatMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChatMessage
+        fields = "__all__"
