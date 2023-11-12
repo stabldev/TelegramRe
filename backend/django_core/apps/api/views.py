@@ -44,3 +44,18 @@ class InboxView(generics.ListAPIView):
         ).order_by("-id")
 
         return messages
+
+
+class MessagesView(generics.ListAPIView):
+    serializer_class = ChatMessageSerializer
+
+    def get_queryset(self):
+        sender_id = self.kwargs["sender_id"]
+        reciever_id = self.kwargs["reciever_id"]
+
+        messages = ChatMessage.objects.filter(
+            Q(sender__in=[sender_id, reciever_id])
+            | Q(reciever__in=[sender_id, reciever_id])
+        )
+
+        return messages
