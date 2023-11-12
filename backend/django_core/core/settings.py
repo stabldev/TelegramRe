@@ -14,11 +14,13 @@ import os
 from pathlib import Path
 
 import django_stubs_ext
+
 # https://github.com/wemake-services/wemake-django-template/blob/5bf1569e2710e11befc6991893f94419136d74bd/%7B%7Bcookiecutter.project_name%7D%7D/server/settings/__init__.py#L14-L19
 django_stubs_ext.monkeypatch()
 
 
 from dotenv import load_dotenv
+
 # Load env variables
 load_dotenv()
 
