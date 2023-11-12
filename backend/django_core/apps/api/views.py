@@ -54,8 +54,6 @@ class MessagesView(generics.ListAPIView):
         reciever_id = self.kwargs["reciever_id"]
 
         messages = ChatMessage.objects.filter(
-            Q(sender__in=[sender_id, reciever_id])
-            | Q(reciever__in=[sender_id, reciever_id])
+            sender__in=[sender_id, reciever_id], reciever__in=[sender_id, reciever_id]
         )
-
         return messages
