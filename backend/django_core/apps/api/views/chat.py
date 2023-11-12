@@ -40,6 +40,7 @@ class InboxView(generics.ListAPIView):
 
 class MessagesView(generics.ListAPIView):
     serializer_class = ChatMessageSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         sender_id = self.kwargs["sender_id"]
