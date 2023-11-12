@@ -1,15 +1,16 @@
 from django.urls import path
 
-from apps.api import views
+from apps.api.views.chat import InboxView, MessagesView
+from apps.api.views.user import ProfileDetailView
 
 urlpatterns = [
-    # Chat
-    path("inbox/<int:pk>/", views.InboxView.as_view(), name="inbox"),
+    # chat views
+    path("inbox/<int:pk>/", InboxView.as_view(), name="inbox"),
     path(
         "messages/<int:sender_id>/<int:reciever_id>/",
-        views.MessagesView.as_view(),
+        MessagesView.as_view(),
         name="messages",
     ),
-    # Profile
-    path("user/<int:pk>/", views.ProfileDetailView.as_view(), name="profile_view"),
+    # user views
+    path("user/<int:pk>/", ProfileDetailView.as_view(), name="profile_view"),
 ]
