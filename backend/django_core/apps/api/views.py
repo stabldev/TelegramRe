@@ -17,6 +17,7 @@ class ProfileDetailView(generics.RetrieveAPIView):
 
 class InboxView(generics.ListAPIView):
     serializer_class = ChatMessageSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         user_id = self.kwargs.get("pk")
