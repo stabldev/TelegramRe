@@ -7,7 +7,6 @@ from apps.api.serializers import ChatMessageSerializer
 from apps.user.models import CustomUser
 from apps.chat.models import ChatMessage
 
-
 class InboxView(generics.ListAPIView):
     serializer_class = ChatMessageSerializer
     permission_classes = [IsAuthenticated]
