@@ -20,6 +20,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "date_joined",
         ]
 
+
 class ChatMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatMessage
