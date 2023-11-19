@@ -19,6 +19,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             "last_login",
             "date_joined",
         ]
+        read_only_fields = ["last_login", "date_joined"]
 
 
 class ChatMessageSerializer(serializers.ModelSerializer):
