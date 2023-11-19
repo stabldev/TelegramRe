@@ -18,3 +18,8 @@ class APITests(TestCase):
 		response = self.client.get(url)
 		# check response status code
 		self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+	def test_search_user(self):
+		url = reverse("search-user", kwargs={"username": self.test_user.username})
+		response = self.client.get(url)
+		self.assertEqual(response.status_code, status.HTTP_200_OK)
