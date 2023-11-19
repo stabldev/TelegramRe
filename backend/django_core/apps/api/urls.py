@@ -20,7 +20,7 @@ urlpatterns = [
     ])),
     # user views
     path("users/", include([
-        path("<int:pk>/", UserDetailView.as_view(), name="profile_view"),
+        path("<int:pk>/", UserDetailView.as_view(), name="user"),
         path("search/<str:username>/", SearchUserView.as_view(), name="search-user"),
     ])),
 ]
