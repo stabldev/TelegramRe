@@ -3,7 +3,7 @@ from django.db.models import Q, OuterRef, Subquery
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
-from apps.api.serializers import ChatMessageSerializer, CustomUserSerializer
+from apps.api.serializers import ChatMessageSerializer
 from apps.user.models import CustomUser
 from apps.chat.models import ChatMessage
 
