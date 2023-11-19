@@ -21,3 +21,18 @@ class UserDetailView(generics.RetrieveUpdateAPIView):
         else:
             serializer.validated_data["avatar"] = instance.avatar
             serializer.save()
+
+class SearchUserView(generics.ListAPIView):
+    serializer_class = CustomUserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        username = self.kwargs["username"]
+        request_user = self.request.user
+
+        search_users = CustomUser.objects.filter(
+            Q(username__icontains=username) |
+            Q(first_name__icontains=username)
+        ).exclude(id=request_user.id)
+
+        return search_users
