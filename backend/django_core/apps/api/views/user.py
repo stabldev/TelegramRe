@@ -8,7 +8,16 @@ from apps.api.serializers import CustomUserSerializer
 from apps.user.models import CustomUser
 
 
-class ProfileDetailView(generics.RetrieveAPIView):
+class UserDetailView(generics.RetrieveUpdateAPIView):
     serializer_class = CustomUserSerializer
     queryset = CustomUser.objects.all()
     permission_classes = [IsAuthenticated]
+
+    def perform_update(self, serializer):
+        instance = self.get_object()
+
+        if "avatar" in self.request.FILES:
+            serializer.save()
+        else:
+            serializer.validated_data["avatar"] = instance.avatar
+            serializer.save()

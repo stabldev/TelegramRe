@@ -1,7 +1,7 @@
 from django.urls import path
 
 from apps.api.views.chat import InboxView, MessagesView, SendMessageView, UpdateMessageView
-from apps.api.views.user import ProfileDetailView
+from apps.api.views.user import UserDetailView
 
 urlpatterns = [
     # chat views
@@ -14,5 +14,5 @@ urlpatterns = [
     path("send-message/", SendMessageView.as_view(), name="send-message"),
     path("update-message/<int:pk>/", UpdateMessageView.as_view(), name="update-message"),
     # user views
-    path("user/<int:pk>/", ProfileDetailView.as_view(), name="profile_view"),
+    path("user/<int:pk>/", UserDetailView.as_view(), name="profile_view"),
 ]
