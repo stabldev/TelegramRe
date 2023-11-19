@@ -34,7 +34,6 @@ class InboxView(generics.ListAPIView):
                 .order_by("-id")
             )
         ).order_by("-id")
-
         return messages
 
 
