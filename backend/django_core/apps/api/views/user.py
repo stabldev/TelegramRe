@@ -22,6 +22,7 @@ class UserDetailView(generics.RetrieveUpdateAPIView):
             serializer.validated_data["avatar"] = instance.avatar
             serializer.save()
 
+
 class SearchUserView(generics.ListAPIView):
     serializer_class = CustomUserSerializer
     permission_classes = [IsAuthenticated]
@@ -31,8 +32,7 @@ class SearchUserView(generics.ListAPIView):
         request_user = self.request.user
 
         search_users = CustomUser.objects.filter(
-            Q(username__icontains=username) |
-            Q(first_name__icontains=username)
+            Q(username__icontains=username) | Q(first_name__icontains=username)
         ).exclude(id=request_user.id)
 
         return search_users
