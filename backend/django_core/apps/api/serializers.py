@@ -4,7 +4,7 @@ from apps.user.models import CustomUser
 from apps.chat.models import ChatMessage
 
 
-class ProfileSerializer(serializers.ModelSerializer):
+class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = [
