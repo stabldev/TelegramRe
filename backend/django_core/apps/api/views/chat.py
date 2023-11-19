@@ -48,3 +48,12 @@ class MessagesView(generics.ListAPIView):
         return ChatMessage.objects.filter(
             sender__in=[sender_id, reciever_id], reciever__in=[sender_id, reciever_id]
         )
+
+
+class SendMessageView(generics.CreateAPIView):
+    serializer_class = ChatMessageSerializer
+
+
+class UpdateMessageView(generics.RetrieveUpdateAPIView):
+    queryset = ChatMessage.objects.all()
+    serializer_class = ChatMessageSerializer

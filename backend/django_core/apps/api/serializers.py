@@ -4,7 +4,7 @@ from apps.user.models import CustomUser
 from apps.chat.models import ChatMessage
 
 
-class ProfileSerializer(serializers.ModelSerializer):
+class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = [
@@ -19,6 +19,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             "last_login",
             "date_joined",
         ]
+        read_only_fields = ["last_login", "date_joined"]
 
 
 class ChatMessageSerializer(serializers.ModelSerializer):
