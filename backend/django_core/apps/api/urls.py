@@ -8,6 +8,7 @@ from apps.api.views.chat import (
 )
 from apps.api.views.user import SearchUserView, UserDetailView
 
+# fmt: off
 urlpatterns = [
     # chat views
     path("inbox/<int:pk>/", InboxView.as_view(), name="inbox"),
@@ -23,3 +24,4 @@ urlpatterns = [
         path("search/<str:username>/", SearchUserView.as_view(), name="search-user"),
     ])),
 ]
+# fmt: off
