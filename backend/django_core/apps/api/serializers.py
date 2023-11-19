@@ -21,7 +21,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         ]
 
 
-class MessageSerializer(serializers.ModelSerializer):
+class ChatMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatMessage
         fields = ["id", "sender", "reciever", "message", "is_read", "date"]

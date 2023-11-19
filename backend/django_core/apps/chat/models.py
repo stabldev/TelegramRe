@@ -5,7 +5,6 @@ from apps.user.models import CustomUser
 
 class ChatMessage(models.Model):
     # fmt: off
-	user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name="user")
 	sender = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name="sender")
 	reciever = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name="reciever")
 
