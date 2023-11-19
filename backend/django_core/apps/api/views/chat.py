@@ -3,7 +3,7 @@ from django.db.models import Q, OuterRef, Subquery
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
-from apps.api.serializers import ChatMessageSerializer
+from apps.api.serializers import ChatMessageSerializer, CustomUserSerializer
 from apps.user.models import CustomUser
 from apps.chat.models import ChatMessage
 
@@ -48,3 +48,10 @@ class MessagesView(generics.ListAPIView):
         return ChatMessage.objects.filter(
             sender__in=[sender_id, reciever_id], reciever__in=[sender_id, reciever_id]
         )
+
+class SendMessageView(generics.CreateAPIView):
+    serializer_class = ChatMessageSerializer
+
+class UpdateMessageView(generics.RetrieveUpdateAPIView):
+    queryset = ChatMessage.objects.all()
+    serializer_class = ChatMessageSerializer
