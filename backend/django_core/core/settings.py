@@ -57,11 +57,19 @@ INSTALLED_APPS = [
     # 3rd party django apps
     "django_cleanup.apps.CleanupConfig",
     # Django rest
+    "drf_dark_shade",
     "rest_framework",
     # Custom apps
     "apps.api",
     "apps.chat",
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'drf_dark_shade.renderers.DeepForestBrowsableAPIRenderer', # deep forest theme
+    )
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

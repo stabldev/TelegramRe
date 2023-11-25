@@ -169,6 +169,20 @@ django = ">=3.0"
 pytz = "*"
 
 [[package]]
+name = "drf-dark-shade"
+version = "0.1.1"
+description = "A dark theme for django rest framework browsable api"
+optional = false
+python-versions = ">=3.11,<4.0"
+files = [
+    {file = "drf_dark_shade-0.1.1-py3-none-any.whl", hash = "sha256:a1a4b783d582a562a79e5b3b1579a7234ae14857db39544df4d47924cb24f672"},
+    {file = "drf_dark_shade-0.1.1.tar.gz", hash = "sha256:c2b139c2b87b41602aee99a8df8e5f941d967678a7c7ea6e29966e070a99def8"},
+]
+
+[package.dependencies]
+djangorestframework = ">=3.14.0,<4.0.0"
+
+[[package]]
 name = "markdown"
 version = "3.5.1"
 description = "Python implementation of John Gruber's Markdown."
@@ -387,4 +401,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "2e58d189ad69588452056213febcc542ae09b7d94a1097b99d3d0342028df425"
+content-hash = "3536b36e2624bfecd9e71c65ac26c1ea7c644e7903d3dc7e075859284ba664e2"
