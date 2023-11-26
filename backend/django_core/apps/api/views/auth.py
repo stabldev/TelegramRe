@@ -12,6 +12,7 @@ from apps.api.serializers import RegisterSerializer
 def set_csrf_view(request):
     return JsonResponse({"detail": "CSRF cookie set!"})
 
+
 @require_POST
 def login_view(request: HttpRequest):
     data = json.loads(request.body)
@@ -34,6 +35,7 @@ def login_view(request: HttpRequest):
     login(request, user)
     return JsonResponse({"detail": "Successfully logged in!"})
 
+
 def logout_view(request):
     if not request.user.is_authenticated:
         return JsonResponse(data={"detail": "You're not logged in!"}, status=400)
@@ -41,23 +43,26 @@ def logout_view(request):
     logout(request)
     return JsonResponse({"detail": "Successfully logged out!"})
 
+
 def check_session(request):
     if request.user.is_authenticated:
         return JsonResponse({"isAuthenticated": True})
     return JsonResponse({"isAuthenticated": False})
 
+
 def whoami_view(request):
-	if not request.user.is_authenticated:
-		return JsonResponse(data={"detail": "You're not logged in!"}, status=400)
-	return JsonResponse({"detail": request.user.username})
+    if not request.user.is_authenticated:
+        return JsonResponse(data={"detail": "You're not logged in!"}, status=400)
+    return JsonResponse({"detail": request.user.username})
+
 
 @require_POST
 def register_view(request: HttpRequest):
-	data = json.loads(request.body)
-	serializer = RegisterSerializer(data=data)
+    data = json.loads(request.body)
+    serializer = RegisterSerializer(data=data)
 
-	if not serializer.is_valid():
-		return JsonResponse({"detail": serializer._errors}, status=400)
+    if not serializer.is_valid():
+        return JsonResponse({"detail": serializer._errors}, status=400)
 
-	serializer.save()
-	return JsonResponse({"detail": "Successfully registered!"})	
+    serializer.save()
+    return JsonResponse({"detail": "Successfully registered!"})

@@ -64,6 +64,12 @@ INSTALLED_APPS = [
     "apps.chat",
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ]
+}
+
 MIDDLEWARE = [
     # CORS
     "corsheaders.middleware.CorsMiddleware",

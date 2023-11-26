@@ -7,7 +7,14 @@ from apps.api.views.chat import (
     UpdateMessageView,
 )
 from apps.api.views.user import SearchUserView, UserDetailView
-from apps.api.views.auth import set_csrf_view, check_session, login_view, logout_view, whoami_view, register_view
+from apps.api.views.auth import (
+    set_csrf_view,
+    check_session,
+    login_view,
+    logout_view,
+    whoami_view,
+    register_view,
+)
 
 # fmt: off
 urlpatterns = [

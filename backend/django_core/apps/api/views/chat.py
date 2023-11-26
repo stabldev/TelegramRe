@@ -1,8 +1,6 @@
 from django.db.models import Q, OuterRef, Subquery
-from django.shortcuts import get_object_or_404
 
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
 
 from apps.api.serializers import ChatMessageSerializer
 from apps.user.models import CustomUser
@@ -11,7 +9,6 @@ from apps.chat.models import ChatMessage
 
 class InboxView(generics.ListAPIView):
     serializer_class = ChatMessageSerializer
-    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
@@ -41,7 +38,6 @@ class InboxView(generics.ListAPIView):
 
 class MessagesView(generics.ListAPIView):
     serializer_class = ChatMessageSerializer
-    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         sender_id = self.kwargs["sender_id"]
@@ -53,11 +49,9 @@ class MessagesView(generics.ListAPIView):
 
 
 class SendMessageView(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = ChatMessageSerializer
 
 
 class UpdateMessageView(generics.RetrieveUpdateAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = ChatMessage.objects.all()
     serializer_class = ChatMessageSerializer
