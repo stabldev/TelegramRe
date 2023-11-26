@@ -14,8 +14,7 @@ class InboxView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        username = self.kwargs["username"]
-        user = get_object_or_404(CustomUser, username=username)
+        user = self.request.user
 
         messages = ChatMessage.objects.filter(
             id__in=Subquery(
@@ -54,9 +53,11 @@ class MessagesView(generics.ListAPIView):
 
 
 class SendMessageView(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = ChatMessageSerializer
 
 
 class UpdateMessageView(generics.RetrieveUpdateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = ChatMessage.objects.all()
     serializer_class = ChatMessageSerializer
