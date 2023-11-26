@@ -45,8 +45,6 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
-    # User above django auth
-    "apps.user",
     # Django apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -58,12 +56,18 @@ INSTALLED_APPS = [
     "django_cleanup.apps.CleanupConfig",
     # Django rest
     "rest_framework",
+    # CORS
+    "corsheaders",
     # Custom apps
+    "apps.user",
     "apps.api",
     "apps.chat",
 ]
 
 MIDDLEWARE = [
+    # CORS
+    "corsheaders.middleware.CorsMiddleware",
+    # Django
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -158,3 +162,23 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Custom user model
 AUTH_USER_MODEL = "user.CustomUser"
+
+# Session-cookie Auth
+# https://testdriven.io/blog/django-spa-auth/#backend_3
+
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_HTTPONLY = True
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
+
+# PROD ONLY
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+]
+CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
+CORS_ALLOW_CREDENTIALS = True

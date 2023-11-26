@@ -7,9 +7,16 @@ from apps.api.views.chat import (
     UpdateMessageView,
 )
 from apps.api.views.user import SearchUserView, UserDetailView
+from apps.api.views.auth import set_csrf_cookie, login_view, check_session
 
 # fmt: off
 urlpatterns = [
+    # auth views
+    path("auth/", include([
+        path("set-csrf-cookie/", set_csrf_cookie, name="set-csrf-cookie"),
+        path("login/", login_view, name="login-view"),
+        path("check-session/", check_session, name="check-session"),
+    ])),
     # chat views
     path("inbox/<int:pk>/", InboxView.as_view(), name="inbox"),
     # prefix urls
