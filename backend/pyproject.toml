@@ -18,6 +18,7 @@ djangorestframework = "^3.14.0"
 markdown = "^3.5.1"
 django-filter = "^23.4"
 django-stubs-ext = "^4.2.5"
+django-cors-headers = "^4.3.1"
 
 
 [build-system]
