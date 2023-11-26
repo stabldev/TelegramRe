@@ -7,14 +7,15 @@ from apps.api.views.chat import (
     UpdateMessageView,
 )
 from apps.api.views.user import SearchUserView, UserDetailView
-from apps.api.views.auth import set_csrf_cookie, login_view, check_session
+from apps.api.views.auth import get_csrf_token, login_view, check_session, logout_view
 
 # fmt: off
 urlpatterns = [
     # auth views
     path("auth/", include([
-        path("set-csrf-cookie/", set_csrf_cookie, name="set-csrf-cookie"),
+        path("get-csrf/", get_csrf_token, name="get-csrf"),
         path("login/", login_view, name="login-view"),
+        path("logout/", logout_view, name="logout-view"),
         path("check-session/", check_session, name="check-session"),
     ])),
     # chat views
