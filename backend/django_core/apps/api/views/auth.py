@@ -1,12 +1,11 @@
 import json
 
-from django.http import JsonResponse
+from django.http import HttpRequest, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 
 from apps.api.serializers import RegisterSerializer
-from apps.user.models import CustomUser
 
 
 @ensure_csrf_cookie
@@ -14,8 +13,8 @@ def set_csrf_view(request):
     return JsonResponse({"detail": "CSRF cookie set!"})
 
 @require_POST
-def login_view(request):
-    data = request.POST
+def login_view(request: HttpRequest):
+    data = json.loads(request.body)
     username = data.get("username")
     password = data.get("password")
 
@@ -35,14 +34,12 @@ def login_view(request):
     login(request, user)
     return JsonResponse({"detail": "Successfully logged in!"})
 
-
 def logout_view(request):
     if not request.user.is_authenticated:
         return JsonResponse(data={"detail": "You're not logged in!"}, status=400)
 
     logout(request)
     return JsonResponse({"detail": "Successfully logged out!"})
-
 
 def check_session(request):
     if request.user.is_authenticated:
@@ -55,11 +52,12 @@ def whoami_view(request):
 	return JsonResponse({"detail": request.user.username})
 
 @require_POST
-def register_view(request):
-	serializer = RegisterSerializer(data=request.POST)
+def register_view(request: HttpRequest):
+	data = json.loads(request.body)
+	serializer = RegisterSerializer(data=data)
 
 	if not serializer.is_valid():
 		return JsonResponse({"detail": serializer._errors}, status=400)
 
 	serializer.save()
-	return JsonResponse({"detail": "Successfully registered!"})
+	return JsonResponse({"detail": "Successfully registered!"})	
