@@ -5,6 +5,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 
+from apps.api.serializers import RegisterSerializer
+from apps.user.models import CustomUser
+
 
 @ensure_csrf_cookie
 def set_csrf_view(request):
@@ -50,3 +53,13 @@ def whoami_view(request):
 	if not request.user.is_authenticated:
 		return JsonResponse(data={"detail": "You're not logged in!"}, status=400)
 	return JsonResponse({"detail": request.user.username})
+
+@require_POST
+def register_view(request):
+	serializer = RegisterSerializer(data=request.POST)
+
+	if not serializer.is_valid():
+		return JsonResponse({"detail": serializer._errors}, status=400)
+
+	serializer.save()
+	return JsonResponse({"detail": "Successfully registered!"})
