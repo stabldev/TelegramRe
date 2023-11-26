@@ -1,4 +1,5 @@
 from django.db.models import Q, OuterRef, Subquery
+from django.shortcuts import get_object_or_404
 
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
@@ -13,18 +14,20 @@ class InboxView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        user_id = self.kwargs.get("pk")
+        username = self.kwargs["username"]
+        user = get_object_or_404(CustomUser, username=username)
+
         messages = ChatMessage.objects.filter(
             id__in=Subquery(
                 CustomUser.objects.filter(
-                    Q(sender__reciever=user_id) | Q(reciever__sender=user_id)
+                    Q(sender__reciever=user) | Q(reciever__sender=user)
                 )
                 .distinct()
                 .annotate(
                     last_msg=Subquery(
                         ChatMessage.objects.filter(
-                            Q(sender=OuterRef("id"), reciever=user_id)
-                            | Q(reciever=OuterRef("id"), sender=user_id)
+                            Q(sender=OuterRef("id"), reciever=user)
+                            | Q(reciever=OuterRef("id"), sender=user)
                         )
                         .order_by("-id")[:1]
                         .values_list("id", flat=True)

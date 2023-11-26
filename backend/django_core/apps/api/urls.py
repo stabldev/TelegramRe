@@ -21,7 +21,7 @@ urlpatterns = [
         path("whoami/", whoami_view, name="whoami"),
     ])),
     # chat views
-    path("inbox/<int:pk>/", InboxView.as_view(), name="inbox"),
+    path("inbox/<str:username>/", InboxView.as_view(), name="inbox"),
     # prefix urls
     path("messages/", include([
         path("<int:sender_id>/<int:reciever_id>/", MessagesView.as_view(), name="messages"),
