@@ -13,7 +13,7 @@ export function DefaultLayout(props: { children?: JSX.Element }) {
 			<div class="absolute inset-0 -z-[9999] bg-black/95" />
 
 			<Sidebar />
-			{ props.children }
+			{props.children}
 		</main>
-	)
-};
+	);
+}

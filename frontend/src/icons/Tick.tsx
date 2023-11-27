@@ -1,5 +1,5 @@
 import { Show } from "solid-js";
-import { Icon } from "~/types/Icon";
+import { VariantIcon } from "~/types/Icon";
 
 export default function Tick(props: VariantIcon) {
 	return (

@@ -10,7 +10,7 @@ export const ProfileItem = (props: ProfileItemProps) => {
 	return (
 		<A
 			href={`/@${username()}`}
-			class="flex w-full select-none items-center gap-[1vw] px-[1vw] py-[0.75vw] rounded-[0.75vw]"
+			class="flex w-full select-none items-center gap-[1vw] rounded-[0.75vw] px-[1vw] py-[0.75vw]"
 			activeClass="bg-stone-700 hover:!bg-stone-700 before:absolute before:left-[1vw] before:w-[0.35vw] before:h-[3vw] before:bg-blue-500 before:rounded-full"
 		>
 			<img
