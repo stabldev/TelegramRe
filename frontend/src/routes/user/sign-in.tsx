@@ -1,3 +1,4 @@
+import { A } from "solid-start";
 import { AuthLayout } from "~/layouts/auth_layout";
 
 export default function SignIn() {
@@ -32,10 +33,14 @@ export default function SignIn() {
 				</div>
 				<div class="flex items-center md:gap-[0.5vw]">
 					<input checked type="checkbox" id="remember-me" name="remember-me" class="accent-stone-900" />
-					<label for="remember-me" class="md:text-[1vw] opacity-75">Keep me logged in</label>
+					<label for="remember-me" class="md:text-[1vw] opacity-75">Agree with Terms and conditions</label>
 				</div>
 				<input type="submit" value="Sign in" class="bg-stone-900 text-white md:py-[1vw] font-medium md:text-[1.1vw] md:rounded-full cursor-pointer" />
-				<span class="self-center md:text-[1.1vw]">Don't have an account? <a href="./sign-in" class="font-medium underline">Sign in</a> now!</span>
+				<span class="self-center md:text-[1.1vw]">
+					Don't have an account?&nbsp;
+					<A href="/user/sign-up/" class="font-medium underline">Sign up</A>&nbsp;
+					now!
+				</span>
 			</form>
 		</AuthLayout>
 	)
