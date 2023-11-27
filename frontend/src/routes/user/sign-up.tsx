@@ -1,7 +1,7 @@
 import { A } from "solid-start";
 import { AuthLayout } from "~/layouts/auth_layout";
 
-export default function Login() {
+export default function SignUp() {
 	return (
 		<AuthLayout class="md:gap-[3vw]">
 			<div class="flex flex-col md:gap-[0.5vw]">
