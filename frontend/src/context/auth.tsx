@@ -16,12 +16,33 @@ type AuthStore = {
 };
 
 export function AuthProvider(props: { children?: JSX.Element }) {
-	const [user, setUser] = createSignal<User | undefined>();
 	const [csrfToken, setCsrfToken] = createSignal<string>();
+	const [isAuthenticated, setIsAuthenticated] = createSignal(false);
+	const [user, setUser] = createSignal<User | undefined>();
+
+	const initializeSession = async () => {
+		const res = await fetch(`${API_URL}/auth/session/`, {
+			credentials: "include",
+		});
+		const data = await res.json();
+		if (data.isAuthenticated) {
+			setIsAuthenticated(true);
+		} else {
+			initializeCSRF();
+		}
+	}
+
+	const initializeCSRF = async () => {
+		const res = await fetch(`${API_URL}/auth/csrf/`, {
+			credentials: "include",
+		});
+		const token = await res.headers.get("X-CSRFToken");
+		setCsrfToken(token);
+	}
 
 	const signUpUser = async (username: string, password: string) => {
-		try {
-	        const response = await fetch(`${API_URL}/auth/sign-up/`, {
+        try {
+        	const response = await fetch(`${API_URL}/auth/sign-up/`, {
 	            method: "POST",
 	            credentials: "include",
 	            headers: {
@@ -33,30 +54,23 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	                password,
 	            }),
 	        });
+	        const data = await response.json();
 
 	        if (!response.ok) {
-	            console.log("Response not okay:", response.status, response.statusText);
-	            console.log("Response body:", await response.json());
+	            console.log("response not okay:", response.status, response.statusText);
+	            console.log("response body:", data);
 	            return;
 	        }
 
-	        const data = await response.json();
-	        console.log("Sign-up successful:", data);
-	    } catch (error) {
-	        console.error("Error during sign-up:", error);
-	    }
-	}
-
-	const initializeCSRFToken = async () => {
-		const res = await fetch(`${API_URL}/auth/set-csrf/`, {
-			credentials: "include",
-		});
-		setCsrfToken(await res.headers.get("X-CSRFToken"));
+	        console.log("sign up successful:", data);
+        } catch (err) {
+        	console.log("error in sign up:", err);
+        }
 	}
 
 	createEffect(async () => {
-		// set csrf
-		initializeCSRFToken();
+		// check session
+		initializeSession();
 
 		// fetch from backend
 		setUser({

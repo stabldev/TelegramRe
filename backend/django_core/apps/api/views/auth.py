@@ -10,7 +10,7 @@ from apps.api.serializers import RegisterSerializer
 
 
 @ensure_csrf_cookie
-def set_csrf_view(request):
+def csrf_view(request):
     response = JsonResponse({"detail": "CSRF cookie set!"})
     response["X-CSRFToken"] = get_token(request)
     return response
