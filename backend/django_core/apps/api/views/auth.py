@@ -4,17 +4,20 @@ from django.http import HttpRequest, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
+from django.middleware.csrf import get_token
 
 from apps.api.serializers import RegisterSerializer
 
 
 @ensure_csrf_cookie
 def set_csrf_view(request):
-    return JsonResponse({"detail": "CSRF cookie set!"})
+    response = JsonResponse({"detail": "CSRF cookie set!"})
+    response["X-CSRFToken"] = get_token(request)
+    return response
 
 
 @require_POST
-def login_view(request: HttpRequest):
+def sign_up_view(request: HttpRequest):
     data = json.loads(request.body)
     username = data.get("username")
     password = data.get("password")
@@ -57,7 +60,7 @@ def whoami_view(request):
 
 
 @require_POST
-def register_view(request: HttpRequest):
+def sign_in_view(request: HttpRequest):
     data = json.loads(request.body)
     serializer = RegisterSerializer(data=data)
 

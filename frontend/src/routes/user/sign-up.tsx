@@ -1,14 +1,30 @@
 import { A } from "solid-start";
+import { useAuth } from "~/context/auth";
 import { AuthLayout } from "~/layouts/auth_layout";
 
 export default function SignUp() {
+	const { signUpUser } = useAuth();
+
+	const handleFormSubmit = async (evt: SubmitEvent) => {
+		evt.preventDefault();
+		const formData = new FormData(evt.currentTarget);
+
+		await signUpUser(
+			username = formData.get("username") as string,
+			password = formData.get("password") as string
+		)
+	}
+
 	return (
 		<AuthLayout class="md:gap-[3vw]">
 			<div class="flex flex-col md:gap-[0.5vw]">
 				<h2 class="font-bold md:text-[2vw]">Welcome to Telegram-re</h2>
 				<h4 class="opacity-75 md:text-[1.2vw]">A Telegram inspired web messaging experience</h4>
 			</div>
-			<form class="flex w-full flex-col md:gap-[1vw]">
+			<form
+				onSubmit={handleFormSubmit}
+				class="flex w-full flex-col md:gap-[1vw]"
+			>
 				<div class="flex flex-col md:gap-[0.25vw]">
 					<label
 						class="font-medium opacity-50 md:text-[1vw]"
