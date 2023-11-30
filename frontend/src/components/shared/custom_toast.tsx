@@ -1,18 +1,16 @@
-import toast from "solid-toast";
+import toast, { Message, ToastOptions } from "solid-toast";
+import { cn } from "~/functions/cn";
 
-export function customToast(message: string, duration?: number) {
+export function customToast(message: string, props?: ToastOptions) {
   	return toast.custom((t) => (
-    	<div class="px-6 py-3 pr-12 bg-white rounded-full shadow-md font-medium relative">
-      	{message}
-      	<button
-        	class="bg-gray-200/80 hover:bg-gray-300 flex justify-center top-1/2 -translate-y-1/2 items-center w-6 h-6 right-2.5 absolute rounded-full"
-        	onClick={() => toast.dismiss(t.id)}
-      	>
-        	&times;
-      	</button>
+    	<div class={cn(t.visible ? "animate-enter" : "animate-leave", "bg-white rounded-full shadow-sm font-medium relative flex md:gap-[0.75vw] items-center md:py-[0.5vw] md:pl-[1vw] md:pr-[0.75vw]")}>
+	      	<span>{message}</span>
+	      	<button
+	        	class="bg-stone-100 hover:bg-stone-200 transition-colors flex justify-center items-center rounded-full md:w-[1.5vw] md:h-[1.5vw]"
+	        	onClick={() => toast.dismiss(t.id)}
+	      	>
+	        	&times;
+	      	</button>
     	</div>
-  	), {
-    	duration: duration ?? 5000,
-    	unmountDelay: 0,
-  	});
+  	), {...props});
 }
