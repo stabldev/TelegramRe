@@ -1,3 +1,4 @@
+import { createSignal } from "solid-js";
 import { A } from "solid-start";
 import { useAuth } from "~/context/auth";
 import { AuthLayout } from "~/layouts/auth_layout";
@@ -7,11 +8,11 @@ export default function SignUp() {
 
 	const handleFormSubmit = async (evt: SubmitEvent) => {
 		evt.preventDefault();
-		const formData = new FormData(evt.currentTarget);
+		const formData = new FormData(evt.currentTarget as HTMLFormElement);
 
 		await signUpUser(
-			username = formData.get("username") as string,
-			password = formData.get("password") as string
+			formData.get("username") as string,
+			formData.get("password") as string
 		)
 	}
 

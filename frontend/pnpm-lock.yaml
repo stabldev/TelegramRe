@@ -67,6 +67,9 @@ devDependencies:
   solid-textarea-autosize:
     specifier: ^0.0.5
     version: 0.0.5(solid-js@1.8.6)
+  solid-toast:
+    specifier: ^0.5.0
+    version: 0.5.0(solid-js@1.8.6)
   tailwind-merge:
     specifier: ^2.0.0
     version: 2.0.0
@@ -4555,6 +4558,14 @@ packages:
     resolution: {integrity: sha512-le/X+VLr4G3PEE/gZuKBDNqh5e9OoNiIYIN0fSebAuOABxJIY/Eh/9rjDEMB8DbPdeD/wHIVk4Wd9zBvFFIt1A==}
     peerDependencies:
       solid-js: '>=1.0.0'
+    dependencies:
+      solid-js: 1.8.6
+    dev: true
+
+  /solid-toast@0.5.0(solid-js@1.8.6):
+    resolution: {integrity: sha512-t770JakjyS2P9b8Qa1zMLOD51KYKWXbTAyJePVUoYex5c5FH5S/HtUBUbZAWFcqRCKmAE8KhyIiCvDZA8bOnxQ==}
+    peerDependencies:
+      solid-js: ^1.5.4
     dependencies:
       solid-js: 1.8.6
     dev: true

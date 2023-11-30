@@ -1,7 +1,7 @@
 import { Accessor, JSX, createContext, createSignal, useContext, createEffect } from "solid-js";
 import { API_URL } from "~/config";
-
-const AuthContext = createContext<AuthStore>();
+import toast from "solid-toast";
+import { customToast } from "~/components/shared/custom_toast";
 
 type User = {
 	id: number;
@@ -12,11 +12,14 @@ type User = {
 
 type AuthStore = {
 	user: Accessor<User | undefined>,
+	isAuthenticated: Accessor<boolean>,
 	signUpUser: (username: string, password: string) => Promise<void>,
 };
 
+const AuthContext = createContext<AuthStore>();
+
 export function AuthProvider(props: { children?: JSX.Element }) {
-	const [csrfToken, setCsrfToken] = createSignal<string>();
+	const [csrfToken, setCsrfToken] = createSignal<string>("");
 	const [isAuthenticated, setIsAuthenticated] = createSignal(false);
 	const [user, setUser] = createSignal<User | undefined>();
 
@@ -36,18 +39,19 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		const res = await fetch(`${API_URL}/auth/csrf/`, {
 			credentials: "include",
 		});
-		const token = await res.headers.get("X-CSRFToken");
+		const token = res.headers.get("X-CSRFToken");
+		if (!token) return;
 		setCsrfToken(token);
 	}
 
 	const signUpUser = async (username: string, password: string) => {
-        try {
-        	const response = await fetch(`${API_URL}/auth/sign-up/`, {
+    	try {
+    		const response = await fetch(`${API_URL}/auth/sign-up/`, {
 	            method: "POST",
 	            credentials: "include",
 	            headers: {
 	            	"Content-Type": "application/json",
-	            	"X-CSRFToken": csrfToken()
+	            	"X-CSRFToken": csrfToken(),
 	            },
 	            body: JSON.stringify({
 	                username,
@@ -57,15 +61,13 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	        const data = await response.json();
 
 	        if (!response.ok) {
-	            console.log("response not okay:", response.status, response.statusText);
-	            console.log("response body:", data);
-	            return;
+	            throw new Error(data.detail || "Sign up failed!");
 	        }
 
 	        console.log("sign up successful:", data);
-        } catch (err) {
-        	console.log("error in sign up:", err);
-        }
+    	} catch (error: any) {
+    		customToast(error.message);
+    	}
 	}
 
 	createEffect(async () => {
@@ -83,6 +85,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 	const context_value: AuthStore = {
 		user: user,
+		isAuthenticated: isAuthenticated,
 		signUpUser: signUpUser,
 	}
 
