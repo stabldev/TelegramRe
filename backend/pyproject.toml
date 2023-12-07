@@ -17,7 +17,7 @@ black = "^23.11.0"
 djangorestframework = "^3.14.0"
 markdown = "^3.5.1"
 django-filter = "^23.5"
-django-stubs-ext = "^4.2.5"
+django-stubs-ext = "^4.2.7"
 django-cors-headers = "^4.3.1"
 
 

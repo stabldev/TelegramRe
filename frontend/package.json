@@ -13,7 +13,11 @@
 		"@solid-primitives/event-dispatcher": "^0.0.105",
 		"@typescript-eslint/eslint-plugin": "^6.13.2",
 		"@typescript-eslint/parser": "^6.13.2",
+<<<<<<< HEAD
 		"autoprefixer": "^10.4.16",
+=======
+		"autoprefixer": "^10.4.15",
+>>>>>>> cf2150cae07ad8ee156cc61a47737bd13af91885
 		"clsx": "^2.0.0",
 		"eslint": "^8.55.0",
 		"eslint-config-prettier": "^9.1.0",
@@ -28,10 +32,14 @@
 		"solid-toast": "^0.5.0",
 		"tailwind-merge": "^2.1.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
 		"tailwindcss": "^3.3.6",
 		"typescript": "^5.3.3",
 =======
 		"tailwindcss": "^3.3.5",
+=======
+		"tailwindcss": "^3.3.6",
+>>>>>>> cf2150cae07ad8ee156cc61a47737bd13af91885
 		"typescript": "^5.3.2",
 >>>>>>> b2987c3aea131014144a8b0c0f4c7e3fd70bba61
 		"vite": "^4.5.1"
