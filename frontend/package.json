@@ -27,15 +27,24 @@
 		"solid-textarea-autosize": "^0.0.5",
 		"solid-toast": "^0.5.0",
 		"tailwind-merge": "^2.1.0",
+<<<<<<< HEAD
 		"tailwindcss": "^3.3.6",
 		"typescript": "^5.3.3",
+=======
+		"tailwindcss": "^3.3.5",
+		"typescript": "^5.3.2",
+>>>>>>> b2987c3aea131014144a8b0c0f4c7e3fd70bba61
 		"vite": "^4.5.1"
 	},
 	"dependencies": {
 		"@solidjs/meta": "^0.28.7",
 		"@solidjs/router": "^0.8.4",
 		"solid-js": "^1.8.7",
+<<<<<<< HEAD
 		"solid-start": "^0.3.10"
+=======
+		"solid-start": "^0.3.8"
+>>>>>>> b2987c3aea131014144a8b0c0f4c7e3fd70bba61
 	},
 	"engines": {
 		"node": ">=18"
