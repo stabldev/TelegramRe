@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const ChatArea = (props: Props) => {
-	const [user] = useAuth();
+	const { user } = useAuth();
 
 	return (
 		<div class="relative flex items-end">
@@ -32,7 +32,7 @@ export const ChatArea = (props: Props) => {
 									{(message, i) => (
 										<ChatBlock
 											message={message}
-											self={group.sender.username === user().username}
+											self={group.sender.username === user()!.username}
 											lastMessage={message.username !== group.chats[i() + 1]?.username && group.chats.length !== 1}
 											middleMessage={message.username === group.chats[i() - 1]?.username && message.username === group.chats[i() + 1]?.username}
 										/>

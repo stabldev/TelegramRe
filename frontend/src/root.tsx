@@ -3,6 +3,7 @@ import { Suspense } from "solid-js";
 import { Body, ErrorBoundary, FileRoutes, Head, Html, Meta, Routes, Scripts, Title } from "solid-start";
 import { AuthProvider } from "./context/auth";
 import "./root.css";
+import { Toaster } from "solid-toast";
 
 export default function Root() {
 	return (
@@ -19,6 +20,7 @@ export default function Root() {
 				<Suspense>
 					<ErrorBoundary>
 						<AuthProvider>
+							<Toaster />
 							<Routes>
 								<FileRoutes />
 							</Routes>

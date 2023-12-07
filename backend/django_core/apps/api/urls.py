@@ -8,23 +8,23 @@ from apps.api.views.chat import (
 )
 from apps.api.views.user import SearchUserView, UserDetailView
 from apps.api.views.auth import (
-    set_csrf_view,
+    csrf_view,
     check_session,
-    login_view,
+    sign_up_view,
+    sign_in_view,
     logout_view,
     whoami_view,
-    register_view,
 )
 
 # fmt: off
 urlpatterns = [
     # auth views
     path("auth/", include([
-        path("set-csrf/", set_csrf_view, name="set-csrf"),
-        path("check-session/", check_session, name="check-session"),
-        path("login/", login_view, name="login-view"),
+        path("csrf/", csrf_view, name="csrf"),
+        path("session/", check_session, name="session"),
+        path("sign-up/", sign_up_view, name="sign-up-view"),
+        path("sign-in/", sign_in_view, name="sign-in-view"),
         path("logout/", logout_view, name="logout-view"),
-        path("register/", register_view, name="register-view"),
         path("whoami/", whoami_view, name="whoami"),
     ])),
     # chat views

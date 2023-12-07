@@ -4,8 +4,6 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
 	plugins: [
-		solid({
-			adapter: vercel()
-		})
+		solid(),
 	]
 });
