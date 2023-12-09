@@ -1,16 +1,9 @@
 import { component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 import { FormatDate } from "~/functions/format_date";
+import type { SidebarProfile } from "~/types/components/sidebar-profile";
 
-interface Props {
-  username: string;
-  name: string;
-  avatar: string;
-  message: string;
-  timestamp: string;
-}
-
-export default component$<Props>((props) => {
+export default component$<SidebarProfile>((props) => {
   const formated_timestamp = new FormatDate(props.timestamp).format_to_relative_time;
 
   return (

@@ -1,12 +1,7 @@
 import { component$ } from "@builder.io/qwik";
+import type { Icon } from "~/types/components/icon";
 
-interface IconProps {
-  variant?: "bars" | "dots";
-  class?: string;
-  style?: string;
-}
-
-export default component$<IconProps>((props) => {
+export default component$<Icon>((props) => {
   return (
     <>
       {

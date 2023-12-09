@@ -2,8 +2,9 @@ import { component$ } from "@builder.io/qwik";
 import SearchHeader from "./search-header";
 import Pencil from "~/icons/pencil";
 import ProfileItem from "./profile-item";
+import type { SidebarProfile } from "~/types/components/sidebar-profile";
 
-const profile_mapping = [
+const profile_mapping: SidebarProfile[] = [
   {
     name: "Anya Forger",
     username: "anya-forger",
