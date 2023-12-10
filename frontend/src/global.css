@@ -4,34 +4,34 @@
 
 /* custom fonts */
 @font-face {
-  font-family: "Poppins";
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("../public/fonts/poppins-400.woff2") format("woff2");
+  src: url("../public/fonts/open-sans/open-sans-regular.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "Poppins";
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("../public/fonts/poppins-500.woff2") format("woff2");
+  src: url("../public/fonts/open-sans/open-sans-medium.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "Poppins";
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("../public/fonts/poppins-700.woff2") format("woff2");
+  src: url("../public/fonts/open-sans/open-sans-bold.ttf") format("truetype");
 }
 
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 * {
