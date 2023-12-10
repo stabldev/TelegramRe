@@ -1,11 +1,7 @@
-import { JSXNode, component$ } from "@builder.io/qwik";
+import { JSXNode, Slot, component$ } from "@builder.io/qwik";
 import Sidebar from "~/components/shared/sidebar";
 
-interface Props {
-  children?: JSXNode;
-}
-
-export default component$<Props>((props) => {
+export default component$(() => {
   return (
     <>
       <main
@@ -18,7 +14,7 @@ export default component$<Props>((props) => {
         <div class="absolute inset-0 -z-[9999] bg-black/95" />
 
         <Sidebar />
-        {props.children}
+        <Slot />
       </main>
     </>
   )
