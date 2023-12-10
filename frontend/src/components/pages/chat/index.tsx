@@ -14,6 +14,7 @@ export default component$(() => {
     console.log(message);
   })
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     const matched_chat = Object.entries(chat_mapping).find(([key]) => key === location.params.username.slice(1));
     if (matched_chat) chat.value = matched_chat[1];
@@ -23,7 +24,7 @@ export default component$(() => {
     <div class="relative grid grid-rows-[min-content_1fr]">
       <ChatHeader />
       <ChatArea chat={chat.value} />
-      <ChatInput onMessage={handleAddMessage} />
+      <ChatInput onMessage$={handleAddMessage} />
     </div>
   )
 })

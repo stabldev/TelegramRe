@@ -8,7 +8,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("../public/fonts/open-sans/open-sans-regular.ttf") format("truetype");
+  src: url("/fonts/open-sans/open-sans-regular.ttf") format("truetype");
 }
 
 @font-face {
@@ -16,7 +16,7 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("../public/fonts/open-sans/open-sans-medium.ttf") format("truetype");
+  src: url("/fonts/open-sans/open-sans-medium.ttf") format("truetype");
 }
 
 @font-face {
@@ -24,7 +24,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("../public/fonts/open-sans/open-sans-bold.ttf") format("truetype");
+  src: url("/fonts/open-sans/open-sans-bold.ttf") format("truetype");
 }
 
 body {

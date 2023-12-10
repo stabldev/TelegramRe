@@ -1,11 +1,11 @@
-import { $, component$, useSignal } from "@builder.io/qwik";
+import { $, QRL, component$, useSignal } from "@builder.io/qwik";
 import Clip from "~/icons/clip";
 import Emoji from "~/icons/emoji";
 import Mic from "~/icons/mic";
 import Send from "~/icons/send";
 
 interface Props {
-  onMessage: (message: string) => void;
+  onMessage$: QRL<(message: string) => void>;
 }
 
 // TODO: TextAreaAutoSize component
@@ -15,7 +15,7 @@ export default component$<Props>((props) => {
   const handleFormSubmit = $(
     (e?: SubmitEvent) => {
       console.log(message.value);
-      props.onMessage(message.value);
+      props.onMessage$(message.value);
     }
   )
 

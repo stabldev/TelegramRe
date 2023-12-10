@@ -20,6 +20,8 @@ export default component$<Props>((props) => {
             class="relative flex items-end gap-[0.65vw]"
           >
             <img
+              width={20}
+              height={20}
               src={group.sender.image}
               alt="anya-forger"
               class="sticky bottom-0 w-[2.15vw] select-none rounded-full"

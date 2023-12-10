@@ -9,6 +9,8 @@ export default component$(() => {
     <div class="flex h-[3.75vw] select-none items-center justify-between bg-stone-900 px-[1vw]">
       <div class="flex items-center gap-[1vw]">
         <img
+          width={30}
+          height={30}
           src="https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg"
           alt="anya-forger"
           class="w-[2.5vw] rounded-full"

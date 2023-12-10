@@ -21,6 +21,8 @@ export default component$<SidebarProfile>((props) => {
         ]}
       >
         <img
+          width={50}
+          height={50}
           class="w-[3.5vw] md:rounded-full"
           src={props.avatar}
           alt={props.name}
