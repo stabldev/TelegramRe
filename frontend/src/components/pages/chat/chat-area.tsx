@@ -14,7 +14,7 @@ export default component$<Props>((props) => {
       style={{ "max-height": "calc(100vh - 3.75vw)" }}
     >
       {
-        groupChatBySender(props.chat).map((group, idx) => {
+        groupChatBySender(props.chat).map((group, idx) => (
           <div
             key={idx}
             class="relative flex items-end gap-[0.65vw]"
@@ -28,7 +28,7 @@ export default component$<Props>((props) => {
             />
             <div class="flex flex-col gap-[0.15vw]">
               {
-                group.chats.map((message, idx) => {
+                group.chats.map((message, idx) => (
                   <ChatBubble
                     key={idx}
                     message={message}
@@ -37,11 +37,11 @@ export default component$<Props>((props) => {
                     lastMessage={message.username !== group.chats[idx + 1]?.username && group.chats.length !== 1}
                     middleMessage={message.username === group.chats[idx - 1]?.username && message.username === group.chats[idx + 1]?.username}
                   />
-                })
+                ))
               }
             </div>
           </div>
-        })
+        ))
       }
     </div>
   )
