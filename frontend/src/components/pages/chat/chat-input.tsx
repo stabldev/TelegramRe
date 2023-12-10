@@ -5,7 +5,7 @@ import Mic from "~/icons/mic";
 import Send from "~/icons/send";
 
 interface Props {
-  onMessage: (e: CustomEvent<string>) => void;
+  onMessage: (message: string) => void;
 }
 
 // TODO: TextAreaAutoSize component
@@ -15,6 +15,7 @@ export default component$<Props>((props) => {
   const handleFormSubmit = $(
     (e?: SubmitEvent) => {
       console.log(message.value);
+      props.onMessage(message.value);
     }
   )
 
