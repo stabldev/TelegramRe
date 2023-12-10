@@ -13,9 +13,17 @@ export default component$<Props>((props) => {
   const message = useSignal("");
 
   const handleFormSubmit = $(
-    (e: SubmitEvent, element: HTMLFormElement) => {
-      const formData = new FormData(element);
-      console.log(formData);
+    (e?: SubmitEvent) => {
+      console.log(message.value);
+    }
+  )
+
+  const handleKeyDown = $(
+    (e: KeyboardEvent) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        handleFormSubmit();
+      }
     }
   )
 
@@ -23,7 +31,7 @@ export default component$<Props>((props) => {
     <form
       preventdefault:submit
       onSubmit$={handleFormSubmit}
-      class="absolute bottom-0 flex w-full items-center gap-[1vw] bg-stone-900 p-[1vw]"
+      class="ab1olute bottom-0 flex w-full items-center gap-[1vw] bg-stone-900 p-[1vw]"
     >
       <button
         type="button"
@@ -33,6 +41,7 @@ export default component$<Props>((props) => {
       </button>
       <textarea
         bind:value={message}
+        onKeyDown$={handleKeyDown}
         class="md:max-h-[1.5vw] flex-1 resize-none border-none bg-transparent text-[1vw] text-white outline-none [scrollbar-width:none]"
         placeholder="Write a message..."
       >
