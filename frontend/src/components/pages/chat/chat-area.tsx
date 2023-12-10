@@ -11,14 +11,18 @@ export default component$<Props>((props) => {
   return (
     <div class="relative flex items-end">
       <div
-        class="flex w-full flex-col gap-[0.5vw] overflow-y-scroll pb-[4.5vw] pl-[1vw] pt-[5vw] [scrollbar-width:_thin] [scrollbar-color:_rgba(255,255,255,0.1)_transparent]"
+        class="flex w-full flex-col gap-[0.5vw] overflow-y-scroll pb-[4.5vw] px-[1vw] pt-[5vw] [scrollbar-width:_thin] [scrollbar-color:_rgba(255,255,255,0.1)_transparent]"
         style={{ "max-height": "calc(100vh - 3.75vw)" }}
       >
         {
           groupChatBySender(props.chat).map((group, idx) => (
             <div
               key={idx}
-              class="relative flex items-end gap-[0.65vw]"
+              class={[
+                "relative flex items-end gap-[0.65vw]",
+                // TODO: this too dynamic
+                { "self-end flex-row-reverse": group.sender.username === "tokitouq" }
+              ]}
             >
               <img
                 width={20}
@@ -35,6 +39,7 @@ export default component$<Props>((props) => {
                       message={message}
                       // TODO: get username from backend
                       self={group.sender.username === "tokitouq"}
+                      firstMessage={message.username !== group.chats[idx - 1]?.username && message.username === group.chats[idx + 1]?.username}
                       lastMessage={message.username !== group.chats[idx + 1]?.username && group.chats.length !== 1}
                       middleMessage={message.username === group.chats[idx - 1]?.username && message.username === group.chats[idx + 1]?.username}
                     />
