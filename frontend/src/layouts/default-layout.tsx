@@ -2,10 +2,9 @@ import { JSXNode, component$ } from "@builder.io/qwik";
 import Sidebar from "~/components/shared/sidebar";
 
 interface Props {
-  children: JSXNode;
+  children?: JSXNode;
 }
 
-// TODO: add background-image
 export default component$<Props>((props) => {
   return (
     <>
