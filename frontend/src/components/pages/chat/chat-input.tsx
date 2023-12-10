@@ -32,7 +32,7 @@ export default component$<Props>((props) => {
     <form
       preventdefault:submit
       onSubmit$={handleFormSubmit}
-      class="ab1olute bottom-0 flex w-full items-center gap-[1vw] bg-stone-900 p-[1vw]"
+      class="absolute bottom-0 flex w-full items-center gap-[1vw] bg-stone-900 p-[1vw]"
     >
       <button
         type="button"
