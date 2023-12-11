@@ -15,7 +15,8 @@ export default component$(() => {
   })
 
   // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
+  useVisibleTask$(({ track }) => {
+    track(() => location.url.href);
     const matched_chat = Object.entries(chat_mapping).find(([key]) => key === location.params.username.slice(1));
     if (matched_chat) chat.value = matched_chat[1];
   })
