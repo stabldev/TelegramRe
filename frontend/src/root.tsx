@@ -1,34 +1,32 @@
-// @refresh reload
-import { Suspense } from "solid-js";
-import { Body, ErrorBoundary, FileRoutes, Head, Html, Meta, Routes, Scripts, Title } from "solid-start";
-import { AuthProvider } from "./context/auth";
-import "./root.css";
-import { Toaster } from "solid-toast";
+import { component$ } from "@builder.io/qwik";
+import {
+  QwikCityProvider,
+  RouterOutlet,
+  ServiceWorkerRegister,
+} from "@builder.io/qwik-city";
+import { RouterHead } from "./components/router-head/router-head";
 
-export default function Root() {
-	return (
-		<Html lang="en">
-			<Head>
-				<Title>Telegram Web</Title>
-				<Meta charset="utf-8" />
-				<Meta
-					name="viewport"
-					content="width=device-width, initial-scale=1"
-				/>
-			</Head>
-			<Body>
-				<Suspense>
-					<ErrorBoundary>
-						<AuthProvider>
-							<Toaster />
-							<Routes>
-								<FileRoutes />
-							</Routes>
-						</AuthProvider>
-					</ErrorBoundary>
-				</Suspense>
-				<Scripts />
-			</Body>
-		</Html>
-	);
-}
+import "./global.css";
+
+export default component$(() => {
+  /**
+   * The root of a QwikCity site always start with the <QwikCityProvider> component,
+   * immediately followed by the document's <head> and <body>.
+   *
+   * Don't remove the `<head>` and `<body>` elements.
+   */
+
+  return (
+    <QwikCityProvider>
+      <head>
+        <meta charSet="utf-8" />
+        <link rel="manifest" href="/manifest.json" />
+        <RouterHead />
+        <ServiceWorkerRegister />
+      </head>
+      <body lang="en">
+        <RouterOutlet />
+      </body>
+    </QwikCityProvider>
+  );
+});

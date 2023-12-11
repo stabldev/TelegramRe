@@ -1,28 +1,41 @@
+# Build
+/dist
+/lib
+/lib-types
+/server
 
-dist
-.solid
-.output
-.vercel
-.netlify
-netlify
+# Development
+node_modules
+*.local
 
-# Environment
-.env
-.env*.local
+# Cache
+.cache
+.mf
+.rollup.cache
+tsconfig.tsbuildinfo
 
-# dependencies
-/node_modules
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# IDEs and editors
-/.idea
-.project
-.classpath
-*.launch
-.settings/
+# Editor
+.vscode/*
+!.vscode/launch.json
+!.vscode/*.code-snippets
 
-# Temp
-gitignore
-
-# System Files
+.idea
 .DS_Store
-Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Yarn
+.yarn/*
+!.yarn/releases
