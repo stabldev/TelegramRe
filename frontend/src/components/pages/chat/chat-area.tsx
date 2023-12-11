@@ -27,6 +27,7 @@ export default component$<Props>((props) => {
               ]}
             >
               <img
+                hidden
                 width={20}
                 height={20}
                 src={group.sender.image}
