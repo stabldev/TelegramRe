@@ -35,20 +35,20 @@ export default component$<Props>((props) => {
     >
       <span class="self-center whitespace-pre-line text-[0.9vw] font-medium">{props.message.content}</span>
       <span class="select-none self-end text-[0.65vw] uppercase leading-none">{formatedDate}</span>
-
       {
-        props.self &&
+        props.self && (
           props.message.status === "seen" ?
-          <Tick
-            variant="double"
-            class="self-end text-[1.15vw] text-white"
-          />
-          : props.message.status === "send" ?
             <Tick
-              variant="single"
-              class="self-end text-[1vw] text-white"
+              variant="double"
+              class="self-end text-[1.15vw] text-white"
             />
-            : <Clock class="self-end text-[1vw] text-white" />
+            : props.message.status === "send" ?
+              <Tick
+                variant="single"
+                class="self-end text-[1vw] text-white"
+              />
+              : <Clock class="self-end text-[1vw] text-white" />
+        )
       }
     </div>
   )
