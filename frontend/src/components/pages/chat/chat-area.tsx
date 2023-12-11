@@ -28,8 +28,6 @@ export default component$<Props>((props) => {
             >
               <img
                 hidden
-                width={20}
-                height={20}
                 src={group.sender.image}
                 alt="anya-forger"
                 class="sticky bottom-0 w-[2.15vw] select-none rounded-full"
