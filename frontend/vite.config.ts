@@ -1,20 +1,9 @@
+import solid from "solid-start/vite";
+import vercel from "solid-start-vercel";
 import { defineConfig } from "vite";
-import { qwikVite } from "@builder.io/qwik/optimizer";
-import { qwikCity } from "@builder.io/qwik-city/vite";
-import tsconfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig(() => {
-  return {
-    plugins: [qwikCity(), qwikVite(), tsconfigPaths()],
-    dev: {
-      headers: {
-        "Cache-Control": "public, max-age=0",
-      },
-    },
-    preview: {
-      headers: {
-        "Cache-Control": "public, max-age=600",
-      },
-    },
-  };
+export default defineConfig({
+	plugins: [
+		solid(),
+	]
 });

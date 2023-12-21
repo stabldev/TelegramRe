@@ -1,13 +1,15 @@
-FROM oven/bun:1.0
+FROM node:18-alpine
 
 WORKDIR /app
 
-COPY package.json bun.lockb .
+COPY package.json .
 
-RUN bun install
+RUN npm install -g pnpm
+
+RUN pnpm install
 
 COPY . .
 
-EXPOSE 5173
+EXPOSE 3000
 
-CMD ["bun", "start"]
+CMD ["pnpm", "dev"]
