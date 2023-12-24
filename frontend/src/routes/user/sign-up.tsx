@@ -10,11 +10,8 @@ export default function SignUp() {
 		evt.preventDefault();
 		const formData = new FormData(evt.currentTarget as HTMLFormElement);
 
-		await signUpUser(
-			formData.get("username") as string,
-			formData.get("password") as string
-		)
-	}
+		await signUpUser(formData.get("username") as string, formData.get("password") as string);
+	};
 
 	return (
 		<AuthLayout class="md:gap-[3vw]">
