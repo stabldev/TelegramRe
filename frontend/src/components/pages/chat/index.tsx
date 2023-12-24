@@ -4,9 +4,9 @@ import { ChatHeader } from "./chat-header";
 import { ChatInput } from "./chat-input";
 import { ChatArea } from "./chat-area";
 import { chat_mapping } from "~/data/mock/chat_messages";
-import { ChatProps } from "~/types/Chat";
 import { scrollToBottom } from "~/functions/scroll_to_bottom";
 import { useAuth } from "~/context/auth";
+import { ChatProps } from "~/types/chat";
 
 export const ChatScreen: Component = () => {
 	const params = useParams<{ username: string }>();

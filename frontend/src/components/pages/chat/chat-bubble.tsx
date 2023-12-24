@@ -1,30 +1,36 @@
 import { Match, Show, Switch } from "solid-js";
 import { destructure } from "@solid-primitives/destructure";
 import { FormatDate } from "~/functions/format_date";
-import { ChatProps } from "~/types/chat";
+import type { ChatProps } from "~/types/chat";
 import Tick from "~/icons/tick";
 import CLock from "~/icons/clock";
 
 interface Props {
 	message: ChatProps;
 	self: boolean;
+	firstMessage: boolean;
 	lastMessage: boolean;
 	middleMessage: boolean;
 }
 
 export const ChatBubble = (props: Props) => {
-	const { message, self, lastMessage, middleMessage } = destructure(props);
+	const { message, self, lastMessage, middleMessage, firstMessage } = destructure(props);
 	const formatedDate = new FormatDate(message().time).format_to_relative_time;
 
 	return (
 		<div
-			class="flex w-max gap-[0.5vw] py-[0.4vw] pl-[0.9vw] pr-[0.5vw] text-white"
+			class="flex w-max gap-[0.5vw] py-[0.4vw] pl-[0.9vw] pr-[0.5vw] text-white rounded-[1vw]"
 			classList={{
+				// If sender is logged in user
+				"bg-blue-500": self(),
+				"rounded-br-[0.35vw]": self() && firstMessage(),
+				"rounded-r-[0.35vw]": self() && middleMessage(),
+				"rounded-tr-[0.35vw]": self() && lastMessage(),
+				// Else
 				"bg-stone-800": !self(),
-				"bg-blue-500": self()
-			}}
-			style={{
-				"border-radius": `${lastMessage() || middleMessage() ? "0.35vw" : "1vw"} 1vw 1vw 0.35vw`
+				"rounded-bl-[0.35vw]": !self() && firstMessage(),
+				"rounded-l-[0.35vw]": !self() && middleMessage(),
+				"rounded-bl-[1vw] rounded-tl-[0.35vw]": !self() && lastMessage(),
 			}}
 		>
 			<span class="self-center whitespace-pre-line text-[0.95vw]">{message().content}</span>
