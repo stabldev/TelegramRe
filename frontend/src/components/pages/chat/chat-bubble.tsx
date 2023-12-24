@@ -1,9 +1,9 @@
 import { Match, Show, Switch } from "solid-js";
 import { destructure } from "@solid-primitives/destructure";
-import CLock from "~/icons/Clock";
-import Tick from "~/icons/Tick";
-import { ChatProps } from "~/types/Chat";
 import { FormatDate } from "~/functions/format_date";
+import { ChatProps } from "~/types/chat";
+import Tick from "~/icons/tick";
+import CLock from "~/icons/clock";
 
 interface Props {
 	message: ChatProps;

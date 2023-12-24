@@ -1,8 +1,8 @@
 import { Component, For } from "solid-js";
-import { ProfileItemProps } from "../../types/ProfileItem";
-import Pencil from "~/icons/Pencil";
-import { SearchHeader } from "./SearchHeader";
-import { ProfileItem } from "./ProfileItem";
+import { ProfileItemProps } from "../../../types/profile-item";
+import { SearchHeader } from "./search-header";
+import { ProfileItem } from "./profile-item";
+import Pencil from "~/icons/pencil";
 
 const profile_mapping: ProfileItemProps[] = [
 	{

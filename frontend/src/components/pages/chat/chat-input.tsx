@@ -1,10 +1,10 @@
 import { Show, createSignal } from "solid-js";
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import TextareaAutosize from "solid-textarea-autosize";
-import Clip from "~/icons/Clip";
-import Emoji from "~/icons/Emoji";
-import Mic from "~/icons/Mic";
-import Send from "~/icons/Send";
+import Emoji from "~/icons/emoji";
+import Mic from "~/icons/mic";
+import Send from "~/icons/send";
+import Clip from "~/icons/clip";
 
 interface Props {
 	onMessage: (e: CustomEvent<string>) => void;
