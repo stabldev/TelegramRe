@@ -1,5 +1,5 @@
 import { JSX } from "solid-js";
-import Sidebar from "~/components/sidebar";
+import Sidebar from "~/components/shared/sidebar/Index";
 
 export function DefaultLayout(props: { children?: JSX.Element }) {
 	return (
