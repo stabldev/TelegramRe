@@ -1,6 +1,5 @@
 import { Accessor, JSX, createContext, createSignal, useContext, createEffect } from "solid-js";
 import { API_URL } from "~/config";
-import toast from "solid-toast";
 import { customToast } from "~/components/shared/custom_toast";
 
 type User = {

@@ -11,7 +11,7 @@ import { useAuth } from "~/context/auth";
 export const ChatScreen: Component = () => {
 	const params = useParams<{ username: string }>();
 	const [chat, setChat] = createSignal<ChatProps[]>([]);
-	const [user] = useAuth();
+	const { user } = useAuth();
 
 	let chatAreaRef: HTMLDivElement;
 
