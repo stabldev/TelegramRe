@@ -1,8 +1,8 @@
 import { Component } from "solid-js";
-import Bars from "~/icons/Menu";
-import Phone from "~/icons/Phone";
-import Search from "~/icons/Search";
-import Split from "~/icons/Split";
+import Menu from "~/icons/menu";
+import Phone from "~/icons/phone";
+import Search from "~/icons/search";
+import Split from "~/icons/split";
 
 export const ChatHeader: Component = () => {
 	return (
@@ -30,7 +30,7 @@ export const ChatHeader: Component = () => {
 					<Split class="transition-colors hover:text-white/75" />
 				</button>
 				<button>
-					<Bars
+					<Menu
 						class="transition-colors hover:text-white/75"
 						variant="dots"
 					/>

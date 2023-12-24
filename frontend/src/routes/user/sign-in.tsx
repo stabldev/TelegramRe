@@ -1,5 +1,5 @@
 import { A } from "solid-start";
-import { AuthLayout } from "~/layouts/auth_layout";
+import { AuthLayout } from "~/layouts/auth-layout";
 
 export default function SignIn() {
 	const handleFormSubmit = (evt: SubmitEvent) => {

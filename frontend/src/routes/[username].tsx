@@ -1,5 +1,5 @@
-import ChatScreen from "~/components/pages/chat/Index";
-import { DefaultLayout } from "~/layouts/default_layout";
+import ChatScreen from "~/components/pages/chat";
+import { DefaultLayout } from "~/layouts/default-layout";
 
 export default function Username() {
 	return (

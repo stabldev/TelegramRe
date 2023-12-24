@@ -1,8 +1,8 @@
 import { Component, createEffect, createSignal } from "solid-js";
 import { useParams } from "@solidjs/router";
-import { ChatHeader } from "./ChatHeader";
-import { ChatInput } from "./ChatInput";
-import { ChatArea } from "./ChatArea";
+import { ChatHeader } from "./chat-header";
+import { ChatInput } from "./chat-input";
+import { ChatArea } from "./chat-area";
 import { chat_mapping } from "~/data/mock/chat_messages";
 import { ChatProps } from "~/types/Chat";
 import { scrollToBottom } from "~/functions/scroll_to_bottom";

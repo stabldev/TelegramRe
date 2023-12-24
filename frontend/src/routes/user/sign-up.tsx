@@ -1,7 +1,6 @@
-import { createSignal } from "solid-js";
 import { A } from "solid-start";
 import { useAuth } from "~/context/auth";
-import { AuthLayout } from "~/layouts/auth_layout";
+import { AuthLayout } from "~/layouts/auth-layout";
 
 export default function SignUp() {
 	const { signUpUser } = useAuth();
