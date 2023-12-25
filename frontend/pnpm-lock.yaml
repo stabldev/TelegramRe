@@ -73,6 +73,9 @@ devDependencies:
   solid-toast:
     specifier: ^0.5.0
     version: 0.5.0(solid-js@1.8.7)
+  solid-transition-group:
+    specifier: ^0.2.3
+    version: 0.2.3(solid-js@1.8.7)
   tailwind-merge:
     specifier: ^2.2.0
     version: 2.2.0
@@ -1834,6 +1837,23 @@ packages:
 
   /@solid-primitives/event-dispatcher@0.0.105(solid-js@1.8.7):
     resolution: {integrity: sha512-VWHULLNKc4kuuhIY9UcmgacUun+RQXMRx3dLXv+T1a2YjB1RJQ5mrygJvqx+rX8tIUIYPX12XNSJoTX2g36Djw==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      solid-js: 1.8.7
+    dev: true
+
+  /@solid-primitives/refs@1.0.5(solid-js@1.8.7):
+    resolution: {integrity: sha512-5hmYmYbm6rs43nMHHozyyUngGA7P7q2WtlaCLJEfmlUJf67GWI1PZmqAiol6m9F37XSMZRuvZLoQ7HA/0q3GYg==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      '@solid-primitives/utils': 6.2.1(solid-js@1.8.7)
+      solid-js: 1.8.7
+    dev: true
+
+  /@solid-primitives/transition-group@1.0.3(solid-js@1.8.7):
+    resolution: {integrity: sha512-TnFADZhx9sibdoW5gxkU1QmLabzV2H2OBKYGS2aR5IC61Q/+7v8wlxOJEevxXNbPiRo6qlE3STLU3L9XS8hDbA==}
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:
@@ -4638,6 +4658,17 @@ packages:
     peerDependencies:
       solid-js: ^1.5.4
     dependencies:
+      solid-js: 1.8.7
+    dev: true
+
+  /solid-transition-group@0.2.3(solid-js@1.8.7):
+    resolution: {integrity: sha512-iB72c9N5Kz9ykRqIXl0lQohOau4t0dhel9kjwFvx81UZJbVwaChMuBuyhiZmK24b8aKEK0w3uFM96ZxzcyZGdg==}
+    engines: {node: '>=18.0.0', pnpm: '>=8.6.0'}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      '@solid-primitives/refs': 1.0.5(solid-js@1.8.7)
+      '@solid-primitives/transition-group': 1.0.3(solid-js@1.8.7)
       solid-js: 1.8.7
     dev: true
 

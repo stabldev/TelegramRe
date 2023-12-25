@@ -1,7 +1,7 @@
-import { JSX, createContext, createSignal, useContext } from "solid-js";
+import { Accessor, JSX, createContext, createSignal, useContext } from "solid-js";
 
 type SharedStore = {
-    showSidebar: boolean;
+    showSidebar: Accessor<boolean>;
     toggleShowSidebar: () => void;
 }
 
@@ -11,10 +11,10 @@ export function SharedProvider(props: { children?: JSX.Element }) {
     const [showSidebar, setShowSidebar] = createSignal(false);
 
     // Functions
-    function toggleShowSidebar() { setShowSidebar(!showSidebar()) };
+    const toggleShowSidebar = () => setShowSidebar((prev) => !prev);
 
     const context_value: SharedStore = {
-        showSidebar: showSidebar(),
+        showSidebar: showSidebar,
         toggleShowSidebar: toggleShowSidebar,
     }
 

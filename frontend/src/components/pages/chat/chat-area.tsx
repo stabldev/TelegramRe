@@ -5,6 +5,7 @@ import { ChatBubble } from "./chat-bubble";
 import { useAuth } from "~/context/auth";
 import { ChatSidebar } from "./chat-sidebar";
 import { useShared } from "~/context/shared";
+import { Transition } from "solid-transition-group";
 
 interface Props {
 	chat: ChatProps[];
@@ -54,9 +55,27 @@ export const ChatArea = (props: Props) => {
 					)}
 				</For>
 			</div>
-			<Show when={showSidebar}>
-				<ChatSidebar />
-			</Show>
+			<Transition
+				onEnter={(el, done) => {
+					const a = el.animate([{ width: 0 }, { width: "100%" }], {
+						duration: 500,
+						easing: "ease-in",
+					});
+					a.finished.then(done);
+				}}
+
+				onExit={(el, done) => {
+					const a = el.animate([{ width: "100%" }, { width: 0 }], {
+						duration: 500,
+						easing: "ease-out",
+					});
+					a.finished.then(done);
+				}}
+			>
+				<Show when={showSidebar()}>
+					<ChatSidebar />
+				</Show>
+			</Transition>
 		</div>
 	);
 };
