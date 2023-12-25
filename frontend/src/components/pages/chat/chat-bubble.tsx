@@ -33,7 +33,7 @@ export const ChatBubble = (props: Props) => {
 				"rounded-bl-[1vw] rounded-tl-[0.35vw]": !self() && lastMessage(),
 			}}
 		>
-			<span class="self-center whitespace-pre-line text-[0.95vw]">{message().content}</span>
+			<span class="self-center whitespace-pre-line text-[0.95vw] md:leading-[1.25vw]">{message().content}</span>
 			<span class="select-none self-end text-[0.75vw] uppercase leading-none text-white/80">{formatedDate}</span>
 			<Show when={self}>
 				<Switch fallback={<CLock class="self-end text-[1vw] text-white" />}>
