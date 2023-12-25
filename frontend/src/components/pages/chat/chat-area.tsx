@@ -58,7 +58,7 @@ export const ChatArea = (props: Props) => {
 			<Transition
 				onEnter={(el, done) => {
 					const a = el.animate([{ width: 0 }, { width: "100%" }], {
-						duration: 500,
+						duration: 300,
 						easing: "ease-in",
 					});
 					a.finished.then(done);
@@ -66,7 +66,7 @@ export const ChatArea = (props: Props) => {
 
 				onExit={(el, done) => {
 					const a = el.animate([{ width: "100%" }, { width: 0 }], {
-						duration: 500,
+						duration: 300,
 						easing: "ease-out",
 					});
 					a.finished.then(done);
