@@ -16,7 +16,7 @@ export const ChatArea = (props: Props) => {
 		<div class="relative flex items-end">
 			<div
 				ref={props.ref}
-				class="md:px-[15vw] flex w-full flex-col gap-[0.5vw] overflow-y-scroll pb-[4.5vw] px-[1vw] pt-[5vw] [scrollbar-width:_thin] [scrollbar-color:_rgba(255,255,255,0.1)_transparent]"
+				class="md:max-w-[45vw] mx-auto flex w-full flex-col gap-[0.5vw] overflow-y-scroll pb-[4.5vw] px-[1vw] pt-[5vw] [scrollbar-width:_thin] [scrollbar-color:_rgba(255,255,255,0.1)_transparent]"
 				style={{ "max-height": "calc(100vh - 3.75vw)" }}
 			>
 				<For each={groupChatBySender(props.chat)}>
