@@ -1,4 +1,4 @@
-import { Icon } from "~/types/Icon";
+import { Icon } from "~/types/icon";
 
 export default function Search(props: Icon) {
 	return (

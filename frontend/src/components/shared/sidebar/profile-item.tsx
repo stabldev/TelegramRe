@@ -1,9 +1,9 @@
 import { A, useParams } from "solid-start";
 import { destructure } from "@solid-primitives/destructure";
-import { FormatDate } from "~/functions/format_date";
+import { FormatDate } from "~/functions/format-date";
 import { ProfileItemProps } from "~/types/profile-item";
 import { createEffect, createSignal } from "solid-js";
-import { get_username } from "~/functions/get_username";
+import { get_username } from "~/functions/get-username";
 
 export const ProfileItem = (props: ProfileItemProps) => {
 	const [isActive, setIsActive] = createSignal(false);

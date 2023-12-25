@@ -1,5 +1,5 @@
 import { For, Show } from "solid-js";
-import { groupChatBySender } from "~/functions/group_chat";
+import { groupChatBySender } from "~/functions/group-chat";
 import { ChatProps } from "~/types/chat";
 import { ChatBubble } from "./chat-bubble";
 import { useAuth } from "~/context/auth";

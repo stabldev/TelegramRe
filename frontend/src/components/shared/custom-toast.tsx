@@ -1,4 +1,4 @@
-import toast, { Message, ToastOptions } from "solid-toast";
+import toast, { ToastOptions } from "solid-toast";
 import { cn } from "~/functions/cn";
 
 export function customToast(message: string, props?: ToastOptions) {
