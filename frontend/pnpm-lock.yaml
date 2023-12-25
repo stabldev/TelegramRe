@@ -19,6 +19,9 @@ dependencies:
     version: 0.3.10(@solidjs/meta@0.29.3)(@solidjs/router@0.9.1)(solid-js@1.8.7)(solid-start-node@0.3.10)(solid-start-vercel@0.3.10)(vite@4.5.1)
 
 devDependencies:
+  '@solid-primitives/context':
+    specifier: ^0.2.1
+    version: 0.2.1(solid-js@1.8.7)
   '@solid-primitives/destructure':
     specifier: ^0.1.14
     version: 0.1.14(solid-js@1.8.7)
@@ -1811,6 +1814,14 @@ packages:
 
   /@sideway/pinpoint@2.0.0:
     resolution: {integrity: sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ==}
+
+  /@solid-primitives/context@0.2.1(solid-js@1.8.7):
+    resolution: {integrity: sha512-XIIwCOWpRKDersgkR9LNFXaJHIV8QlCFo/tq5bV0cAOZklcwOFcqi2bN+uWgEIQSWGjWXU2kc1H1/TzgYzVDlg==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      solid-js: 1.8.7
+    dev: true
 
   /@solid-primitives/destructure@0.1.14(solid-js@1.8.7):
     resolution: {integrity: sha512-zZh4ndBerokw+MKqjkp00PPnpZs9nfferQxkBlr3yvNTu4OoxmnRJciYNC1tYsGKRrFGJoHf31rgVedTLfXssA==}

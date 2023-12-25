@@ -6,7 +6,7 @@ import Split from "~/icons/split";
 
 export const ChatHeader: Component = () => {
 	return (
-		<div class="flex h-[3.75vw] select-none items-center justify-between bg-stone-900 px-[1vw]">
+		<div class="flex h-[3.75vw] select-none items-center justify-between bg-stone-900 px-[1vw] border-b-[0.1vw] border-black/50">
 			<div class="flex items-center gap-[1vw]">
 				<img
 					src="https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg"

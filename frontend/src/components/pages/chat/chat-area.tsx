@@ -1,8 +1,10 @@
-import { For } from "solid-js";
+import { For, Show } from "solid-js";
 import { groupChatBySender } from "~/functions/group_chat";
 import { ChatProps } from "~/types/chat";
 import { ChatBubble } from "./chat-bubble";
 import { useAuth } from "~/context/auth";
+import { ChatSidebar } from "./chat-sidebar";
+import { useShared } from "~/context/shared";
 
 interface Props {
 	chat: ChatProps[];
@@ -11,12 +13,13 @@ interface Props {
 
 export const ChatArea = (props: Props) => {
 	const { user } = useAuth();
+	const { showSidebar } = useShared();
 
 	return (
-		<div class="relative flex items-end">
+		<div class="relative flex">
 			<div
 				ref={props.ref}
-				class="md:max-w-[45vw] mx-auto flex w-full flex-col gap-[0.5vw] overflow-y-scroll pb-[4.5vw] px-[1vw] pt-[5vw] [scrollbar-width:_thin] [scrollbar-color:_rgba(255,255,255,0.1)_transparent]"
+				class="self-end md:w-[50vw] md:min-w-[50vw] mx-auto flex w-full flex-col gap-[0.5vw] overflow-y-scroll pb-[4.5vw] px-[1vw] pt-[5vw] [scrollbar-width:_thin] [scrollbar-color:_rgba(255,255,255,0.1)_transparent]"
 				style={{ "max-height": "calc(100vh - 3.75vw)" }}
 			>
 				<For each={groupChatBySender(props.chat)}>
@@ -51,6 +54,9 @@ export const ChatArea = (props: Props) => {
 					)}
 				</For>
 			</div>
+			<Show when={showSidebar}>
+				<ChatSidebar />
+			</Show>
 		</div>
 	);
 };
