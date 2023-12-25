@@ -1,9 +1,11 @@
 // @refresh reload
 import { Suspense } from "solid-js";
 import { Body, ErrorBoundary, FileRoutes, Head, Html, Meta, Routes, Scripts, Title } from "solid-start";
-import { AuthProvider } from "./context/auth";
 import "./root.css";
 import { Toaster } from "solid-toast";
+import { AuthProvider } from "./context/auth";
+import { SharedProvider } from "./context/shared";
+import { MultiProvider } from "@solid-primitives/context";
 
 export default function Root() {
 	return (
@@ -19,12 +21,15 @@ export default function Root() {
 			<Body>
 				<Suspense>
 					<ErrorBoundary>
-						<AuthProvider>
+						<MultiProvider values={[
+							AuthProvider,
+							SharedProvider
+						]}>
 							<Toaster />
 							<Routes>
 								<FileRoutes />
 							</Routes>
-						</AuthProvider>
+						</MultiProvider>
 					</ErrorBoundary>
 				</Suspense>
 				<Scripts />

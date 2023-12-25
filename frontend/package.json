@@ -9,6 +9,7 @@
 	},
 	"type": "module",
 	"devDependencies": {
+		"@solid-primitives/context": "^0.2.1",
 		"@solid-primitives/destructure": "^0.1.14",
 		"@solid-primitives/event-dispatcher": "^0.0.105",
 		"@typescript-eslint/eslint-plugin": "^6.15.0",
@@ -26,6 +27,7 @@
 		"solid-start-vercel": "^0.3.10",
 		"solid-textarea-autosize": "^0.0.5",
 		"solid-toast": "^0.5.0",
+		"solid-transition-group": "^0.2.3",
 		"tailwind-merge": "^2.2.0",
 		"tailwindcss": "^3.4.0",
 		"typescript": "^5.3.3",
