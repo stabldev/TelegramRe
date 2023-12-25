@@ -4,7 +4,7 @@ import { ChatHeader } from "./chat-header";
 import { ChatInput } from "./chat-input";
 import { ChatArea } from "./chat-area";
 import { chat_mapping } from "~/data/mock/chat_messages";
-import { scrollToBottom } from "~/functions/scroll_to_bottom";
+import { scrollToBottom } from "~/functions/scroll-to-bottom";
 import { useAuth } from "~/context/auth";
 import { ChatProps } from "~/types/chat";
 

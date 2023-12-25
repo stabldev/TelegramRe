@@ -1,6 +1,6 @@
 import { Match, Show, Switch } from "solid-js";
 import { destructure } from "@solid-primitives/destructure";
-import { FormatDate } from "~/functions/format_date";
+import { FormatDate } from "~/functions/format-date";
 import type { ChatProps } from "~/types/chat";
 import Tick from "~/icons/tick";
 import CLock from "~/icons/clock";
