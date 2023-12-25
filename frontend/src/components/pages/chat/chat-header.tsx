@@ -31,17 +31,20 @@ export const ChatHeader: Component = () => {
 
 	return (
 		<div class="flex h-[3.75vw] select-none items-center justify-between bg-stone-900 px-[1vw] border-b-[0.1vw] border-black/50">
-			<div class="flex items-center gap-[1vw]">
+			<button
+				onClick={toggleShowSidebar}
+				class="flex items-center gap-[1vw]"
+			>
 				<img
 					src="https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg"
 					alt="anya-forger"
 					class="w-[2.5vw] rounded-full"
 				/>
-				<div class="flex flex-col gap-[0.25vw] leading-none">
+				<div class="flex items-start flex-col gap-[0.25vw] leading-none">
 					<span class="text-[1vw] font-medium text-white">Anya Forger</span>
 					<span class="text-[0.9vw] text-white/50">last seen recently</span>
 				</div>
-			</div>
+			</button>
 			<div class="flex items-center gap-[1vw] text-[1.35vw] text-white/50">
 				<For each={Object.values(icon_mapping)}>{(icon) => (
 					<button onClick={icon.onClick} class="transition-colors hover:text-white/75">
