@@ -21,7 +21,7 @@ export const ProfileItem = (props: ProfileItemProps) => {
 		<A
 			href={`/@${username()}`}
 			class="flex w-full select-none items-center gap-[1vw] rounded-[0.75vw] px-[1vw] py-[0.75vw] transition-colors"
-			activeClass="bg-blue-500 hover:bg-blue-500 before:absolute before:left-[1vw] before:w-[0.35vw] before:h-[2.5vw] before:bg-white before:rounded-full before:rounded-l-none"
+			activeClass="bg-blue-500 hover:bg-blue-500 before:absolute before:left-0 before:w-[0.35vw] before:h-[2.5vw] before:bg-white before:rounded-full before:rounded-l-none"
 		>
 			<img
 				class="w-[3.5vw] rounded-full"
