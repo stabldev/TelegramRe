@@ -1,5 +1,4 @@
 import { useParams } from "solid-start";
-import { useAuth } from "~/context/auth";
 import { useShared } from "~/context/shared"
 import Close from "~/icons/close"
 
