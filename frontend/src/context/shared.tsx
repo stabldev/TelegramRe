@@ -8,7 +8,7 @@ type SharedStore = {
 const SharedContext = createContext<SharedStore>();
 
 export function SharedProvider(props: { children?: JSX.Element }) {
-    const [showSidebar, setShowSidebar] = createSignal(false);
+    const [showSidebar, setShowSidebar] = createSignal(true);
 
     // Functions
     const toggleShowSidebar = () => setShowSidebar((prev) => !prev);
