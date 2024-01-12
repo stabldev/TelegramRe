@@ -11,7 +11,7 @@ export default function Root() {
 	return (
 		<Html lang="en">
 			<Head>
-				<Title>Telegram Web</Title>
+				<Title>Telegram RE</Title>
 				<Meta charset="utf-8" />
 				<Meta
 					name="viewport"
@@ -21,10 +21,7 @@ export default function Root() {
 			<Body>
 				<Suspense>
 					<ErrorBoundary>
-						<MultiProvider values={[
-							AuthProvider,
-							SharedProvider
-						]}>
+						<MultiProvider values={[AuthProvider, SharedProvider]}>
 							<Toaster />
 							<Routes>
 								<FileRoutes />

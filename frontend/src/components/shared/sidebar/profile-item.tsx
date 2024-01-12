@@ -15,7 +15,7 @@ export const ProfileItem = (props: ProfileItemProps) => {
 	createEffect(() => {
 		if (!params.username) return;
 		setIsActive(get_username(params.username) === username());
-	}, [params.username])
+	}, [params.username]);
 
 	return (
 		<A
@@ -32,7 +32,7 @@ export const ProfileItem = (props: ProfileItemProps) => {
 				class="flex w-full flex-col"
 				classList={{
 					"text-white": isActive(),
-					"text-white/75": !isActive(),
+					"text-white/75": !isActive()
 				}}
 			>
 				<div class="flex items-center justify-between">

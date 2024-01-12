@@ -20,7 +20,7 @@ export const ChatArea = (props: Props) => {
 		<div class="relative flex">
 			<div
 				ref={props.ref}
-				class="self-end md:w-[50vw] md:min-w-[50vw] mx-auto flex w-full flex-col gap-[0.5vw] overflow-y-scroll pb-[4.5vw] px-[1vw] pt-[5vw] [scrollbar-width:_thin] [scrollbar-color:_rgba(255,255,255,0.1)_transparent]"
+				class="mx-auto flex w-full flex-col gap-[0.5vw] self-end overflow-y-scroll px-[1vw] pb-[4.5vw] pt-[5vw] [scrollbar-color:_rgba(255,255,255,0.1)_transparent] [scrollbar-width:_thin] md:w-[50vw] md:min-w-[50vw]"
 				style={{ "max-height": "calc(100vh - 3.75vw)" }}
 			>
 				<For each={groupChatBySender(props.chat)}>
@@ -59,15 +59,14 @@ export const ChatArea = (props: Props) => {
 				onEnter={(el, done) => {
 					const a = el.animate([{ width: 0 }, { width: "25vw" }], {
 						duration: 200,
-						easing: "ease-in-out",
+						easing: "ease-in-out"
 					});
 					a.finished.then(done);
 				}}
-
 				onExit={(el, done) => {
 					const a = el.animate([{ width: "25vw" }, { width: 0 }], {
 						duration: 200,
-						easing: "ease-in-out",
+						easing: "ease-in-out"
 					});
 					a.finished.then(done);
 				}}

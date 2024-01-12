@@ -1,3 +1,3 @@
 export function get_username(str: string) {
-    return str.slice(1);
+	return str.slice(1);
 }

@@ -35,7 +35,7 @@ export const ChatInput = (props: Props) => {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			class="absolute bottom-0 flex w-full items-end gap-[1vw] bg-stone-900 p-[1vw] border-t-[0.1vw] border-black/50"
+			class="absolute bottom-0 flex w-full items-end gap-[1vw] border-t-[0.1vw] border-black/50 bg-stone-900 p-[1vw]"
 		>
 			<button
 				type="button"

@@ -19,7 +19,7 @@ export const ChatBubble = (props: Props) => {
 
 	return (
 		<div
-			class="flex w-max gap-[0.5vw] py-[0.4vw] pl-[0.9vw] pr-[0.5vw] text-white rounded-[1vw]"
+			class="flex w-max gap-[0.5vw] rounded-[1vw] py-[0.4vw] pl-[0.9vw] pr-[0.5vw] text-white"
 			classList={{
 				// If sender is logged in user
 				"bg-blue-500": self(),
@@ -30,7 +30,7 @@ export const ChatBubble = (props: Props) => {
 				"bg-stone-800": !self(),
 				"rounded-bl-[0.35vw]": !self() && firstMessage(),
 				"rounded-l-[0.35vw]": !self() && middleMessage(),
-				"rounded-bl-[1vw] rounded-tl-[0.35vw]": !self() && lastMessage(),
+				"rounded-bl-[1vw] rounded-tl-[0.35vw]": !self() && lastMessage()
 			}}
 		>
 			<span class="self-center whitespace-pre-line text-[0.95vw] md:leading-[1.25vw]">{message().content}</span>
