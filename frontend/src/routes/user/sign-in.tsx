@@ -17,7 +17,7 @@ export default function SignIn() {
 			/>
 			<div class="flex flex-col md:gap-[0.5vw]">
 				<h2 class="font-semibold text-stone-50 md:text-[1.75vw]">Sign in to Telegram RE</h2>
-				<span class="flex max-w-[17vw] self-center text-stone-400 md:text-[1.05vw]">Sign in via Google or please enter your Email address to get OTP</span>
+				<span class="flex max-w-[17vw] self-center text-stone-400 md:text-[1.05vw]">Sign in via Google or please enter your Email address to get Link</span>
 			</div>
 			<form
 				onSubmit={handleFormSubmit}
