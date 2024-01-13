@@ -1,11 +1,20 @@
-const SignInForm = () => {
+import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
+
+interface Props {
+    onFormSubmit: (e: CustomEvent) => void;
+}
+
+const SignInForm = (props: Props) => {
+    const dispatch = createEventDispatcher(props);
+
     const handleFormSubmit = (evt: SubmitEvent) => {
 		evt.preventDefault();
 		const formElement = evt.currentTarget as HTMLFormElement;
 		const formData = new FormData(formElement);
-		console.log(formData);
+		
+        dispatch("formSubmit", formData);
 	};
-    
+
     return (
         <>
             <img
