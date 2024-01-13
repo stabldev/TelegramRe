@@ -1,3 +1,5 @@
+import Pencil from "~/icons/pencil";
+
 const OtpForm = () => {
     const handleFormSubmit = (e: SubmitEvent) => {
         console.log(e)
@@ -15,7 +17,12 @@ const OtpForm = () => {
 				class="md:size-[10vw]"
 			/>
 			<div class="flex flex-col md:gap-[0.5vw]">
-				<h2 class="font-semibold text-stone-50 md:text-[1.75vw]">admin@admin.com</h2>
+				<h2 class="font-semibold text-stone-50 md:text-[1.75vw] flex items-center md:gap-[0.75vw]">
+                    <span>admin@admin.com</span>
+                    <button class="text-stone-400 hover:text-stone-300 transition-colors">
+                        <Pencil />
+                    </button>
+                </h2>
 				<span class="flex max-w-[17vw] self-center text-stone-400 md:text-[1.05vw]">
                     We have send you a message in Email with the Code
                 </span>
