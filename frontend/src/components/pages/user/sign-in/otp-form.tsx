@@ -1,0 +1,33 @@
+const OtpForm = () => {
+    const handleFormSubmit = (e: SubmitEvent) => {
+        console.log(e)
+    };
+
+    return (
+        <>
+            <img
+				src="/favicon.ico"
+				class="md:size-[10vw]"
+			/>
+			<div class="flex flex-col md:gap-[0.5vw]">
+				<h2 class="font-semibold text-stone-50 md:text-[1.75vw]">admin@admin.com</h2>
+				<span class="flex max-w-[17vw] self-center text-stone-400 md:text-[1.05vw]">
+                    We have send you a message in Email with the Code
+                </span>
+			</div>
+            <form
+				onSubmit={handleFormSubmit}
+				class="flex w-full flex-col md:gap-[1vw]"
+			>
+				<input
+					name="code"
+					placeholder="Code"
+					class="w-full border-stone-700 bg-transparent text-stone-50 md:rounded-[0.65vw] md:border-[0.1vw] md:p-[0.75vw] md:text-[1.1vw]"
+				/>
+				<button class="bg-blue-600 font-medium uppercase leading-none text-white md:rounded-[0.65vw] md:p-[1vw] md:text-[1.1vw]">Submit</button>
+			</form>
+        </>
+    )
+}
+
+export default OtpForm;
