@@ -1,8 +1,17 @@
+import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import Pencil from "~/icons/pencil";
 
-const OtpForm = () => {
+interface Props {
+    onOtpSubmit: (e: CustomEvent) => void;
+}
+
+const OtpForm = (props: Props) => {
+    const dispatch = createEventDispatcher(props);
+
     const handleFormSubmit = (e: SubmitEvent) => {
-        console.log(e)
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget as HTMLFormElement);
+        dispatch("otpSubmit", formData);
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
