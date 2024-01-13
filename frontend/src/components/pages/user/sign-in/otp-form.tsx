@@ -3,6 +3,11 @@ const OtpForm = () => {
         console.log(e)
     };
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+        const re = new RegExp(/^[0-9\b]+$/);
+        if (!re.test(e.key) && e.key !== "Backspace") e.preventDefault();
+    };
+
     return (
         <>
             <img
@@ -20,6 +25,7 @@ const OtpForm = () => {
 				class="flex w-full flex-col md:gap-[1vw]"
 			>
 				<input
+                    onKeyDown={handleKeyDown}
 					name="code"
 					placeholder="Code"
 					class="w-full border-stone-700 bg-transparent text-stone-50 md:rounded-[0.65vw] md:border-[0.1vw] md:p-[0.75vw] md:text-[1.1vw]"
