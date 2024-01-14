@@ -1,5 +1,3 @@
-import Pencil from "~/icons/pencil";
-
 const PasswordForm = () => {
     return (
         <>
