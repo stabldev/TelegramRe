@@ -21,10 +21,6 @@ const OtpForm = (props: Props) => {
 
     return (
         <>
-            <img
-				src="/favicon.ico"
-				class="md:size-[10vw]"
-			/>
 			<div class="flex flex-col md:gap-[0.5vw]">
 				<h2 class="font-semibold text-stone-50 md:text-[1.75vw] flex items-center md:gap-[0.75vw]">
                     <span>admin@admin.com</span>
