@@ -38,8 +38,10 @@ const OtpForm = (props: Props) => {
 			>
 				<input
                     onKeyDown={handleKeyDown}
+                    required
 					name="code"
 					placeholder="Code"
+                    minLength={5}
                     maxLength={5}
 					class="w-full border-stone-700 bg-transparent text-stone-50 md:rounded-[0.65vw] md:border-[0.1vw] md:p-[0.75vw] md:text-[1.1vw]"
 				/>

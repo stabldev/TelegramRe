@@ -7,16 +7,20 @@ import { AuthLayout } from "~/layouts/auth-layout";
 type T = "sign-in" | "otp" | "password";
 
 export default function SignIn() {
-	const [activeForm, setActiveForm] = createSignal<T>("password");
+	const [activeForm, setActiveForm] = createSignal<T>("sign-in");
+
+	const handleFormSubmit = (e: CustomEvent) => {
+		console.log(e.detail);
+		setActiveForm("otp");
+	};
 
 	const handleOtpSubmit = (e: CustomEvent) => {
 		console.log(e.detail);
 		setActiveForm("password");
 	};
 
-	const handleFormSubmit = (e: CustomEvent) => {
+	const handlePasswordSubmit = (e: CustomEvent) => {
 		console.log(e.detail);
-		setActiveForm("otp");
 	};
 
 	return (
@@ -26,7 +30,7 @@ export default function SignIn() {
 				class="md:size-[10vw]"
 			/>
 			<Switch fallback={
-				<PasswordForm />
+				<PasswordForm onPasswordSubmit={handlePasswordSubmit} />
 			}>
 				<Match when={activeForm() === "sign-in"}>
 					<SignInForm onFormSubmit={handleFormSubmit} />

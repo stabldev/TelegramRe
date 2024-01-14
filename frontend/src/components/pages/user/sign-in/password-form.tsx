@@ -1,4 +1,18 @@
-const PasswordForm = () => {
+import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
+
+interface Props {
+    onPasswordSubmit: (e: CustomEvent) => void;
+};
+
+const PasswordForm = (props: Props) => {
+    const dispatch = createEventDispatcher(props);
+
+    const handleFormSubmit = (e: SubmitEvent) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget as HTMLFormElement);
+        dispatch("passwordSubmit", formData);
+    };
+
     return (
         <>
             <div class="flex flex-col md:gap-[0.5vw] items-center">
@@ -10,6 +24,7 @@ const PasswordForm = () => {
                 </span>
 			</div>
             <form
+                onSubmit={handleFormSubmit}
 				class="flex w-full flex-col md:gap-[1vw]"
 			>
 				<input
