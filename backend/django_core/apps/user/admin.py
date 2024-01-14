@@ -53,6 +53,7 @@ class CustomUserAdmin(UserAdmin):
                     "avatar",
                     "bio",
                     "is_verified",
+                    "otp",
                 )
             },
         ),
