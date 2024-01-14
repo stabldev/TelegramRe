@@ -17,10 +17,6 @@ const SignInForm = (props: Props) => {
 
     return (
         <>
-            <img
-				src="/favicon.ico"
-				class="md:size-[10vw]"
-			/>
 			<div class="flex flex-col md:gap-[0.5vw]">
 				<h2 class="font-semibold text-stone-50 md:text-[1.75vw]">Sign in to Telegram RE</h2>
 				<span class="flex max-w-[17vw] self-center text-stone-400 md:text-[1.05vw]">Sign in via Google or please enter your Email address to get OTP</span>
@@ -30,6 +26,8 @@ const SignInForm = (props: Props) => {
 				class="flex w-full flex-col md:gap-[1vw]"
 			>
 				<input
+					required
+					type="email"
 					name="email"
 					placeholder="Email address"
 					class="w-full border-stone-700 bg-transparent text-stone-50 md:rounded-[0.65vw] md:border-[0.1vw] md:p-[0.75vw] md:text-[1.1vw]"
