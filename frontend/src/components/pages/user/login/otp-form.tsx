@@ -46,7 +46,8 @@ const OtpForm = (props: Props) => {
 				<input
 					onKeyDown={handleKeyDown}
 					required
-					name="code"
+					autofocus
+                    name="code"
 					placeholder="Code"
 					minLength={5}
 					maxLength={5}

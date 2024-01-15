@@ -24,6 +24,7 @@ const PasswordForm = (props: Props) => {
 				class="flex w-full flex-col md:gap-[1vw]"
 			>
 				<input
+					autofocus
 					name="password"
 					placeholder="Password"
 					maxLength={5}
