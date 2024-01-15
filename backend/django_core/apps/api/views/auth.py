@@ -19,16 +19,16 @@ def csrf_view(request):
 @require_POST
 def sign_up_view(request: HttpRequest):
     data = json.loads(request.body)
-    username = data.get("username")
+    email = data.get("email")
     password = data.get("password")
 
-    if username is None or password is None:
+    if email is None or password is None:
         return JsonResponse(
-            data={"detail": "Please provide username and password."},
+            data={"detail": "Please provide email and password."},
             status=400,
         )
 
-    user = authenticate(username=password, password=password)
+    user = authenticate(email=email, password=password)
     if user is None:
         return JsonResponse(
             data={"detail": "User not found! invalid credentials."},

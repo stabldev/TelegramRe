@@ -71,7 +71,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 	createEffect(async () => {
 		// check session
-		initializeSession();
+		await initializeSession();
 
 		// fetch from backend
 		setUser({

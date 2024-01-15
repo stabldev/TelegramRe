@@ -1,7 +1,7 @@
 import { Match, Switch, createSignal } from "solid-js";
-import OtpForm from "~/components/pages/user/sign-in/otp-form";
-import PasswordForm from "~/components/pages/user/sign-in/password-form";
-import SignInForm from "~/components/pages/user/sign-in/sign-in-form";
+import LoginForm from "~/components/pages/user/login/login-form";
+import OtpForm from "~/components/pages/user/login/otp-form";
+import PasswordForm from "~/components/pages/user/login/password-form";
 import { AuthLayout } from "~/layouts/auth-layout";
 
 type T = "sign-in" | "otp" | "password";
@@ -33,7 +33,7 @@ export default function SignIn() {
 				<PasswordForm onPasswordSubmit={handlePasswordSubmit} />
 			}>
 				<Match when={activeForm() === "sign-in"}>
-					<SignInForm onFormSubmit={handleFormSubmit} />
+					<LoginForm onFormSubmit={handleFormSubmit} />
 				</Match>
 				<Match when={activeForm() === "otp"}>
 					<OtpForm onOtpSubmit={handleOtpSubmit} />
