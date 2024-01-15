@@ -3,32 +3,23 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 
-from .forms import CustomUserChangeForm, CustomUserCreationForm
-
 from .models import CustomUser
-
-USER_MODEL: type[CustomUser] = get_user_model()
-
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
-    add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
-    model = USER_MODEL
-
     list_display = (
-        "get_custom_username",
+        "email",
         "first_name",
         "last_name",
         "is_verified",
         "is_staff",
     )
 
-    # return username starts with '@'
-    def get_custom_username(self, obj):
-        return f"@{obj.username}"
-
-    get_custom_username.short_description = "username"
+    search_fields = (
+        "email",
+        "first_name",
+        "last_name",
+    )
 
     list_filter = (
         "is_verified",
@@ -47,7 +38,7 @@ class CustomUserAdmin(UserAdmin):
             None,
             {
                 "fields": (
-                    "username",
+                    "email",
                     "password",
                 )
             },
@@ -56,12 +47,13 @@ class CustomUserAdmin(UserAdmin):
             _("Personal info"),
             {
                 "fields": (
+                    "username",
                     "first_name",
                     "last_name",
-                    "email",
                     "avatar",
                     "bio",
                     "is_verified",
+                    "otp",
                 )
             },
         ),
@@ -87,7 +79,7 @@ class CustomUserAdmin(UserAdmin):
             {
                 "classes": ("wide",),
                 "fields": (
-                    "username",
+                    "email",
                     "password1",
                     "password2",
                 ),

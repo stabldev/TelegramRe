@@ -12,7 +12,7 @@ type User = {
 type AuthStore = {
 	user: Accessor<User | undefined>;
 	isAuthenticated: Accessor<boolean>;
-	signUpUser: (username: string, password: string) => Promise<void>;
+	verifyEmail: (email: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthStore>();
@@ -24,54 +24,37 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 	const initializeSession = async () => {
 		const res = await fetch(`${API_URL}/auth/session/`, {
-			credentials: "include"
+			credentials: "include",
 		});
 		const data = await res.json();
 		if (data.isAuthenticated) {
 			setIsAuthenticated(true);
 		} else {
-			initializeCSRF();
+			await initializeCSRF();
 		}
 	};
 
 	const initializeCSRF = async () => {
 		const res = await fetch(`${API_URL}/auth/csrf/`, {
-			credentials: "include"
+			credentials: "include",
 		});
 		const token = res.headers.get("X-CSRFToken");
 		if (!token) return;
 		setCsrfToken(token);
 	};
 
-	const signUpUser = async (username: string, password: string) => {
-		try {
-			const response = await fetch(`${API_URL}/auth/sign-up/`, {
-				method: "POST",
-				credentials: "include",
-				headers: {
-					"Content-Type": "application/json",
-					"X-CSRFToken": csrfToken()
-				},
-				body: JSON.stringify({
-					username,
-					password
-				})
-			});
-			const data = await response.json();
-
-			if (!response.ok) {
-				throw new Error(data.detail || "Sign up failed!");
-			}
-
-			console.log("sign up successful:", data);
-		} catch (error: any) {
-			customToast(error.message);
-		}
+	const verifyEmail = async (email: string) => {
+		const res = await fetch(`${API_URL}/auth/verify-email/`, {
+			method: "POST",
+			body: JSON.stringify({ email: email }),
+		});
+		const data = await res.json();
+		console.log(data);
 	};
 
 	createEffect(async () => {
 		// check session
-		initializeSession();
+		await initializeSession();
 
 		// fetch from backend
 		setUser({
@@ -85,7 +68,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const context_value: AuthStore = {
 		user: user,
 		isAuthenticated: isAuthenticated,
-		signUpUser: signUpUser
+		verifyEmail: verifyEmail,
 	};
 
 	return <AuthContext.Provider value={context_value}>{props.children}</AuthContext.Provider>;

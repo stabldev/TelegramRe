@@ -4,7 +4,7 @@ interface Props {
     onFormSubmit: (e: CustomEvent) => void;
 }
 
-const SignInForm = (props: Props) => {
+const LoginForm = (props: Props) => {
     const dispatch = createEventDispatcher(props);
 
     const handleFormSubmit = (evt: SubmitEvent) => {
@@ -49,4 +49,4 @@ const SignInForm = (props: Props) => {
     )
 }
 
-export default SignInForm
+export default LoginForm
