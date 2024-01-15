@@ -1,10 +1,14 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
+import { Show } from "solid-js";
+import { useAuth } from "~/context/auth";
+import Spinner from "~/icons/spinner";
 
 interface Props {
     onFormSubmit: (e: CustomEvent) => void;
 }
 
 const LoginForm = (props: Props) => {
+	const { loading } = useAuth();
     const dispatch = createEventDispatcher(props);
 
     const handleFormSubmit = (evt: SubmitEvent) => {
@@ -42,7 +46,16 @@ const LoginForm = (props: Props) => {
 					/>
 					<label for="keep-me">Keep me signed in</label>
 				</div>
-				<button class="bg-blue-600 font-medium uppercase leading-none text-white md:rounded-[0.65vw] md:p-[1vw] md:text-[1.1vw]">sign in</button>
+				<button
+					disabled={loading()}
+					classList={{"opacity-75": loading()}}
+					class="bg-blue-600 font-medium uppercase leading-none text-white md:rounded-[0.65vw] md:p-[1vw] md:text-[1.1vw] transition-opacity flex items-center justify-center md:gap-[1vw]"
+				>
+					<Show when={loading()}>
+						<Spinner class="md:size-[1vw]" />
+					</Show>
+					{loading() ? "please wait..." : "sign in"}
+				</button>
 				<span class="text-stone-400 md:text-[0.9vw]">Note: If this email doesn't exists, we'll create a new user with this email.</span>
 			</form>
         </>

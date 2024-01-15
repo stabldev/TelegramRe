@@ -10,6 +10,7 @@ type User = {
 };
 
 type AuthStore = {
+	loading: Accessor<boolean>;
 	user: Accessor<User | undefined>;
 	isAuthenticated: Accessor<boolean>;
 	verifyEmail: (email: string) => Promise<void>;
@@ -18,6 +19,7 @@ type AuthStore = {
 const AuthContext = createContext<AuthStore>();
 
 export function AuthProvider(props: { children?: JSX.Element }) {
+	const [loading, setLoading] = createSignal(false);
 	const [csrfToken, setCsrfToken] = createSignal<string>("");
 	const [isAuthenticated, setIsAuthenticated] = createSignal(false);
 	const [user, setUser] = createSignal<User | undefined>();
@@ -44,17 +46,26 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	};
 
 	const verifyEmail = async (email: string) => {
-		const res = await fetch(`${API_URL}/auth/verify-email/`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				"X-CSRFToken": csrfToken(),
-			},
-			credentials: "include",
-			body: JSON.stringify({ email: email }),
-		});
-		const data = await res.json();
-		console.log(data);
+		setLoading(true);
+		try {
+			const res = await fetch(`${API_URL}/auth/verify-email/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"X-CSRFToken": csrfToken(),
+				},
+				credentials: "include",
+				body: JSON.stringify({ email: email }),
+			});
+
+			if (!res.ok) {
+				throw new Error(`Something went wrong! ${res.statusText}`);
+			}
+		} catch (err) {
+			throw err;
+		} finally {
+			setLoading(false);
+		};
 	};
 
 	createEffect(async () => {
@@ -74,6 +85,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		user: user,
 		isAuthenticated: isAuthenticated,
 		verifyEmail: verifyEmail,
+		loading: loading,
 	};
 
 	return <AuthContext.Provider value={context_value}>{props.children}</AuthContext.Provider>;

@@ -12,9 +12,14 @@ export default function SignIn() {
 	const { verifyEmail } = useAuth();
 
 	const handleFormSubmit = async (e: CustomEvent) => {
-		const form_data = e.detail as FormData;
-		const email = String(form_data.get("email"));
-		await verifyEmail(email);
+		try {
+			const form_data = e.detail as FormData;
+			const email = String(form_data.get("email"));
+			await verifyEmail(email);
+			setActiveForm("otp");
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	const handleOtpSubmit = (e: CustomEvent) => {
