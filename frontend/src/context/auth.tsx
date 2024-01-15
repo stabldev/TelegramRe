@@ -1,5 +1,4 @@
 import { Accessor, JSX, createContext, createSignal, useContext, createEffect, Setter } from "solid-js";
-import { customToast } from "~/components/shared/custom-toast";
 import { API_URL } from "~/config";
 
 type User = {
@@ -13,7 +12,7 @@ type authForm = {
 	email: string;
 	otp: string;
 	password: string;
-}
+};
 
 type activeForm = "login" | "otp" | "password";
 
@@ -38,12 +37,12 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const [authForm, setAuthForm] = createSignal<authForm>({
 		email: "",
 		otp: "",
-		password: "",
+		password: ""
 	});
 
 	const initializeSession = async () => {
 		const res = await fetch(`${API_URL}/auth/session/`, {
-			credentials: "include",
+			credentials: "include"
 		});
 		const data = await res.json();
 		if (data.isAuthenticated) {
@@ -55,7 +54,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 	const initializeCSRF = async () => {
 		const res = await fetch(`${API_URL}/auth/csrf/`, {
-			credentials: "include",
+			credentials: "include"
 		});
 		const token = res.headers.get("X-CSRFToken");
 		if (!token) return;
@@ -74,10 +73,10 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					"X-CSRFToken": csrfToken(),
+					"X-CSRFToken": csrfToken()
 				},
 				credentials: "include",
-				body: JSON.stringify({ email: email }),
+				body: JSON.stringify({ email: email })
 			});
 
 			if (!res.ok) {
@@ -87,7 +86,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 			throw err;
 		} finally {
 			setLoading(false);
-		};
+		}
 	};
 
 	createEffect(async () => {
@@ -110,7 +109,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		loading: loading,
 		authForm: authForm,
 		activeForm: activeForm,
-		setActiveForm: setActiveForm,
+		setActiveForm: setActiveForm
 	};
 
 	return <AuthContext.Provider value={context_value}>{props.children}</AuthContext.Provider>;

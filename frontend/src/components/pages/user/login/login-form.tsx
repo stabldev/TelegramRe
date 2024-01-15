@@ -4,23 +4,23 @@ import { useAuth } from "~/context/auth";
 import Spinner from "~/icons/spinner";
 
 interface Props {
-    onFormSubmit: (e: CustomEvent) => void;
+	onFormSubmit: (e: CustomEvent) => void;
 }
 
 const LoginForm = (props: Props) => {
 	const { loading, authForm } = useAuth();
-    const dispatch = createEventDispatcher(props);
+	const dispatch = createEventDispatcher(props);
 
-    const handleFormSubmit = (evt: SubmitEvent) => {
+	const handleFormSubmit = (evt: SubmitEvent) => {
 		evt.preventDefault();
 		const formElement = evt.currentTarget as HTMLFormElement;
 		const formData = new FormData(formElement);
-		
-        dispatch("formSubmit", formData);
+
+		dispatch("formSubmit", formData);
 	};
 
-    return (
-        <>
+	return (
+		<>
 			<div class="flex flex-col md:gap-[0.5vw]">
 				<h2 class="font-semibold text-stone-50 md:text-[1.75vw]">Sign in to Telegram RE</h2>
 				<span class="flex max-w-[17vw] self-center text-stone-400 md:text-[1.05vw]">Sign in via Google or please enter your Email address to get OTP</span>
@@ -49,8 +49,8 @@ const LoginForm = (props: Props) => {
 				</div>
 				<button
 					disabled={loading()}
-					classList={{"opacity-75": loading()}}
-					class="bg-blue-600 font-medium uppercase leading-none text-white md:rounded-[0.65vw] md:p-[1vw] md:text-[1.1vw] transition-opacity flex items-center justify-center md:gap-[1vw]"
+					classList={{ "opacity-75": loading() }}
+					class="flex items-center justify-center bg-blue-600 font-medium uppercase leading-none text-white transition-opacity md:gap-[1vw] md:rounded-[0.65vw] md:p-[1vw] md:text-[1.1vw]"
 				>
 					<Show when={loading()}>
 						<Spinner class="md:size-[1vw]" />
@@ -59,8 +59,8 @@ const LoginForm = (props: Props) => {
 				</button>
 				<span class="text-stone-400 md:text-[0.9vw]">Note: If this email doesn't exists, we'll create a new user with this email.</span>
 			</form>
-        </>
-    )
-}
+		</>
+	);
+};
 
-export default LoginForm
+export default LoginForm;

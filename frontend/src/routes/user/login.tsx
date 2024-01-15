@@ -34,9 +34,7 @@ export default function SignIn() {
 				src="/favicon.ico"
 				class="md:size-[10vw]"
 			/>
-			<Switch fallback={
-				<PasswordForm onPasswordSubmit={handlePasswordSubmit} />
-			}>
+			<Switch fallback={<PasswordForm onPasswordSubmit={handlePasswordSubmit} />}>
 				<Match when={activeForm() === "login"}>
 					<LoginForm onFormSubmit={handleFormSubmit} />
 				</Match>
