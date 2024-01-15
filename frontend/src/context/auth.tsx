@@ -1,4 +1,4 @@
-import { Accessor, JSX, createContext, createSignal, useContext, createEffect } from "solid-js";
+import { Accessor, JSX, createContext, createSignal, useContext, createEffect, Setter } from "solid-js";
 import { customToast } from "~/components/shared/custom-toast";
 import { API_URL } from "~/config";
 
@@ -9,11 +9,22 @@ type User = {
 	image: string;
 };
 
+type authForm = {
+	email: string;
+	otp: string;
+	password: string;
+}
+
+type activeForm = "login" | "otp" | "password";
+
 type AuthStore = {
 	loading: Accessor<boolean>;
 	user: Accessor<User | undefined>;
 	isAuthenticated: Accessor<boolean>;
 	verifyEmail: (email: string) => Promise<void>;
+	authForm: Accessor<authForm>;
+	activeForm: Accessor<activeForm>;
+	setActiveForm: Setter<activeForm>;
 };
 
 const AuthContext = createContext<AuthStore>();
@@ -23,6 +34,12 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const [csrfToken, setCsrfToken] = createSignal<string>("");
 	const [isAuthenticated, setIsAuthenticated] = createSignal(false);
 	const [user, setUser] = createSignal<User | undefined>();
+	const [activeForm, setActiveForm] = createSignal<activeForm>("login");
+	const [authForm, setAuthForm] = createSignal<authForm>({
+		email: "",
+		otp: "",
+		password: "",
+	});
 
 	const initializeSession = async () => {
 		const res = await fetch(`${API_URL}/auth/session/`, {
@@ -47,6 +64,11 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 	const verifyEmail = async (email: string) => {
 		setLoading(true);
+		setAuthForm((form) => ({
+			...form,
+			email: email
+		}));
+
 		try {
 			const res = await fetch(`${API_URL}/auth/verify-email/`, {
 				method: "POST",
@@ -86,6 +108,9 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		isAuthenticated: isAuthenticated,
 		verifyEmail: verifyEmail,
 		loading: loading,
+		authForm: authForm,
+		activeForm: activeForm,
+		setActiveForm: setActiveForm,
 	};
 
 	return <AuthContext.Provider value={context_value}>{props.children}</AuthContext.Provider>;

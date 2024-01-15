@@ -8,7 +8,7 @@ interface Props {
 }
 
 const LoginForm = (props: Props) => {
-	const { loading } = useAuth();
+	const { loading, authForm } = useAuth();
     const dispatch = createEventDispatcher(props);
 
     const handleFormSubmit = (evt: SubmitEvent) => {
@@ -33,6 +33,7 @@ const LoginForm = (props: Props) => {
 					required
 					type="email"
 					name="email"
+					value={authForm().email}
 					placeholder="Email address"
 					class="w-full border-stone-700 bg-transparent text-stone-50 md:rounded-[0.65vw] md:border-[0.1vw] md:p-[0.75vw] md:text-[1.1vw]"
 				/>

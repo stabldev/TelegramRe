@@ -1,4 +1,5 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
+import { useAuth } from "~/context/auth";
 import Pencil from "~/icons/pencil";
 
 interface Props {
@@ -6,6 +7,7 @@ interface Props {
 }
 
 const OtpForm = (props: Props) => {
+    const { authForm, setActiveForm } = useAuth();
     const dispatch = createEventDispatcher(props);
 
     const handleFormSubmit = (e: SubmitEvent) => {
@@ -19,12 +21,19 @@ const OtpForm = (props: Props) => {
         if (!re.test(e.key) && e.key !== "Backspace") e.preventDefault();
     };
 
+    const handleEditClick = () => {
+        setActiveForm("login");
+    };
+
     return (
         <>
 			<div class="flex flex-col md:gap-[0.5vw]">
 				<h2 class="font-semibold text-stone-50 md:text-[1.75vw] flex items-center md:gap-[0.75vw]">
-                    <span>admin@admin.com</span>
-                    <button class="text-stone-400 hover:text-stone-300 transition-colors">
+                    <span>{authForm().email}</span>
+                    <button
+                        onClick={handleEditClick}
+                        class="text-stone-400 hover:text-stone-300 transition-colors"
+                    >
                         <Pencil />
                     </button>
                 </h2>

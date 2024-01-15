@@ -1,15 +1,12 @@
-import { Match, Switch, createSignal } from "solid-js";
+import { Match, Switch } from "solid-js";
 import LoginForm from "~/components/pages/user/login/login-form";
 import OtpForm from "~/components/pages/user/login/otp-form";
 import PasswordForm from "~/components/pages/user/login/password-form";
 import { useAuth } from "~/context/auth";
 import { AuthLayout } from "~/layouts/auth-layout";
 
-type T = "sign-in" | "otp" | "password";
-
 export default function SignIn() {
-	const [activeForm, setActiveForm] = createSignal<T>("sign-in");
-	const { verifyEmail } = useAuth();
+	const { verifyEmail, activeForm, setActiveForm } = useAuth();
 
 	const handleFormSubmit = async (e: CustomEvent) => {
 		try {
@@ -40,7 +37,7 @@ export default function SignIn() {
 			<Switch fallback={
 				<PasswordForm onPasswordSubmit={handlePasswordSubmit} />
 			}>
-				<Match when={activeForm() === "sign-in"}>
+				<Match when={activeForm() === "login"}>
 					<LoginForm onFormSubmit={handleFormSubmit} />
 				</Match>
 				<Match when={activeForm() === "otp"}>
