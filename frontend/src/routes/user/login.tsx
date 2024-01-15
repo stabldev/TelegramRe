@@ -11,10 +11,10 @@ export default function SignIn() {
 	const [activeForm, setActiveForm] = createSignal<T>("sign-in");
 	const { verifyEmail } = useAuth();
 
-	const handleFormSubmit = (e: CustomEvent) => {
+	const handleFormSubmit = async (e: CustomEvent) => {
 		const form_data = e.detail as FormData;
 		const email = String(form_data.get("email"));
-		verifyEmail(email);
+		await verifyEmail(email);
 	};
 
 	const handleOtpSubmit = (e: CustomEvent) => {

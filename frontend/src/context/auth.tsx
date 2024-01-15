@@ -46,6 +46,11 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const verifyEmail = async (email: string) => {
 		const res = await fetch(`${API_URL}/auth/verify-email/`, {
 			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"X-CSRFToken": csrfToken(),
+			},
+			credentials: "include",
 			body: JSON.stringify({ email: email }),
 		});
 		const data = await res.json();

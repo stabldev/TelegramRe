@@ -5,7 +5,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 from django.middleware.csrf import get_token
-from rest_framework.response import Response
 from rest_framework import status
 
 from apps.api.serializers import RegisterSerializer
@@ -35,11 +34,11 @@ def verify_email_view(request: HttpRequest):
     try:
         user = CustomUser.objects.get(email=email)
     except CustomUser.DoesNotExist:
-        user = CustomUser.create(email=email)
+        user = CustomUser.objects.create(email=email)
     
     otp = generate_otp()
     user.otp = otp
     user.save()
 
     send_otp(email, otp)
-    return Response({ "detail": "OTP has been send to your email"}, status=status.HTTP_200_OK)
+    return JsonResponse({ "detail": "OTP has been send to your email"}, status=status.HTTP_200_OK)
