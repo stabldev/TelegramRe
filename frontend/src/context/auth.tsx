@@ -12,7 +12,7 @@ type User = {
 type AuthStore = {
 	user: Accessor<User | undefined>;
 	isAuthenticated: Accessor<boolean>;
-	verifyEmail: (email: string) => void;
+	verifyEmail: (email: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthStore>();
@@ -24,14 +24,13 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 	const initializeSession = async () => {
 		const res = await fetch(`${API_URL}/auth/session/`, {
-			credentials: "include"
+			credentials: "include",
 		});
 		const data = await res.json();
-		console.log(data);
 		if (data.isAuthenticated) {
 			setIsAuthenticated(true);
 		} else {
-			initializeCSRF();
+			await initializeCSRF();
 		}
 	};
 
@@ -41,7 +40,6 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		});
 		const token = res.headers.get("X-CSRFToken");
 		if (!token) return;
-		console.log(token);
 		setCsrfToken(token);
 	};
 
