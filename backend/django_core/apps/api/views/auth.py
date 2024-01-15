@@ -5,8 +5,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 from django.middleware.csrf import get_token
+from rest_framework.response import Response
+from rest_framework import status
 
 from apps.api.serializers import RegisterSerializer
+from apps.user.models import CustomUser
+from apps.user.utils import generate_otp, send_otp
 
 
 @ensure_csrf_cookie
@@ -69,3 +73,23 @@ def sign_in_view(request: HttpRequest):
 
     serializer.save()
     return JsonResponse({"detail": "Successfully registered!"})
+
+@require_POST
+def verify_email_view(request: HttpRequest):
+    data = json.loads(request.body)
+    email = data.get("email")
+
+    if not email:
+        raise ValueError("Email is required")
+
+    try:
+        user = CustomUser.objects.get(email=email)
+    except CustomUser.DoesNotExist:
+        user = CustomUser.create(email=email)
+    
+    otp = generate_otp()
+    user.otp = otp
+    user.save()
+
+    send_otp(email, otp)
+    return Response({ "detail": "OTP has been send to your email"}, status=status.HTTP_200_OK)

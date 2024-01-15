@@ -7,13 +7,10 @@ from apps.api.views.chat import (
     UpdateMessageView,
 )
 from apps.api.views.user import SearchUserView, UserDetailView
-from apps.api.views.auth import (
+from .views.auth import (
     csrf_view,
     check_session,
-    sign_up_view,
-    sign_in_view,
-    logout_view,
-    whoami_view,
+    verify_email_view
 )
 
 # fmt: off
@@ -22,10 +19,12 @@ urlpatterns = [
     path("auth/", include([
         path("csrf/", csrf_view, name="csrf"),
         path("session/", check_session, name="session"),
-        path("sign-up/", sign_up_view, name="sign-up-view"),
-        path("sign-in/", sign_in_view, name="sign-in-view"),
-        path("logout/", logout_view, name="logout-view"),
-        path("whoami/", whoami_view, name="whoami"),
+        # path("sign-up/", sign_up_view, name="sign-up-view"),
+        # path("sign-in/", sign_in_view, name="sign-in-view"),
+        # path("logout/", logout_view, name="logout-view"),
+        # path("whoami/", whoami_view, name="whoami"),
+
+        path("verify-email/", verify_email_view, name="login"),
     ])),
     # chat views
     path("inbox/", InboxView.as_view(), name="inbox"),

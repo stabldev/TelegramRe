@@ -2,16 +2,19 @@ import { Match, Switch, createSignal } from "solid-js";
 import LoginForm from "~/components/pages/user/login/login-form";
 import OtpForm from "~/components/pages/user/login/otp-form";
 import PasswordForm from "~/components/pages/user/login/password-form";
+import { useAuth } from "~/context/auth";
 import { AuthLayout } from "~/layouts/auth-layout";
 
 type T = "sign-in" | "otp" | "password";
 
 export default function SignIn() {
 	const [activeForm, setActiveForm] = createSignal<T>("sign-in");
+	const { verifyEmail } = useAuth();
 
 	const handleFormSubmit = (e: CustomEvent) => {
-		console.log(e.detail);
-		setActiveForm("otp");
+		const form_data = e.detail as FormData;
+		const email = String(form_data.get("email"));
+		verifyEmail(email);
 	};
 
 	const handleOtpSubmit = (e: CustomEvent) => {
