@@ -24,7 +24,7 @@ export default function SignIn() {
 			const form_data = e.detail as FormData;
 			const otp = String(form_data.get("code"));
 			await verifyOtp(otp);
-			setActiveForm("otp");
+			setActiveForm("password");
 		} catch (err) {
 			console.log(err);
 		}

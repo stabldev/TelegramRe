@@ -118,6 +118,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 			console.log(res);
 		} catch (err) {
 			if (err instanceof Error) customToast(err.message);
+			throw err;
 		} finally {
 			setLoading(false);
 		};
