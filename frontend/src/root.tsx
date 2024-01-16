@@ -22,7 +22,7 @@ export default function Root() {
 				<Suspense>
 					<ErrorBoundary>
 						<MultiProvider values={[AuthProvider, SharedProvider]}>
-							<Toaster />
+							<Toaster position="bottom-right" />
 							<Routes>
 								<FileRoutes />
 							</Routes>

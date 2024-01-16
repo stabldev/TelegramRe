@@ -1,4 +1,5 @@
 import { Accessor, JSX, createContext, createSignal, useContext, createEffect, Setter } from "solid-js";
+import { customToast } from "~/components/shared/custom-toast";
 import { API_URL } from "~/config";
 
 type User = {
@@ -112,11 +113,11 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 			});
 
 			if (!res.ok) {
-				throw new Error("Invalid OTP");
+				throw new Error("Invalid OTP! please re-check your mail");
 			}
 			console.log(res);
 		} catch (err) {
-			throw err;
+			if (err instanceof Error) customToast(err.message);
 		} finally {
 			setLoading(false);
 		};
