@@ -18,11 +18,6 @@ const OtpForm = (props: Props) => {
 		dispatch("otpSubmit", formData);
 	};
 
-	const handleKeyDown = (e: KeyboardEvent) => {
-		const re = new RegExp(/^[0-9\b]+$/);
-		if (!re.test(e.key) && e.key !== "Backspace") e.preventDefault();
-	};
-
 	const handleEditClick = () => {
 		setActiveForm("login");
 	};
@@ -46,7 +41,6 @@ const OtpForm = (props: Props) => {
 				class="flex w-full flex-col md:gap-[1vw]"
 			>
 				<input
-					onKeyDown={handleKeyDown}
 					required
 					autofocus
                     name="code"
