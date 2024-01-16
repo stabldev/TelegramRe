@@ -26,8 +26,8 @@ devDependencies:
     specifier: ^0.1.14
     version: 0.1.14(solid-js@1.8.11)
   '@solid-primitives/event-dispatcher':
-    specifier: ^0.0.105
-    version: 0.0.105(solid-js@1.8.11)
+    specifier: ^0.0.106
+    version: 0.0.106(solid-js@1.8.11)
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.18.1
     version: 6.18.1(@typescript-eslint/parser@6.18.1)(eslint@8.56.0)(typescript@5.3.3)
@@ -1835,8 +1835,8 @@ packages:
       solid-js: 1.8.11
     dev: true
 
-  /@solid-primitives/event-dispatcher@0.0.105(solid-js@1.8.11):
-    resolution: {integrity: sha512-VWHULLNKc4kuuhIY9UcmgacUun+RQXMRx3dLXv+T1a2YjB1RJQ5mrygJvqx+rX8tIUIYPX12XNSJoTX2g36Djw==}
+  /@solid-primitives/event-dispatcher@0.0.106(solid-js@1.8.11):
+    resolution: {integrity: sha512-Jwp4sedfUaWMx5XwOmSoluWtPg3sK23YB1MoB3oqaFc+7JtV7NzvUjJ/VUQks0ql39ZHp5ug3KX5iu5e3MLatQ==}
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:
