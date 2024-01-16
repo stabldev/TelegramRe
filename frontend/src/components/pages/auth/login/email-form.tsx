@@ -34,7 +34,7 @@ const EmailForm = (props: Props) => {
 				onSubmit={handleFormSubmit}
 				class="flex w-full flex-col md:gap-[0.75vw]"
 			>
-				<div class="w-full grid grid-cols-2 md:gap-[1vw]">
+				<div class="w-full grid grid-cols-2 md:gap-[0.75vw]">
 					<button type="button" class="flex items-center bg-stone-800 text-stone-100 md:p-[1vw] leading-none justify-center md:gap-[0.75vw] md:text-[1.1vw] font-medium md:rounded-[0.65vw]">
 						<Google class="md:size-[1.5vw]" />
 						Google

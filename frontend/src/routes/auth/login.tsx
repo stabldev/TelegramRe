@@ -10,11 +10,11 @@ export default function Login() {
     const [activeForm, setActiveForm] = createSignal<ActiveForm>("email");
 
 	const handleFormSubmit = (e: CustomEvent) => {
-        console.log(e);
+        console.log(e.detail);
 	};
 
 	const handleOtpSubmit = (e: CustomEvent) => {
-        console.log(e);
+        console.log(e.detail);
 	};
 
 	return (
