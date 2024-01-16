@@ -1,6 +1,9 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import { Show } from "solid-js";
+import { A } from "solid-start";
 import { useAuth } from "~/context/auth";
+import Github from "~/icons/github";
+import Google from "~/icons/google";
 import Spinner from "~/icons/spinner";
 
 interface Props {
@@ -22,13 +25,25 @@ const EmailForm = (props: Props) => {
 	return (
 		<>
 			<div class="flex flex-col md:gap-[0.5vw]">
-				<h2 class="font-semibold text-stone-50 md:text-[1.75vw]">Sign in to Telegram RE</h2>
-				<span class="flex max-w-[17vw] self-center text-stone-400 md:text-[1.05vw]">Sign in via Google or please enter your Email address to get OTP</span>
+				<h2 class="font-semibold text-stone-50 md:text-[1.75vw]">Login to Telegram RE</h2>
+				<span class="flex max-w-[17vw] self-center text-stone-400 md:text-[1.05vw]">
+					Use OAuth or login via Email <br /> ( Passwordless )
+				</span>
 			</div>
 			<form
 				onSubmit={handleFormSubmit}
-				class="flex w-full flex-col md:gap-[1vw]"
+				class="flex w-full flex-col md:gap-[0.75vw]"
 			>
+				<div class="w-full grid grid-cols-2 md:gap-[1vw]">
+					<button type="button" class="flex items-center bg-stone-800 text-stone-100 md:p-[1vw] leading-none justify-center md:gap-[0.75vw] md:text-[1.1vw] font-medium md:rounded-[0.65vw]">
+						<Google class="md:size-[1.5vw]" />
+						Google
+					</button>
+					<button type="button" class="flex items-center bg-stone-800 text-stone-100 md:p-[1vw] leading-none justify-center md:gap-[0.75vw] md:text-[1.1vw] font-medium md:rounded-[0.65vw]">
+						<Github class="md:size-[1.5vw]" />
+						Github
+					</button>
+				</div>
 				<input
 					required
 					type="email"
@@ -55,9 +70,14 @@ const EmailForm = (props: Props) => {
 					<Show when={loading()}>
 						<Spinner class="md:size-[1vw]" />
 					</Show>
-					{loading() ? "please wait..." : "sign in"}
+					{loading() ? "please wait..." : "submit"}
 				</button>
-				<span class="text-stone-400 md:text-[0.9vw]">Note: If this email doesn't exists, we'll create a new user with this email.</span>
+				<A
+					class="text-stone-400 md:text-[1.1vw]"
+					href="../register"
+				>
+					Don't have an account? Register!
+				</A>
 			</form>
 		</>
 	);

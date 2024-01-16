@@ -19,7 +19,7 @@ const AuthContext = createContext<AuthStore>();
 
 export function AuthProvider(props: { children?: JSX.Element }) {
 	const [loading, setLoading] = createSignal(false);
-	const [csrfToken, setCsrfToken] = createSignal<string>("");
+	const [csrfToken, setCsrfToken] = createSignal("");
 	const [isAuthenticated, setIsAuthenticated] = createSignal(false);
 	const [user, setUser] = createSignal<User | undefined>();
 
