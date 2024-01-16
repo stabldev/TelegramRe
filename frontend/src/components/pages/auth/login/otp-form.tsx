@@ -9,28 +9,23 @@ interface Props {
 }
 
 const OtpForm = (props: Props) => {
-	const { authForm, setActiveForm, loading } = useAuth();
+	const { loading } = useAuth();
 	const dispatch = createEventDispatcher(props);
 
 	const handleFormSubmit = (e: SubmitEvent) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget as HTMLFormElement);
-		dispatch("otpSubmit", formData);
-	};
+		const code = formData.get("code");
 
-	const handleEditClick = () => {
-		setActiveForm("login");
+		dispatch("otpSubmit", code);
 	};
 
 	return (
 		<>
 			<div class="flex flex-col md:gap-[0.5vw]">
 				<h2 class="flex items-center font-semibold text-stone-50 md:gap-[0.75vw] md:text-[1.75vw]">
-					<span>{authForm().email}</span>
-					<button
-						onClick={handleEditClick}
-						class="text-stone-400 transition-colors hover:text-stone-300"
-					>
+					<span>test@test.com</span>
+					<button class="text-stone-400 transition-colors hover:text-stone-300">
 						<Pencil />
 					</button>
 				</h2>

@@ -7,16 +7,16 @@ interface Props {
 	onFormSubmit: (e: CustomEvent) => void;
 }
 
-const LoginForm = (props: Props) => {
-	const { loading, authForm } = useAuth();
+const EmailForm = (props: Props) => {
+	const { loading } = useAuth();
 	const dispatch = createEventDispatcher(props);
 
 	const handleFormSubmit = (evt: SubmitEvent) => {
 		evt.preventDefault();
-		const formElement = evt.currentTarget as HTMLFormElement;
-		const formData = new FormData(formElement);
+		const formData = new FormData(evt.currentTarget as HTMLFormElement);
+		const email = formData.get("email");
 
-		dispatch("formSubmit", formData);
+		dispatch("formSubmit", email);
 	};
 
 	return (
@@ -33,7 +33,6 @@ const LoginForm = (props: Props) => {
 					required
 					type="email"
 					name="email"
-					value={authForm().email}
 					autofocus
 					placeholder="Email address"
 					class="w-full border-stone-700 bg-transparent text-stone-50 md:rounded-[0.65vw] md:border-[0.1vw] md:p-[0.75vw] md:text-[1.1vw]"
@@ -64,4 +63,4 @@ const LoginForm = (props: Props) => {
 	);
 };
 
-export default LoginForm;
+export default EmailForm;
