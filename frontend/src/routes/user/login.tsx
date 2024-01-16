@@ -1,29 +1,43 @@
-import { Match, Switch, createSignal } from "solid-js";
+import { Match, Switch } from "solid-js";
 import LoginForm from "~/components/pages/user/login/login-form";
 import OtpForm from "~/components/pages/user/login/otp-form";
 import PasswordForm from "~/components/pages/user/login/password-form";
 import { useAuth } from "~/context/auth";
 import { AuthLayout } from "~/layouts/auth-layout";
 
-type T = "sign-in" | "otp" | "password";
-
 export default function SignIn() {
-	const [activeForm, setActiveForm] = createSignal<T>("sign-in");
-	const { verifyEmail } = useAuth();
+	const { activeForm, setActiveForm, verifyEmail, verifyOtp, verifyComplete } = useAuth();
 
-	const handleFormSubmit = (e: CustomEvent) => {
-		const form_data = e.detail as FormData;
-		const email = String(form_data.get("email"));
-		verifyEmail(email);
+	const handleFormSubmit = async (e: CustomEvent) => {
+		try {
+			const form_data = e.detail as FormData;
+			const email = String(form_data.get("email"));
+			await verifyEmail(email);
+			setActiveForm("otp");
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
-	const handleOtpSubmit = (e: CustomEvent) => {
-		console.log(e.detail);
-		setActiveForm("password");
+	const handleOtpSubmit = async (e: CustomEvent) => {
+		try {
+			const form_data = e.detail as FormData;
+			const otp = String(form_data.get("code"));
+			await verifyOtp(otp);
+			setActiveForm("password");
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
-	const handlePasswordSubmit = (e: CustomEvent) => {
-		console.log(e.detail);
+	const handlePasswordSubmit = async (e: CustomEvent) => {
+		try {
+			const form_data = e.detail as FormData;
+			const password = String(form_data.get("password"));
+			await verifyComplete(password);
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	return (
@@ -32,10 +46,8 @@ export default function SignIn() {
 				src="/favicon.ico"
 				class="md:size-[10vw]"
 			/>
-			<Switch fallback={
-				<PasswordForm onPasswordSubmit={handlePasswordSubmit} />
-			}>
-				<Match when={activeForm() === "sign-in"}>
+			<Switch fallback={<PasswordForm onPasswordSubmit={handlePasswordSubmit} />}>
+				<Match when={activeForm() === "login"}>
 					<LoginForm onFormSubmit={handleFormSubmit} />
 				</Match>
 				<Match when={activeForm() === "otp"}>
