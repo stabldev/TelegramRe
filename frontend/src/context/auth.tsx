@@ -26,6 +26,7 @@ type AuthStore = {
 	setActiveForm: Setter<activeForm>;
 	verifyEmail: (email: string) => Promise<void>;
 	verifyOtp: (otp: string) => Promise<void>;
+	verifyComplete: (password: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthStore>();
@@ -124,6 +125,39 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		};
 	};
 
+	const verifyComplete = async (password: string) => {
+		setLoading(true);
+		setAuthForm((form) => ({
+			...form,
+			password: password
+		}));
+
+		try {
+			const res = await fetch(`${API_URL}/auth/complete-verify/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"X-CSRFToken": csrfToken()
+				},
+				credentials: "include",
+				body: JSON.stringify({
+					email: authForm().email,
+					password: password,
+				})
+			});
+
+			if (!res.ok) {
+				throw new Error("Something went wrong! please try again");
+			}
+			console.log(res);
+		} catch (err) {
+			if (err instanceof Error) customToast(err.message);
+			throw err;
+		} finally {
+			setLoading(false);
+		};
+	}
+
 	createEffect(async () => {
 		// check session
 		await initializeSession();
@@ -146,6 +180,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		setActiveForm: setActiveForm,
 		verifyEmail: verifyEmail,
 		verifyOtp: verifyOtp,
+		verifyComplete: verifyComplete,
 	};
 
 	return <AuthContext.Provider value={context_value}>{props.children}</AuthContext.Provider>;

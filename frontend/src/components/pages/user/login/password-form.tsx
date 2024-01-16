@@ -27,7 +27,6 @@ const PasswordForm = (props: Props) => {
 					autofocus
 					name="password"
 					placeholder="Password"
-					maxLength={5}
 					class="w-full border-stone-700 bg-transparent text-stone-50 md:rounded-[0.65vw] md:border-[0.1vw] md:p-[0.75vw] md:text-[1.1vw]"
 				/>
 				<button class="bg-blue-600 font-medium uppercase leading-none text-white md:rounded-[0.65vw] md:p-[1vw] md:text-[1.1vw]">Verify</button>
