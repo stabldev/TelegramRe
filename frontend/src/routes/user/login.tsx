@@ -6,7 +6,7 @@ import { useAuth } from "~/context/auth";
 import { AuthLayout } from "~/layouts/auth-layout";
 
 export default function SignIn() {
-	const { verifyEmail, activeForm, setActiveForm } = useAuth();
+	const { activeForm, setActiveForm, verifyEmail, verifyOtp } = useAuth();
 
 	const handleFormSubmit = async (e: CustomEvent) => {
 		try {
@@ -19,9 +19,15 @@ export default function SignIn() {
 		}
 	};
 
-	const handleOtpSubmit = (e: CustomEvent) => {
-		console.log(e.detail);
-		setActiveForm("password");
+	const handleOtpSubmit = async (e: CustomEvent) => {
+		try {
+			const form_data = e.detail as FormData;
+			const otp = String(form_data.get("code"));
+			await verifyOtp(otp);
+			setActiveForm("otp");
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	const handlePasswordSubmit = (e: CustomEvent) => {

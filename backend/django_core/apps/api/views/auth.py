@@ -42,3 +42,16 @@ def verify_email_view(request: HttpRequest):
 
     send_otp(email, otp)
     return JsonResponse({ "detail": "OTP has been send to your email"}, status=status.HTTP_200_OK)
+
+@require_POST
+def verify_otp_view(request: HttpRequest):
+    data = json.loads(request.body)
+    email = data.get("email")
+    otp = data.get("otp")
+
+    try:
+        user = CustomUser.objects.get(email=email, otp=otp)
+    except CustomUser.DoesNotExist:
+        return JsonResponse({ "detail": "Invalid OTP!"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    return JsonResponse({ "detail": "OTP verification complete!" }, status=status.HTTP_200_OK)

@@ -20,10 +20,11 @@ type AuthStore = {
 	loading: Accessor<boolean>;
 	user: Accessor<User | undefined>;
 	isAuthenticated: Accessor<boolean>;
-	verifyEmail: (email: string) => Promise<void>;
 	authForm: Accessor<authForm>;
 	activeForm: Accessor<activeForm>;
 	setActiveForm: Setter<activeForm>;
+	verifyEmail: (email: string) => Promise<void>;
+	verifyOtp: (otp: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthStore>();
@@ -89,6 +90,38 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		}
 	};
 
+	const verifyOtp = async (otp: string) => {
+		setLoading(true);
+		setAuthForm((form) => ({
+			...form,
+			otp: otp
+		}));
+
+		try {
+			const res = await fetch(`${API_URL}/auth/verify-otp/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"X-CSRFToken": csrfToken()
+				},
+				credentials: "include",
+				body: JSON.stringify({
+					email: authForm().email,
+					otp: otp,
+				})
+			});
+
+			if (!res.ok) {
+				throw new Error("Invalid OTP");
+			}
+			console.log(res);
+		} catch (err) {
+			throw err;
+		} finally {
+			setLoading(false);
+		};
+	};
+
 	createEffect(async () => {
 		// check session
 		await initializeSession();
@@ -105,11 +138,12 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const context_value: AuthStore = {
 		user: user,
 		isAuthenticated: isAuthenticated,
-		verifyEmail: verifyEmail,
 		loading: loading,
 		authForm: authForm,
 		activeForm: activeForm,
-		setActiveForm: setActiveForm
+		setActiveForm: setActiveForm,
+		verifyEmail: verifyEmail,
+		verifyOtp: verifyOtp,
 	};
 
 	return <AuthContext.Provider value={context_value}>{props.children}</AuthContext.Provider>;

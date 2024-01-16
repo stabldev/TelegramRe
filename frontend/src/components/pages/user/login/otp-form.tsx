@@ -1,13 +1,15 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
+import { Show } from "solid-js";
 import { useAuth } from "~/context/auth";
 import Pencil from "~/icons/pencil";
+import Spinner from "~/icons/spinner";
 
 interface Props {
 	onOtpSubmit: (e: CustomEvent) => void;
 }
 
 const OtpForm = (props: Props) => {
-	const { authForm, setActiveForm } = useAuth();
+	const { authForm, setActiveForm, loading } = useAuth();
 	const dispatch = createEventDispatcher(props);
 
 	const handleFormSubmit = (e: SubmitEvent) => {
@@ -53,7 +55,16 @@ const OtpForm = (props: Props) => {
 					maxLength={5}
 					class="w-full border-stone-700 bg-transparent text-stone-50 md:rounded-[0.65vw] md:border-[0.1vw] md:p-[0.75vw] md:text-[1.1vw]"
 				/>
-				<button class="bg-blue-600 font-medium uppercase leading-none text-white md:rounded-[0.65vw] md:p-[1vw] md:text-[1.1vw]">Submit</button>
+				<button
+					disabled={loading()}
+					classList={{ "opacity-75": loading() }}
+					class="flex items-center justify-center bg-blue-600 font-medium uppercase leading-none text-white transition-opacity md:gap-[1vw] md:rounded-[0.65vw] md:p-[1vw] md:text-[1.1vw]"
+				>
+					<Show when={loading()}>
+						<Spinner class="md:size-[1vw]" />
+					</Show>
+					{loading() ? "please wait..." : "submit"}
+				</button>
 			</form>
 		</>
 	);
