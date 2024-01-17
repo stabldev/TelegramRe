@@ -9,8 +9,8 @@
 	},
 	"type": "module",
 	"devDependencies": {
-		"@solid-primitives/context": "^0.2.2",
-		"@solid-primitives/destructure": "^0.1.14",
+		"@solid-primitives/context": "^0.2.1",
+		"@solid-primitives/destructure": "^0.1.15",
 		"@solid-primitives/event-dispatcher": "^0.0.105",
 		"@typescript-eslint/eslint-plugin": "^6.19.0",
 		"@typescript-eslint/parser": "^6.18.1",
