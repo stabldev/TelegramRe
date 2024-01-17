@@ -1,5 +1,4 @@
 import { Accessor, JSX, createContext, createSignal, useContext, createEffect } from "solid-js";
-import { customToast } from "~/components/shared/custom-toast";
 import { API_URL } from "~/config";
 
 type User = {
@@ -59,12 +58,9 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 				body: JSON.stringify({ email }),
 			});
 
-			if (!res.ok) throw new Error(await res.text())
+			const data = await res.json();
+			if (!res.ok) throw new Error(data.detail)
 		} catch (err) {
-			if (err instanceof Error) {
-				console.error(err.message);
-				customToast(err.message);
-			};
 			throw err;
 		} finally {
 			setLoading(false);
@@ -84,12 +80,9 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 				body: JSON.stringify({ email, otp }),
 			});
 
-			if (!res.ok) throw new Error(await res.text())
+			const data = await res.json();
+			if (!res.ok) throw new Error(data.detail)
 		} catch (err) {
-			if (err instanceof Error) {
-				console.error(err.message);
-				customToast(err.message);
-			};
 			throw err;
 		} finally {
 			setLoading(false);

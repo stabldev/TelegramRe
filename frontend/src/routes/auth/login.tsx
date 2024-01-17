@@ -1,6 +1,7 @@
 import { Match, Switch, createSignal, lazy } from "solid-js";
 import { useAuth } from "~/context/auth";
 import { AuthLayout } from "~/layouts/auth-layout";
+import toast from "solid-toast";
 // laxy imports
 const EmailForm = lazy(() => import("~/components/pages/auth/login/email-form"));
 const OtpForm = lazy(() => import("~/components/pages/auth/login/otp-form"));
@@ -24,7 +25,15 @@ export default function Login() {
         }));
 
         try {
-            await handleEmailVerification(authForm().email);
+            await toast.promise(
+                handleEmailVerification(authForm().email),
+                {
+                    loading: "Verifying email...",
+                    success: () => <span>Email verification complete!</span>,
+                    error: <span>User not found!</span>,
+                },
+            )
+
             setActiveForm("otp");
         } catch (err) {
             console.error(err);
@@ -38,8 +47,15 @@ export default function Login() {
         }));
 
         try {
-            await handleOTPVerification(authForm().email, authForm().otp);
-            console.log("Success, not get user info");
+            await toast.promise(
+                handleOTPVerification(authForm().email, authForm().otp),
+                {
+                    loading: "Verifying OTP...",
+                    success: () => <span>Email verification complete!</span>,
+                    error: <span>Wrong OTP! please check again</span>,
+                },
+            )
+            console.log("Success, now get user info");
         } catch (err) {
             console.error(err);
         }
