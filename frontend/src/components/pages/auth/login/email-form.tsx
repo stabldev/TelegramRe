@@ -1,10 +1,7 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
-import { Show } from "solid-js";
 import { A } from "solid-start";
 import { useAuth } from "~/context/auth";
-import Github from "~/icons/github";
 import Google from "~/icons/google";
-import Spinner from "~/icons/spinner";
 
 interface Props {
 	onFormSubmit: (e: CustomEvent) => void;
@@ -63,10 +60,7 @@ const EmailForm = (props: Props) => {
 					classList={{ "opacity-75": loading() }}
 					class="flex items-center justify-center bg-blue-600 font-medium uppercase leading-none text-white transition-opacity md:gap-[1vw] md:rounded-[0.65vw] md:p-[1vw] md:text-[1.1vw]"
 				>
-					<Show when={loading()}>
-						<Spinner class="md:size-[1vw]" />
-					</Show>
-					{loading() ? "please wait..." : "submit"}
+					submit
 				</button>
 				<A
 					class="text-stone-400 md:text-[1.1vw]"
