@@ -11,6 +11,7 @@ from .views.auth import (
     csrf_view,
     check_session,
     email_verification,
+    otp_verification,
 )
 
 # fmt: off
@@ -20,6 +21,7 @@ urlpatterns = [
         path("csrf/", csrf_view, name="csrf"),
         path("session/", check_session, name="session"),
         path("email-verification/", email_verification, name="email-verification"),
+        path("otp-verification/", otp_verification, name="otp-verification"),
     ])),
     # chat views
     path("inbox/", InboxView.as_view(), name="inbox"),

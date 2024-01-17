@@ -1,4 +1,5 @@
 import { Match, Switch, createSignal, lazy } from "solid-js";
+import { useAuth } from "~/context/auth";
 import { AuthLayout } from "~/layouts/auth-layout";
 // laxy imports
 const EmailForm = lazy(() => import("~/components/pages/auth/login/email-form"));
@@ -6,15 +7,42 @@ const OtpForm = lazy(() => import("~/components/pages/auth/login/otp-form"));
 
 type ActiveForm = "email" | "otp";
 
+type AuthForm = {
+    email: string;
+    otp: string;
+};
+
 export default function Login() {
     const [activeForm, setActiveForm] = createSignal<ActiveForm>("email");
+    const [authForm, setAuthForm] = createSignal<AuthForm>({ email: "", otp: "" });
+    const { handleEmailVerification, handleOTPVerification } = useAuth();
 
-	const handleFormSubmit = (e: CustomEvent) => {
-        console.log(e.detail);
+	const handleFormSubmit = async (e: CustomEvent) => {
+        setAuthForm((Form) => ({
+            ...Form,
+            email: e.detail
+        }));
+
+        try {
+            await handleEmailVerification(authForm().email);
+            setActiveForm("otp");
+        } catch (err) {
+            console.error(err);
+        }
 	};
 
-	const handleOtpSubmit = (e: CustomEvent) => {
-        console.log(e.detail);
+	const handleOtpSubmit = async (e: CustomEvent) => {
+        setAuthForm((Form) => ({
+            ...Form,
+            otp: e.detail
+        }));
+
+        try {
+            await handleOTPVerification(authForm().email, authForm().otp);
+            console.log("Success, not get user info");
+        } catch (err) {
+            console.error(err);
+        }
 	};
 
 	return (
