@@ -44,6 +44,27 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		setCsrfToken(token);
 	};
 
+	const handleEmailVerification = async (email: string) => {
+		setLoading(true);
+		try {
+			const res = await fetch(`${API_URL}/auth/email-verificaion/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"X-CSRFToken": csrfToken(),
+				},
+				credentials: "include",
+				body: JSON.stringify({ email }),
+			});
+
+			if (!res.ok) throw new Error(await res.text())
+		} catch (err) {
+			if (err instanceof TypeError) console.error("Network error. Please check your connection.")
+			else if (err instanceof SyntaxError) console.error("Error in parsing JSON response.")
+			else console.error("Something wrong from backend", err);
+		};
+	};
+
 	createEffect(async () => {
 		// check session
 		initializeSession();

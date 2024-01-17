@@ -168,6 +168,8 @@ MEDIA_ROOT = Path(BASE_DIR, "media")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Custom user model
+# https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-AUTHENTICATION_BACKENDS
+
 AUTH_USER_MODEL = "user.CustomUser"
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",

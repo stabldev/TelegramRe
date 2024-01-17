@@ -10,6 +10,7 @@ from apps.api.views.user import SearchUserView, UserDetailView
 from .views.auth import (
     csrf_view,
     check_session,
+    email_verification,
 )
 
 # fmt: off
@@ -18,6 +19,7 @@ urlpatterns = [
     path("auth/", include([
         path("csrf/", csrf_view, name="csrf"),
         path("session/", check_session, name="session"),
+        path("email-verification/", email_verification, name="email-verification"),
     ])),
     # chat views
     path("inbox/", InboxView.as_view(), name="inbox"),

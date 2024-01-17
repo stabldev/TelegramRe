@@ -24,7 +24,7 @@ def check_session(request):
     return JsonResponse({"isAuthenticated": False})
 
 @require_POST
-def login_view(request: HttpRequest):
+def email_verification(request: HttpRequest):
     data = json.loads(request.body)
     email = data.get("email")
 

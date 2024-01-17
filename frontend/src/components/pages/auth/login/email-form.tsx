@@ -34,16 +34,12 @@ const EmailForm = (props: Props) => {
 				onSubmit={handleFormSubmit}
 				class="flex w-full flex-col md:gap-[0.75vw]"
 			>
-				<div class="w-full grid grid-cols-2 md:gap-[0.75vw]">
-					<button type="button" class="flex items-center bg-stone-800 text-stone-100 md:p-[1vw] leading-none justify-center md:gap-[0.75vw] md:text-[1.1vw] font-medium md:rounded-[0.65vw]">
+				<button type="button" class="grid grid-cols-[3.5vw_auto] bg-stone-800 text-stone-100 leading-none md:gap-[0.75vw] md:text-[1.1vw] font-medium md:rounded-[0.65vw] overflow-hidden">
+					<div class="w-full h-full grid place-items-center bg-stone-100">
 						<Google class="md:size-[1.5vw]" />
-						Google
-					</button>
-					<button type="button" class="flex items-center bg-stone-800 text-stone-100 md:p-[1vw] leading-none justify-center md:gap-[0.75vw] md:text-[1.1vw] font-medium md:rounded-[0.65vw]">
-						<Github class="md:size-[1.5vw]" />
-						Github
-					</button>
-				</div>
+					</div>
+					<span class="w-full md:p-[1vw]">Continue with Google</span>
+				</button>
 				<input
 					required
 					type="email"
