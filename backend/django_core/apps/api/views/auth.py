@@ -1,7 +1,11 @@
+import json
+
 from django.http import HttpRequest, JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 from django.middleware.csrf import get_token
+from django.contrib.auth import get_user_model
+from rest_framework import status
 
 from apps.api.serializers import RegisterSerializer
 from apps.user.models import CustomUser
@@ -18,3 +22,21 @@ def check_session(request):
     if request.user.is_authenticated:
         return JsonResponse({"isAuthenticated": True})
     return JsonResponse({"isAuthenticated": False})
+
+@require_POST
+def login_view(request: HttpRequest):
+    data = json.loads(request.body)
+    email = data.get("email")
+
+    User = get_user_model()
+    try:
+        user = User.objects.get(email=email)
+        otp = generate_otp()
+        user.otp = otp
+        user.save()
+
+        send_otp(email, otp)
+        return JsonResponse({ "detail": "OTP sended"})
+    
+    except User.DoesNotExist:
+        return JsonResponse({ "detail": "User doesn't exists"}, status=status.HTTP_400_BAD_REQUEST)

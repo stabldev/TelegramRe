@@ -169,6 +169,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Custom user model
 AUTH_USER_MODEL = "user.CustomUser"
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "user.backends.PasswordlessAuthBackend",
+]
 
 # Session-cookie Auth
 # https://testdriven.io/blog/django-spa-auth/#backend_3
