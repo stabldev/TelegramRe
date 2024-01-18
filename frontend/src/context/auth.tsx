@@ -1,4 +1,5 @@
 import { Accessor, JSX, createContext, createSignal, useContext, createEffect } from "solid-js";
+import { useNavigate } from "solid-start";
 import { API_URL } from "~/config";
 
 type User = {
@@ -29,6 +30,8 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const [csrfToken, setCsrfToken] = createSignal("");
 	const [isAuthenticated, setIsAuthenticated] = createSignal(false);
 	const [user, setUser] = createSignal<User | undefined>();
+
+	const navigate = useNavigate();
 
 	const initializeSession = async () => {
 		const res = await fetch(`${API_URL}/auth/session/`, {
@@ -122,6 +125,8 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		await initializeSession();
 		// fetch from backend
 		await getMyInfo();
+
+		if (user()) navigate("/", { replace: true });
 	});
 
 	const context_value: AuthStore = {
