@@ -55,7 +55,6 @@ export default function Login() {
                     error: <span>Wrong OTP! please check again</span>,
                 },
             )
-            console.log("Success, now get user info");
         } catch (err) {
             console.error(err);
         }

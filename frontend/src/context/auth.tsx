@@ -3,9 +3,15 @@ import { API_URL } from "~/config";
 
 type User = {
 	id: number;
+	email: string;
 	username: string;
-	name: string;
-	image: string;
+	first_name: string;
+	last_name: string;
+	avatar: string | null;
+	bio: string;
+	is_verified: boolean;
+	last_login: string;
+	date_joined: string;
 };
 
 type AuthStore = {
@@ -82,6 +88,8 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 			const data = await res.json();
 			if (!res.ok) throw new Error(data.detail)
+
+			await getMyInfo();
 		} catch (err) {
 			throw err;
 		} finally {
@@ -89,17 +97,30 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		};
 	};
 
+	const getMyInfo = async () => {
+		try {
+			const res = await fetch(`${API_URL}/auth/who_am_i/`, {
+				headers: {
+					"Content-Type": "application/json",
+					"X-CSRFToken": csrfToken(),
+				},
+				credentials: "include",
+			});
+			
+			const data = await res.json();
+			if (!res.ok) throw new Error("Something is wrong!");
+
+			setUser(data.detail);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	createEffect(async () => {
 		// check session
-		initializeSession();
-
+		await initializeSession();
 		// fetch from backend
-		setUser({
-			id: 1,
-			username: "tokitouq",
-			name: "Tokito",
-			image: "https://avatars.githubusercontent.com/u/114811070?v=4"
-		});
+		await getMyInfo();
 	});
 
 	const context_value: AuthStore = {

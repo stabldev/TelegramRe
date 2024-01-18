@@ -10,6 +10,7 @@ from rest_framework import status
 from apps.api.serializers import RegisterSerializer
 from apps.user.models import CustomUser
 from apps.user.utils import generate_otp, send_otp
+from ..serializers import CustomUserSerializer
 
 
 @ensure_csrf_cookie
@@ -57,3 +58,14 @@ def otp_verification(request: HttpRequest):
             return JsonResponse({ "detail": "Wrong OTP"}, status=status.HTTP_400_BAD_REQUEST)
     except User.DoesNotExist:
         return JsonResponse({ "detail": "User not found" }, status=status.HTTP_404_NOT_FOUND)
+
+def who_am_i_view(request: HttpRequest):
+    User = get_user_model()
+    try:
+        user = User.objects.get(email=request.user.email)
+        serializer = CustomUserSerializer(user, many=False)
+
+        return JsonResponse({ "detail": serializer.data })
+    except Exception as e:
+        print(e)
+        return JsonResponse({ "detail": "Something went wrong" }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
