@@ -2,9 +2,8 @@ import { Match, Switch, createSignal, lazy } from "solid-js";
 import { useAuth } from "~/context/auth";
 import { AuthLayout } from "~/layouts/auth-layout";
 import toast from "solid-toast";
-// laxy imports
-const EmailForm = lazy(() => import("~/components/pages/auth/login/email-form"));
-const OtpForm = lazy(() => import("~/components/pages/auth/login/otp-form"));
+import EmailForm from "~/components/pages/auth/login/email-form";
+import OtpForm from "~/components/pages/auth/login/otp-form";
 
 type ActiveForm = "email" | "otp";
 
