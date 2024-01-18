@@ -7,7 +7,6 @@ from django.middleware.csrf import get_token
 from django.contrib.auth import get_user_model, login
 from rest_framework import status
 
-from apps.api.serializers import RegisterSerializer
 from apps.user.models import CustomUser
 from apps.user.utils import generate_otp, send_otp
 from ..serializers import CustomUserSerializer
