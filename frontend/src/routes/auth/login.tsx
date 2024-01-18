@@ -2,8 +2,8 @@ import { Match, Switch, createSignal, lazy } from "solid-js";
 import { useAuth } from "~/context/auth";
 import { AuthLayout } from "~/layouts/auth-layout";
 import toast from "solid-toast";
-import EmailForm from "~/components/pages/auth/login/email-form";
-import OtpForm from "~/components/pages/auth/login/otp-form";
+import EmailForm from "~/components/pages/auth/email-form";
+import OtpForm from "~/components/pages/auth/otp-form";
 
 type ActiveForm = "email" | "otp";
 
@@ -67,10 +67,16 @@ export default function Login() {
 			/>
 			<Switch>
 				<Match when={activeForm() === "email"}>
-					<EmailForm onFormSubmit={handleFormSubmit} />
+					<EmailForm
+                        onFormSubmit={handleFormSubmit}
+                        authType="login"
+                    />
 				</Match>
 				<Match when={activeForm() === "otp"}>
-					<OtpForm onOtpSubmit={handleOtpSubmit} />
+					<OtpForm
+                        onOtpSubmit={handleOtpSubmit}
+                        authType="login"
+                    />
 				</Match>
 			</Switch>
 		</AuthLayout>

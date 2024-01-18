@@ -1,10 +1,12 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
+import { Show } from "solid-js";
 import { A } from "solid-start";
 import { useAuth } from "~/context/auth";
 import Google from "~/icons/google";
 
 interface Props {
 	onFormSubmit: (e: CustomEvent) => void;
+    authType: "login" | "register";
 }
 
 const EmailForm = (props: Props) => {
@@ -21,19 +23,31 @@ const EmailForm = (props: Props) => {
 
 	return (
 		<>
-			<div class="flex flex-col md:gap-[0.5vw]">
-				<h2 class="font-semibold text-stone-50 md:text-[1.75vw]">Login to Telegram RE</h2>
-				<span class="flex max-w-[17vw] self-center text-stone-400 md:text-[1.05vw]">
-					Use OAuth or login via Email <br /> ( Passwordless )
-				</span>
-			</div>
+			<Show
+                when={props.authType === "login"}
+                fallback={
+                    <div class="flex flex-col md:gap-[0.5vw]">
+                        <h2 class="font-semibold text-stone-50 md:text-[1.75vw]">Join Telegram RE</h2>
+                        <span class="flex max-w-[17vw] self-center text-stone-400 md:text-[1.05vw]">
+                            Use OAuth or register via Email <br /> ( Passwordless )
+                        </span>
+                    </div>
+                }
+            >
+                <div class="flex flex-col md:gap-[0.5vw]">
+                    <h2 class="font-semibold text-stone-50 md:text-[1.75vw]">Login to Telegram RE</h2>
+                    <span class="flex max-w-[17vw] self-center text-stone-400 md:text-[1.05vw]">
+                        Use OAuth or login via Email <br /> ( Passwordless )
+                    </span>
+                </div>
+            </Show>
 			<form
 				onSubmit={handleFormSubmit}
 				class="flex w-full flex-col md:gap-[0.75vw]"
 			>
 				<button type="button" class="grid grid-cols-[3.5vw_auto] bg-stone-800 text-stone-100 leading-none md:gap-[0.75vw] md:text-[1.1vw] font-medium md:rounded-[0.65vw] overflow-hidden">
-					<div class="w-full h-full grid place-items-center bg-stone-100">
-						<Google class="md:size-[1.5vw]" />
+					<div class="w-full h-full grid place-items-center bg-stone-700">
+						<Google class="md:size-[1.5vw] text-stone-100" />
 					</div>
 					<span class="w-full md:p-[1vw]">Continue with Google</span>
 				</button>
@@ -62,12 +76,24 @@ const EmailForm = (props: Props) => {
 				>
 					submit
 				</button>
-				<A
-					class="text-stone-400 md:text-[1.1vw]"
-					href="../register"
-				>
-					Don't have an account? Register!
-				</A>
+				<Show
+                    when={props.authType === "login"}
+                    fallback={
+                        <A
+                            class="text-stone-400 md:text-[1.1vw]"
+                            href="../login"
+                        >
+                            Already have an account? Login!
+                        </A>
+                    }
+                >
+                    <A
+                        class="text-stone-400 md:text-[1.1vw]"
+                        href="../register"
+                    >
+                        Don't have an account? Register!
+                    </A>
+                </Show>
 			</form>
 		</>
 	);

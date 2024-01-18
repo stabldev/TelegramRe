@@ -3,6 +3,7 @@ import { useAuth } from "~/context/auth";
 
 interface Props {
 	onOtpSubmit: (e: CustomEvent) => void;
+    authType: "login" | "register";
 }
 
 const OtpForm = (props: Props) => {
