@@ -50,7 +50,7 @@ export default function Login() {
                 handleOTPVerification(authForm().email, authForm().otp),
                 {
                     loading: "Verifying OTP...",
-                    success: () => <span>Email verification complete!</span>,
+                    success: () => <span>OTP verification complete!</span>,
                     error: <span>Wrong OTP! please check again</span>,
                 },
             )
