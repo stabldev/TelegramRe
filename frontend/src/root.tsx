@@ -22,7 +22,12 @@ export default function Root() {
 				<Suspense>
 					<ErrorBoundary>
 						<MultiProvider values={[AuthProvider, SharedProvider]}>
-							<Toaster position="bottom-right" />
+							<Toaster
+								position="bottom-right"
+								toastOptions={{
+									className: "!bg-stone-800 !text-stone-100 md:!text-[1vw] md:!px-[0.75vw] md:!py-[0.5vw]",
+								}}
+							/>
 							<Routes>
 								<FileRoutes />
 							</Routes>

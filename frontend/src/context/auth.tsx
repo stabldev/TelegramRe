@@ -1,47 +1,37 @@
-import { Accessor, JSX, createContext, createSignal, useContext, createEffect, Setter } from "solid-js";
-import { customToast } from "~/components/shared/custom-toast";
+import { Accessor, JSX, createContext, createSignal, useContext, createEffect } from "solid-js";
+import { useNavigate } from "solid-start";
 import { API_URL } from "~/config";
 
 type User = {
 	id: number;
-	username: string;
-	name: string;
-	image: string;
-};
-
-type authForm = {
 	email: string;
-	otp: string;
-	password: string;
+	username: string;
+	first_name: string;
+	last_name: string;
+	avatar: string | null;
+	bio: string;
+	is_verified: boolean;
+	last_login: string;
+	date_joined: string;
 };
-
-type activeForm = "login" | "otp" | "password";
 
 type AuthStore = {
 	loading: Accessor<boolean>;
 	user: Accessor<User | undefined>;
 	isAuthenticated: Accessor<boolean>;
-	authForm: Accessor<authForm>;
-	activeForm: Accessor<activeForm>;
-	setActiveForm: Setter<activeForm>;
-	verifyEmail: (email: string) => Promise<void>;
-	verifyOtp: (otp: string) => Promise<void>;
-	verifyComplete: (password: string) => Promise<void>;
+	handleEmailVerification: (email: string, authType: "login" | "register") => Promise<void>;
+	handleOTPVerification: (email: string, otp: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthStore>();
 
 export function AuthProvider(props: { children?: JSX.Element }) {
 	const [loading, setLoading] = createSignal(false);
-	const [csrfToken, setCsrfToken] = createSignal<string>("");
+	const [csrfToken, setCsrfToken] = createSignal("");
 	const [isAuthenticated, setIsAuthenticated] = createSignal(false);
 	const [user, setUser] = createSignal<User | undefined>();
-	const [activeForm, setActiveForm] = createSignal<activeForm>("login");
-	const [authForm, setAuthForm] = createSignal<authForm>({
-		email: "",
-		otp: "",
-		password: ""
-	});
+
+	const navigate = useNavigate();
 
 	const initializeSession = async () => {
 		const res = await fetch(`${API_URL}/auth/session/`, {
@@ -51,12 +41,12 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		if (data.isAuthenticated) {
 			setIsAuthenticated(true);
 		} else {
-			await initializeCSRF();
+			initializeCSRF();
 		}
 	};
 
 	const initializeCSRF = async () => {
-		const res = await fetch(`${API_URL}/auth/csrf/`, {
+		const res = await fetch(`${API_URL}/auth/set-csrf/`, {
 			credentials: "include"
 		});
 		const token = res.headers.get("X-CSRFToken");
@@ -64,123 +54,87 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		setCsrfToken(token);
 	};
 
-	const verifyEmail = async (email: string) => {
+	const handleEmailVerification = async (email: string, authType: "login" | "register" = "login") => {
 		setLoading(true);
-		setAuthForm((form) => ({
-			...form,
-			email: email
-		}));
-
 		try {
-			const res = await fetch(`${API_URL}/auth/verify-email/`, {
+			const endpoint = authType === "login" ? "email-verification" : "register-email-verification";
+			const res = await fetch(`${API_URL}/auth/${endpoint}/`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					"X-CSRFToken": csrfToken()
+					"X-CSRFToken": csrfToken(),
 				},
 				credentials: "include",
-				body: JSON.stringify({ email: email })
+				body: JSON.stringify({ email }),
 			});
 
-			if (!res.ok) {
-				throw new Error(`Something went wrong! ${res.statusText}`);
-			}
+			const data = await res.json();
+			if (!res.ok) throw new Error(data.detail)
 		} catch (err) {
 			throw err;
 		} finally {
 			setLoading(false);
+		};
+	};
+
+	const handleOTPVerification = async (email: string, otp: string) => {
+		setLoading(true);
+		try {
+			const res = await fetch(`${API_URL}/auth/otp-verification/`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"X-CSRFToken": csrfToken(),
+				},
+				credentials: "include",
+				body: JSON.stringify({ email, otp }),
+			});
+
+			const data = await res.json();
+			if (!res.ok) throw new Error(data.detail)
+
+			await getMyInfo();
+		} catch (err) {
+			throw err;
+		} finally {
+			setLoading(false);
+		};
+	};
+
+	const getMyInfo = async () => {
+		try {
+			const res = await fetch(`${API_URL}/auth/who_am_i/`, {
+				headers: {
+					"Content-Type": "application/json",
+					"X-CSRFToken": csrfToken(),
+				},
+				credentials: "include",
+			});
+			
+			const data = await res.json();
+			if (!res.ok) throw new Error("Something is wrong!");
+
+			setUser(data.detail);
+		} catch (err) {
+			console.error(err);
 		}
 	};
-
-	const verifyOtp = async (otp: string) => {
-		setLoading(true);
-		setAuthForm((form) => ({
-			...form,
-			otp: otp
-		}));
-
-		try {
-			const res = await fetch(`${API_URL}/auth/verify-otp/`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					"X-CSRFToken": csrfToken()
-				},
-				credentials: "include",
-				body: JSON.stringify({
-					email: authForm().email,
-					otp: otp,
-				})
-			});
-
-			if (!res.ok) {
-				throw new Error("Invalid OTP! please re-check your mail");
-			}
-			console.log(res);
-		} catch (err) {
-			if (err instanceof Error) customToast(err.message);
-			throw err;
-		} finally {
-			setLoading(false);
-		};
-	};
-
-	const verifyComplete = async (password: string) => {
-		setLoading(true);
-		setAuthForm((form) => ({
-			...form,
-			password: password
-		}));
-
-		try {
-			const res = await fetch(`${API_URL}/auth/complete-verify/`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					"X-CSRFToken": csrfToken()
-				},
-				credentials: "include",
-				body: JSON.stringify({
-					email: authForm().email,
-					password: password,
-				})
-			});
-
-			if (!res.ok) {
-				throw new Error("Something went wrong! please try again");
-			}
-			console.log(res);
-		} catch (err) {
-			if (err instanceof Error) customToast(err.message);
-			throw err;
-		} finally {
-			setLoading(false);
-		};
-	}
 
 	createEffect(async () => {
 		// check session
 		await initializeSession();
-
 		// fetch from backend
-		setUser({
-			id: 1,
-			username: "tokitouq",
-			name: "Tokito",
-			image: "https://avatars.githubusercontent.com/u/114811070?v=4"
-		});
+		await getMyInfo();
+
+		if (user()) navigate("/", { replace: true });
 	});
 
 	const context_value: AuthStore = {
 		user: user,
 		isAuthenticated: isAuthenticated,
 		loading: loading,
-		authForm: authForm,
-		activeForm: activeForm,
-		setActiveForm: setActiveForm,
-		verifyEmail: verifyEmail,
-		verifyOtp: verifyOtp,
-		verifyComplete: verifyComplete,
+		handleEmailVerification: handleEmailVerification,
+		handleOTPVerification: handleOTPVerification,
 	};
 
 	return <AuthContext.Provider value={context_value}>{props.children}</AuthContext.Provider>;

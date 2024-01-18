@@ -12,8 +12,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = [
             "id",
-            "username",
             "email",
+            "username",
             "first_name",
             "last_name",
             "is_verified",
@@ -23,35 +23,6 @@ class CustomUserSerializer(serializers.ModelSerializer):
             "date_joined",
         ]
         read_only_fields = ["last_login", "date_joined"]
-
-
-# Register serializer
-class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(validators=[validate_password])
-    password2 = serializers.CharField()
-
-    class Meta:
-        model = CustomUser
-        fields = [
-            "username",
-            "password",
-            "password2",
-        ]
-
-    def validate(self, attrs):
-        if attrs["password"] != attrs["password2"]:
-            raise serializers.ValidationError(
-                {"password": "Password field didn't match."}
-            )
-        return attrs
-
-    def create(self, validated_data):
-        user = CustomUser.objects.create(
-            username=validated_data["username"],
-        )
-        user.set_password(validated_data["password"])
-        user.save()
-        return user
 
 
 class ChatMessageSerializer(serializers.ModelSerializer):
