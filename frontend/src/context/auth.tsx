@@ -18,7 +18,7 @@ type AuthStore = {
 	loading: Accessor<boolean>;
 	user: Accessor<User | undefined>;
 	isAuthenticated: Accessor<boolean>;
-	handleEmailVerification: (email: string) => Promise<void>;
+	handleEmailVerification: (email: string, authType: "login" | "register") => Promise<void>;
 	handleOTPVerification: (email: string, otp: string) => Promise<void>;
 };
 
@@ -51,10 +51,11 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		setCsrfToken(token);
 	};
 
-	const handleEmailVerification = async (email: string) => {
+	const handleEmailVerification = async (email: string, authType: "login" | "register" = "login") => {
 		setLoading(true);
 		try {
-			const res = await fetch(`${API_URL}/auth/email-verification/`, {
+			const endpoint = authType === "login" ? "email-verification" : "register-email-verification";
+			const res = await fetch(`${API_URL}/auth/${endpoint}/`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

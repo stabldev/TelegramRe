@@ -25,7 +25,7 @@ export default function Login() {
 
         try {
             await toast.promise(
-                handleEmailVerification(authForm().email),
+                handleEmailVerification(authForm().email, "login"),
                 {
                     loading: "Verifying email...",
                     success: () => <span>Email verification complete!</span>,
