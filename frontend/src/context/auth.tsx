@@ -38,12 +38,12 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		if (data.isAuthenticated) {
 			setIsAuthenticated(true);
 		} else {
-			await initializeCSRF();
+			initializeCSRF();
 		}
 	};
 
 	const initializeCSRF = async () => {
-		const res = await fetch(`${API_URL}/auth/csrf/`, {
+		const res = await fetch(`${API_URL}/auth/set-csrf/`, {
 			credentials: "include"
 		});
 		const token = res.headers.get("X-CSRFToken");
