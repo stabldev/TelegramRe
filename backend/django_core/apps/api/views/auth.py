@@ -19,10 +19,12 @@ def csrf_view(request):
     response["X-CSRFToken"] = get_token(request)
     return response
 
+
 def check_session(request):
     if request.user.is_authenticated:
         return JsonResponse({"isAuthenticated": True})
     return JsonResponse({"isAuthenticated": False})
+
 
 @require_POST
 def email_verification(request: HttpRequest):
@@ -37,10 +39,13 @@ def email_verification(request: HttpRequest):
         user.save()
 
         send_otp(email, otp)
-        return JsonResponse({ "detail": "OTP sended"})
-    
+        return JsonResponse({"detail": "OTP sended"})
+
     except User.DoesNotExist:
-        return JsonResponse({ "detail": "User doesn't exists"}, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse(
+            {"detail": "User doesn't exists"}, status=status.HTTP_400_BAD_REQUEST
+        )
+
 
 @require_POST
 def otp_verification(request: HttpRequest):
@@ -53,11 +58,16 @@ def otp_verification(request: HttpRequest):
         user = User.objects.get(email=email)
         if user.otp == otp:
             login(request, user, backend="apps.user.backends.PasswordlessAuthBackend")
-            return JsonResponse({ "detail": "Login success" })
+            return JsonResponse({"detail": "Login success"})
         else:
-            return JsonResponse({ "detail": "Wrong OTP"}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(
+                {"detail": "Wrong OTP"}, status=status.HTTP_400_BAD_REQUEST
+            )
     except User.DoesNotExist:
-        return JsonResponse({ "detail": "User not found" }, status=status.HTTP_404_NOT_FOUND)
+        return JsonResponse(
+            {"detail": "User not found"}, status=status.HTTP_404_NOT_FOUND
+        )
+
 
 def who_am_i_view(request: HttpRequest):
     User = get_user_model()
@@ -65,7 +75,10 @@ def who_am_i_view(request: HttpRequest):
         user = User.objects.get(email=request.user.email)
         serializer = CustomUserSerializer(user, many=False)
 
-        return JsonResponse({ "detail": serializer.data })
+        return JsonResponse({"detail": serializer.data})
     except Exception as e:
         print(e)
-        return JsonResponse({ "detail": "Something went wrong" }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return JsonResponse(
+            {"detail": "Something went wrong"},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
