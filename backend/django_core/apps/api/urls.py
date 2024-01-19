@@ -8,8 +8,8 @@ from apps.api.views.chat import (
 )
 from apps.api.views.user import SearchUserView, UserDetailView
 from .views.auth import (
-    set_csrf_view,
-    check_session_view,
+    csrf_view,
+    session_view,
     email_verification_view,
     register_email_verification_view,
     otp_verification_view,
@@ -20,8 +20,8 @@ from .views.auth import (
 urlpatterns = [
     # auth views
     path("auth/", include([
-        path("set-csrf/", set_csrf_view, name="csrf"),
-        path("session/", check_session_view, name="session"),
+        path("csrf/", csrf_view, name="csrf"),
+        path("session/", session_view, name="session"),
         path("email-verification/", email_verification_view, name="email-verification"),
         path("register-email-verification/", register_email_verification_view, name="register-email-verification"),
         path("otp-verification/", otp_verification_view, name="otp-verification"),

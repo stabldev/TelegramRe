@@ -13,13 +13,13 @@ from ..serializers import CustomUserSerializer
 
 
 @ensure_csrf_cookie
-def set_csrf_view(request):
+def csrf_view(request):
     response = JsonResponse({"detail": "CSRF cookie set!"})
     response["X-CSRFToken"] = get_token(request)
     return response
 
 
-def check_session_view(request):
+def session_view(request):
     if request.user.is_authenticated:
         return JsonResponse({"isAuthenticated": True})
     return JsonResponse({"isAuthenticated": False})

@@ -46,7 +46,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	};
 
 	const initializeCSRF = async () => {
-		const res = await fetch(`${API_URL}/auth/set-csrf/`, {
+		const res = await fetch(`${API_URL}/auth/csrf/`, {
 			credentials: "include"
 		});
 		const token = res.headers.get("X-CSRFToken");
