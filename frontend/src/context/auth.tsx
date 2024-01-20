@@ -1,4 +1,5 @@
 import { Accessor, JSX, createContext, createSignal, useContext, createEffect } from "solid-js";
+import { useNavigate } from "solid-start";
 import { API_URL } from "~/config";
 import { createLocalStorageSignal } from "~/hooks/localstorage";
 
@@ -32,6 +33,8 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const [csrfToken, setCsrfToken] = createSignal("");
 	const [isAuthenticated, setIsAuthenticated] = createSignal(false);
 	const [user, setUser] = createSignal<User | undefined>();
+
+	const nagivate = useNavigate();
 
 	const initializeSession = async () => {
 		const res = await fetch(`${API_URL}/auth/session/`, {
@@ -95,6 +98,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 			await getMyInfo();
 			setIsAuthenticated(true);
+			nagivate("/", { replace: true });
 		} catch (err) {
 			throw err;
 		} finally {
