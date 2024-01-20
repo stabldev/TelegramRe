@@ -1,5 +1,5 @@
-import { Accessor, JSX, createContext, createSignal, useContext, createEffect } from "solid-js";
-import { useNavigate } from "solid-start";
+import { Accessor, JSX, createContext, createSignal, useContext, createEffect, Show } from "solid-js";
+import { Navigate } from "solid-start";
 import { API_URL } from "~/config";
 
 type User = {
@@ -15,11 +15,13 @@ type User = {
 	date_joined: string;
 };
 
+type AuthType = "login" | "register";
+
 type AuthStore = {
 	loading: Accessor<boolean>;
 	user: Accessor<User | undefined>;
 	isAuthenticated: Accessor<boolean>;
-	handleEmailVerification: (email: string, authType: "login" | "register") => Promise<void>;
+	handleEmailVerification: (email: string, authType: AuthType) => Promise<void>;
 	handleOTPVerification: (email: string, otp: string) => Promise<void>;
 };
 
@@ -30,8 +32,6 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const [csrfToken, setCsrfToken] = createSignal("");
 	const [isAuthenticated, setIsAuthenticated] = createSignal(false);
 	const [user, setUser] = createSignal<User | undefined>();
-
-	const navigate = useNavigate();
 
 	const initializeSession = async () => {
 		const res = await fetch(`${API_URL}/auth/session/`, {
@@ -54,7 +54,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		setCsrfToken(token);
 	};
 
-	const handleEmailVerification = async (email: string, authType: "login" | "register" = "login") => {
+	const handleEmailVerification = async (email: string, authType: AuthType = "login") => {
 		setLoading(true);
 		try {
 			const endpoint = authType === "login" ? "email-verification" : "register-email-verification";
@@ -121,12 +121,10 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	};
 
 	createEffect(async () => {
-		// check session
+		// check if alraedy loggedIn
 		await initializeSession();
-		// fetch from backend
+		// get logged in user info
 		await getMyInfo();
-
-		if (user()) navigate("/", { replace: true });
 	});
 
 	const context_value: AuthStore = {
@@ -137,7 +135,12 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		handleOTPVerification: handleOTPVerification,
 	};
 
-	return <AuthContext.Provider value={context_value}>{props.children}</AuthContext.Provider>;
+	return <AuthContext.Provider value={context_value}>
+		<Show when={isAuthenticated()}>
+			<Navigate href={"/"} />
+		</Show>
+		{props.children}
+	</AuthContext.Provider>;
 }
 
 export function useAuth() {
