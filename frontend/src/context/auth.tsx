@@ -1,5 +1,5 @@
-import { Accessor, JSX, createContext, createSignal, useContext, createEffect } from "solid-js";
-import { useNavigate } from "solid-start";
+import { Accessor, JSX, createContext, createSignal, useContext, createEffect, Show } from "solid-js";
+import { Navigate, useNavigate } from "solid-start";
 import { API_URL } from "~/config";
 
 type User = {
@@ -125,8 +125,6 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		await initializeSession();
 		// fetch from backend
 		await getMyInfo();
-
-		if (user()) navigate("/", { replace: true });
 	});
 
 	const context_value: AuthStore = {
@@ -137,7 +135,12 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		handleOTPVerification: handleOTPVerification,
 	};
 
-	return <AuthContext.Provider value={context_value}>{props.children}</AuthContext.Provider>;
+	return <AuthContext.Provider value={context_value}>
+		<Show when={user()}>
+			<Navigate href={"/"} />
+		</Show>
+		{props.children}
+	</AuthContext.Provider>;
 }
 
 export function useAuth() {
