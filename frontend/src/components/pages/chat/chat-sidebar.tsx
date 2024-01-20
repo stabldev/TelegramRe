@@ -8,7 +8,7 @@ export const ChatSidebar = () => {
 
 	return (
 		<>
-			<div class="h-full whitespace-nowrap border-l-[0.1vw] border-black/50 bg-stone-900 md:w-80">
+			<div class="h-full whitespace-nowrap border-l border-black/50 bg-stone-900 md:w-80">
 				<div class="flex items-center justify-between md:p-3">
 					<h3 class="flex items-center font-medium text-stone-200 md:gap-3 md:text-sm">
 						Profile

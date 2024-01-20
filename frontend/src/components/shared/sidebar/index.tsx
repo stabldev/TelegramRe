@@ -25,7 +25,7 @@ const profile_mapping: ProfileItemProps[] = [
 
 const Sidebar: Component = () => {
 	return (
-		<div class="relative grid h-screen w-full grid-rows-[min-content_1fr] border-r-[0.1vw] border-black/50 bg-stone-900">
+		<div class="relative grid h-screen w-full grid-rows-[min-content_1fr] border-r border-black/50 bg-stone-900">
 			<SearchHeader />
 			<div class="overflow-y-scroll px-3 [scrollbar-width:_thin]">
 				<For each={profile_mapping}>{(profile) => <ProfileItem {...profile} />}</For>
