@@ -9,7 +9,9 @@ import { MultiProvider } from "@solid-primitives/context";
 
 export default function Root() {
 	return (
-		<Html lang="en">
+		<Html lang="en"
+			style={{ "background-image": "url(/wallpaper.svg)" }}
+		>
 			<Head>
 				<Title>Telegram RE</Title>
 				<Meta charset="utf-8" />

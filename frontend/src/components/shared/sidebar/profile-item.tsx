@@ -20,11 +20,11 @@ export const ProfileItem = (props: ProfileItemProps) => {
 	return (
 		<A
 			href={`/@${username()}`}
-			class="flex w-full select-none items-center gap-[1vw] rounded-[0.75vw] px-[1vw] py-[0.75vw]"
-			activeClass="bg-blue-500 hover:bg-blue-500 before:absolute before:left-[1vw] before:w-[0.35vw] before:h-[2.5vw] before:bg-blue-50 before:rounded-full before:rounded-l-none"
+			class="flex w-full select-none items-center gap-3 rounded-lg px-3 py-2"
+			activeClass="bg-blue-500 hover:bg-blue-500 before:absolute before:left-3 before:w-1 before:h-8 before:bg-blue-50 before:rounded-full before:rounded-l-none"
 		>
 			<img
-				class="w-[3.5vw] rounded-full"
+				class="size-12 rounded-full"
 				src={image()}
 				alt={name()}
 			/>
@@ -36,11 +36,11 @@ export const ProfileItem = (props: ProfileItemProps) => {
 				}}
 			>
 				<div class="flex items-center justify-between">
-					<span class="text-[1.1vw] font-medium text-white">{name()}</span>
-					<span class="text-[0.8vw] uppercase">{formated_timestamp}</span>
+					<span class="text-sm font-medium text-white">{name()}</span>
+					<span class="text-xs uppercase">{formated_timestamp}</span>
 				</div>
 				<div>
-					<span class="line-clamp-1 text-[1vw]">{message()}</span>
+					<span class="line-clamp-1 text-sm">{message()}</span>
 				</div>
 			</div>
 		</A>
