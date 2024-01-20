@@ -35,11 +35,11 @@ export const ChatInput = (props: Props) => {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			class="absolute bottom-0 flex w-full items-end gap-[1vw] border-t-[0.1vw] border-black/50 bg-stone-900 p-[1vw]"
+			class="absolute bottom-0 flex w-full items-end gap-3 border-t-[0.1vw] border-black/50 bg-stone-900 p-3"
 		>
 			<button
 				type="button"
-				class="text-[1.75vw] text-white/50 transition-colors hover:text-white/75"
+				class="text-2xl text-white/50 transition-colors hover:text-white/75"
 			>
 				<Clip />
 			</button>
@@ -48,19 +48,19 @@ export const ChatInput = (props: Props) => {
 				value={message()}
 				onInput={(e) => setMessage(e.currentTarget.value)}
 				onKeyDown={handleKeyDown}
-				class="flex-1 resize-none border-none bg-transparent text-[1vw] text-white outline-none [scrollbar-width:none]"
+				class="flex-1 resize-none border-none bg-transparent text-sm text-white outline-none [scrollbar-width:none]"
 				placeholder="Write a message..."
 				maxRows={5}
 			/>
 			<button
 				type="button"
-				class="text-[1.5vw] text-white/50 transition-colors hover:text-white/75"
+				class="text-xl text-white/50 transition-colors hover:text-white/75"
 			>
 				<Emoji />
 			</button>
 			<button
 				type="submit"
-				class="text-[1.65vw] text-white/50 transition-colors hover:text-white/75"
+				class="text-xl text-white/50 transition-colors hover:text-white/75"
 			>
 				<Show
 					when={message()}
