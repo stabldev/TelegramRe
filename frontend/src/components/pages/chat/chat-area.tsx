@@ -1,4 +1,4 @@
-import { For, Show } from "solid-js";
+import { For } from "solid-js";
 import { groupChatBySender } from "~/functions/group-chat";
 import { ChatProps } from "~/types/chat";
 import { ChatBubble } from "./chat-bubble";
