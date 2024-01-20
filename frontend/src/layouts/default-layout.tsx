@@ -12,7 +12,7 @@ export function DefaultLayout(props: { children?: JSX.Element }) {
 			fallback={ <Navigate href={"/auth/login"} /> }
 		>
 			<main
-				class="2xl:container mx-auto grid h-screen w-screen grid-cols-[21rem_1fr] overflow-x-hidden"
+				class="2xl:container mx-auto grid h-screen w-screen grid-cols-[21rem_1fr_auto] overflow-x-hidden"
 			>
 				{/* dark overlay for background-image */}
 				<div class="absolute inset-0 -z-[9999] bg-black/95" />
