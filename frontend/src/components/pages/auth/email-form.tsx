@@ -26,30 +26,30 @@ const EmailForm = (props: Props) => {
 			<Show
                 when={props.authType === "login"}
                 fallback={
-                    <div class="flex flex-col md:gap-[0.5vw]">
-                        <h2 class="font-semibold text-stone-50 md:text-[1.75vw]">Join Telegram RE</h2>
-                        <span class="flex max-w-[17vw] self-center text-stone-400 md:text-[1.05vw]">
+                    <div class="flex flex-col md:gap-2">
+                        <h2 class="font-semibold text-stone-50 md:text-2xl">Join Telegram RE</h2>
+                        <span class="flex self-center text-stone-400 md:text-sm">
                             Use OAuth or register via Email <br /> ( Passwordless )
                         </span>
                     </div>
                 }
             >
-                <div class="flex flex-col md:gap-[0.5vw]">
-                    <h2 class="font-semibold text-stone-50 md:text-[1.75vw]">Login to Telegram RE</h2>
-                    <span class="flex max-w-[17vw] self-center text-stone-400 md:text-[1.05vw]">
+                <div class="flex flex-col md:gap-2">
+                    <h2 class="font-semibold text-stone-50 md:text-2xl">Login to Telegram RE</h2>
+                    <span class="flex self-center text-stone-400 md:text-sm">
                         Use OAuth or login via Email <br /> ( Passwordless )
                     </span>
                 </div>
             </Show>
 			<form
 				onSubmit={handleFormSubmit}
-				class="flex w-full flex-col md:gap-[0.75vw]"
+				class="flex w-full flex-col md:gap-3"
 			>
-				<button type="button" class="grid grid-cols-[3.5vw_auto] bg-stone-800 text-stone-100 leading-none md:gap-[0.75vw] md:text-[1.1vw] font-medium md:rounded-[0.65vw] overflow-hidden">
+				<button type="button" class="grid grid-cols-[3rem_auto] bg-stone-800 text-stone-100 md:text-sm font-medium md:rounded-lg overflow-hidden">
 					<div class="w-full h-full grid place-items-center bg-stone-700">
-						<Google class="md:size-[1.5vw] text-stone-100" />
+						<Google class="md:size-5 text-stone-100" />
 					</div>
-					<span class="w-full md:p-[1vw]">Continue with Google</span>
+					<span class="w-full md:p-3">Continue with Google</span>
 				</button>
 				<input
 					required
@@ -57,22 +57,22 @@ const EmailForm = (props: Props) => {
 					name="email"
 					autofocus
 					placeholder="Email address"
-					class="w-full border-stone-700 bg-transparent text-stone-50 md:rounded-[0.65vw] md:border-[0.1vw] md:p-[0.75vw] md:text-[1.1vw]"
+					class="w-full border-stone-700 bg-transparent text-stone-50 md:rounded-lg border md:p-2.5 md:text-base"
 				/>
-				<div class="flex items-center text-stone-50 md:gap-[1vw] md:text-[1vw]">
+				<div class="flex items-center text-stone-50 md:gap-2 md:text-xs">
 					<input
 						name="keep-me"
 						checked
 						id="keep-me"
 						type="checkbox"
-						class="md:size-[1vw]"
+						class="md:size-4"
 					/>
 					<label for="keep-me">Keep me signed in</label>
 				</div>
 				<button
 					disabled={loading()}
 					classList={{ "opacity-75": loading() }}
-					class="flex items-center justify-center bg-blue-600 font-medium uppercase leading-none text-white transition-opacity md:gap-[1vw] md:rounded-[0.65vw] md:p-[1vw] md:text-[1.1vw]"
+					class="bg-blue-600 font-medium uppercase text-white transition-opacity md:rounded-lg md:p-2.5 md:text-sm"
 				>
 					submit
 				</button>
@@ -80,7 +80,7 @@ const EmailForm = (props: Props) => {
                     when={props.authType === "login"}
                     fallback={
                         <A
-                            class="text-stone-400 md:text-[1.1vw]"
+                            class="text-stone-400 md:text-sm"
                             href="../login"
                         >
                             Already have an account? Login!
@@ -88,7 +88,7 @@ const EmailForm = (props: Props) => {
                     }
                 >
                     <A
-                        class="text-stone-400 md:text-[1.1vw]"
+                        class="text-stone-400 md:text-sm"
                         href="../register"
                     >
                         Don't have an account? Register!
