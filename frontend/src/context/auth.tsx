@@ -1,6 +1,6 @@
-import { Accessor, JSX, createContext, createSignal, useContext, createEffect, Show } from "solid-js";
-import { Navigate } from "solid-start";
+import { Accessor, JSX, createContext, createSignal, useContext, createEffect } from "solid-js";
 import { API_URL } from "~/config";
+import { createLocalStorageSignal } from "~/hooks/localstorage";
 
 type User = {
 	id: number;
@@ -94,6 +94,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 			if (!res.ok) throw new Error(data.detail)
 
 			await getMyInfo();
+			setIsAuthenticated(true);
 		} catch (err) {
 			throw err;
 		} finally {
@@ -136,13 +137,10 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	};
 
 	return <AuthContext.Provider value={context_value}>
-		<Show when={isAuthenticated()}>
-			<Navigate href={"/"} />
-		</Show>
 		{props.children}
 	</AuthContext.Provider>;
-}
+};
 
 export function useAuth() {
 	return useContext(AuthContext)!;
-}
+};
