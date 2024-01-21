@@ -31,7 +31,7 @@ urlpatterns = [
     path("inbox/", InboxView.as_view(), name="inbox"),
     # prefix urls
     path("messages/", include([
-        path("<int:sender_id>/<int:reciever_id>/", MessagesView.as_view(), name="messages"),
+        path("<str:username>/", MessagesView.as_view(), name="messages"),
         path("send/", SendMessageView.as_view(), name="send-message"),
         path("update/<int:pk>/", UpdateMessageView.as_view(), name="update-message"),
     ])),
