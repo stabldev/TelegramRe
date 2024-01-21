@@ -6,7 +6,7 @@ import Search from "~/icons/search";
 import Split from "~/icons/split";
 
 export const ChatHeader: Component = () => {
-	const { toggleShowSidebar } = useShared();
+	const { toggleShowSidebar, activeChatUser } = useShared();
 
 	const icon_mapping: {
 		[key: string]: {
@@ -36,12 +36,14 @@ export const ChatHeader: Component = () => {
 				class="flex items-center gap-3"
 			>
 				<img
-					src="https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg"
+					src={activeChatUser()?.avatar ?? ""}
 					alt="anya-forger"
 					class="size-8 rounded-full"
 				/>
 				<div class="flex flex-col items-start leading-none">
-					<span class="text-sm font-medium text-white">Anya Forger</span>
+					<span class="text-sm font-medium text-white">
+						{activeChatUser()?.first_name + " " + activeChatUser()?.last_name}
+					</span>
 					<span class="text-xs text-white/50">last seen recently</span>
 				</div>
 			</button>

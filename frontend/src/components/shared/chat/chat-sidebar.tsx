@@ -1,10 +1,13 @@
 import { useParams } from "solid-start";
 import { useShared } from "~/context/shared";
+import { FormatDate } from "~/functions/format-date";
 import Close from "~/icons/close";
 
 export const ChatSidebar = () => {
-	const { toggleShowSidebar } = useShared();
+	const { toggleShowSidebar, activeChatUser } = useShared();
 	const params = useParams<{ username: string }>();
+
+	const formatted_date_joined = new FormatDate(activeChatUser()?.date_joined ?? "").format_to_d_m_y
 
 	return (
 		<>
@@ -19,12 +22,14 @@ export const ChatSidebar = () => {
 					</button>
 				</div>
 				<img
-					src="https://pm1.aminoapps.com/8063/ff1db42bbc3a7bc249022b37125da8fa3b1e2d4br1-512-512v2_hq.jpg"
+					src={activeChatUser()?.avatar ?? ""}
 					class="object-cover md:size-auto"
 				/>
 				<div class="flex flex-col leading-none md:gap-1 md:p-3">
-					<h3 class="font-medium text-stone-100 md:text-base">Anya Forger</h3>
-					<h5 class="text-stone-400 md:text-xs">Joined Date: Dec 25, 2023</h5>
+					<h3 class="font-medium text-stone-100 md:text-base">
+						{activeChatUser()?.first_name + " " + activeChatUser()?.last_name}
+					</h3>
+					<h5 class="text-stone-400 md:text-xs">Joined Date: {formatted_date_joined}</h5>
 				</div>
 			</div>
 		</>
