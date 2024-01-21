@@ -1,8 +1,10 @@
-import { Component, For } from "solid-js";
-import { ProfileItemProps } from "../../../types/profile-item";
+import { Component, For, createEffect, createResource } from "solid-js";
+import { ProfileItemProps } from "../../../types/profile-item.types";
 import { SearchHeader } from "./search-header";
 import Pencil from "~/icons/pencil";
 import { ProfileItem } from "./profile-item";
+import { API_URL } from "~/config";
+import { InboxItem } from "~/types/inbox.types";
 
 const profile_mapping: ProfileItemProps[] = [
 	{
@@ -23,7 +25,21 @@ const profile_mapping: ProfileItemProps[] = [
 	}
 ];
 
+async function fetchInbox() {
+	const res = await fetch(`${API_URL}/inbox/`, {
+		credentials: "include",
+	});
+	const data = await res.json();
+	return data;
+};
+
 const Sidebar: Component = () => {
+	const [inbox] = createResource<InboxItem[]>(fetchInbox);
+	
+	createEffect(() => {
+		console.log(inbox());
+	})
+
 	return (
 		<div class="relative grid h-screen w-full grid-rows-[min-content_1fr] border-r border-black/50 bg-stone-900">
 			<SearchHeader />

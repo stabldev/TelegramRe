@@ -20,19 +20,19 @@ class InboxView(generics.ListAPIView):
                 )
                 .distinct()
                 .annotate(
-                    last_msg=Subquery(
+                    last_message=Subquery(
                         ChatMessage.objects.filter(
-                            Q(sender=OuterRef("id"), reciever=user)
-                            | Q(reciever=OuterRef("id"), sender=user)
+                            Q(sender=user, reciever=OuterRef("id")) | Q(reciever=user, sender=OuterRef("id"))
                         )
                         .order_by("-id")[:1]
                         .values_list("id", flat=True)
                     )
                 )
-                .values_list("last_msg", flat=True)
+                .values_list("last_message", flat=True)
                 .order_by("-id")
             )
         ).order_by("-id")
+        
         return messages
 
 
