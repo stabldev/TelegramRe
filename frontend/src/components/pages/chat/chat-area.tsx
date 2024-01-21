@@ -1,11 +1,11 @@
 import { For } from "solid-js";
 import { groupChatBySender } from "~/functions/group-chat";
-import { ChatProps } from "~/types/chat";
 import { ChatBubble } from "./chat-bubble";
 import { useAuth } from "~/context/auth";
+import { ChatMessage } from "~/types/chat.types";
 
 interface Props {
-	chat: ChatProps[];
+	chat: ChatMessage[];
 	ref: HTMLDivElement;
 }
 
@@ -22,23 +22,17 @@ export const ChatArea = (props: Props) => {
 				{(group) => (
 					<div
 						class="relative flex items-end gap-2"
-						classList={{ "self-end flex-row-reverse": group.sender.username === "tokitouq" }}
+						classList={{ "self-end flex-row-reverse": group.sender === user()?.id }}
 					>
-						<img
-							hidden
-							src={group.sender.image}
-							alt="anya-forger"
-							class="sticky bottom-0 size-4 select-none rounded-full"
-						/>
 						<div
 							class="flex flex-col gap-0.5"
-							classList={{ "items-end": group.sender.username === "tokitouq" }}
+							classList={{ "items-end": group.sender === user()?.id }}
 						>
 							<For each={group.chats}>
 								{(message, i) => (
 									<ChatBubble
 										message={message}
-										self={group.sender.username === "tokitouq"}
+										self={message.sender === user()?.id}
 									/>
 								)}
 							</For>

@@ -1,37 +1,26 @@
-import { ChatProps } from "../types/chat.types";
+import { ChatMessage } from "../types/chat.types";
 
-type SenderType = {
-	username: string;
-	image: string;
-};
-
-export function groupChatBySender(chat: ChatProps[]) {
+export function groupChatBySender(chat: ChatMessage[]) {
 	const groupedChat: {
-		sender: SenderType;
-		chats: ChatProps[];
+		sender: number;
+		chats: ChatMessage[];
 	}[] = [];
 	// store previous data for comparing with new
-	let prevSender: SenderType | null = null;
-	let prevChat: ChatProps[] = [];
+	let prevSender: number | null = null;
+	let prevChat: ChatMessage[] = [];
 
 	chat.forEach((message) => {
-		if (message.username === prevSender?.username) {
+		if (message.sender === prevSender) {
 			prevChat.push(message);
 		} else {
 			if (prevSender !== null) {
 				groupedChat.push({
-					sender: {
-						username: prevSender.username,
-						image: prevSender.image
-					},
+					sender: prevSender,
 					chats: prevChat
 				});
 			}
 
-			prevSender = {
-				username: message.username,
-				image: message.image
-			};
+			prevSender = message.sender;
 			prevChat = [message];
 		}
 	});
