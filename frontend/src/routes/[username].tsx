@@ -1,6 +1,6 @@
 import { Show } from "solid-js";
 import ChatScreen from "~/components/pages/chat";
-import { ChatSidebar } from "~/components/pages/chat/chat-sidebar";
+import { ChatSidebar } from "~/components/shared/chat/chat-sidebar";
 import { useShared } from "~/context/shared";
 import { DefaultLayout } from "~/layouts/default-layout";
 
