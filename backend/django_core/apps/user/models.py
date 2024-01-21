@@ -18,7 +18,10 @@ class CustomUser(AbstractUser):
     otp = models.CharField(max_length=5, null=True, blank=True)
 
     avatar = models.ImageField(
-        upload_to=avatar_pattern, default=None, blank=True, null=True
+        upload_to=avatar_pattern,
+        default="defaults/avatar.png",
+        blank=True,
+        null=True,
     )
 
     USERNAME_FIELD = "email"

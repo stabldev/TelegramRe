@@ -9,11 +9,9 @@ export function DefaultLayout(props: { children?: JSX.Element }) {
 	return (
 		<Show
 			when={isAuthenticated()}
-			fallback={ <Navigate href={"/auth/login"} /> }
+			fallback={<Navigate href={"/auth/login"} />}
 		>
-			<main
-				class="2xl:container mx-auto grid h-screen w-screen grid-cols-[21rem_1fr_auto] overflow-x-hidden"
-			>
+			<main class="mx-auto grid h-screen w-screen grid-cols-[21rem_1fr_auto] overflow-x-hidden 2xl:container">
 				{/* dark overlay for background-image */}
 				<div class="absolute inset-0 -z-[9999] bg-black/95" />
 

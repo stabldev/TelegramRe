@@ -1,9 +1,9 @@
 import { Match, Show, Switch } from "solid-js";
 import { destructure } from "@solid-primitives/destructure";
 import { FormatDate } from "~/functions/format-date";
-import type { ChatProps } from "~/types/chat";
 import Tick from "~/icons/tick";
 import CLock from "~/icons/clock";
+import { ChatProps } from "~/types/chat.types";
 
 interface Props {
 	message: ChatProps;
@@ -16,10 +16,10 @@ export const ChatBubble = (props: Props) => {
 
 	return (
 		<div
-			class="flex w-max gap-2 rounded-lg py-1 px-3 text-white"
+			class="flex w-max gap-2 rounded-lg px-3 py-1 text-white"
 			classList={{
 				"bg-blue-500": self(),
-				"bg-stone-800": !self(),
+				"bg-stone-800": !self()
 			}}
 		>
 			<span class="self-center whitespace-pre-line text-[0.8rem]">{message().content}</span>
