@@ -1,19 +1,21 @@
 import { A, useParams } from "solid-start";
 import { destructure } from "@solid-primitives/destructure";
 import { FormatDate } from "~/functions/format-date";
-import { createEffect, createSignal } from "solid-js";
+import { Show, createEffect, createSignal } from "solid-js";
 import { get_username } from "~/functions/get-username";
 import { InboxItem } from "~/types/inbox.types";
 import { useAuth } from "~/context/auth";
+import Tick from "~/icons/tick";
 
 export const ProfileItem = (props: InboxItem) => {
 	const { user } = useAuth();
 	const [isActive, setIsActive] = createSignal(false);
 	const params = useParams<{ username: string }>();
 
-	const { message, sender, reciever, date } = destructure(props);
+	const { message, sender, reciever, date, is_read } = destructure(props);
 
 	const chat_user = sender().id !== user()?.id ? sender : reciever;
+	const self_chat = sender().id === user()?.id;
 	const formated_timestamp = new FormatDate(date()).format_to_relative_time;
 
 	createEffect(() => {
@@ -45,8 +47,32 @@ export const ProfileItem = (props: InboxItem) => {
 					</span>
 					<span class="text-xs uppercase">{formated_timestamp}</span>
 				</div>
-				<div>
+				<div class="flex items-center justify-between md:gap-3">
 					<span class="line-clamp-1 text-sm">{message()}</span>
+					<Show
+						when={self_chat}
+						fallback={
+							<Show when={!is_read()}>
+								<span class="bg-blue-500 leading-none md:size-5 grid place-items-center rounded-full md:text-xs font-semibold">1</span>
+							</Show>
+						}
+					>
+						<Show
+							when={is_read}
+							fallback={
+								<Tick
+									variant="single"
+									class="text-sm text-white"
+								/>
+							}
+						>
+							<Tick
+								variant="double"
+								class="text-lg text-blue-300"
+								classList={{ "!text-white": isActive() }}
+							/>
+						</Show>
+					</Show>
 				</div>
 			</div>
 		</A>
