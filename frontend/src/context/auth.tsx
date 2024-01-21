@@ -52,19 +52,19 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					"X-CSRFToken": csrfToken(),
+					"X-CSRFToken": csrfToken()
 				},
 				credentials: "include",
-				body: JSON.stringify({ email }),
+				body: JSON.stringify({ email })
 			});
 
 			const data = await res.json();
-			if (!res.ok) throw new Error(data.detail)
+			if (!res.ok) throw new Error(data.detail);
 		} catch (err) {
 			throw err;
 		} finally {
 			setLoading(false);
-		};
+		}
 	};
 
 	const handleOTPVerification = async (email: string, otp: string) => {
@@ -74,14 +74,14 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					"X-CSRFToken": csrfToken(),
+					"X-CSRFToken": csrfToken()
 				},
 				credentials: "include",
-				body: JSON.stringify({ email, otp }),
+				body: JSON.stringify({ email, otp })
 			});
 
 			const data = await res.json();
-			if (!res.ok) throw new Error(data.detail)
+			if (!res.ok) throw new Error(data.detail);
 
 			await getMyInfo();
 			setIsAuthenticated(true);
@@ -90,7 +90,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 			throw err;
 		} finally {
 			setLoading(false);
-		};
+		}
 	};
 
 	const getMyInfo = async () => {
@@ -98,11 +98,11 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 			const res = await fetch(`${API_URL}/auth/who_am_i/`, {
 				headers: {
 					"Content-Type": "application/json",
-					"X-CSRFToken": csrfToken(),
+					"X-CSRFToken": csrfToken()
 				},
-				credentials: "include",
+				credentials: "include"
 			});
-			
+
 			const data = await res.json();
 			if (!res.ok) throw new Error("Something is wrong!");
 
@@ -124,14 +124,12 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		isAuthenticated: isAuthenticated,
 		loading: loading,
 		handleEmailVerification: handleEmailVerification,
-		handleOTPVerification: handleOTPVerification,
+		handleOTPVerification: handleOTPVerification
 	};
 
-	return <AuthContext.Provider value={context_value}>
-		{props.children}
-	</AuthContext.Provider>;
-};
+	return <AuthContext.Provider value={context_value}>{props.children}</AuthContext.Provider>;
+}
 
 export function useAuth() {
 	return useContext(AuthContext)!;
-};
+}

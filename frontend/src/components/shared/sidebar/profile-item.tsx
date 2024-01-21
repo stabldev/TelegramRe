@@ -42,9 +42,7 @@ export const ProfileItem = (props: InboxItem) => {
 				}}
 			>
 				<div class="flex items-center justify-between">
-					<span class="text-sm font-medium text-white">
-						{chat_user().first_name + " " + chat_user().last_name}
-					</span>
+					<span class="text-sm font-medium text-white">{chat_user().first_name + " " + chat_user().last_name}</span>
 					<span class="text-xs uppercase">{formated_timestamp}</span>
 				</div>
 				<div class="flex items-center justify-between md:gap-3">
@@ -53,7 +51,7 @@ export const ProfileItem = (props: InboxItem) => {
 						when={self_chat}
 						fallback={
 							<Show when={!is_read()}>
-								<span class="bg-blue-500 leading-none md:size-5 grid place-items-center rounded-full md:text-xs font-semibold">1</span>
+								<span class="grid place-items-center rounded-full bg-blue-500 font-semibold leading-none md:size-5 md:text-xs">1</span>
 							</Show>
 						}
 					>

@@ -16,10 +16,10 @@ export const ChatBubble = (props: Props) => {
 
 	return (
 		<div
-			class="flex w-max gap-2 rounded-lg py-1 px-3 text-white"
+			class="flex w-max gap-2 rounded-lg px-3 py-1 text-white"
 			classList={{
 				"bg-blue-500": self(),
-				"bg-stone-800": !self(),
+				"bg-stone-800": !self()
 			}}
 		>
 			<span class="self-center whitespace-pre-line text-[0.8rem]">{message().content}</span>

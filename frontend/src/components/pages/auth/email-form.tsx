@@ -6,7 +6,7 @@ import Google from "~/icons/google";
 
 interface Props {
 	onFormSubmit: (e: CustomEvent) => void;
-    authType: "login" | "register";
+	authType: "login" | "register";
 }
 
 const EmailForm = (props: Props) => {
@@ -24,30 +24,33 @@ const EmailForm = (props: Props) => {
 	return (
 		<>
 			<Show
-                when={props.authType === "login"}
-                fallback={
-                    <div class="flex flex-col md:gap-2">
-                        <h2 class="font-semibold text-stone-50 md:text-2xl">Join Telegram RE</h2>
-                        <span class="flex self-center text-stone-400 md:text-sm">
-                            Use OAuth or register via Email <br /> ( Passwordless )
-                        </span>
-                    </div>
-                }
-            >
-                <div class="flex flex-col md:gap-2">
-                    <h2 class="font-semibold text-stone-50 md:text-2xl">Login to Telegram RE</h2>
-                    <span class="flex self-center text-stone-400 md:text-sm">
-                        Use OAuth or login via Email <br /> ( Passwordless )
-                    </span>
-                </div>
-            </Show>
+				when={props.authType === "login"}
+				fallback={
+					<div class="flex flex-col md:gap-2">
+						<h2 class="font-semibold text-stone-50 md:text-2xl">Join Telegram RE</h2>
+						<span class="flex self-center text-stone-400 md:text-sm">
+							Use OAuth or register via Email <br /> ( Passwordless )
+						</span>
+					</div>
+				}
+			>
+				<div class="flex flex-col md:gap-2">
+					<h2 class="font-semibold text-stone-50 md:text-2xl">Login to Telegram RE</h2>
+					<span class="flex self-center text-stone-400 md:text-sm">
+						Use OAuth or login via Email <br /> ( Passwordless )
+					</span>
+				</div>
+			</Show>
 			<form
 				onSubmit={handleFormSubmit}
 				class="flex w-full flex-col md:gap-3"
 			>
-				<button type="button" class="grid grid-cols-[3rem_auto] bg-stone-800 text-stone-100 md:text-sm font-medium md:rounded-lg overflow-hidden">
-					<div class="w-full h-full grid place-items-center bg-stone-700">
-						<Google class="md:size-5 text-stone-100" />
+				<button
+					type="button"
+					class="grid grid-cols-[3rem_auto] overflow-hidden bg-stone-800 font-medium text-stone-100 md:rounded-lg md:text-sm"
+				>
+					<div class="grid h-full w-full place-items-center bg-stone-700">
+						<Google class="text-stone-100 md:size-5" />
 					</div>
 					<span class="w-full md:p-3">Continue with Google</span>
 				</button>
@@ -57,7 +60,7 @@ const EmailForm = (props: Props) => {
 					name="email"
 					autofocus
 					placeholder="Email address"
-					class="w-full border-stone-700 bg-transparent text-stone-50 md:rounded-lg border md:p-2.5 md:text-base"
+					class="w-full border border-stone-700 bg-transparent text-stone-50 md:rounded-lg md:p-2.5 md:text-base"
 				/>
 				<div class="flex items-center text-stone-50 md:gap-2 md:text-xs">
 					<input
@@ -77,23 +80,23 @@ const EmailForm = (props: Props) => {
 					submit
 				</button>
 				<Show
-                    when={props.authType === "login"}
-                    fallback={
-                        <A
-                            class="text-stone-400 md:text-sm"
-                            href="../login"
-                        >
-                            Already have an account? Login!
-                        </A>
-                    }
-                >
-                    <A
-                        class="text-stone-400 md:text-sm"
-                        href="../register"
-                    >
-                        Don't have an account? Register!
-                    </A>
-                </Show>
+					when={props.authType === "login"}
+					fallback={
+						<A
+							class="text-stone-400 md:text-sm"
+							href="../login"
+						>
+							Already have an account? Login!
+						</A>
+					}
+				>
+					<A
+						class="text-stone-400 md:text-sm"
+						href="../register"
+					>
+						Don't have an account? Register!
+					</A>
+				</Show>
 			</form>
 		</>
 	);

@@ -9,7 +9,8 @@ import { MultiProvider } from "@solid-primitives/context";
 
 export default function Root() {
 	return (
-		<Html lang="en"
+		<Html
+			lang="en"
 			style={{ "background-image": "url(/wallpaper.svg)" }}
 		>
 			<Head>
@@ -27,7 +28,7 @@ export default function Root() {
 							<Toaster
 								position="bottom-right"
 								toastOptions={{
-									className: "!bg-stone-800 !text-stone-100 md:!text-[1vw] md:!px-[0.75vw] md:!py-[0.5vw]",
+									className: "!bg-stone-800 !text-stone-100 md:!text-[1vw] md:!px-[0.75vw] md:!py-[0.5vw]"
 								}}
 							/>
 							<Routes>

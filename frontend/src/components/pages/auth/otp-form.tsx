@@ -3,7 +3,7 @@ import { useAuth } from "~/context/auth";
 
 interface Props {
 	onOtpSubmit: (e: CustomEvent) => void;
-    authType: "login" | "register";
+	authType: "login" | "register";
 }
 
 const OtpForm = (props: Props) => {
@@ -21,9 +21,7 @@ const OtpForm = (props: Props) => {
 	return (
 		<>
 			<div class="flex flex-col md:gap-2">
-				<h2 class="font-semibold text-stone-50 md:text-2xl">
-					Email verification.
-				</h2>
+				<h2 class="font-semibold text-stone-50 md:text-2xl">Email verification.</h2>
 				<span class="flex self-center text-stone-400 md:text-sm">
 					Please enter the OTP which we've send to <br /> your email to complete.
 				</span>
@@ -35,11 +33,11 @@ const OtpForm = (props: Props) => {
 				<input
 					required
 					autofocus
-                    name="otp"
+					name="otp"
 					placeholder="OTP you recieved"
 					minLength={5}
 					maxLength={5}
-					class="w-full border-stone-700 bg-transparent text-stone-50 md:rounded-lg border md:p-2.5 md:text-base"
+					class="w-full border border-stone-700 bg-transparent text-stone-50 md:rounded-lg md:p-2.5 md:text-base"
 				/>
 				<button
 					disabled={loading()}
