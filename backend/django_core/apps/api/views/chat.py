@@ -2,13 +2,13 @@ from django.db.models import Q, OuterRef, Subquery
 
 from rest_framework import generics
 
-from apps.api.serializers import ChatMessageSerializer
+from apps.api.serializers import ChatMessageSerializer, InboxMessageSerializer
 from apps.user.models import CustomUser
 from apps.chat.models import ChatMessage
 
 
 class InboxView(generics.ListAPIView):
-    serializer_class = ChatMessageSerializer
+    serializer_class = InboxMessageSerializer
 
     def get_queryset(self):
         user = self.request.user
@@ -40,11 +40,12 @@ class MessagesView(generics.ListAPIView):
     serializer_class = ChatMessageSerializer
 
     def get_queryset(self):
-        sender_id = self.kwargs["sender_id"]
-        reciever_id = self.kwargs["reciever_id"]
+        chat_user_username = self.kwargs["username"]
+        user_username = self.request.user.username
 
         return ChatMessage.objects.filter(
-            sender__in=[sender_id, reciever_id], reciever__in=[sender_id, reciever_id]
+            sender__username__in=[chat_user_username, user_username],
+            reciever__username__in=[chat_user_username, user_username]
         )
 
 
