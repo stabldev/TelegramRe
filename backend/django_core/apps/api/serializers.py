@@ -26,6 +26,9 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 
 class ChatMessageSerializer(serializers.ModelSerializer):
+    sender = CustomUserSerializer(many=False)
+    reciever = CustomUserSerializer(many=False)
+
     class Meta:
         model = ChatMessage
         fields = ["id", "sender", "reciever", "message", "is_read", "date"]

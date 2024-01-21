@@ -1,4 +1,4 @@
-import { ChatProps } from "../../types/chat";
+import { ChatProps } from "../../types/chat.types";
 
 export const chat_mapping: {
 	[key: string]: ChatProps[];

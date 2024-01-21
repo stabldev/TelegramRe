@@ -1,4 +1,4 @@
-import { ChatProps } from "../types/chat";
+import { ChatProps } from "../types/chat.types";
 
 type SenderType = {
 	username: string;

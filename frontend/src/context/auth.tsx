@@ -1,20 +1,7 @@
 import { Accessor, JSX, createContext, createSignal, useContext, createEffect } from "solid-js";
 import { useNavigate } from "solid-start";
 import { API_URL } from "~/config";
-import { createLocalStorageSignal } from "~/hooks/localstorage";
-
-type User = {
-	id: number;
-	email: string;
-	username: string;
-	first_name: string;
-	last_name: string;
-	avatar: string | null;
-	bio: string;
-	is_verified: boolean;
-	last_login: string;
-	date_joined: string;
-};
+import { User } from "~/types/user.types";
 
 type AuthType = "login" | "register";
 
