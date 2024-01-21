@@ -90,11 +90,8 @@ def otp_verification_view(request: HttpRequest):
 
 
 def who_am_i_view(request: HttpRequest):
-    User = get_user_model()
     try:
-        user = User.objects.get(email=request.user.email)
-        serializer = CustomUserSerializer(user, many=False)
-
+        serializer = CustomUserSerializer(request.user, many=False)
         return JsonResponse({"detail": serializer.data})
     except Exception as e:
         print(e)
