@@ -55,6 +55,7 @@ class CustomUserAdmin(UserAdmin):
                     "bio",
                     "is_verified",
                     "otp",
+                    "online",
                 )
             },
         ),

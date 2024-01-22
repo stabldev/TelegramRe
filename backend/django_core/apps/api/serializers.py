@@ -21,11 +21,17 @@ class CustomUserSerializer(serializers.ModelSerializer):
             "bio",
             "last_login",
             "date_joined",
+            "online",
         ]
         read_only_fields = ["last_login", "date_joined"]
 
 
 class ChatMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChatMessage
+        fields = ["id", "sender", "reciever", "message", "is_read", "date"]
+
+class InboxMessageSerializer(serializers.ModelSerializer):
     sender = CustomUserSerializer(many=False)
     reciever = CustomUserSerializer(many=False)
 

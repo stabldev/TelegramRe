@@ -1,17 +1,28 @@
-import { Component, createEffect, createSignal } from "solid-js";
+import { Component, Show, createEffect, createResource, createSignal } from "solid-js";
 import { useParams } from "@solidjs/router";
 import { ChatHeader } from "./chat-header";
 import { ChatInput } from "./chat-input";
 import { ChatArea } from "./chat-area";
-import { chat_mapping } from "~/data/mock/chat_messages";
 import { scrollToBottom } from "~/functions/scroll-to-bottom";
 import { useAuth } from "~/context/auth";
-import { ChatProps } from "~/types/chat";
+import { ChatMessage, ChatProps } from "~/types/chat.types";
+import { API_URL } from "~/config";
+import { useShared } from "~/context/shared";
+import { User } from "~/types/user.types";
+
+async function fetchMessages(user: User) {
+	const res = await fetch(`${API_URL}/messages/${user.username}/`,
+		{ credentials: "include" }
+	);
+	const data = await res.json() as ChatMessage[];
+	return data;
+};
 
 export const ChatScreen: Component = () => {
-	const params = useParams<{ username: string }>();
+	const { activeChatUser } = useShared();
 	const [chat, setChat] = createSignal<ChatProps[]>([]);
 	const { user } = useAuth();
+	const [messages] = createResource(activeChatUser, fetchMessages);
 
 	let chatAreaRef: HTMLDivElement;
 
@@ -35,9 +46,6 @@ export const ChatScreen: Component = () => {
 	};
 
 	createEffect(() => {
-		const matchedChat = Object.entries(chat_mapping).find(([key]) => key === params.username.slice(1));
-		if (matchedChat) setChat(matchedChat[1]);
-
 		// scroll chat area to bottom
 		requestAnimationFrame(() => {
 			scrollToBottom(chatAreaRef, { behavior: "auto" });
@@ -47,10 +55,12 @@ export const ChatScreen: Component = () => {
 	return (
 		<div class="relative grid grid-rows-[min-content_1fr]">
 			<ChatHeader />
-			<ChatArea
-				chat={chat()}
-				ref={chatAreaRef!}
-			/>
+			<Show when={!messages.loading}>
+				<ChatArea
+					chat={messages()!}
+					ref={chatAreaRef!}
+				/>
+			</Show>
 			<ChatInput onMessage={handleAddMessage} />
 		</div>
 	);

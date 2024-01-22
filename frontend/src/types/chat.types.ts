@@ -1,8 +1,8 @@
-export type ChatProps = {
+export type ChatMessage = {
 	id: number;
-	username: string;
-	image: string;
-	content: string;
-	time: string;
-	status: "seen" | "send" | "sending";
+	sender: number;
+	reciever: number;
+	message: string;
+	is_read: boolean;
+	date: string;
 };
