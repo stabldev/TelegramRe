@@ -1,12 +1,11 @@
 import { Component, Show, createEffect, createResource, createSignal } from "solid-js";
-import { useParams } from "@solidjs/router";
 import { ChatHeader } from "./chat-header";
 import { ChatInput } from "./chat-input";
 import { ChatArea } from "./chat-area";
 import { scrollToBottom } from "~/functions/scroll-to-bottom";
 import { useAuth } from "~/context/auth";
-import { ChatMessage, ChatProps } from "~/types/chat.types";
-import { API_URL } from "~/config";
+import { ChatMessage } from "~/types/chat.types";
+import { API_URL, WS_URL } from "~/config";
 import { useShared } from "~/context/shared";
 import { User } from "~/types/user.types";
 
@@ -20,25 +19,27 @@ async function fetchMessages(user: User) {
 
 export const ChatScreen: Component = () => {
 	const { activeChatUser } = useShared();
-	const [chat, setChat] = createSignal<ChatProps[]>([]);
+	const [chat, setChat] = createSignal<ChatMessage[]>([]);
 	const { user } = useAuth();
 	const [messages] = createResource(activeChatUser, fetchMessages);
+
+	const socket = new WebSocket(
+		WS_URL + `ws/users/${user()?.id}/chat/`
+	);
+
+	socket.onclose = function(e: CloseEvent) {
+		console.log("Connection closed");
+	};
+
+	socket.onmessage = function(e: MessageEvent) {
+		console.log("Message got");
+	};
 
 	let chatAreaRef: HTMLDivElement;
 
 	const handleAddMessage = (e: CustomEvent) => {
 		const message = e.detail;
 
-		const newChat: ChatProps = {
-			id: Math.floor(Math.random() * 10000),
-			username: user()!.username,
-			image: "https://avatars.githubusercontent.com/u/114811070?v=4",
-			content: message,
-			time: new Date().toISOString(),
-			status: "sending"
-		};
-
-		setChat((prev) => [...prev, newChat]);
 		// scroll chat area to bottom
 		requestAnimationFrame(() => {
 			scrollToBottom(chatAreaRef, { behavior: "auto" });

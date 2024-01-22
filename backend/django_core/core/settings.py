@@ -43,6 +43,8 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
+    # Django websockets
+    "daphne",
     # Django apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -205,3 +207,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+
+# https://channels.readthedocs.io/en/latest/tutorial/part_1.html
+# Daphne Config
+
+ASGI_APPLICATION = "core.asgi.application"
