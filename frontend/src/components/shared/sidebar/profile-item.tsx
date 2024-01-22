@@ -11,7 +11,6 @@ import { useShared } from "~/context/shared";
 export const ProfileItem = (props: InboxItem) => {
 	const { user } = useAuth();
 	const { setActiveChatUser } = useShared();
-
 	const [isActive, setIsActive] = createSignal(false);
 	const params = useParams<{ username: string }>();
 
@@ -37,11 +36,22 @@ export const ProfileItem = (props: InboxItem) => {
 			activeClass="bg-blue-500 hover:bg-blue-500 before:absolute before:left-3 before:w-1 before:h-8 before:bg-blue-50 before:rounded-full before:rounded-l-none"
 			onClick={handleChatClick}
 		>
-			<img
-				class="size-12 rounded-full"
-				src={chat_user().avatar ?? ""}
-				alt={chat_user().username}
-			/>
+			<div class="relative size-12 flex-shrink-0">
+				<img
+					class="size-full rounded-full"
+					src={chat_user().avatar ?? ""}
+					alt={chat_user().username}
+				/>
+				<Show when={chat_user().online}>
+					<div
+						class="md:size-2.5 rounded-full absolute bottom-0 right-0 ring-4"
+						classList={{ 
+							"ring-blue-500 bg-white": isActive(),
+							"ring-stone-900 bg-blue-500": !isActive(),
+						}}
+					/>
+				</Show>
+			</div>
 			<div
 				class="flex w-full flex-col"
 				classList={{

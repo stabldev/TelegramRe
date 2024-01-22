@@ -1,4 +1,4 @@
-import { Component, For, JSX } from "solid-js";
+import { Component, For, JSX, Show } from "solid-js";
 import { useShared } from "~/context/shared";
 import Menu from "~/icons/menu";
 import Phone from "~/icons/phone";
@@ -44,7 +44,12 @@ export const ChatHeader: Component = () => {
 					<span class="text-sm font-medium text-white">
 						{activeChatUser()?.first_name + " " + activeChatUser()?.last_name}
 					</span>
-					<span class="text-xs text-white/50">last seen recently</span>
+					<Show
+						when={activeChatUser()?.online}
+						fallback={ <span class="text-xs text-white/50">Offline</span> }
+					>
+						<span class="text-xs text-blue-300">Online</span>
+					</Show>
 				</div>
 			</button>
 			<div class="flex items-center gap-3 text-lg text-white/50">
