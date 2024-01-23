@@ -23,7 +23,7 @@ export const ChatScreen: Component = () => {
 	const [messages] = createResource(activeChatUser, fetchMessages);
 
 	const socket = new WebSocket(
-		WS_URL + `ws/users/${user()?.id}/chat/`
+		WS_URL + `ws/chat/`
 	);
 
 	socket.onclose = function(e: CloseEvent) {

@@ -15,7 +15,11 @@ class ChatMessageAdmin(admin.ModelAdmin):
 
 @admin.register(ChatRoom)
 class CharRoomAdmin(admin.ModelAdmin):
-    list_display = ("room_id", "type")
+    list_display = ("__str__", "name", "type", "get_member_count")
+
+    def get_member_count(self, obj):
+        return obj.member.count()
+    get_member_count.short_description = "member count"
 
 @admin.register(ChatMsg)
 class ChatMsgAdmin(admin.ModelAdmin):

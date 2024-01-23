@@ -1,14 +1,24 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
+
 from .models import ChatRoom, ChatMsg
+from .serializers import ChatMsgSerializer
 
 class ChatConsumer(AsyncWebsocketConsumer):
+    def save_message(self, room_id, message):
+        chat_room = ChatRoom.objects.get(room_id=room_id)
+        chat_msg = ChatMsg.objects.create(
+            room=chat_room, user=self.user, message=message
+        )
+        serializer = ChatMsgSerializer(chat_msg, many=False)
+        return serializer.data
+
     async def connect(self):
-        self.user_id = self.scope["url_route"]["kwargs"]["user_id"]
+        self.user = self.scope["user"]
         self.rooms = await database_sync_to_async(
             list
-        )(ChatRoom.objects.filter(member=self.user_id))
+        )(ChatRoom.objects.filter(member=self.user))
         for room in self.rooms:
             await self.channel_layer.group_add(
                 room.room_id,
@@ -19,7 +29,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, close_code):
         for room in self.rooms:
-            self.channel_layer.group_discard(
+            await self.channel_layer.group_discard(
                 room.room_id,
                 self.channel_name
             )
@@ -28,12 +38,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
         data = json.loads(text_data)
         room_id = data["room_id"]
         message = data["message"]
+        chat_message = await database_sync_to_async(
+            self.save_message
+        )(room_id, message)
 
         await self.channel_layer.group_send(
             room_id,
             {
                 "type": "send_message",
-                "message": message,
+                "message": chat_message,
             }
         )
 
