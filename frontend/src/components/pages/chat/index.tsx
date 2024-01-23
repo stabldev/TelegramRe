@@ -19,7 +19,6 @@ async function fetchMessages(user: User) {
 
 export const ChatScreen: Component = () => {
 	const { activeChatUser } = useShared();
-	const [chat, setChat] = createSignal<ChatMessage[]>([]);
 	const { user } = useAuth();
 	const [messages] = createResource(activeChatUser, fetchMessages);
 
@@ -32,13 +31,18 @@ export const ChatScreen: Component = () => {
 	};
 
 	socket.onmessage = function(e: MessageEvent) {
-		console.log("Message got");
+		const data = JSON.parse(e.data);
+		console.log(data);
 	};
 
 	let chatAreaRef: HTMLDivElement;
 
 	const handleAddMessage = (e: CustomEvent) => {
 		const message = e.detail;
+		socket.send(JSON.stringify({
+			"message": message,
+			"room_id": "T8MPvDQfcPkirhGogsvXUY",
+		}));
 
 		// scroll chat area to bottom
 		requestAnimationFrame(() => {

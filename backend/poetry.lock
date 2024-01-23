@@ -382,6 +382,21 @@ files = [
 Django = ">=3.2"
 
 [[package]]
+name = "django-shortuuidfield"
+version = "0.1.3"
+description = "Short UUIDField for Django.  Good for use in urls & file names.  (Base 57, 22 characters)"
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-shortuuidfield-0.1.3.tar.gz", hash = "sha256:a292c0fe5538abe947b131e2b914edd9ac44afcc6a40eaec71448e6231a3ef00"},
+]
+
+[package.dependencies]
+django = "*"
+shortuuid = "*"
+six = "*"
+
+[[package]]
 name = "django-stubs-ext"
 version = "4.2.7"
 description = "Monkey-patching and extensions for django-stubs"
@@ -742,6 +757,17 @@ testing = ["build[virtualenv]", "filelock (>=3.4.0)", "flake8-2020", "ini2toml[l
 testing-integration = ["build[virtualenv] (>=1.0.3)", "filelock (>=3.4.0)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "packaging (>=23.1)", "pytest", "pytest-enabler", "pytest-xdist", "tomli", "virtualenv (>=13.0.0)", "wheel"]
 
 [[package]]
+name = "shortuuid"
+version = "1.0.11"
+description = "A generator library for concise, unambiguous and URL-safe UUIDs."
+optional = false
+python-versions = ">=3.5"
+files = [
+    {file = "shortuuid-1.0.11-py3-none-any.whl", hash = "sha256:27ea8f28b1bd0bf8f15057a3ece57275d2059d2b0bb02854f02189962c13b6aa"},
+    {file = "shortuuid-1.0.11.tar.gz", hash = "sha256:fc75f2615914815a8e4cb1501b3a513745cb66ef0fd5fc6fb9f8c3fa3481f789"},
+]
+
+[[package]]
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
@@ -929,4 +955,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "d695367e1dcaf8a50aa5b1546ac3049faf52e7e3138b170b9568ff6f170c6c9e"
+content-hash = "c282f76054919749a2a1b534a84fee748992eca0189a5839c20413d34d7f69d2"

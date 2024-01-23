@@ -1,6 +1,26 @@
 from django.db import models
-
+from shortuuidfield import ShortUUIDField
 from apps.user.models import CustomUser
+
+
+class ChatRoom(models.Model):
+	room_id = ShortUUIDField()
+	type = models.CharField(max_length=10, default="DM")
+	member = models.ManyToManyField(CustomUser)
+	name = models.CharField(max_length=50, null=True, blank=True)
+
+	def __str__(self):
+		return self.room_id
+
+
+class ChatMsg(models.Model):
+	room = models.ForeignKey(ChatRoom, on_delete=models.SET_NULL, null=True)
+	user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
+	message = models.TextField()
+	timestamp = models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		return f"{self.user} -> {self.room}"
 
 
 class ChatMessage(models.Model):
