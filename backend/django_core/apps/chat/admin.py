@@ -10,7 +10,9 @@ class CharRoomAdmin(admin.ModelAdmin):
 
     def get_member_count(self, obj):
         return obj.member.count()
+
     get_member_count.short_description = "member count"
+
 
 @admin.register(ChatMessage)
 class ChatMessageAdmin(admin.ModelAdmin):

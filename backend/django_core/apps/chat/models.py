@@ -4,29 +4,31 @@ from apps.user.models import CustomUser
 
 
 class ChatRoom(models.Model):
-	room_id = ShortUUIDField()
-	type = models.CharField(max_length=10, default="DM")
-	member = models.ManyToManyField(CustomUser)
-	name = models.CharField(max_length=50, null=True, blank=True)
+    room_id = ShortUUIDField()
+    type = models.CharField(max_length=10, default="DM")
+    member = models.ManyToManyField(CustomUser)
+    name = models.CharField(max_length=50, null=True, blank=True)
 
-	def __str__(self):
-		return f"{self.room_id} -> {self.name}"
+    def __str__(self):
+        return f"{self.room_id} -> {self.name}"
 
 
 class ChatMessage(models.Model):
-	room = models.ForeignKey(ChatRoom, on_delete=models.SET_NULL, null=True, related_name="chat_message")
-	sender = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
-	content = models.TextField()
-	is_read = models.BooleanField(default=False)
-	timestamp = models.DateTimeField(auto_now_add=True)
+    room = models.ForeignKey(
+        ChatRoom, on_delete=models.SET_NULL, null=True, related_name="chat_message"
+    )
+    sender = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
+    content = models.TextField()
+    is_read = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
-	def __str__(self):
-		return f"{self.sender} -> {self.room}"
+    def __str__(self):
+        return f"{self.sender} -> {self.room}"
 
-	class Meta:
-		# DB
-		db_table = "chat_message"
-		db_table_comment = "Chat messages"
+    class Meta:
+        # DB
+        db_table = "chat_message"
+        db_table_comment = "Chat messages"
 
-		ordering = ["timestamp"]
-		get_latest_by = ["order_timestamp"]
+        ordering = ["timestamp"]
+        get_latest_by = ["order_timestamp"]

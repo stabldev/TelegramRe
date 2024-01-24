@@ -5,6 +5,7 @@ from rest_framework.generics import ListAPIView
 from .models import ChatRoom, ChatMessage
 from .serializers import ChatRoomSerializer, ChatMessageSerializer
 
+
 # Create your views here.
 class ChatRoomListView(ListAPIView):
     serializer_class = ChatRoomSerializer
@@ -12,8 +13,11 @@ class ChatRoomListView(ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        chat_rooms = self.model.objects.filter(member=user, chat_message__isnull=False).distinct()
+        chat_rooms = self.model.objects.filter(
+            member=user, chat_message__isnull=False
+        ).distinct()
         return chat_rooms
+
 
 class ChatMessageListView(ListAPIView):
     serializer_class = ChatMessageSerializer

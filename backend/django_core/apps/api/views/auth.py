@@ -63,7 +63,8 @@ def register_email_verification_view(request: HttpRequest):
 
     except User.DoesNotExist:
         return JsonResponse(
-            {"detail": "User with same email already exists"}, status=status.HTTP_400_BAD_REQUEST
+            {"detail": "User with same email already exists"},
+            status=status.HTTP_400_BAD_REQUEST,
         )
 
 
