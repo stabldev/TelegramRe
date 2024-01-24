@@ -1,8 +1,7 @@
-import { Component, Show, createEffect, createResource, createSignal } from "solid-js";
+import { Component, Show, createResource } from "solid-js";
 import { ChatHeader } from "./chat-header";
 import { ChatInput } from "./chat-input";
 import { ChatArea } from "./chat-area";
-import { scrollToBottom } from "~/functions/scroll-to-bottom";
 import { ChatMessage } from "~/types/chat.types";
 import { API_URL, WS_URL } from "~/config";
 import { useShared } from "~/context/shared";
@@ -38,19 +37,7 @@ export const ChatScreen: Component = () => {
 			"message": message,
 			"room_id": "T8MPvDQfcPkirhGogsvXUY",
 		}));
-
-		// scroll chat area to bottom
-		requestAnimationFrame(() => {
-			scrollToBottom(chatAreaRef, { behavior: "auto" });
-		});
 	};
-
-	createEffect(() => {
-		// scroll chat area to bottom
-		requestAnimationFrame(() => {
-			scrollToBottom(chatAreaRef, { behavior: "auto" });
-		});
-	});
 
 	return (
 		<div class="relative grid grid-rows-[min-content_1fr]">
