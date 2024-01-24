@@ -1,7 +1,7 @@
 import { useAuth } from "~/context/auth";
 import { ChatRoom } from "~/types/chat.types";
 
-export function formatChatRoom(chatRooms: ChatRoom[]) {
+export function formatChatRoom(chatRooms: ChatRoom[] | undefined) {
     if (!chatRooms) return;
     const { user } = useAuth();
     const userId = user()?.id;

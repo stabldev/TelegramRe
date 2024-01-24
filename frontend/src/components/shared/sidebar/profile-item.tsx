@@ -20,7 +20,6 @@ export const ProfileItem = (props: ChatRoom) => {
 
 	const chat_user = member()[0];
 	const self_message = message().sender === user()?.id;
-	const IS_ONLINE = onlineUsers()?.some((user) => user.user === chat_user.id);
 	const formated_timestamp = new FormatDate(message().timestamp).format_to_relative_time;
 
 	const handleChatClick = () => {
@@ -45,7 +44,7 @@ export const ProfileItem = (props: ChatRoom) => {
 					src={chat_user.avatar ?? ""}
 					alt={chat_user.username}
 				/>
-				<Show when={IS_ONLINE}>
+				<Show when={onlineUsers()?.some((user) => user.user === chat_user.id)}>
 					<div
 						class="md:size-2.5 rounded-full absolute bottom-0 right-0 ring-4"
 						classList={{ 

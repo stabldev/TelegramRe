@@ -30,9 +30,8 @@ const Sidebar: Component = () => {
 	const [online_users] = createResource<OnlineUser[]>(getOnlineUsers);
 
 	createEffect(async () => {
-		setChatRooms(formatChatRoom(data()!));
+		setChatRooms(formatChatRoom(data()));
 		setOnlineUsers(online_users());
-		console.log(onlineUsers()!)
 	}, []);
 
 	return (

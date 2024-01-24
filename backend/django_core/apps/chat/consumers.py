@@ -4,7 +4,7 @@ from channels.db import database_sync_to_async
 
 from .models import ChatRoom, ChatMessage
 from ..user.models import OnlineUser
-from .serializers import ChatMessageSerializer
+from .serializers import ChatMessageSerializer, OnlineUserSerializer
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -21,7 +21,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     def get_online_users(self):
         online_users = OnlineUser.objects.all()
-        return [online_user.user.id for online_user in online_users]
+        serializer = OnlineUserSerializer(online_users, many=True)
+        return serializer.data
 
     def add_online_user(self, user):
         try:
@@ -38,8 +39,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         chat_message = {
             "type": "send_message",
             "message": {
-                "action": "online_user",
-                "user_list": online_users_list,
+                "action": "online_users",
+                "online_user_list": online_users_list,
             },
         }
         await self.channel_layer.group_send("online_users", chat_message)
