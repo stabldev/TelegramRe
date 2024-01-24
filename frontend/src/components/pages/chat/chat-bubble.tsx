@@ -11,7 +11,7 @@ interface Props {
 
 export const ChatBubble = (props: Props) => {
 	const { message, self } = destructure(props);
-	const formatedDate = new FormatDate(message().date).format_to_relative_time;
+	const formatedDate = new FormatDate(message().timestamp).format_to_relative_time;
 
 	return (
 		<div
@@ -21,7 +21,7 @@ export const ChatBubble = (props: Props) => {
 				"bg-stone-800": !self()
 			}}
 		>
-			<span class="self-center whitespace-pre-line text-[0.8rem]">{message().message}</span>
+			<span class="self-center whitespace-pre-line text-[0.8rem]">{message().content}</span>
 			<span class="select-none self-end text-[0.7rem] uppercase leading-none text-white/80">{formatedDate}</span>
 			<Show when={self()}>
 				<Show

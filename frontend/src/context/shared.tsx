@@ -1,18 +1,18 @@
 import { Accessor, JSX, Setter, createContext, createSignal, useContext } from "solid-js";
-import { ChatRoomType } from "~/types/chat.types";
+import { ChatRoom } from "~/types/chat.types";
 
 type SharedStore = {
 	showSidebar: Accessor<boolean>;
 	toggleShowSidebar: () => void;
-	activeRoom: Accessor<ChatRoomType | undefined>;
-	setActiveRoom: Setter<ChatRoomType | undefined>;
+	activeRoom: Accessor<ChatRoom | undefined>;
+	setActiveRoom: Setter<ChatRoom | undefined>;
 };
 
 const SharedContext = createContext<SharedStore>();
 
 export function SharedProvider(props: { children?: JSX.Element }) {
 	const [showSidebar, setShowSidebar] = createSignal(true);
-	const [activeRoom, setActiveRoom] = createSignal<ChatRoomType>();
+	const [activeRoom, setActiveRoom] = createSignal<ChatRoom>();
 
 	// Functions
 	const toggleShowSidebar = () => setShowSidebar((prev) => !prev);

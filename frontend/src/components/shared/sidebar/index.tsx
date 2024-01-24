@@ -3,30 +3,20 @@ import { SearchHeader } from "./search-header";
 import Pencil from "~/icons/pencil";
 import { ProfileItem } from "./profile-item";
 import { API_URL } from "~/config";
-import { InboxItem } from "~/types/inbox.types";
-import { ChatRoomType } from "~/types/chat.types";
 import { formatChatRoom } from "~/functions/format-room";
-
-async function fetchInbox(): Promise<InboxItem[]> {
-	const res = await fetch(`${API_URL}/inbox/`, {
-		credentials: "include"
-	});
-	const data = await res.json();
-	return data;
-}
+import { ChatRoom } from "~/types/chat.types";
 
 async function getChatRooms() {
 	const res = await fetch(`${API_URL}/v1/chat/chat-rooms/`, {
 		credentials: "include"
 	});
-	const data = await res.json() as ChatRoomType[];
+	const data = await res.json() as ChatRoom[];
 	return data;
 };
 
 const Sidebar: Component = () => {
-	const [inbox] = createResource<InboxItem[]>(fetchInbox);
-	const [chatRooms] = createResource<ChatRoomType[]>(getChatRooms);
-	const [formattedChatRooms, setFormattedChatRooms] = createSignal<ChatRoomType[]>();
+	const [chatRooms] = createResource<ChatRoom[]>(getChatRooms);
+	const [formattedChatRooms, setFormattedChatRooms] = createSignal<ChatRoom[]>();
 
 	createEffect(async () => {
 		setFormattedChatRooms(

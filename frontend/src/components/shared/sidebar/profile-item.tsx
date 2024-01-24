@@ -6,15 +6,15 @@ import { get_username } from "~/functions/get-username";
 import { useAuth } from "~/context/auth";
 import Tick from "~/icons/tick";
 import { useShared } from "~/context/shared";
-import { ChatRoomType } from "~/types/chat.types";
+import { ChatRoom } from "~/types/chat.types";
 
-export const ProfileItem = (props: ChatRoomType) => {
+export const ProfileItem = (props: ChatRoom) => {
 	const { user } = useAuth();
 	const { setActiveRoom } = useShared();
 	const [isActive, setIsActive] = createSignal(false);
 	const params = useParams<{ username: string }>();
 
-	const { message, room_id, member } = destructure(props);
+	const { message, member } = destructure(props);
 
 	const chat_user = member()[0];
 	const self_message = message().user === user()?.id;

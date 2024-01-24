@@ -6,10 +6,9 @@ import { scrollToBottom } from "~/functions/scroll-to-bottom";
 import { ChatMessage } from "~/types/chat.types";
 import { API_URL, WS_URL } from "~/config";
 import { useShared } from "~/context/shared";
-import { Member } from "~/types/user.types";
 
-async function fetchMessages(user: Member) {
-	const res = await fetch(`${API_URL}/messages/${user.username}/`,
+async function fetchMessages(room_id: string) {
+	const res = await fetch(`${API_URL}/v1/chat/chat-rooms/${room_id}/`,
 		{ credentials: "include" }
 	);
 	const data = await res.json() as ChatMessage[];
@@ -18,7 +17,7 @@ async function fetchMessages(user: Member) {
 
 export const ChatScreen: Component = () => {
 	const { activeRoom } = useShared();
-	const [messages] = createResource(activeRoom()?.member[0], fetchMessages);
+	const [messages] = createResource(activeRoom()?.room_id, fetchMessages);
 
 	const socket = new WebSocket(WS_URL + `ws/chat/`);
 
