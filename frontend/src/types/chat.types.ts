@@ -12,6 +12,7 @@ export type ChatRoom = {
 	room_id: string;
 	type: string;
 	name: string | null;
+	unreads: number;
 	message: ChatMessage;
 	member: ChatMember[];
 };

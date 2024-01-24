@@ -7,18 +7,27 @@ import { API_URL, WS_URL } from "~/config";
 import { useShared } from "~/context/shared";
 import { useChat } from "~/context/chat";
 
-async function fetchMessages(room_id: string) {
+async function readMessages(room_id: string) {
+	await fetch(`${API_URL}/v1/chat/chat-rooms/${room_id}/read-all/`, {
+		credentials: "include"
+	});
+};
+
+async function fetchMessages({ room_id }: { room_id: string }) {
 	const res = await fetch(`${API_URL}/v1/chat/chat-rooms/${room_id}/`,
 		{ credentials: "include" }
 	);
 	const data = await res.json() as ChatMessage[];
+	if (!data.every((message) => message.is_read)) {
+		await readMessages(room_id);
+	};
 	return data;
 };
 
 export const ChatScreen: Component = () => {
 	const { activeRoom } = useShared();
 	const { setChatRooms } = useChat();
-	const [messages, { mutate }] = createResource(activeRoom()?.room_id, fetchMessages);
+	const [messages, { mutate }] = createResource(activeRoom, fetchMessages);
 
 	const socket = new WebSocket(WS_URL + `ws/chat/`);
 

@@ -25,12 +25,17 @@ class ChatMessageSerializer(serializers.ModelSerializer):
 class ChatRoomSerializer(serializers.ModelSerializer):
     member = ChatMemberSerializer(many=True, read_only=True)
     message = serializers.SerializerMethodField()
+    unreads = serializers.SerializerMethodField()
 
     class Meta:
         model = ChatRoom
-        fields = ["id", "room_id", "type", "name", "message", "member"]
+        fields = ["id", "room_id", "type", "name", "unreads", "message", "member"]
 
     def get_message(self, obj):
         chat_message = obj.chat_message.last()
         serializer = ChatMessageSerializer(chat_message)
         return serializer.data
+
+    def get_unreads(self, obj):
+        unreads = obj.chat_message.filter(is_read=False).count()
+        return unreads

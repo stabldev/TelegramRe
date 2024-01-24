@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpRequest, JsonResponse
 from rest_framework.generics import ListAPIView
+from rest_framework.views import APIView
 
 from .models import ChatRoom, ChatMessage
 from .serializers import ChatRoomSerializer, ChatMessageSerializer
@@ -27,3 +28,13 @@ class ChatMessageListView(ListAPIView):
         room_id = self.kwargs["room_id"]
         chat_messages = self.model.objects.filter(room__room_id=room_id)
         return chat_messages
+
+class ReadRoomChatMessages(APIView):
+    def get(self, request, *args, **kwargs):
+        room_id = self.kwargs["room_id"]
+        chat_room = ChatRoom.objects.get(room_id=room_id)
+        unread_messages = chat_room.chat_message.filter(is_read=False)
+        for message in unread_messages:
+            message.is_read = True
+            message.save()
+        return JsonResponse({ "detail": "Messages Readed" })

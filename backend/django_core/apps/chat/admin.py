@@ -16,4 +16,4 @@ class CharRoomAdmin(admin.ModelAdmin):
 
 @admin.register(ChatMessage)
 class ChatMessageAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "content", "timestamp")
+    list_display = ("__str__", "content", "timestamp", "is_read")

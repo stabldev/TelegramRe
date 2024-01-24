@@ -14,7 +14,7 @@ export const ProfileItem = (props: ChatRoom) => {
 	const [isActive, setIsActive] = createSignal(false);
 	const params = useParams<{ username: string }>();
 
-	const { message, member } = destructure(props);
+	const { message, member, unreads } = destructure(props);
 
 	const chat_user = member()[0];
 	const self_message = message().sender === user()?.id;
@@ -66,8 +66,8 @@ export const ProfileItem = (props: ChatRoom) => {
 					<Show
 						when={self_message}
 						fallback={
-							<Show when={!message().is_read}>
-								<span class="grid place-items-center rounded-full bg-blue-500 font-semibold leading-none md:size-5 md:text-xs">1</span>
+							<Show when={!isActive() && unreads()}>
+								<span class="grid place-items-center rounded-full bg-blue-500 font-semibold leading-none md:size-5 md:text-xs">{unreads()}</span>
 							</Show>
 						}
 					>
