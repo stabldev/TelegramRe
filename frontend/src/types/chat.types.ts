@@ -1,15 +1,4 @@
-import { Member, User } from "./user.types";
-
 export type ChatMessage = {
-	id: number;
-	sender: number;
-	reciever: number;
-	message: string;
-	is_read: boolean;
-	date: string;
-};
-
-export type ChatMessageType = {
 	id: number;
 	room: number;
 	user: number;
@@ -18,10 +7,18 @@ export type ChatMessageType = {
 	timestamp: string;
 };
 
-export type ChatRoomType = {
+export type ChatRoom = {
 	room_id: string;
 	type: string;
 	name: string | null;
-	message: ChatMessageType;
-	member: Member[];
+	message: ChatMessage;
+	member: ChatMember[];
+};
+
+export type ChatMember = {
+	id: number;
+	username: string;
+	full_name: string;
+	is_verified: boolean;
+	avatar: string;
 };

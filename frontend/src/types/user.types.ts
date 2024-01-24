@@ -11,11 +11,3 @@ export type User = {
 	date_joined: string;
 	online: number;
 };
-
-export type Member = {
-	id: number;
-	username: string;
-	full_name: string;
-	is_verified: boolean;
-	avatar: string;
-};

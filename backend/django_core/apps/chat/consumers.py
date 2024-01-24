@@ -2,16 +2,16 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 
-from .models import ChatRoom, ChatMsg
-from .serializers import ChatMsgSerializer
+from .models import ChatRoom, ChatMessage
+from .serializers import ChatMessageSerializer
 
 class ChatConsumer(AsyncWebsocketConsumer):
     def save_message(self, room_id, message):
         chat_room = ChatRoom.objects.get(room_id=room_id)
-        chat_msg = ChatMsg.objects.create(
+        chat_msg = ChatMessage.objects.create(
             room=chat_room, user=self.user, content=message
         )
-        serializer = ChatMsgSerializer(chat_msg, many=False)
+        serializer = ChatMessageSerializer(chat_msg, many=False)
         return serializer.data
 
     async def connect(self):

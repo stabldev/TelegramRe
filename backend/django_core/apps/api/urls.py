@@ -1,11 +1,5 @@
 from django.urls import path, include
 
-from apps.api.views.chat import (
-    InboxView,
-    MessagesView,
-    SendMessageView,
-    UpdateMessageView,
-)
 from apps.api.views.user import SearchUserView, UserDetailView
 from .views.auth import (
     csrf_view,
@@ -26,14 +20,6 @@ urlpatterns = [
         path("register-email-verification/", register_email_verification_view, name="register-email-verification"),
         path("otp-verification/", otp_verification_view, name="otp-verification"),
         path("who_am_i/", who_am_i_view, name="who_am_i"),
-    ])),
-    # chat views
-    path("inbox/", InboxView.as_view(), name="inbox"),
-    # prefix urls
-    path("messages/", include([
-        path("<str:username>/", MessagesView.as_view(), name="messages"),
-        path("send/", SendMessageView.as_view(), name="send-message"),
-        path("update/<int:pk>/", UpdateMessageView.as_view(), name="update-message"),
     ])),
     # user views
     path("users/", include([

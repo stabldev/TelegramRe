@@ -4,7 +4,6 @@ from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 
 from apps.user.models import CustomUser
-from apps.chat.models import ChatMessage
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -24,17 +23,3 @@ class CustomUserSerializer(serializers.ModelSerializer):
             "online",
         ]
         read_only_fields = ["last_login", "date_joined"]
-
-
-class ChatMessageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ChatMessage
-        fields = ["id", "sender", "reciever", "message", "is_read", "date"]
-
-class InboxMessageSerializer(serializers.ModelSerializer):
-    sender = CustomUserSerializer(many=False)
-    reciever = CustomUserSerializer(many=False)
-
-    class Meta:
-        model = ChatMessage
-        fields = ["id", "sender", "reciever", "message", "is_read", "date"]
