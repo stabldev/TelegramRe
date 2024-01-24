@@ -9,7 +9,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     def save_message(self, room_id, message):
         chat_room = ChatRoom.objects.get(room_id=room_id)
         chat_msg = ChatMsg.objects.create(
-            room=chat_room, user=self.user, message=message
+            room=chat_room, user=self.user, content=message
         )
         serializer = ChatMsgSerializer(chat_msg, many=False)
         return serializer.data

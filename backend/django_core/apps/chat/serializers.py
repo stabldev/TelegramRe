@@ -2,15 +2,32 @@ from rest_framework import serializers
 
 from .models import ChatMsg, ChatRoom
 from ..api.serializers import CustomUserSerializer
+from ..user.models import CustomUser
+
+class ChatMemberSerializer(serializers.ModelSerializer):
+    full_name = serializers.SerializerMethodField()
+    class Meta:
+        model = CustomUser
+        fields = ["id", "username", "full_name", "is_verified", "avatar"]
+
+    def get_full_name(self, obj):
+        return obj.get_full_name();
+
 
 class ChatMsgSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatMsg
-        fields = "__all__"
+        fields = ["id", "room", "user", "content", "is_read", "timestamp"]
 
 class ChatRoomSerializer(serializers.ModelSerializer):
-    member = CustomUserSerializer(many=True, read_only=True)
+    member = ChatMemberSerializer(many=True, read_only=True)
+    message = serializers.SerializerMethodField()
 
     class Meta:
         model = ChatRoom
-        fields = ["room_id", "type", "name", "member"]
+        fields = ["room_id", "type", "name", "message", "member"]
+
+    def get_message(self, obj):
+        chat_message = obj.chat_message.last()
+        serializer = ChatMsgSerializer(chat_message)
+        return serializer.data

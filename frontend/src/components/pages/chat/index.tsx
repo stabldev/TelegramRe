@@ -3,13 +3,12 @@ import { ChatHeader } from "./chat-header";
 import { ChatInput } from "./chat-input";
 import { ChatArea } from "./chat-area";
 import { scrollToBottom } from "~/functions/scroll-to-bottom";
-import { useAuth } from "~/context/auth";
 import { ChatMessage } from "~/types/chat.types";
 import { API_URL, WS_URL } from "~/config";
 import { useShared } from "~/context/shared";
-import { User } from "~/types/user.types";
+import { Member } from "~/types/user.types";
 
-async function fetchMessages(user: User) {
+async function fetchMessages(user: Member) {
 	const res = await fetch(`${API_URL}/messages/${user.username}/`,
 		{ credentials: "include" }
 	);
@@ -18,13 +17,10 @@ async function fetchMessages(user: User) {
 };
 
 export const ChatScreen: Component = () => {
-	const { activeChatUser } = useShared();
-	const { user } = useAuth();
-	const [messages] = createResource(activeChatUser, fetchMessages);
+	const { activeRoom } = useShared();
+	const [messages] = createResource(activeRoom()?.member[0], fetchMessages);
 
-	const socket = new WebSocket(
-		WS_URL + `ws/chat/`
-	);
+	const socket = new WebSocket(WS_URL + `ws/chat/`);
 
 	socket.onclose = function(e: CloseEvent) {
 		console.log("Connection closed");
