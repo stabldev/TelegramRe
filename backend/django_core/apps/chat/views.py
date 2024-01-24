@@ -4,7 +4,8 @@ from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 
 from .models import ChatRoom, ChatMessage
-from .serializers import ChatRoomSerializer, ChatMessageSerializer
+from ..user.models import OnlineUser
+from .serializers import ChatRoomSerializer, ChatMessageSerializer, OnlineUserSerializer
 
 
 # Create your views here.
@@ -38,3 +39,7 @@ class ReadRoomChatMessages(APIView):
             message.is_read = True
             message.save()
         return JsonResponse({ "detail": "Messages Readed" })
+
+class OnlineUsersView(ListAPIView):
+    queryset = OnlineUser.objects.all()
+    serializer_class = OnlineUserSerializer

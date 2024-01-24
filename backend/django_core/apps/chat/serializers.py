@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from .models import ChatMessage, ChatRoom
 from ..api.serializers import CustomUserSerializer
-from ..user.models import CustomUser
+from ..user.models import CustomUser, OnlineUser
 
 
 class ChatMemberSerializer(serializers.ModelSerializer):
@@ -39,3 +39,8 @@ class ChatRoomSerializer(serializers.ModelSerializer):
     def get_unreads(self, obj):
         unreads = obj.chat_message.filter(is_read=False).count()
         return unreads
+
+class OnlineUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OnlineUser
+        fields = ["user"]

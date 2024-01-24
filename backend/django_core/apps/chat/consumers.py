@@ -3,6 +3,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 
 from .models import ChatRoom, ChatMessage
+from ..user.models import OnlineUser
 from .serializers import ChatMessageSerializer
 
 
@@ -18,6 +19,31 @@ class ChatConsumer(AsyncWebsocketConsumer):
             "message": serializer.data,
         }
 
+    def get_online_users(self):
+        online_users = OnlineUser.objects.all()
+        return [online_user.user.id for online_user in online_users]
+
+    def add_online_user(self, user):
+        try:
+            OnlineUser.objects.create(user=user)
+        except: pass
+
+    def delete_online_user(self, user):
+        try:
+            OnlineUser.objects.get(user=user).delete()
+        except: pass
+
+    async def send_online_users_list(self):
+        online_users_list = await database_sync_to_async(self.get_online_users)()
+        chat_message = {
+            "type": "send_message",
+            "message": {
+                "action": "online_user",
+                "user_list": online_users_list,
+            },
+        }
+        await self.channel_layer.group_send("online_users", chat_message)
+
     async def connect(self):
         self.user = self.scope["user"]
         self.rooms = await database_sync_to_async(list)(
@@ -25,12 +51,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
         )
         for room in self.rooms:
             await self.channel_layer.group_add(room.room_id, self.channel_name)
-
+        await self.channel_layer.group_add("online_users", self.channel_name)
+        await database_sync_to_async(self.add_online_user)(self.user)
+        await self.send_online_users_list()
         await self.accept()
 
     async def disconnect(self, close_code):
+        await database_sync_to_async(self.delete_online_user)(self.user)
+        await self.send_online_users_list()
         for room in self.rooms:
             await self.channel_layer.group_discard(room.room_id, self.channel_name)
+        await self.channel_layer.group_discard("online_users", self.channel_name)
 
     async def receive(self, text_data):
         data = json.loads(text_data)

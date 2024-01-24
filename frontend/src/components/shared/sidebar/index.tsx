@@ -6,6 +6,7 @@ import { API_URL } from "~/config";
 import { formatChatRoom } from "~/functions/format-room";
 import { ChatRoom } from "~/types/chat.types";
 import { useChat } from "~/context/chat";
+import { OnlineUser } from "~/types/user.types";
 
 async function getChatRooms() {
 	const res = await fetch(`${API_URL}/v1/chat/chat-rooms/`, {
@@ -15,14 +16,23 @@ async function getChatRooms() {
 	return data;
 };
 
+async function getOnlineUsers() {
+	const res = await fetch(`${API_URL}/v1/chat/online-users/`, {
+		credentials: "include"
+	});
+	const data = await res.json() as OnlineUser[];
+	return data;
+};
+
 const Sidebar: Component = () => {
-	const { chatRooms, setChatRooms } = useChat();
+	const { chatRooms, setChatRooms, setOnlineUsers, onlineUsers } = useChat();
 	const [data] = createResource<ChatRoom[]>(getChatRooms);
+	const [online_users] = createResource<OnlineUser[]>(getOnlineUsers);
 
 	createEffect(async () => {
-		setChatRooms(
-			formatChatRoom(data()!)
-		);
+		setChatRooms(formatChatRoom(data()!));
+		setOnlineUsers(online_users());
+		console.log(onlineUsers()!)
 	}, []);
 
 	return (

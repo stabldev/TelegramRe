@@ -7,9 +7,11 @@ import { useAuth } from "~/context/auth";
 import Tick from "~/icons/tick";
 import { useShared } from "~/context/shared";
 import { ChatRoom } from "~/types/chat.types";
+import { useChat } from "~/context/chat";
 
 export const ProfileItem = (props: ChatRoom) => {
 	const { user } = useAuth();
+	const { onlineUsers } = useChat();
 	const { setActiveRoom } = useShared();
 	const [isActive, setIsActive] = createSignal(false);
 	const params = useParams<{ username: string }>();
@@ -18,6 +20,7 @@ export const ProfileItem = (props: ChatRoom) => {
 
 	const chat_user = member()[0];
 	const self_message = message().sender === user()?.id;
+	const IS_ONLINE = onlineUsers()?.some((user) => user.user === chat_user.id);
 	const formated_timestamp = new FormatDate(message().timestamp).format_to_relative_time;
 
 	const handleChatClick = () => {
@@ -42,13 +45,15 @@ export const ProfileItem = (props: ChatRoom) => {
 					src={chat_user.avatar ?? ""}
 					alt={chat_user.username}
 				/>
-				<div
-					class="md:size-2.5 rounded-full absolute bottom-0 right-0 ring-4"
-					classList={{ 
-						"ring-blue-500 bg-white": isActive(),
-						"ring-stone-900 bg-blue-500": !isActive(),
-					}}
-				/>
+				<Show when={IS_ONLINE}>
+					<div
+						class="md:size-2.5 rounded-full absolute bottom-0 right-0 ring-4"
+						classList={{ 
+							"ring-blue-500 bg-white": isActive(),
+							"ring-stone-900 bg-blue-500": !isActive(),
+						}}
+					/>
+				</Show>
 			</div>
 			<div
 				class="flex w-full flex-col"

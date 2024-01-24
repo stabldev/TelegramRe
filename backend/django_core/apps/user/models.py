@@ -16,7 +16,6 @@ class CustomUser(AbstractUser):
     is_verified = models.BooleanField(default=False)
     bio = models.TextField(blank=True)
     otp = models.CharField(max_length=5, null=True, blank=True)
-    online = models.IntegerField(default=0)
 
     avatar = models.ImageField(
         upload_to=avatar_pattern,
@@ -29,3 +28,9 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+
+class OnlineUser(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.email

@@ -40,6 +40,7 @@ export const ChatScreen: Component = () => {
 			action: "message",
 			message: ChatMessage,
 		} = JSON.parse(e.data);
+		console.log(data);
 
 		if (data.action === "message") {
 			if (data.message.room === activeRoom()?.id) {

@@ -9,5 +9,8 @@ export type User = {
 	is_verified: boolean;
 	last_login: string;
 	date_joined: string;
-	online: number;
+};
+
+export type OnlineUser = {
+	user: number;
 };
