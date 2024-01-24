@@ -21,7 +21,7 @@ export function SharedProvider(props: { children?: JSX.Element }) {
 		showSidebar: showSidebar,
 		toggleShowSidebar: toggleShowSidebar,
 		activeRoom: activeRoom,
-		setActiveRoom: setActiveRoom,
+		setActiveRoom: setActiveRoom
 	};
 
 	return <SharedContext.Provider value={context_value}>{props.children}</SharedContext.Provider>;

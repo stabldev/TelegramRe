@@ -1,4 +1,5 @@
 import { Component, For, JSX, Show } from "solid-js";
+import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
 import Menu from "~/icons/menu";
 import Phone from "~/icons/phone";
@@ -7,6 +8,9 @@ import Split from "~/icons/split";
 
 export const ChatHeader: Component = () => {
 	const { toggleShowSidebar, activeRoom } = useShared();
+	const { onlineUsers } = useChat();
+
+	const IS_DM = activeRoom()?.type === "DM";
 
 	const icon_mapping: {
 		[key: string]: {
@@ -35,9 +39,7 @@ export const ChatHeader: Component = () => {
 				onClick={toggleShowSidebar}
 				class="flex items-center gap-3"
 			>
-				<Show
-					when={activeRoom()?.type === "DM"}
-				>
+				<Show when={IS_DM}>
 					<img
 						src={activeRoom()?.member[0].avatar ?? ""}
 						alt="anya-forger"
@@ -45,12 +47,13 @@ export const ChatHeader: Component = () => {
 					/>
 				</Show>
 				<div class="flex flex-col items-start leading-none">
-					<span class="text-sm font-medium text-white">
-						{activeRoom()?.type === "DM" ? activeRoom()?.member[0].full_name : activeRoom()?.name}
-					</span>
+					<span class="text-sm font-medium text-white">{IS_DM ? activeRoom()?.member[0].full_name : activeRoom()?.name}</span>
 					<Show
-						when={activeRoom()?.type === "DM"}
-						fallback={ <span class="text-xs text-white/50">Offline</span> }
+						when={
+							IS_DM &&
+							onlineUsers()?.some((user) => user.user === activeRoom()?.member[0].id)
+						}
+						fallback={<span class="text-xs text-white/50">Offline</span>}
 					>
 						<span class="text-xs text-blue-300">Online</span>
 					</Show>

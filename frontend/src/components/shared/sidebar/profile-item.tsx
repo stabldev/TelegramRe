@@ -46,10 +46,10 @@ export const ProfileItem = (props: ChatRoom) => {
 				/>
 				<Show when={onlineUsers()?.some((user) => user.user === chat_user.id)}>
 					<div
-						class="md:size-2.5 rounded-full absolute bottom-0 right-0 ring-4"
-						classList={{ 
+						class="absolute bottom-0 right-0 rounded-full ring-4 md:size-2.5"
+						classList={{
 							"ring-blue-500 bg-white": isActive(),
-							"ring-stone-900 bg-blue-500": !isActive(),
+							"ring-stone-900 bg-blue-500": !isActive()
 						}}
 					/>
 				</Show>

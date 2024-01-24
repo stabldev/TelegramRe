@@ -12,18 +12,16 @@ async function readMessages(room_id: string) {
 	await fetch(`${API_URL}/v1/chat/chat-rooms/${room_id}/read-all/`, {
 		credentials: "include"
 	});
-};
+}
 
 async function fetchMessages({ room_id }: { room_id: string }) {
-	const res = await fetch(`${API_URL}/v1/chat/chat-rooms/${room_id}/`,
-		{ credentials: "include" }
-	);
-	const data = await res.json() as ChatMessage[];
+	const res = await fetch(`${API_URL}/v1/chat/chat-rooms/${room_id}/`, { credentials: "include" });
+	const data = (await res.json()) as ChatMessage[];
 	if (!data.every((message) => message.is_read)) {
 		await readMessages(room_id);
-	};
+	}
 	return data;
-};
+}
 
 export const ChatScreen: Component = () => {
 	const { activeRoom } = useShared();
@@ -32,44 +30,46 @@ export const ChatScreen: Component = () => {
 
 	const socket = new WebSocket(WS_URL + `ws/chat/`);
 
-	socket.onclose = function(e: CloseEvent) {
+	socket.onclose = function (e: CloseEvent) {
 		console.log("Connection closed");
 	};
 
-	socket.onmessage = function(e: MessageEvent) {
+	socket.onmessage = function (e: MessageEvent) {
 		const data: {
-			action: "message" | "online_users",
-			message?: ChatMessage,
-			online_user_list?: OnlineUser[],
+			action: "message" | "online_users";
+			message?: ChatMessage;
+			online_user_list?: OnlineUser[];
 		} = JSON.parse(e.data);
 
 		if (data.action === "message") {
 			if (data.message?.room === activeRoom()?.id) {
-				mutate((messages) => [...messages || [], data.message!]);
-			};
+				mutate((messages) => [...(messages || []), data.message!]);
+			}
 			// update sidebar
 			setChatRooms((chatRooms) => {
 				const updatedChatRoom = chatRooms?.map((room) => {
 					if (room.id === data.message?.room) {
-						return {...room, message: data.message};
-					};
+						return { ...room, message: data.message };
+					}
 					return room;
 				});
 				return updatedChatRoom;
 			});
 		} else if (data.action === "online_users") {
 			setOnlineUsers(data.online_user_list);
-		};
+		}
 	};
 
 	let chatAreaRef: HTMLDivElement;
 
 	const handleAddMessage = (e: CustomEvent) => {
 		const message = e.detail;
-		socket.send(JSON.stringify({
-			"message": message,
-			"room_id": activeRoom()?.room_id,
-		}));
+		socket.send(
+			JSON.stringify({
+				message: message,
+				room_id: activeRoom()?.room_id
+			})
+		);
 	};
 
 	return (

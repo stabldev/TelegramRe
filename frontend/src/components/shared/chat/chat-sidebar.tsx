@@ -24,9 +24,7 @@ export const ChatSidebar = () => {
 					class="object-cover md:size-auto"
 				/>
 				<div class="flex flex-col leading-none md:gap-1 md:p-3">
-					<h3 class="font-medium text-stone-100 md:text-base">
-						{IS_DM ? activeRoom()?.member[0].full_name : activeRoom()?.name}
-					</h3>
+					<h3 class="font-medium text-stone-100 md:text-base">{IS_DM ? activeRoom()?.member[0].full_name : activeRoom()?.name}</h3>
 				</div>
 			</div>
 		</>

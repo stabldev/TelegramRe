@@ -12,17 +12,17 @@ async function getChatRooms() {
 	const res = await fetch(`${API_URL}/v1/chat/chat-rooms/`, {
 		credentials: "include"
 	});
-	const data = await res.json() as ChatRoom[];
+	const data = (await res.json()) as ChatRoom[];
 	return data;
-};
+}
 
 async function getOnlineUsers() {
 	const res = await fetch(`${API_URL}/v1/chat/online-users/`, {
 		credentials: "include"
 	});
-	const data = await res.json() as OnlineUser[];
+	const data = (await res.json()) as OnlineUser[];
 	return data;
-};
+}
 
 const Sidebar: Component = () => {
 	const { chatRooms, setChatRooms, setOnlineUsers, onlineUsers } = useChat();

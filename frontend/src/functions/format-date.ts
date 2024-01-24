@@ -3,7 +3,7 @@ export class FormatDate {
 
 	constructor(date: string) {
 		this.#date = new Date(date);
-	};
+	}
 
 	public get format_to_relative_time(): string {
 		const current_date = new Date();
@@ -25,13 +25,13 @@ export class FormatDate {
 				day: "numeric"
 			});
 		}
-	};
+	}
 
 	public get format_to_d_m_y(): string {
 		return this.#date.toLocaleDateString([], {
 			month: "short",
 			day: "numeric",
-			year: "numeric",
+			year: "numeric"
 		});
-	};
+	}
 }
