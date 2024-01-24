@@ -1,7 +1,7 @@
 export type ChatMessage = {
 	id: number;
 	room: number;
-	user: number;
+	sender: number;
 	content: string;
 	is_read: boolean;
 	timestamp: string;

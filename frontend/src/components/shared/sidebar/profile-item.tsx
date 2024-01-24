@@ -17,7 +17,7 @@ export const ProfileItem = (props: ChatRoom) => {
 	const { message, member } = destructure(props);
 
 	const chat_user = member()[0];
-	const self_message = message().user === user()?.id;
+	const self_message = message().sender === user()?.id;
 	const formated_timestamp = new FormatDate(message().timestamp).format_to_relative_time;
 
 	const handleChatClick = () => {

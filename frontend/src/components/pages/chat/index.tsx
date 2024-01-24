@@ -16,7 +16,7 @@ async function fetchMessages(room_id: string) {
 
 export const ChatScreen: Component = () => {
 	const { activeRoom } = useShared();
-	const [messages] = createResource(activeRoom()?.room_id, fetchMessages);
+	const [messages, { mutate }] = createResource(activeRoom()?.room_id, fetchMessages);
 
 	const socket = new WebSocket(WS_URL + `ws/chat/`);
 
@@ -26,7 +26,7 @@ export const ChatScreen: Component = () => {
 
 	socket.onmessage = function(e: MessageEvent) {
 		const data = JSON.parse(e.data);
-		console.log(data);
+		mutate((messages) => [...messages || [], data]);
 	};
 
 	let chatAreaRef: HTMLDivElement;
@@ -35,7 +35,7 @@ export const ChatScreen: Component = () => {
 		const message = e.detail;
 		socket.send(JSON.stringify({
 			"message": message,
-			"room_id": "T8MPvDQfcPkirhGogsvXUY",
+			"room_id": activeRoom()?.room_id,
 		}));
 	};
 

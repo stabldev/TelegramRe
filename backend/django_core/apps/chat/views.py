@@ -12,7 +12,7 @@ class ChatRoomListView(ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        chat_rooms = self.model.objects.filter(member=user, chat_message__isnull=False)
+        chat_rooms = self.model.objects.filter(member=user, chat_message__isnull=False).distinct()
         return chat_rooms
 
 class ChatMessageListView(ListAPIView):

@@ -8,10 +8,10 @@ from .serializers import ChatMessageSerializer
 class ChatConsumer(AsyncWebsocketConsumer):
     def save_message(self, room_id, message):
         chat_room = ChatRoom.objects.get(room_id=room_id)
-        chat_msg = ChatMessage.objects.create(
-            room=chat_room, user=self.user, content=message
+        chat_message = ChatMessage.objects.create(
+            room=chat_room, sender=self.user, content=message
         )
-        serializer = ChatMessageSerializer(chat_msg, many=False)
+        serializer = ChatMessageSerializer(chat_message, many=False)
         return serializer.data
 
     async def connect(self):

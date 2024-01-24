@@ -15,13 +15,13 @@ class ChatRoom(models.Model):
 
 class ChatMessage(models.Model):
 	room = models.ForeignKey(ChatRoom, on_delete=models.SET_NULL, null=True, related_name="chat_message")
-	user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
+	sender = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
 	content = models.TextField()
 	is_read = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
-		return f"{self.user} -> {self.room}"
+		return f"{self.sender} -> {self.room}"
 
 	class Meta:
 		# DB

@@ -1,12 +1,12 @@
 import { useAuth } from "~/context/auth";
-import { ChatRoomType } from "~/types/chat.types";
+import { ChatRoom } from "~/types/chat.types";
 
-export function formatChatRoom(chatRooms: ChatRoomType[]) {
+export function formatChatRoom(chatRooms: ChatRoom[]) {
     if (!chatRooms) return;
     const { user } = useAuth();
     const userId = user()?.id;
 
-    const initialValue: ChatRoomType[] = [];
+    const initialValue: ChatRoom[] = [];
 
     return chatRooms.reduce((acumulator, chat) => {
         if (chat.type === "DM") {
