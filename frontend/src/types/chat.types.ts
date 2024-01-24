@@ -8,6 +8,7 @@ export type ChatMessage = {
 };
 
 export type ChatRoom = {
+	id: number;
 	room_id: string;
 	type: string;
 	name: string | null;

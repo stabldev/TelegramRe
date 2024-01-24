@@ -28,7 +28,7 @@ class ChatRoomSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ChatRoom
-        fields = ["room_id", "type", "name", "message", "member"]
+        fields = ["id", "room_id", "type", "name", "message", "member"]
 
     def get_message(self, obj):
         chat_message = obj.chat_message.last()

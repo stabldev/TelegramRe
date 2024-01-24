@@ -5,6 +5,7 @@ import { ChatArea } from "./chat-area";
 import { ChatMessage } from "~/types/chat.types";
 import { API_URL, WS_URL } from "~/config";
 import { useShared } from "~/context/shared";
+import { useChat } from "~/context/chat";
 
 async function fetchMessages(room_id: string) {
 	const res = await fetch(`${API_URL}/v1/chat/chat-rooms/${room_id}/`,
@@ -16,6 +17,7 @@ async function fetchMessages(room_id: string) {
 
 export const ChatScreen: Component = () => {
 	const { activeRoom } = useShared();
+	const { setChatRooms } = useChat();
 	const [messages, { mutate }] = createResource(activeRoom()?.room_id, fetchMessages);
 
 	const socket = new WebSocket(WS_URL + `ws/chat/`);
@@ -25,8 +27,18 @@ export const ChatScreen: Component = () => {
 	};
 
 	socket.onmessage = function(e: MessageEvent) {
-		const data = JSON.parse(e.data);
-		mutate((messages) => [...messages || [], data]);
+		const message: ChatMessage = JSON.parse(e.data);
+		mutate((messages) => [...messages || [], message]);
+		// update sidebar
+		setChatRooms((chatRooms) => {
+			const updatedChatRoom = chatRooms?.map((room) => {
+				if (room.id === message.room) {
+					return {...room, message: message};
+				};
+				return room;
+			});
+			return updatedChatRoom;
+		});
 	};
 
 	let chatAreaRef: HTMLDivElement;

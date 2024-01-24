@@ -6,6 +6,7 @@ import { Toaster } from "solid-toast";
 import { AuthProvider } from "./context/auth";
 import { SharedProvider } from "./context/shared";
 import { MultiProvider } from "@solid-primitives/context";
+import { ChatProvider } from "./context/chat";
 
 export default function Root() {
 	return (
@@ -24,7 +25,7 @@ export default function Root() {
 			<Body>
 				<Suspense>
 					<ErrorBoundary>
-						<MultiProvider values={[AuthProvider, SharedProvider]}>
+						<MultiProvider values={[AuthProvider, SharedProvider, ChatProvider]}>
 							<Toaster
 								position="bottom-right"
 								toastOptions={{ className: "!bg-stone-800 !text-stone-100 md:!text-sm md:!px-3 md:!py-2 !rounded-lg" }}
