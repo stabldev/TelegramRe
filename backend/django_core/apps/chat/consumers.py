@@ -13,7 +13,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
             room=chat_room, sender=self.user, content=message
         )
         serializer = ChatMessageSerializer(chat_message, many=False)
-        return serializer.data
+        return {
+            "action": "message",
+            "message": serializer.data,
+        }
 
     async def connect(self):
         self.user = self.scope["user"]

@@ -36,18 +36,26 @@ export const ChatScreen: Component = () => {
 	};
 
 	socket.onmessage = function(e: MessageEvent) {
-		const message: ChatMessage = JSON.parse(e.data);
-		mutate((messages) => [...messages || [], message]);
-		// update sidebar
-		setChatRooms((chatRooms) => {
-			const updatedChatRoom = chatRooms?.map((room) => {
-				if (room.id === message.room) {
-					return {...room, message: message};
-				};
-				return room;
+		const data: {
+			action: "message",
+			message: ChatMessage,
+		} = JSON.parse(e.data);
+
+		if (data.action === "message") {
+			if (data.message.room === activeRoom()?.id) {
+				mutate((messages) => [...messages || [], data.message]);
+			};
+			// update sidebar
+			setChatRooms((chatRooms) => {
+				const updatedChatRoom = chatRooms?.map((room) => {
+					if (room.id === data.message.room) {
+						return {...room, message: data.message};
+					};
+					return room;
+				});
+				return updatedChatRoom;
 			});
-			return updatedChatRoom;
-		});
+		};
 	};
 
 	let chatAreaRef: HTMLDivElement;
