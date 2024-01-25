@@ -66,10 +66,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         data = json.loads(text_data)
+        action = data["action"]
         room_id = data["room_id"]
         message = data["message"]
-        chat_message = await database_sync_to_async(self.save_message)(room_id, message)
+        chat_message = {}
 
+        if action == "message":
+            chat_message = await database_sync_to_async(self.save_message)(room_id, message)
         await self.channel_layer.group_send(
             room_id,
             {

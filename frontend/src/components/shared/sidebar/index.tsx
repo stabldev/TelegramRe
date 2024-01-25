@@ -2,7 +2,7 @@ import { Component, For, Show, createEffect, createResource, createSignal } from
 import { SearchHeader } from "./search-header";
 import Pencil from "~/icons/pencil";
 import { ProfileItem } from "./profile-item";
-import { API_URL } from "~/config";
+import { API_URL, WS_URL } from "~/config";
 import { formatChatRoom } from "~/functions/format-room";
 import { ChatRoom } from "~/types/chat.types";
 import { useChat } from "~/context/chat";
@@ -25,7 +25,7 @@ async function getOnlineUsers() {
 }
 
 const Sidebar: Component = () => {
-	const { chatRooms, setChatRooms, setOnlineUsers, onlineUsers } = useChat();
+	const { chatRooms, setChatRooms, setOnlineUsers } = useChat();
 	const [data] = createResource<ChatRoom[]>(getChatRooms);
 	const [online_users] = createResource<OnlineUser[]>(getOnlineUsers);
 

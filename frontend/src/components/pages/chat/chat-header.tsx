@@ -49,10 +49,7 @@ export const ChatHeader: Component = () => {
 				<div class="flex flex-col items-start leading-none">
 					<span class="text-sm font-medium text-white">{IS_DM ? activeRoom()?.member[0].full_name : activeRoom()?.name}</span>
 					<Show
-						when={
-							IS_DM &&
-							onlineUsers()?.some((user) => user.user === activeRoom()?.member[0].id)
-						}
+						when={IS_DM && onlineUsers()?.some((user) => user.user === activeRoom()?.member[0].id)}
 						fallback={<span class="text-xs text-white/50">Offline</span>}
 					>
 						<span class="text-xs text-blue-300">Online</span>
