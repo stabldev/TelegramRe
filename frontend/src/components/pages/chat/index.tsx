@@ -1,25 +1,16 @@
-import { Component, Show, createResource } from "solid-js";
+import { Component, Show, createEffect, createResource } from "solid-js";
 import { ChatHeader } from "./chat-header";
 import { ChatInput } from "./chat-input";
 import { ChatArea } from "./chat-area";
-import { ChatMessage } from "~/types/chat.types";
+import { ChatMessage, ChatRoom } from "~/types/chat.types";
 import { API_URL } from "~/config";
 import { useChat } from "~/context/chat";
 import socket_actions from "~/lib/socket-actions";
 import { OnlineUser } from "~/types/user.types";
 
-async function readMessages(room_id: string) {
-	await fetch(`${API_URL}/v1/chat/chat-rooms/${room_id}/read-all/`, {
-		credentials: "include"
-	});
-}
-
 async function fetchMessages({ room_id }: { room_id: string }) {
 	const res = await fetch(`${API_URL}/v1/chat/chat-rooms/${room_id}/`, { credentials: "include" });
 	const data = (await res.json()) as ChatMessage[];
-	if (!data.every((message) => message.is_read)) {
-		await readMessages(room_id);
-	}
 	return data;
 }
 
@@ -29,7 +20,7 @@ export const ChatScreen: Component = () => {
 
 	socket()!.onmessage = function (e: MessageEvent) {
 		const data: {
-			action: "message" | "online_users";
+			action: "message" | "online_users" | "read_room";
 			message?: ChatMessage;
 			online_user_list?: OnlineUser[];
 		} = JSON.parse(e.data);
@@ -50,6 +41,16 @@ export const ChatScreen: Component = () => {
 			});
 		} else if (data.action === socket_actions.ONLINE_USERS) {
 			setOnlineUsers(data.online_user_list);
+		} else if (data.action === "read_room") {
+			setChatRooms((chatRooms) => {
+				const updatedChatRoom = chatRooms?.map((room) => {
+					if (room.id === activeRoom()?.id) {
+						return { ...room, unreads: 0 };
+					}
+					return room;
+				});
+				return updatedChatRoom;
+			});
 		};
 	};
 

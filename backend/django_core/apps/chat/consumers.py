@@ -34,13 +34,20 @@ class ChatConsumer(AsyncWebsocketConsumer):
             OnlineUser.objects.get(user=user).delete()
         except: pass
 
+    def read_room(self, room_id):
+        chat_room = ChatRoom.objects.get(room_id=room_id)
+        unread_messages = chat_room.chat_message.filter(is_read=False)
+        for message in unread_messages:
+            message.is_read = True
+            message.save()
+
     async def send_online_users_list(self):
         online_users_list = await database_sync_to_async(self.get_online_users)()
         chat_message = {
             "type": "send_message",
             "message": {
                 "action": "online_users",
-                "online_user_list": online_users_list,
+                "online_users_list": online_users_list,
             },
         }
         await self.channel_layer.group_send("online_users", chat_message)
@@ -68,16 +75,22 @@ class ChatConsumer(AsyncWebsocketConsumer):
         data = json.loads(text_data)
         action = data["action"]
         room_id = data["room_id"]
-        message = data["message"]
-        chat_message = {}
+        send_message = {}
 
         if action == "message":
-            chat_message = await database_sync_to_async(self.save_message)(room_id, message)
+            message = data["message"]
+            send_message = await database_sync_to_async(self.save_message)(room_id, message)
+        elif action == "read_room":
+            await database_sync_to_async(self.read_room)(room_id)
+            send_message = {
+                "action": "read_room",
+            }
+
         await self.channel_layer.group_send(
             room_id,
             {
                 "type": "send_message",
-                "message": chat_message,
+                "message": send_message,
             },
         )
 

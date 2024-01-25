@@ -10,7 +10,7 @@ import { useChat } from "~/context/chat";
 
 export const ProfileItem = (props: ChatRoom) => {
 	const { user } = useAuth();
-	const { onlineUsers, setActiveRoom } = useChat();
+	const { onlineUsers, setActiveRoom, socket, activeRoom } = useChat();
 	const [isActive, setIsActive] = createSignal(false);
 	const params = useParams<{ username: string }>();
 
@@ -22,6 +22,13 @@ export const ProfileItem = (props: ChatRoom) => {
 
 	const handleChatClick = () => {
 		setActiveRoom(props);
+		// send read message
+		socket()!.send(
+			JSON.stringify({
+				action: "read_room",
+				room_id: activeRoom()?.room_id,
+			})
+		);
 	};
 
 	createEffect(() => {
