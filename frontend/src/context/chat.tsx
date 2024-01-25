@@ -41,7 +41,7 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 				setChatRooms((chatRooms) => {
 					const updatedChatRoom = chatRooms?.map((room) => {
 						if (room.id === data.message?.room) {
-							return { ...room, message: data.message };
+							return { ...room, message: data.message, unreads: room.unreads + 1 };
 						}
 						return room;
 					});

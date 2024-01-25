@@ -4,9 +4,9 @@ import { ChatInput } from "./chat-input";
 import { ChatArea } from "./chat-area";
 import { ChatMessage } from "~/types/chat.types";
 import { API_URL } from "~/config";
-import { useShared } from "~/context/shared";
 import { useChat } from "~/context/chat";
 import socket_actions from "~/lib/socket-actions";
+import { OnlineUser } from "~/types/user.types";
 
 async function readMessages(room_id: string) {
 	await fetch(`${API_URL}/v1/chat/chat-rooms/${room_id}/read-all/`, {
@@ -24,19 +24,32 @@ async function fetchMessages({ room_id }: { room_id: string }) {
 }
 
 export const ChatScreen: Component = () => {
-	const { socket, activeRoom } = useChat();
+	const { socket, activeRoom, setChatRooms, setOnlineUsers } = useChat();
 	const [messages, { mutate }] = createResource(activeRoom, fetchMessages);
 
 	socket()!.onmessage = function (e: MessageEvent) {
 		const data: {
-			action: "message";
+			action: "message" | "online_users";
 			message?: ChatMessage;
+			online_user_list?: OnlineUser[];
 		} = JSON.parse(e.data);
 
 		if (data.action === socket_actions.MESSAGE) {
 			if (data.message?.room === activeRoom()?.id) {
 				mutate((messages) => [...(messages || []), data.message!]);
-			}
+			};
+
+			setChatRooms((chatRooms) => {
+				const updatedChatRoom = chatRooms?.map((room) => {
+					if (room.id === data.message?.room) {
+						return { ...room, message: data.message, unreads: room.unreads + 1 };
+					}
+					return room;
+				});
+				return updatedChatRoom;
+			});
+		} else if (data.action === socket_actions.ONLINE_USERS) {
+			setOnlineUsers(data.online_user_list);
 		};
 	};
 

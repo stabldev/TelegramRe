@@ -68,7 +68,7 @@ export const ProfileItem = (props: ChatRoom) => {
 					<Show
 						when={self_message}
 						fallback={
-							<Show when={!isActive() && unreads()}>
+							<Show when={unreads()}>
 								<span class="grid place-items-center rounded-full bg-blue-500 font-semibold leading-none md:size-5 md:text-xs">{unreads()}</span>
 							</Show>
 						}
