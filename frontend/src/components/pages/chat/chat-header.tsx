@@ -7,8 +7,8 @@ import Search from "~/icons/search";
 import Split from "~/icons/split";
 
 export const ChatHeader: Component = () => {
-	const { toggleShowSidebar, activeRoom } = useShared();
-	const { onlineUsers } = useChat();
+	const { toggleShowSidebar } = useShared();
+	const { onlineUsers, activeRoom } = useChat();
 
 	const IS_DM = activeRoom()?.type === "DM";
 

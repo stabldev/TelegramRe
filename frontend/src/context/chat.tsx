@@ -9,6 +9,8 @@ type ChatContext = {
 	setChatRooms: Setter<ChatRoom[] | undefined>;
 	onlineUsers: Accessor<OnlineUser[] | undefined>;
 	setOnlineUsers: Setter<OnlineUser[] | undefined>;
+	activeRoom: Accessor<ChatRoom | undefined>;
+	setActiveRoom: Setter<ChatRoom | undefined>;
 	socket: Accessor<WebSocket | undefined>;
 };
 
@@ -17,6 +19,7 @@ const ChatContext = createContext<ChatContext>();
 export function ChatProvider(props: { children?: JSX.Element }) {
 	const [chatRooms, setChatRooms] = createSignal<ChatRoom[]>();
 	const [onlineUsers, setOnlineUsers] = createSignal<OnlineUser[]>();
+	const [activeRoom, setActiveRoom] = createSignal<ChatRoom>();
 	const [socket, setSocket] = createSignal<WebSocket>();
 
 	onMount(() => {
@@ -55,6 +58,8 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 		setChatRooms: setChatRooms,
 		onlineUsers: onlineUsers,
 		setOnlineUsers: setOnlineUsers,
+		activeRoom: activeRoom,
+		setActiveRoom: setActiveRoom,
 		socket: socket,
 	};
 

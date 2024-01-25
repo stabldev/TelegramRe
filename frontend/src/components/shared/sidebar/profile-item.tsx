@@ -5,14 +5,12 @@ import { Show, createEffect, createSignal } from "solid-js";
 import { get_username } from "~/functions/get-username";
 import { useAuth } from "~/context/auth";
 import Tick from "~/icons/tick";
-import { useShared } from "~/context/shared";
 import { ChatRoom } from "~/types/chat.types";
 import { useChat } from "~/context/chat";
 
 export const ProfileItem = (props: ChatRoom) => {
 	const { user } = useAuth();
-	const { onlineUsers } = useChat();
-	const { setActiveRoom } = useShared();
+	const { onlineUsers, setActiveRoom } = useChat();
 	const [isActive, setIsActive] = createSignal(false);
 	const params = useParams<{ username: string }>();
 

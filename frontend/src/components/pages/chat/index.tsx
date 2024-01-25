@@ -3,10 +3,9 @@ import { ChatHeader } from "./chat-header";
 import { ChatInput } from "./chat-input";
 import { ChatArea } from "./chat-area";
 import { ChatMessage } from "~/types/chat.types";
-import { API_URL, WS_URL } from "~/config";
+import { API_URL } from "~/config";
 import { useShared } from "~/context/shared";
 import { useChat } from "~/context/chat";
-import { OnlineUser } from "~/types/user.types";
 import socket_actions from "~/lib/socket-actions";
 
 async function readMessages(room_id: string) {
@@ -25,8 +24,7 @@ async function fetchMessages({ room_id }: { room_id: string }) {
 }
 
 export const ChatScreen: Component = () => {
-	const { activeRoom } = useShared();
-	const { socket } = useChat();
+	const { socket, activeRoom } = useChat();
 	const [messages, { mutate }] = createResource(activeRoom, fetchMessages);
 
 	socket()!.onmessage = function (e: MessageEvent) {

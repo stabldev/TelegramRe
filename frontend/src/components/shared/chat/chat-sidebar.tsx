@@ -1,9 +1,11 @@
 import { useParams } from "solid-start";
+import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
 import Close from "~/icons/close";
 
 export const ChatSidebar = () => {
-	const { toggleShowSidebar, activeRoom } = useShared();
+	const { toggleShowSidebar } = useShared();
+	const { activeRoom } = useChat();
 	const params = useParams<{ username: string }>();
 	const IS_DM = activeRoom()?.type === "DM";
 
