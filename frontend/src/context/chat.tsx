@@ -1,5 +1,6 @@
-import { Accessor, JSX, Setter, createContext, createEffect, createSignal, onMount, useContext } from "solid-js";
+import { Accessor, JSX, Setter, createContext, createSignal, onMount, useContext } from "solid-js";
 import { WS_URL } from "~/config";
+import socket_actions from "~/lib/socket-actions";
 import { ChatMessage, ChatRoom } from "~/types/chat.types";
 import { OnlineUser } from "~/types/user.types";
 
@@ -32,7 +33,7 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 				online_user_list?: OnlineUser[];
 			} = JSON.parse(e.data);
 
-			if (data.action === "message") {
+			if (data.action === socket_actions.MESSAGE) {
 				// update sidebar
 				setChatRooms((chatRooms) => {
 					const updatedChatRoom = chatRooms?.map((room) => {
@@ -43,7 +44,7 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 					});
 					return updatedChatRoom;
 				});
-			} else if (data.action === "online_users") {
+			} else if (data.action === socket_actions.ONLINE_USERS) {
 				setOnlineUsers(data.online_user_list);
 			};
 		};

@@ -7,6 +7,7 @@ import { API_URL, WS_URL } from "~/config";
 import { useShared } from "~/context/shared";
 import { useChat } from "~/context/chat";
 import { OnlineUser } from "~/types/user.types";
+import socket_actions from "~/lib/socket-actions";
 
 async function readMessages(room_id: string) {
 	await fetch(`${API_URL}/v1/chat/chat-rooms/${room_id}/read-all/`, {
@@ -34,7 +35,7 @@ export const ChatScreen: Component = () => {
 			message?: ChatMessage;
 		} = JSON.parse(e.data);
 
-		if (data.action === "message") {
+		if (data.action === socket_actions.MESSAGE) {
 			if (data.message?.room === activeRoom()?.id) {
 				mutate((messages) => [...(messages || []), data.message!]);
 			}
