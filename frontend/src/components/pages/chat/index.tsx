@@ -22,35 +22,32 @@ export const ChatScreen: Component = () => {
 		const data: {
 			action: "message" | "online_users" | "read_room";
 			message?: ChatMessage;
-			online_user_list?: OnlineUser[];
+			online_users_list?: OnlineUser[];
 		} = JSON.parse(e.data);
 
 		if (data.action === socket_actions.MESSAGE) {
 			if (data.message?.room === activeRoom()?.id) {
 				mutate((messages) => [...(messages || []), data.message!]);
-			};
-
-			setChatRooms((chatRooms) => {
-				const updatedChatRoom = chatRooms?.map((room) => {
-					if (room.id === data.message?.room) {
-						return { ...room, message: data.message, unreads: room.unreads + 1 };
-					}
-					return room;
-				});
-				return updatedChatRoom;
-			});
+			}
+			setChatRooms((chatRooms) =>
+				chatRooms?.map((room) =>
+					room.id === data.message?.room
+					? {
+						...room,
+						message: data.message,
+						unreads: room.id !== activeRoom()?.id ? room.unreads + 1 : 0,
+						}
+					: room,
+				),
+			);
 		} else if (data.action === socket_actions.ONLINE_USERS) {
-			setOnlineUsers(data.online_user_list);
+			setOnlineUsers(data.online_users_list);
 		} else if (data.action === "read_room") {
-			setChatRooms((chatRooms) => {
-				const updatedChatRoom = chatRooms?.map((room) => {
-					if (room.id === activeRoom()?.id) {
-						return { ...room, unreads: 0 };
-					}
-					return room;
-				});
-				return updatedChatRoom;
-			});
+			setChatRooms((chatRooms) =>
+				chatRooms?.map((room) =>
+					room.id === activeRoom()?.id ? { ...room, unreads: 0 } : room,
+				),
+			);
 		};
 	};
 
@@ -62,7 +59,7 @@ export const ChatScreen: Component = () => {
 			JSON.stringify({
 				action: "message",
 				message: message,
-				room_id: activeRoom()?.room_id,
+				room_id: activeRoom()?.room_id
 			})
 		);
 	};

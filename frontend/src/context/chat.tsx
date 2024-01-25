@@ -32,8 +32,8 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 		socket()!.onmessage = function (e: MessageEvent) {
 			const data: {
 				action: "online_users" | "message";
-				message?: ChatMessage,
-				online_user_list?: OnlineUser[];
+				message?: ChatMessage;
+				online_users_list?: OnlineUser[];
 			} = JSON.parse(e.data);
 
 			if (data.action === socket_actions.MESSAGE) {
@@ -41,15 +41,15 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 				setChatRooms((chatRooms) => {
 					const updatedChatRoom = chatRooms?.map((room) => {
 						if (room.id === data.message?.room) {
-							return { ...room, message: data.message, unreads: room.unreads + 1 };
+							return { ...room, message: data.message!, unreads: room.unreads + 1 };
 						}
 						return room;
 					});
 					return updatedChatRoom;
 				});
 			} else if (data.action === socket_actions.ONLINE_USERS) {
-				setOnlineUsers(data.online_user_list);
-			};
+				setOnlineUsers(data.online_users_list);
+			}
 		};
 	});
 
@@ -60,7 +60,7 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 		setOnlineUsers: setOnlineUsers,
 		activeRoom: activeRoom,
 		setActiveRoom: setActiveRoom,
-		socket: socket,
+		socket: socket
 	};
 
 	return <ChatContext.Provider value={context_value}>{props.children}</ChatContext.Provider>;

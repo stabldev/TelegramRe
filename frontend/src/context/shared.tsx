@@ -15,7 +15,7 @@ export function SharedProvider(props: { children?: JSX.Element }) {
 
 	const context_value: SharedStore = {
 		showSidebar: showSidebar,
-		toggleShowSidebar: toggleShowSidebar,
+		toggleShowSidebar: toggleShowSidebar
 	};
 
 	return <SharedContext.Provider value={context_value}>{props.children}</SharedContext.Provider>;

@@ -26,7 +26,7 @@ export const ProfileItem = (props: ChatRoom) => {
 		socket()!.send(
 			JSON.stringify({
 				action: "read_room",
-				room_id: activeRoom()?.room_id,
+				room_id: activeRoom()?.room_id
 			})
 		);
 	};
