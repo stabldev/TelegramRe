@@ -1,8 +1,8 @@
-import { Component, For, Show, createEffect, createResource, createSignal } from "solid-js";
+import { Component, For, Show, createEffect, createResource } from "solid-js";
 import { SearchHeader } from "./search-header";
 import Pencil from "~/icons/pencil";
 import { ProfileItem } from "./profile-item";
-import { API_URL, WS_URL } from "~/config";
+import { API_URL } from "~/config";
 import { formatChatRoom } from "~/functions/format-room";
 import { ChatRoom } from "~/types/chat.types";
 import { useChat } from "~/context/chat";
