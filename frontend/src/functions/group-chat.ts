@@ -1,6 +1,6 @@
 import { ChatMessage } from "../types/chat.types";
 
-export function groupChatBySender(chat: ChatMessage[]) {
+export function groupChatBySender(chat?: ChatMessage[]) {
 	const groupedChat: {
 		sender: number;
 		chats: ChatMessage[];
@@ -9,7 +9,7 @@ export function groupChatBySender(chat: ChatMessage[]) {
 	let prevSender: number | null = null;
 	let prevChat: ChatMessage[] = [];
 
-	chat.forEach((message) => {
+	chat?.forEach((message) => {
 		if (message.sender === prevSender) {
 			prevChat.push(message);
 		} else {

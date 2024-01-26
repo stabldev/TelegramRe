@@ -1,13 +1,13 @@
 import { useParams } from "solid-start";
+import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
-import { FormatDate } from "~/functions/format-date";
 import Close from "~/icons/close";
 
 export const ChatSidebar = () => {
-	const { toggleShowSidebar, activeChatUser } = useShared();
+	const { toggleShowSidebar } = useShared();
+	const { activeRoom } = useChat();
 	const params = useParams<{ username: string }>();
-
-	const formatted_date_joined = new FormatDate(activeChatUser()?.date_joined ?? "").format_to_d_m_y
+	const IS_DM = activeRoom()?.type === "DM";
 
 	return (
 		<>
@@ -22,14 +22,11 @@ export const ChatSidebar = () => {
 					</button>
 				</div>
 				<img
-					src={activeChatUser()?.avatar ?? ""}
+					src={IS_DM ? activeRoom()?.member[0].avatar ?? "" : ""}
 					class="object-cover md:size-auto"
 				/>
 				<div class="flex flex-col leading-none md:gap-1 md:p-3">
-					<h3 class="font-medium text-stone-100 md:text-base">
-						{activeChatUser()?.first_name + " " + activeChatUser()?.last_name}
-					</h3>
-					<h5 class="text-stone-400 md:text-xs">Joined Date: {formatted_date_joined}</h5>
+					<h3 class="font-medium text-stone-100 md:text-base">{IS_DM ? activeRoom()?.member[0].full_name : activeRoom()?.name}</h3>
 				</div>
 			</div>
 		</>
