@@ -12,8 +12,8 @@
 		"@solid-primitives/context": "^0.2.1",
 		"@solid-primitives/destructure": "^0.1.15",
 		"@solid-primitives/event-dispatcher": "^0.0.105",
-		"@typescript-eslint/eslint-plugin": "^6.19.0",
-		"@typescript-eslint/parser": "^6.19.0",
+		"@typescript-eslint/eslint-plugin": "^6.19.1",
+		"@typescript-eslint/parser": "^6.19.1",
 		"autoprefixer": "^10.4.17",
 		"clsx": "^2.1.0",
 		"eslint": "^8.56.0",
@@ -28,7 +28,7 @@
 		"solid-textarea-autosize": "^0.0.5",
 		"solid-toast": "^0.5.0",
 		"solid-transition-group": "^0.2.3",
-		"tailwind-merge": "^2.2.0",
+		"tailwind-merge": "^2.2.1",
 		"tailwindcss": "^3.4.1",
 		"typescript": "^5.3.3",
 		"vite": "^4.5.2"
@@ -36,7 +36,7 @@
 	"dependencies": {
 		"@solidjs/meta": "^0.29.3",
 		"@solidjs/router": "^0.9.1",
-		"solid-js": "^1.8.11",
+		"solid-js": "^1.8.12",
 		"solid-start": "^0.3.10"
 	},
 	"engines": {
