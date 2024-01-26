@@ -1,6 +1,6 @@
 import { Accessor, JSX, Setter, createContext, createSignal, onMount, useContext } from "solid-js";
-import { WS_URL } from "~/config";
-import socket_actions from "~/lib/socket-actions";
+import SocketActions from "~/connections/socket/socket-actions";
+import SocketUrls from "~/connections/socket/socket-endpoints";
 import { ChatMessage, ChatRoom } from "~/types/chat.types";
 import { OnlineUser } from "~/types/user.types";
 
@@ -23,7 +23,7 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 	const [socket, setSocket] = createSignal<WebSocket>();
 
 	onMount(() => {
-		setSocket(new WebSocket(WS_URL + `ws/chat/`));
+		setSocket(new WebSocket(SocketUrls.CHAT));
 
 		socket()!.onclose = function (e: CloseEvent) {
 			console.log("Connection closed");
@@ -36,7 +36,7 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 				online_users_list?: OnlineUser[];
 			} = JSON.parse(e.data);
 
-			if (data.action === socket_actions.MESSAGE) {
+			if (data.action === SocketActions.MESSAGE) {
 				// update sidebar
 				setChatRooms((chatRooms) => {
 					const updatedChatRoom = chatRooms?.map((room) => {
@@ -47,7 +47,7 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 					});
 					return updatedChatRoom;
 				});
-			} else if (data.action === socket_actions.ONLINE_USERS) {
+			} else if (data.action === SocketActions.ONLINE_USERS) {
 				setOnlineUsers(data.online_users_list);
 			}
 		};

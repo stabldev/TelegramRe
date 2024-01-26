@@ -1,15 +1,16 @@
-import { Component, Show, createEffect, createResource } from "solid-js";
+import { Component, Show, createResource } from "solid-js";
 import { ChatHeader } from "./chat-header";
 import { ChatInput } from "./chat-input";
 import { ChatArea } from "./chat-area";
-import { ChatMessage, ChatRoom } from "~/types/chat.types";
-import { API_URL } from "~/config";
+import { ChatMessage } from "~/types/chat.types";
 import { useChat } from "~/context/chat";
-import socket_actions from "~/lib/socket-actions";
 import { OnlineUser } from "~/types/user.types";
+import SocketActions from "~/connections/socket/socket-actions";
+import ApiEndpoints from "~/connections/api/api-endpoints";
 
 async function fetchMessages({ room_id }: { room_id: string }) {
-	const res = await fetch(`${API_URL}/v1/chat/chat-rooms/${room_id}/`, { credentials: "include" });
+	const url = ApiEndpoints.chat.CHAT_ROOMS + "/" + room_id;
+	const res = await fetch(url, { credentials: "include" });
 	const data = (await res.json()) as ChatMessage[];
 	return data;
 }
@@ -25,7 +26,7 @@ export const ChatScreen: Component = () => {
 			online_users_list?: OnlineUser[];
 		} = JSON.parse(e.data);
 
-		if (data.action === socket_actions.MESSAGE) {
+		if (data.action === SocketActions.MESSAGE) {
 			if (data.message?.room === activeRoom()?.id) {
 				mutate((messages) => [...(messages || []), data.message!]);
 			}
@@ -40,9 +41,9 @@ export const ChatScreen: Component = () => {
 					: room,
 				),
 			);
-		} else if (data.action === socket_actions.ONLINE_USERS) {
+		} else if (data.action === SocketActions.ONLINE_USERS) {
 			setOnlineUsers(data.online_users_list);
-		} else if (data.action === "read_room") {
+		} else if (data.action === SocketActions.READ_ROOM) {
 			setChatRooms((chatRooms) =>
 				chatRooms?.map((room) =>
 					room.id === activeRoom()?.id ? { ...room, unreads: 0 } : room,

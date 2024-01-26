@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
 from .models import ChatMessage, ChatRoom
-from ..api.serializers import CustomUserSerializer
 from ..user.models import CustomUser, OnlineUser
 
 

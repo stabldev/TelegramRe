@@ -1,15 +1,15 @@
-import { Component, For, Show, createEffect, createResource, createSignal } from "solid-js";
+import { Component, For, Show, createEffect, createResource } from "solid-js";
 import { SearchHeader } from "./search-header";
 import Pencil from "~/icons/pencil";
 import { ProfileItem } from "./profile-item";
-import { API_URL, WS_URL } from "~/config";
 import { formatChatRoom } from "~/functions/format-room";
 import { ChatRoom } from "~/types/chat.types";
 import { useChat } from "~/context/chat";
 import { OnlineUser } from "~/types/user.types";
+import ApiEndpoints from "~/connections/api/api-endpoints";
 
 async function getChatRooms() {
-	const res = await fetch(`${API_URL}/v1/chat/chat-rooms/`, {
+	const res = await fetch(ApiEndpoints.chat.CHAT_ROOMS, {
 		credentials: "include"
 	});
 	const data = (await res.json()) as ChatRoom[];
@@ -17,7 +17,7 @@ async function getChatRooms() {
 }
 
 async function getOnlineUsers() {
-	const res = await fetch(`${API_URL}/v1/chat/online-users/`, {
+	const res = await fetch(ApiEndpoints.chat.ONLINE_USERS, {
 		credentials: "include"
 	});
 	const data = (await res.json()) as OnlineUser[];
