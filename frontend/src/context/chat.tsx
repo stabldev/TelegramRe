@@ -1,5 +1,6 @@
 import { Accessor, JSX, Setter, createContext, createSignal, onMount, useContext } from "solid-js";
 import SocketActions from "~/api/socket/socket-actions";
+import SocketUrls from "~/api/socket/socket-urls";
 import { WS_URL } from "~/config";
 import { ChatMessage, ChatRoom } from "~/types/chat.types";
 import { OnlineUser } from "~/types/user.types";
@@ -23,7 +24,7 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 	const [socket, setSocket] = createSignal<WebSocket>();
 
 	onMount(() => {
-		setSocket(new WebSocket(WS_URL + `ws/chat/`));
+		setSocket(new WebSocket(SocketUrls.CHAT));
 
 		socket()!.onclose = function (e: CloseEvent) {
 			console.log("Connection closed");
