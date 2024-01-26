@@ -1,7 +1,7 @@
 import { WS_URL } from "~/config";
 
-const SocketUrls = {
+const SocketEndpoints = {
     CHAT: WS_URL + "/ws/v1/chat/",
 };
 
-export default SocketUrls;
+export default SocketEndpoints;

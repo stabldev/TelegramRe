@@ -1,6 +1,6 @@
 import { Accessor, JSX, createContext, createSignal, useContext, createEffect } from "solid-js";
 import { useNavigate } from "solid-start";
-import { API_URL } from "~/config";
+import ApiEndpoints from "~/connections/api/api-endpoints";
 import { User } from "~/types/user.types";
 
 type AuthType = "login" | "register";
@@ -24,7 +24,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const nagivate = useNavigate();
 
 	const initializeSession = async () => {
-		const res = await fetch(`${API_URL}/auth/session/`, {
+		const res = await fetch(ApiEndpoints.user.auth.SESSION, {
 			credentials: "include"
 		});
 		const data = await res.json();
@@ -36,7 +36,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	};
 
 	const initializeCSRF = async () => {
-		const res = await fetch(`${API_URL}/auth/csrf/`, {
+		const res = await fetch(ApiEndpoints.user.auth.CSRF, {
 			credentials: "include"
 		});
 		const token = res.headers.get("X-CSRFToken");
@@ -47,8 +47,10 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const handleEmailVerification = async (email: string, authType: AuthType = "login") => {
 		setLoading(true);
 		try {
-			const endpoint = authType === "login" ? "email-verification" : "register-email-verification";
-			const res = await fetch(`${API_URL}/auth/${endpoint}/`, {
+			const url = authType === "login" ?
+				ApiEndpoints.user.auth.EMAIL_VERIFICATION :
+				ApiEndpoints.user.auth.REGISTER_EMAIL_VERIFICATION;
+			const res = await fetch(url, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -70,7 +72,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const handleOTPVerification = async (email: string, otp: string) => {
 		setLoading(true);
 		try {
-			const res = await fetch(`${API_URL}/auth/otp-verification/`, {
+			const res = await fetch(ApiEndpoints.user.auth.OTP_VERIFICATION, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -95,7 +97,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 	const getMyInfo = async () => {
 		try {
-			const res = await fetch(`${API_URL}/auth/who_am_i/`, {
+			const res = await fetch(ApiEndpoints.user.auth.WHO_AM_I, {
 				headers: {
 					"Content-Type": "application/json",
 					"X-CSRFToken": csrfToken()
