@@ -1,7 +1,6 @@
 import { Accessor, JSX, Setter, createContext, createSignal, onMount, useContext } from "solid-js";
-import SocketActions from "~/api/socket/socket-actions";
-import SocketUrls from "~/api/socket/socket-urls";
-import { WS_URL } from "~/config";
+import SocketActions from "~/connections/socket/socket-actions";
+import SocketUrls from "~/connections/socket/socket-urls";
 import { ChatMessage, ChatRoom } from "~/types/chat.types";
 import { OnlineUser } from "~/types/user.types";
 

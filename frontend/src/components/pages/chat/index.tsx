@@ -6,7 +6,7 @@ import { ChatMessage } from "~/types/chat.types";
 import { API_URL } from "~/config";
 import { useChat } from "~/context/chat";
 import { OnlineUser } from "~/types/user.types";
-import SocketActions from "~/api/socket/socket-actions";
+import SocketActions from "~/connections/socket/socket-actions";
 
 async function fetchMessages({ room_id }: { room_id: string }) {
 	const res = await fetch(`${API_URL}/v1/chat/chat-rooms/${room_id}/`, { credentials: "include" });
