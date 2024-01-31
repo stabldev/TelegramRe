@@ -9,7 +9,7 @@ import SocketActions from "~/connections/socket/socket-actions";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 
 async function fetchMessages({ room_id }: { room_id: string }) {
-	const url = ApiEndpoints.chat.CHAT_ROOMS + "/" + room_id;
+	const url = ApiEndpoints.chat.CHAT_ROOMS + room_id + "/";
 	const res = await fetch(url, { credentials: "include" });
 	const data = (await res.json()) as ChatMessage[];
 	return data;
