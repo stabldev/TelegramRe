@@ -1,8 +1,9 @@
-import { Show } from "solid-js";
+import { Show, createEffect } from "solid-js";
 import { destructure } from "@solid-primitives/destructure";
 import { FormatDate } from "~/functions/format-date";
 import Tick from "~/icons/tick";
 import { ChatMessage } from "~/types/chat.types";
+import { createVisibilityObserver } from "@solid-primitives/intersection-observer";
 
 interface Props {
 	message: ChatMessage;
@@ -13,8 +14,21 @@ export const ChatBubble = (props: Props) => {
 	const { message, self } = destructure(props);
 	const formatedDate = new FormatDate(message().timestamp).format_to_relative_time;
 
+	let el: HTMLDivElement;
+	const useVisibilityObserver = createVisibilityObserver({ threshold: 1 });
+	const visible = useVisibilityObserver(() => el);
+
+	createEffect(() => {
+		visible() && message().is_read && handleReadMessage(message().id);
+	})
+
+	async function handleReadMessage(id: number) {
+		console.log("Message id" + id);
+	};
+
 	return (
 		<div
+			ref={(ref) => { el = ref }}
 			class="flex w-max gap-2 rounded-lg px-3 py-1 text-white"
 			classList={{
 				"bg-blue-500": self(),
