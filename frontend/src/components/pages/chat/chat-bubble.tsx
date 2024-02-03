@@ -24,6 +24,7 @@ export const ChatBubble = (props: Props) => {
 
 	async function handleReadMessage(id: number) {
 		console.log("Message " + id + " now readed!");
+		message().is_read = true;
 	};
 
 	return (

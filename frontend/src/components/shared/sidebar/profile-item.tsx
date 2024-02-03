@@ -24,12 +24,12 @@ export const ProfileItem = (props: ChatRoom) => {
 	const handleChatClick = () => {
 		setActiveRoom(props);
 		// send read message
-		socket()!.send(
-			JSON.stringify({
-				action: "read_room",
-				room_id: activeRoom()?.room_id
-			})
-		);
+		// socket()!.send(
+		// 	JSON.stringify({
+		// 		action: "read_room",
+		// 		room_id: activeRoom()?.room_id
+		// 	})
+		// );
 	};
 
 	createEffect(() => {
