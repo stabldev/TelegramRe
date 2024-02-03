@@ -19,11 +19,11 @@ export const ChatBubble = (props: Props) => {
 	const visible = useVisibilityObserver(() => el);
 
 	createEffect(() => {
-		visible() && message().is_read && handleReadMessage(message().id);
-	})
+		visible() && !self() && !message().is_read && handleReadMessage(message().id);
+	}, []);
 
 	async function handleReadMessage(id: number) {
-		console.log("Message id" + id);
+		console.log("Message " + id + " now readed!");
 	};
 
 	return (

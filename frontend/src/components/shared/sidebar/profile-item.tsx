@@ -19,6 +19,7 @@ export const ProfileItem = (props: ChatRoom) => {
 	const chat_user = member()[0];
 	const self_message = message().sender === user()?.id;
 	const formated_timestamp = new FormatDate(message().timestamp).format_to_relative_time;
+	const isOnline = onlineUsers()?.some((user) => user.user === chat_user.id);
 
 	const handleChatClick = () => {
 		setActiveRoom(props);
@@ -49,7 +50,7 @@ export const ProfileItem = (props: ChatRoom) => {
 					src={chat_user.avatar ?? ""}
 					alt={chat_user.username}
 				/>
-				<Show when={onlineUsers()?.some((user) => user.user === chat_user.id)}>
+				<Show when={isOnline}>
 					<div
 						class="absolute bottom-0 right-0 rounded-full ring-4 md:size-2.5"
 						classList={{
@@ -75,7 +76,7 @@ export const ProfileItem = (props: ChatRoom) => {
 					<Show
 						when={self_message}
 						fallback={
-							<Show when={unreads()}>
+							<Show when={unreads() && !isActive()}>
 								<span class="grid place-items-center rounded-full bg-blue-500 font-semibold leading-none md:size-5 md:text-xs">{unreads()}</span>
 							</Show>
 						}
