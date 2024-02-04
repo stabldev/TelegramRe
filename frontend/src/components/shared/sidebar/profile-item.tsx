@@ -12,6 +12,7 @@ export const ProfileItem = (props: ChatRoom) => {
 	const { user } = useAuth();
 	const { onlineUsers, setActiveRoom, socket, activeRoom } = useChat();
 	const [isActive, setIsActive] = createSignal(false);
+	const [isOnline, setIsOnline] = createSignal(false);
 	const params = useParams<{ username: string }>();
 
 	const { message, member, unreads } = destructure(props);
@@ -19,7 +20,6 @@ export const ProfileItem = (props: ChatRoom) => {
 	const chat_user = member()[0];
 	const self_message = message().sender === user()?.id;
 	const formated_timestamp = new FormatDate(message().timestamp).format_to_relative_time;
-	const isOnline = onlineUsers()?.some((user) => user.user === chat_user.id);
 
 	const handleChatClick = () => {
 		setActiveRoom(props);
@@ -31,6 +31,10 @@ export const ProfileItem = (props: ChatRoom) => {
 		// 	})
 		// );
 	};
+
+	createEffect(() => {
+		setIsOnline(onlineUsers()?.some((user) => user.user === chat_user.id) ? true : false);
+	}, [onlineUsers]);
 
 	createEffect(() => {
 		if (!params.username) return;
@@ -50,7 +54,7 @@ export const ProfileItem = (props: ChatRoom) => {
 					src={chat_user.avatar ?? ""}
 					alt={chat_user.username}
 				/>
-				<Show when={isOnline}>
+				<Show when={isOnline()}>
 					<div
 						class="absolute bottom-0 right-0 rounded-full ring-4 md:size-2.5"
 						classList={{
