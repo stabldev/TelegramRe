@@ -1,12 +1,13 @@
 import { Component } from "solid-js";
 import Menu from "~/icons/menu";
 import Search from "~/icons/search";
+import UserSettings from "~/icons/settings/user";
 
 export const SearchHeader: Component = () => {
 	return (
 		<div class="flex h-12 items-center gap-3 px-3">
-			<button class="text-lg text-white/50 transition-colors hover:text-white/75">
-				<Menu variant="bars" />
+			<button class="text-xl text-white/50 transition-colors hover:text-white/75">
+				<UserSettings />
 			</button>
 			<form class="relative flex w-full items-center">
 				<Search class="pointer-events-none absolute left-2 text-lg text-white/50" />
