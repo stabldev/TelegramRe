@@ -1,5 +1,5 @@
 import { Match, Switch } from "solid-js";
-import { VariantIcon } from "~/types/icon";
+import { VariantIcon } from "~/types/icon.types";
 
 export default function Arrow(props: VariantIcon) {
 	return (

@@ -1,4 +1,4 @@
-import { Icon } from "~/types/icon";
+import { Icon } from "~/types/icon.types";
 
 export default function Close(props: Icon) {
 	return (

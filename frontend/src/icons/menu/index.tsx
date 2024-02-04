@@ -1,5 +1,5 @@
 import { Show } from "solid-js";
-import { VariantIcon } from "~/types/icon";
+import { VariantIcon } from "~/types/icon.types";
 
 export default function Menu(props: VariantIcon) {
 	return (

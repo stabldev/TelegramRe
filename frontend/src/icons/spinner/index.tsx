@@ -1,4 +1,4 @@
-import { Icon } from "~/types/icon";
+import { Icon } from "~/types/icon.types";
 import { cn } from "~/functions/cn";
 
 export default function Spinner(props: Icon) {
