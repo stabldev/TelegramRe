@@ -7,6 +7,7 @@ import { useAuth } from "~/context/auth";
 import Tick from "~/icons/tick";
 import { ChatRoom } from "~/types/chat.types";
 import { useChat } from "~/context/chat";
+import Verified from "~/icons/verified";
 
 export const ProfileItem = (props: ChatRoom) => {
 	const { user } = useAuth();
@@ -72,7 +73,17 @@ export const ProfileItem = (props: ChatRoom) => {
 				}}
 			>
 				<div class="flex items-center justify-between">
-					<span class="text-sm font-medium text-white">{chat_user.full_name}</span>
+					<div class="flex items-center md:gap-1">
+						<span class="text-sm font-medium text-white">{chat_user.full_name}</span>
+						<Show when={chat_user.is_verified}>
+							<div classList={{
+								"text-white": isActive(),
+								"text-blue-500": !isActive()
+							}}>
+								<Verified />
+							</div>
+						</Show>
+					</div>
 					<span class="text-xs uppercase">{formated_timestamp}</span>
 				</div>
 				<div class="flex items-center justify-between md:gap-3">
