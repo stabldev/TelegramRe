@@ -28,6 +28,9 @@ devDependencies:
   '@solid-primitives/event-dispatcher':
     specifier: ^0.0.105
     version: 0.0.105(solid-js@1.8.12)
+  '@solid-primitives/intersection-observer':
+    specifier: ^2.1.4
+    version: 2.1.4(solid-js@1.8.12)
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.20.0
     version: 6.20.0(@typescript-eslint/parser@6.20.0)(eslint@8.56.0)(typescript@5.3.3)
@@ -1847,6 +1850,15 @@ packages:
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:
+      solid-js: 1.8.12
+    dev: true
+
+  /@solid-primitives/intersection-observer@2.1.4(solid-js@1.8.12):
+    resolution: {integrity: sha512-qOBBqhJDv8oYO+X7vn2KldbAofyobBRhOm7l5cYJSnRagx1bR4/DmK0E06GB6Uc+7DNsfM92+1k0ytzZsYptfQ==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      '@solid-primitives/utils': 6.2.2(solid-js@1.8.12)
       solid-js: 1.8.12
     dev: true
 

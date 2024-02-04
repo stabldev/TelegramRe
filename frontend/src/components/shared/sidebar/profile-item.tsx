@@ -12,6 +12,7 @@ export const ProfileItem = (props: ChatRoom) => {
 	const { user } = useAuth();
 	const { onlineUsers, setActiveRoom, socket, activeRoom } = useChat();
 	const [isActive, setIsActive] = createSignal(false);
+	const [isOnline, setIsOnline] = createSignal(false);
 	const params = useParams<{ username: string }>();
 
 	const { message, member, unreads } = destructure(props);
@@ -23,13 +24,17 @@ export const ProfileItem = (props: ChatRoom) => {
 	const handleChatClick = () => {
 		setActiveRoom(props);
 		// send read message
-		socket()!.send(
-			JSON.stringify({
-				action: "read_room",
-				room_id: activeRoom()?.room_id
-			})
-		);
+		// socket()!.send(
+		// 	JSON.stringify({
+		// 		action: "read_room",
+		// 		room_id: activeRoom()?.room_id
+		// 	})
+		// );
 	};
+
+	createEffect(() => {
+		setIsOnline(onlineUsers()?.some((user) => user.user === chat_user.id) ? true : false);
+	}, [onlineUsers]);
 
 	createEffect(() => {
 		if (!params.username) return;
@@ -49,7 +54,7 @@ export const ProfileItem = (props: ChatRoom) => {
 					src={chat_user.avatar ?? ""}
 					alt={chat_user.username}
 				/>
-				<Show when={onlineUsers()?.some((user) => user.user === chat_user.id)}>
+				<Show when={isOnline()}>
 					<div
 						class="absolute bottom-0 right-0 rounded-full ring-4 md:size-2.5"
 						classList={{
@@ -75,7 +80,7 @@ export const ProfileItem = (props: ChatRoom) => {
 					<Show
 						when={self_message}
 						fallback={
-							<Show when={unreads()}>
+							<Show when={unreads() && !isActive()}>
 								<span class="grid place-items-center rounded-full bg-blue-500 font-semibold leading-none md:size-5 md:text-xs">{unreads()}</span>
 							</Show>
 						}

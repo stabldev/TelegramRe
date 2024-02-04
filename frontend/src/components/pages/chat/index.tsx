@@ -49,6 +49,18 @@ export const ChatScreen: Component = () => {
 					room.id === activeRoom()?.id ? { ...room, unreads: 0 } : room,
 				),
 			);
+		} else if (data.action === SocketActions.READ_MESSAGE) {
+			if (data.message?.room !== activeRoom()?.room_id) {
+				mutate((messages) => messages?.map(message => 
+					message.id === data.message?.id ? data.message : message
+				));
+			};
+
+			setChatRooms((chatRooms) =>
+				chatRooms?.map((room) =>
+					room.id === data.message?.room ? { ...room, message: data.message!, unreads: 0 } : room,
+				),
+			);
 		};
 	};
 
