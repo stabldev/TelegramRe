@@ -24,7 +24,6 @@ export const ChatScreen: Component = () => {
 			action: "message" | "online_users" | "read_room";
 			message?: ChatMessage;
 			online_users_list?: OnlineUser[];
-			message_id?: number;
 		} = JSON.parse(e.data);
 
 		if (data.action === SocketActions.MESSAGE) {
@@ -51,13 +50,15 @@ export const ChatScreen: Component = () => {
 				),
 			);
 		} else if (data.action === SocketActions.READ_MESSAGE) {
-			mutate((messages) => messages?.map(message => 
-				message.id === data.message_id ? { ...message, is_read: true } : message
-			));
+			if (data.message?.room !== activeRoom()?.room_id) {
+				mutate((messages) => messages?.map(message => 
+					message.id === data.message?.id ? data.message : message
+				));
+			};
 
 			setChatRooms((chatRooms) =>
 				chatRooms?.map((room) =>
-					room.id === activeRoom()?.id ? { ...room, message: { ...room.message, is_read: true }} : room,
+					room.id === data.message?.room ? { ...room, message: data.message!, unreads: 0 } : room,
 				),
 			);
 		};
