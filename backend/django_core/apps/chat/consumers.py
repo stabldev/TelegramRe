@@ -19,6 +19,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
             "message": serializer.data,
         }
 
+    def read_message(self, message_id):
+        message = ChatMessage.objects.get(pk=message_id)
+        message.is_read = True
+        message.save()
+
     def get_online_users(self):
         online_users = OnlineUser.objects.all()
         serializer = OnlineUserSerializer(online_users, many=True)
@@ -84,6 +89,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
             await database_sync_to_async(self.read_room)(room_id)
             send_message = {
                 "action": "read_room",
+            }
+        elif action == "read_message":
+            message_id = data["message_id"]
+            # await database_sync_to_async(self.read_message)(message_id)
+            send_message = {
+                "action": "read_message",
+                "message_id": message_id,
             }
 
         await self.channel_layer.group_send(

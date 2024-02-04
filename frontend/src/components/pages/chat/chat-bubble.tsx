@@ -4,6 +4,7 @@ import { FormatDate } from "~/functions/format-date";
 import Tick from "~/icons/tick";
 import { ChatMessage } from "~/types/chat.types";
 import { createVisibilityObserver } from "@solid-primitives/intersection-observer";
+import { useChat } from "~/context/chat";
 
 interface Props {
 	message: ChatMessage;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export const ChatBubble = (props: Props) => {
+	const { socket, activeRoom } = useChat();
 	const { message, self } = destructure(props);
 	const formatedDate = new FormatDate(message().timestamp).format_to_relative_time;
 
@@ -25,6 +27,14 @@ export const ChatBubble = (props: Props) => {
 	async function handleReadMessage(id: number) {
 		console.log("Message " + id + " now readed!");
 		message().is_read = true;
+		// send socket action
+		socket()!.send(
+			JSON.stringify({
+				action: "read_message",
+				message_id: message().id,
+				room_id: activeRoom()?.room_id,
+			}),
+		);
 	};
 
 	return (
