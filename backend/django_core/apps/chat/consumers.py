@@ -92,7 +92,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             }
         elif action == "read_message":
             message_id = data["message_id"]
-            # await database_sync_to_async(self.read_message)(message_id)
+            await database_sync_to_async(self.read_message)(message_id)
             send_message = {
                 "action": "read_message",
                 "message_id": message_id,
