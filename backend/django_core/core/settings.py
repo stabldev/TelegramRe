@@ -61,6 +61,9 @@ INSTALLED_APPS = [
     # Custom apps
     "apps.user",
     "apps.chat",
+    # Cloud storage
+    "cloudinary_storage",
+    "cloudinary",
 ]
 
 REST_FRAMEWORK = {
@@ -172,6 +175,8 @@ STATIC_URL = "static/"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = Path(BASE_DIR, "media")
+# Cloud Storage
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -223,3 +228,12 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 # Daphne Config
 
 ASGI_APPLICATION = "core.asgi.application"
+
+# Cloud Storage
+# https://dev.to/successhycenth/uploading-images-to-cloudinary-storage-from-a-django-drf-application-c40
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.getenv("CLOUDINARY_NAME"),
+    "API_KEY": os.getenv("CLOUDINARY_NAME_API_KEY"),
+    "API_SECRET": os.getenv("CLOUDINARY_NAME_API_SECRET"),
+}
