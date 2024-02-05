@@ -1,11 +1,15 @@
+import { Show } from "solid-js";
 import { useParams } from "solid-start";
 import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
+import At from "~/icons/at";
 import Close from "~/icons/close";
+import Info from "~/icons/info";
+import Verified from "~/icons/verified";
 
 export const ChatSidebar = () => {
 	const { toggleShowSidebar } = useShared();
-	const { activeRoom } = useChat();
+	const { activeRoom, onlineUsers } = useChat();
 	const params = useParams<{ username: string }>();
 	const IS_DM = activeRoom()?.type === "DM";
 
@@ -23,10 +27,35 @@ export const ChatSidebar = () => {
 				</div>
 				<img
 					src={IS_DM ? activeRoom()?.member[0].avatar ?? "" : ""}
-					class="object-cover md:size-auto"
+					class="h-56 w-full object-cover"
 				/>
-				<div class="flex flex-col leading-none md:gap-1 md:p-3">
-					<h3 class="font-medium text-stone-100 md:text-base">{IS_DM ? activeRoom()?.member[0].full_name : activeRoom()?.name}</h3>
+				<div class="flex flex-col p-3 text-white">
+					<div class="flex items-center gap-2">
+						<span class="font-medium md:text-lg">{IS_DM ? activeRoom()?.member[0].full_name : activeRoom()?.name}</span>
+						<Show when={activeRoom()?.member[0].is_verified}>
+							<Verified class="text-xl text-blue-500" />
+						</Show>
+					</div>
+					<Show when={IS_DM}>
+						<span class="text-sm text-stone-400">{onlineUsers()?.some((onlineUser) => onlineUser.user === activeRoom()?.member[0].id) ? "Online" : "Offline"}</span>
+					</Show>
+
+					<div class="mt-3 grid grid-cols-8">
+						<At class="col-span-1 size-6 self-center text-stone-400" />
+						<div class="col-span-7 flex flex-col">
+							<span>{IS_DM ? activeRoom()?.member[0].username : activeRoom()?.name}</span>
+							<span class="select-none text-sm text-stone-400">Username</span>
+						</div>
+					</div>
+					<Show when={IS_DM}>
+						<div class="mt-2 grid grid-cols-8">
+							<Info class="col-span-1 size-[1.4rem] self-center text-stone-400" />
+							<div class="col-span-7 flex flex-col">
+								<span>{activeRoom()?.member[0].bio}</span>
+								<span class="select-none text-sm text-stone-400">Bio</span>
+							</div>
+						</div>
+					</Show>
 				</div>
 			</div>
 		</>

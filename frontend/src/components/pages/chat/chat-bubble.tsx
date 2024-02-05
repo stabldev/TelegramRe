@@ -31,14 +31,16 @@ export const ChatBubble = (props: Props) => {
 			JSON.stringify({
 				action: "read_message",
 				message_id: message().id,
-				room_id: activeRoom()?.room_id,
-			}),
+				room_id: activeRoom()?.room_id
+			})
 		);
-	};
+	}
 
 	return (
 		<div
-			ref={(ref) => { el = ref }}
+			ref={(ref) => {
+				el = ref;
+			}}
 			class="flex w-max gap-2 rounded-lg px-3 py-1 text-white"
 			classList={{
 				"bg-blue-500": self(),

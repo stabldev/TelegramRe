@@ -37,7 +37,7 @@ export const SettingsHeader = (props: Props) => {
 				>
 					<Arrow variant="left" />
 				</button>
-				<h3 class="text-lg font-medium select-none">Settings</h3>
+				<h3 class="select-none text-lg font-medium">Settings</h3>
 			</div>
 			<div class="flex items-center gap-2">
 				<button class="text-lg text-white/50 transition-colors hover:text-white/75">
@@ -51,15 +51,15 @@ export const SettingsHeader = (props: Props) => {
 						<Menu variant="dots" />
 					</button>
 					<Show when={openMenu()}>
-						<div class="absolute top-10 right-0 z-50 bg-stone-800 overflow-hidden rounded-xl w-max select-none">
+						<div class="absolute right-0 top-10 z-50 w-max select-none overflow-hidden rounded-xl bg-stone-800">
 							<button
 								onClick={handleLogout}
-								class="grid grid-cols-12 gap-2 px-3 py-2 text-stone-300 hover:bg-stone-700 hover:text-stone-100 transition-colors text-start"
+								class="grid grid-cols-12 gap-2 px-3 py-2 text-start text-stone-300 transition-colors hover:bg-stone-700 hover:text-stone-100"
 							>
 								<Logout class="col-span-2 size-full" />
 								<span class="col-span-10 text-sm font-medium">Logout</span>
 							</button>
-							<span class="px-3 text-xs flex py-1 text-stone-400">TG-RE version 1.0</span>
+							<span class="flex px-3 py-1 text-xs text-stone-400">TG-RE version 1.0</span>
 						</div>
 					</Show>
 				</div>

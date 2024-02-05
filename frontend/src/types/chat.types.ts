@@ -23,4 +23,5 @@ export type ChatMember = {
 	full_name: string;
 	is_verified: boolean;
 	avatar: string;
+	bio: string;
 };
