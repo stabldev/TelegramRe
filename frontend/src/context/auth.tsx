@@ -11,6 +11,7 @@ type AuthStore = {
 	isAuthenticated: Accessor<boolean>;
 	handleEmailVerification: (email: string, authType: AuthType) => Promise<void>;
 	handleOTPVerification: (email: string, otp: string) => Promise<void>;
+	logoutUser: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthStore>();
@@ -114,6 +115,23 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		}
 	};
 
+	const logoutUser = async () => {
+		try {
+			const res = await fetch(ApiEndpoints.user.auth.LOGOUT, {
+				credentials: "include",
+			});
+
+			if (!res.ok) throw new Error("Something is wrong");
+			
+			setIsAuthenticated(false);
+			setUser(undefined);
+			setCsrfToken("");
+			nagivate("/auth/login/");
+		} catch (err) {
+			throw err;
+		};
+	};
+
 	createEffect(async () => {
 		// check if alraedy loggedIn
 		await initializeSession();
@@ -126,7 +144,8 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		isAuthenticated: isAuthenticated,
 		loading: loading,
 		handleEmailVerification: handleEmailVerification,
-		handleOTPVerification: handleOTPVerification
+		handleOTPVerification: handleOTPVerification,
+		logoutUser: logoutUser,
 	};
 
 	return <AuthContext.Provider value={context_value}>{props.children}</AuthContext.Provider>;

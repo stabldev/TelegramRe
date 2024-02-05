@@ -5,7 +5,7 @@ from django.http import HttpRequest, JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 from django.middleware.csrf import get_token
-from django.contrib.auth import get_user_model, login
+from django.contrib.auth import get_user_model, login, logout
 
 from rest_framework import status, generics
 
@@ -102,6 +102,12 @@ def who_am_i_view(request: HttpRequest):
             {"detail": "Something went wrong"},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
+
+def logout_view(request: HttpRequest):
+    if not request.user.is_authenticated:
+        return JsonResponse({ "detail": "User isn't authenticated" }, status=status.HTTP_400_BAD_REQUEST)
+    logout(request)
+    return JsonResponse({ "detail": "User logout successfully" })
 
 # Class-based views
 class UserDetailView(generics.RetrieveUpdateAPIView):
