@@ -8,6 +8,7 @@ import { useChat } from "~/context/chat";
 import { OnlineUser } from "~/types/user.types";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { ChatBar } from "./chat-bar";
+import { SettingsBar } from "./settings-bar";
 
 async function getChatRooms() {
 	const res = await fetch(ApiEndpoints.chat.CHAT_ROOMS, {
@@ -26,10 +27,10 @@ async function getOnlineUsers() {
 }
 
 const Sidebar: Component = () => {
-	const { chatRooms, setChatRooms, setOnlineUsers } = useChat();
+	const { setChatRooms, setOnlineUsers } = useChat();
 	const [data] = createResource<ChatRoom[]>(getChatRooms);
 	const [online_users] = createResource<OnlineUser[]>(getOnlineUsers);
-	const [isChatBarOpen, setIsChatBarOpen] = createSignal(true);
+	const [isChatBarOpen, setIsChatBarOpen] = createSignal(false);
 
 	const toggleView = () => setIsChatBarOpen((prev) => !prev);
 
@@ -42,7 +43,7 @@ const Sidebar: Component = () => {
 		<div class="relative grid h-screen w-full grid-rows-[min-content_1fr] border-r border-black/50 bg-stone-900">
 			<Show
 				when={isChatBarOpen()}
-				fallback={"Settings"}
+				fallback={ <SettingsBar toggleView={toggleView} /> }
 			>
 				<ChatBar
 					isLoading={data.loading}

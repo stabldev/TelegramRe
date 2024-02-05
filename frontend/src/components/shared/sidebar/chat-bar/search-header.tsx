@@ -1,4 +1,3 @@
-import { Component } from "solid-js";
 import Search from "~/icons/search";
 import UserSettings from "~/icons/settings/user";
 

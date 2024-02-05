@@ -1,4 +1,3 @@
-import { destructure } from "@solid-primitives/destructure";
 import { SearchHeader } from "./search-header";
 import { For } from "solid-js";
 import { useChat } from "~/context/chat";
@@ -13,11 +12,10 @@ type Props = {
 
 export const ChatBar = (props: Props) => {
     const { chatRooms } = useChat();
-    const { toggleView } = destructure(props);
 
     return (
         <>
-            <SearchHeader toggleView={toggleView} />
+            <SearchHeader toggleView={props.toggleView} />
             <div class="overflow-y-scroll px-3 [scrollbar-width:_thin]">
                 <For each={chatRooms()?.sort((a, b) => b.message.id - a.message.id)}>
                     {(room) => <ProfileItem {...room} />}
