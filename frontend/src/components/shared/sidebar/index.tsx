@@ -43,7 +43,7 @@ const Sidebar: Component = () => {
 		<div class="relative grid h-screen w-full grid-rows-[min-content_1fr] border-r border-black/50 bg-stone-900">
 			<Show
 				when={isChatBarOpen()}
-				fallback={ <SettingsBar toggleView={toggleView} /> }
+				fallback={<SettingsBar toggleView={toggleView} />}
 			>
 				<ChatBar
 					isLoading={data.loading}

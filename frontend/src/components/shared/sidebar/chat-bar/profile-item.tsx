@@ -76,10 +76,12 @@ export const ProfileItem = (props: ChatRoom) => {
 					<div class="flex items-center md:gap-1">
 						<span class="text-sm font-medium text-white">{chat_user.full_name}</span>
 						<Show when={chat_user.is_verified}>
-							<div classList={{
-								"text-white": isActive(),
-								"text-blue-500": !isActive()
-							}}>
+							<div
+								classList={{
+									"text-white": isActive(),
+									"text-blue-500": !isActive()
+								}}
+							>
 								<Verified />
 							</div>
 						</Show>

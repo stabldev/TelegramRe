@@ -33,35 +33,25 @@ export const ChatScreen: Component = () => {
 			setChatRooms((chatRooms) =>
 				chatRooms?.map((room) =>
 					room.id === data.message?.room
-					? {
-						...room,
-						message: data.message,
-						unreads: room.id !== activeRoom()?.id ? room.unreads + 1 : 0,
-						}
-					: room,
-				),
+						? {
+								...room,
+								message: data.message,
+								unreads: room.id !== activeRoom()?.id ? room.unreads + 1 : 0
+							}
+						: room
+				)
 			);
 		} else if (data.action === SocketActions.ONLINE_USERS) {
 			setOnlineUsers(data.online_users_list);
 		} else if (data.action === SocketActions.READ_ROOM) {
-			setChatRooms((chatRooms) =>
-				chatRooms?.map((room) =>
-					room.id === activeRoom()?.id ? { ...room, unreads: 0 } : room,
-				),
-			);
+			setChatRooms((chatRooms) => chatRooms?.map((room) => (room.id === activeRoom()?.id ? { ...room, unreads: 0 } : room)));
 		} else if (data.action === SocketActions.READ_MESSAGE) {
 			if (data.message?.room !== activeRoom()?.room_id) {
-				mutate((messages) => messages?.map(message => 
-					message.id === data.message?.id ? data.message : message
-				));
-			};
+				mutate((messages) => messages?.map((message) => (message.id === data.message?.id ? data.message : message)));
+			}
 
-			setChatRooms((chatRooms) =>
-				chatRooms?.map((room) =>
-					room.id === data.message?.room ? { ...room, message: data.message!, unreads: 0 } : room,
-				),
-			);
-		};
+			setChatRooms((chatRooms) => chatRooms?.map((room) => (room.id === data.message?.room ? { ...room, message: data.message!, unreads: 0 } : room)));
+		}
 	};
 
 	let chatAreaRef: HTMLDivElement;

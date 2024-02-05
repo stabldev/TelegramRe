@@ -48,9 +48,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const handleEmailVerification = async (email: string, authType: AuthType = "login") => {
 		setLoading(true);
 		try {
-			const url = authType === "login" ?
-				ApiEndpoints.user.auth.EMAIL_VERIFICATION :
-				ApiEndpoints.user.auth.REGISTER_EMAIL_VERIFICATION;
+			const url = authType === "login" ? ApiEndpoints.user.auth.EMAIL_VERIFICATION : ApiEndpoints.user.auth.REGISTER_EMAIL_VERIFICATION;
 			const res = await fetch(url, {
 				method: "POST",
 				headers: {
@@ -118,18 +116,18 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const logoutUser = async () => {
 		try {
 			const res = await fetch(ApiEndpoints.user.auth.LOGOUT, {
-				credentials: "include",
+				credentials: "include"
 			});
 
 			if (!res.ok) throw new Error("Something is wrong");
-			
+
 			setIsAuthenticated(false);
 			setUser(undefined);
 			setCsrfToken("");
 			nagivate("/auth/login/");
 		} catch (err) {
 			throw err;
-		};
+		}
 	};
 
 	createEffect(async () => {
@@ -145,7 +143,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		loading: loading,
 		handleEmailVerification: handleEmailVerification,
 		handleOTPVerification: handleOTPVerification,
-		logoutUser: logoutUser,
+		logoutUser: logoutUser
 	};
 
 	return <AuthContext.Provider value={context_value}>{props.children}</AuthContext.Provider>;

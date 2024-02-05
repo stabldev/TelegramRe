@@ -27,41 +27,36 @@ export const ChatSidebar = () => {
 				</div>
 				<img
 					src={IS_DM ? activeRoom()?.member[0].avatar ?? "" : ""}
-					class="object-cover w-full h-56"
+					class="h-56 w-full object-cover"
 				/>
-				<div class="flex flex-col text-white p-3">
-                    <div class="flex items-center gap-2">
-						<span class="font-medium md:text-lg">
-							{IS_DM ? activeRoom()?.member[0].full_name : activeRoom()?.name}
-						</span>
+				<div class="flex flex-col p-3 text-white">
+					<div class="flex items-center gap-2">
+						<span class="font-medium md:text-lg">{IS_DM ? activeRoom()?.member[0].full_name : activeRoom()?.name}</span>
 						<Show when={activeRoom()?.member[0].is_verified}>
 							<Verified class="text-xl text-blue-500" />
 						</Show>
 					</div>
-                    <Show when={IS_DM}>
-						<span class="text-stone-400 text-sm">
-							{onlineUsers()?.some((onlineUser) =>
-								onlineUser.user === activeRoom()?.member[0].id) ? "Online" : "Offline"}
-						</span>
+					<Show when={IS_DM}>
+						<span class="text-sm text-stone-400">{onlineUsers()?.some((onlineUser) => onlineUser.user === activeRoom()?.member[0].id) ? "Online" : "Offline"}</span>
 					</Show>
 
-                    <div class="grid grid-cols-8 mt-3">
-                        <At class="col-span-1 size-6 self-center text-stone-400" />
-                        <div class="flex flex-col col-span-7">
-                            <span>{IS_DM ? activeRoom()?.member[0].username : activeRoom()?.name}</span>
-                            <span class="text-stone-400 text-sm select-none">Username</span>
-                        </div>
-                    </div>
-                    <Show when={IS_DM}>
-						<div class="grid grid-cols-8 mt-2">
+					<div class="mt-3 grid grid-cols-8">
+						<At class="col-span-1 size-6 self-center text-stone-400" />
+						<div class="col-span-7 flex flex-col">
+							<span>{IS_DM ? activeRoom()?.member[0].username : activeRoom()?.name}</span>
+							<span class="select-none text-sm text-stone-400">Username</span>
+						</div>
+					</div>
+					<Show when={IS_DM}>
+						<div class="mt-2 grid grid-cols-8">
 							<Info class="col-span-1 size-[1.4rem] self-center text-stone-400" />
-							<div class="flex flex-col col-span-7">
+							<div class="col-span-7 flex flex-col">
 								<span>{activeRoom()?.member[0].bio}</span>
-								<span class="text-stone-400 text-sm select-none">Bio</span>
+								<span class="select-none text-sm text-stone-400">Bio</span>
 							</div>
 						</div>
 					</Show>
-                </div>
+				</div>
 			</div>
 		</>
 	);
