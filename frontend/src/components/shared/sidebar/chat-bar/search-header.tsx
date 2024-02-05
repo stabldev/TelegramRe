@@ -1,12 +1,17 @@
-import { Component } from "solid-js";
-import Menu from "~/icons/menu";
 import Search from "~/icons/search";
 import UserSettings from "~/icons/settings/user";
 
-export const SearchHeader: Component = () => {
+type Props = {
+	toggleView: () => void;
+};
+
+export const SearchHeader = (props: Props) => {
 	return (
 		<div class="flex h-12 items-center gap-3 px-3">
-			<button class="text-xl text-white/50 transition-colors hover:text-white/75">
+			<button
+				onClick={props.toggleView}
+				class="text-xl text-white/50 transition-colors hover:text-white/75"
+			>
 				<UserSettings />
 			</button>
 			<form class="relative flex w-full items-center">
