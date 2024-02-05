@@ -7,6 +7,7 @@ from .views import (
     register_email_verification_view,
     otp_verification_view,
     who_am_i_view,
+    logout_view,
     UserDetailView,
     SearchUserView,
 )
@@ -26,6 +27,7 @@ urlpatterns = [
         path("register-email-verification/", register_email_verification_view, name="register-email-verification"),
         path("otp-verification/", otp_verification_view, name="otp-verification"),
         path("who_am_i/", who_am_i_view, name="who_am_i"),
+        path("logout/", logout_view, name="logout"),
     ])),
 ]
 # fmt: on

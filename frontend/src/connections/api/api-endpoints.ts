@@ -16,6 +16,7 @@ const ApiEndpoints = {
             REGISTER_EMAIL_VERIFICATION: API_URL + "/v1/user/auth/register-email-verification/",
             OTP_VERIFICATION: API_URL + "/v1/user/auth/otp-verification/",
             WHO_AM_I: API_URL + "/v1/user/auth/who_am_i/",
+            LOGOUT: API_URL + "/v1/user/auth/logout/",
         }
     }
 };
