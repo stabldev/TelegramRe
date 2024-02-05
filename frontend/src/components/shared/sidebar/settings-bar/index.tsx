@@ -4,6 +4,8 @@ import { useChat } from "~/context/chat";
 import Photo from "~/icons/photo";
 import At from "~/icons/at";
 import Info from "~/icons/info";
+import Verified from "~/icons/verified";
+import { Show } from "solid-js";
 
 type Props = {
     toggleView: () => void;
@@ -28,9 +30,14 @@ export const SettingsBar = (props: Props) => {
                     </button>
                 </div>
                 <div class="flex flex-col text-white p-3">
-                    <span class="font-medium md:text-lg">
-                    {user()?.first_name + " " + user()?.last_name}
-                    </span>
+                    <div class="flex items-center gap-2">
+                        <span class="font-medium md:text-lg">
+                            {user()?.first_name + " " + user()?.last_name}
+                        </span>
+						<Show when={user()?.is_verified}>
+							<Verified class="text-xl text-blue-500" />
+						</Show>
+					</div>
                     <span class="text-stone-400 text-sm">
                         {onlineUsers()?.some((onlineUser) => onlineUser.user === user()?.id) ? "Online" : "Offline"}
                     </span>
@@ -42,7 +49,7 @@ export const SettingsBar = (props: Props) => {
                             <span class="text-stone-400 text-sm select-none">Username</span>
                         </div>
                     </div>
-                    <div class="grid grid-cols-8 mt-3">
+                    <div class="grid grid-cols-8 mt-2">
                         <Info class="col-span-1 size-[1.4rem] self-center text-stone-400" />
                         <div class="flex flex-col col-span-7">
                             <span>{user()?.bio}</span>

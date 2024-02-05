@@ -9,7 +9,7 @@ class ChatMemberSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ["id", "username", "full_name", "is_verified", "avatar"]
+        fields = ["id", "username", "full_name", "is_verified", "avatar", "bio"]
 
     def get_full_name(self, obj):
         return obj.get_full_name()
