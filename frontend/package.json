@@ -14,7 +14,7 @@
 		"@solid-primitives/event-dispatcher": "^0.0.105",
 		"@solid-primitives/intersection-observer": "^2.1.4",
 		"@typescript-eslint/eslint-plugin": "^6.20.0",
-		"@typescript-eslint/parser": "^6.20.0",
+		"@typescript-eslint/parser": "^6.21.0",
 		"autoprefixer": "^10.4.17",
 		"clsx": "^2.1.0",
 		"eslint": "^8.56.0",
