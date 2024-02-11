@@ -56,15 +56,28 @@ export const ChatScreen: Component = () => {
 
 	let chatAreaRef: HTMLDivElement;
 
-	const handleAddMessage = (e: CustomEvent) => {
-		const message = e.detail;
-		socket()!.send(
-			JSON.stringify({
+	const handleAddMessage = (e: CustomEvent<{
+		content: string | File;
+		type: string
+	}>) => {
+		const { content, type } = e.detail;
+
+		// socket()!.send(
+		// 	JSON.stringify({
+		// 		action: "message",
+		// 		type: type,
+		// 		content: content,
+		// 		room_id: activeRoom()?.room_id
+		// 	})
+		// );
+		console.log(
+			{
 				action: "message",
-				message: message,
+				type: type,
+				content: content,
 				room_id: activeRoom()?.room_id
-			})
-		);
+			}
+		)
 	};
 
 	return (

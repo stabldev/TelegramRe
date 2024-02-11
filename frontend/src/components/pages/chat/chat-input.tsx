@@ -8,7 +8,7 @@ import Clip from "~/icons/clip";
 import { ChatFileModal } from "~/components/shared/chat/chat-file-modal";
 
 interface Props {
-	onMessage: (e: CustomEvent<string>) => void;
+	onMessage: (e: CustomEvent) => void;
 }
 
 export const ChatInput = (props: Props) => {
@@ -24,9 +24,17 @@ export const ChatInput = (props: Props) => {
 		// if no value then dont add empty message
 		if (!message()) return;
 		// else dispatch custom event
-		dispatch("message", message(), { cancelable: true });
+		const detail = {
+			content: message(),
+			type: "text",
+		};
+		dispatch("message", detail, { cancelable: true });
 		setMessage(""); // clear input
 		inputRef.focus();
+	};
+
+	const handleFileSubmit = (e: CustomEvent) => {
+		dispatch("message", e.detail, { cancelable: true });
 	};
 
 	const handleKeyDown = (e: KeyboardEvent) => {
@@ -48,6 +56,7 @@ export const ChatInput = (props: Props) => {
 				<ChatFileModal
 					file={file()!}
 					onModalClose={() => setShowFileModel(false)}
+					onFileSubmit={handleFileSubmit}
 				/>
 			</Show>
 			<form

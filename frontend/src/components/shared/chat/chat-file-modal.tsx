@@ -2,10 +2,12 @@ import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import { createEffect, createSignal, onCleanup, onMount } from "solid-js";
 import TextareaAutosize from "solid-textarea-autosize";
 import Close from "~/icons/close";
+import { filesize } from "filesize";
 
 type Props = {
     file: File;
     onModalClose: () => void;
+    onFileSubmit: (e: CustomEvent) => void;
 };
 
 export const ChatFileModal = (props: Props) => {
@@ -13,7 +15,9 @@ export const ChatFileModal = (props: Props) => {
 	const [caption, setCaption] = createSignal("");
 
     const dispatch = createEventDispatcher(props);
+
     let ref: HTMLDivElement;
+    let inputRef: HTMLTextAreaElement;
 
     const handleFileClose = () => {
 		setPreview("");
@@ -28,7 +32,25 @@ export const ChatFileModal = (props: Props) => {
         };
     };
 
+    const handleFileSubmit = (e?: SubmitEvent) => {
+        e?.preventDefault();
+        const detail = {
+            content: props.file,
+            type: "image",
+        };
+
+        dispatch("fileSubmit", detail);
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+		if (e.key === "Enter" && !e.shiftKey) {
+			e.preventDefault();
+			handleFileSubmit();
+		}
+	};
+
     onMount(() => {
+        inputRef.focus();
         document.addEventListener('click', handleOutsideClick);
     });
 
@@ -49,7 +71,7 @@ export const ChatFileModal = (props: Props) => {
         <div class="absolute inset-0 grid place-items-center">
             <div
                 ref={ref!}
-                class="w-96 bg-stone-800 text-stone-100 rounded-xl flex flex-col gap-2"
+                class="bg-stone-900 text-stone-100 rounded-xl flex flex-col gap-2"
             >
                 <div class="flex items-center justify-between md:p-2 md:pl-3">
                     <span class="font-medium">Send File</span>
@@ -57,23 +79,37 @@ export const ChatFileModal = (props: Props) => {
                         <Close />
                     </button>
                 </div>
-                <img
-                    src={preview()}
-                    alt={props.file.name}
-                    class="h-56 w-max rounded-md self-center object-contain"
-                />
-                <div class="p-2 md:pl-3 flex items-center gap-2">
+                <div class="flex items-center gap-3 px-3">
+                    <img
+                        src={preview()}
+                        alt={props.file.name}
+                        class="rounded-md size-16 object-cover flex-shrink-0"
+                    />
+                    <div class="flex flex-col">
+                        <span>{props.file.name}</span>
+                        <span class="text-sm text-stone-300">{filesize(props.file.size, {standard: "jedec"})}</span>
+                    </div>
+                </div>
+                <form
+                    onSubmit={handleFileSubmit}
+                    class="p-2 md:pl-3 flex items-center gap-2"
+                >
                     <TextareaAutosize
+                        ref={inputRef!}
                         value={caption()}
                         onInput={(e) => setCaption(e.currentTarget.value)}
+                        onKeyDown={handleKeyDown}
                         class="flex-1 resize-none border-none bg-transparent text-sm text-white outline-none [scrollbar-width:none]"
                         placeholder="Add a caption..."
                         maxRows={5}
                     />
-                    <button class="bg-blue-500 rounded-lg p-2 px-4 text-sm uppercase font-medium self-end">
+                    <button
+                        type="submit"
+                        class="bg-blue-500 rounded-lg p-2 px-4 text-sm uppercase font-medium self-end"
+                    >
                         Send
                     </button>
-                </div>
+                </form>
             </div>
         </div>
     )
