@@ -1,5 +1,5 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
-import { createSignal, onCleanup, onMount } from "solid-js";
+import { createEffect, createSignal, onCleanup, onMount } from "solid-js";
 import TextareaAutosize from "solid-textarea-autosize";
 import Close from "~/icons/close";
 
@@ -29,19 +29,21 @@ export const ChatFileModal = (props: Props) => {
     };
 
     onMount(() => {
-        if (props.file instanceof File) {
-			const objectUrl = URL.createObjectURL(props.file);
-			setPreview(objectUrl);
-	
-			return () => URL.revokeObjectURL(objectUrl);
-		};
-
         document.addEventListener('click', handleOutsideClick);
     });
 
     onCleanup(() => {
         document.removeEventListener('click', handleOutsideClick);
     });
+
+    createEffect(() => {
+        if (props.file instanceof File) {
+			const objectUrl = URL.createObjectURL(props.file);
+			setPreview(objectUrl);
+	
+			return () => URL.revokeObjectURL(objectUrl);
+		};
+    }, []);
 
     return (
         <div class="absolute inset-0 grid place-items-center">
