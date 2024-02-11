@@ -5,13 +5,17 @@ import Emoji from "~/icons/emoji";
 import Mic from "~/icons/mic";
 import Send from "~/icons/send";
 import Clip from "~/icons/clip";
+import { ChatFileModal } from "~/components/shared/chat/chat-file-modal";
 
 interface Props {
 	onMessage: (e: CustomEvent<string>) => void;
 }
 
 export const ChatInput = (props: Props) => {
-	const [message, setMessage] = createSignal<string>("");
+	const [message, setMessage] = createSignal("");
+	const [showFileModel, setShowFileModel] = createSignal(false);
+	const [file, setFile] = createSignal<File>();
+
 	const dispatch = createEventDispatcher(props);
 	let inputRef: HTMLTextAreaElement;
 
@@ -32,43 +36,58 @@ export const ChatInput = (props: Props) => {
 		}
 	};
 
+	const handleFileChange = (e: Event) => {
+		const target = e.target as HTMLInputElement;
+		if (target.files) setFile(target.files[0]);
+		setShowFileModel(true);
+	};
+
 	return (
-		<form
-			onSubmit={handleSubmit}
-			class="absolute bottom-0 flex w-full items-end gap-3 bg-stone-900 p-3"
-		>
-			<button
-				type="button"
-				class="text-2xl text-white/50 transition-colors hover:text-white/75"
+		<>
+			<Show when={showFileModel()}>
+				<ChatFileModal
+					file={file()!}
+					onModalClose={() => setShowFileModel(false)}
+				/>
+			</Show>
+			<form
+				onSubmit={handleSubmit}
+				class="absolute bottom-0 flex w-full items-end gap-3 bg-stone-900 p-3"
 			>
-				<Clip />
-			</button>
-			<TextareaAutosize
-				ref={(ref) => (inputRef = ref)}
-				value={message()}
-				onInput={(e) => setMessage(e.currentTarget.value)}
-				onKeyDown={handleKeyDown}
-				class="flex-1 resize-none border-none bg-transparent text-sm text-white outline-none [scrollbar-width:none]"
-				placeholder="Write a message..."
-				maxRows={5}
-			/>
-			<button
-				type="button"
-				class="text-xl text-white/50 transition-colors hover:text-white/75"
-			>
-				<Emoji />
-			</button>
-			<button
-				type="submit"
-				class="text-xl text-white/50 transition-colors hover:text-white/75"
-			>
-				<Show
-					when={message()}
-					fallback={<Mic />}
+				<input type="file" id="file-input" class="hidden" onChange={handleFileChange} />
+				<label
+					for="file-input"
+					class="cursor-pointer text-2xl text-white/50 transition-colors hover:text-white/75"
 				>
-					<Send />
-				</Show>
-			</button>
-		</form>
+					<Clip />
+				</label>
+				<TextareaAutosize
+					ref={(ref) => (inputRef = ref)}
+					value={message()}
+					onInput={(e) => setMessage(e.currentTarget.value)}
+					onKeyDown={handleKeyDown}
+					class="flex-1 resize-none border-none bg-transparent text-sm text-white outline-none [scrollbar-width:none]"
+					placeholder="Write a message..."
+					maxRows={5}
+				/>
+				<button
+					type="button"
+					class="text-xl text-white/50 transition-colors hover:text-white/75"
+				>
+					<Emoji />
+				</button>
+				<button
+					type="submit"
+					class="text-xl text-white/50 transition-colors hover:text-white/75"
+				>
+					<Show
+						when={message()}
+						fallback={<Mic />}
+					>
+						<Send />
+					</Show>
+				</button>
+			</form>
+		</>
 	);
 };
