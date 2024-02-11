@@ -1,6 +1,7 @@
 from django.db import models
 from shortuuidfield import ShortUUIDField
 from apps.user.models import CustomUser
+from dynamic_filenames import FilePattern
 
 
 class ChatRoom(models.Model):
@@ -14,11 +15,18 @@ class ChatRoom(models.Model):
 
 
 class ChatMessage(models.Model):
+    class ChatType(models.IntegerChoices):
+        TXT = 1, "text"
+        IMG = 2, "image"
+        VID = 3, "video"
+
+    type = models.CharField(max_length=10, choices=ChatType.choices, default=ChatType.TXT)
     room = models.ForeignKey(
         ChatRoom, on_delete=models.SET_NULL, null=True, related_name="chat_message"
     )
     sender = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
-    content = models.TextField()
+    content = models.TextField(null=True, blank=True)
+    file = models.FileField(upload_to="chat_files/", null=True, blank=True)
     is_read = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
 
