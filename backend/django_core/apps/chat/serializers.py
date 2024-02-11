@@ -18,7 +18,7 @@ class ChatMemberSerializer(serializers.ModelSerializer):
 class ChatMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatMessage
-        fields = ["id", "room", "sender", "content", "is_read", "timestamp"]
+        fields = ["id", "type", "room", "sender", "content", "file", "is_read", "timestamp"]
 
 
 class ChatRoomSerializer(serializers.ModelSerializer):

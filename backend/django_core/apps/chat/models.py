@@ -15,10 +15,10 @@ class ChatRoom(models.Model):
 
 
 class ChatMessage(models.Model):
-    class ChatType(models.IntegerChoices):
-        TXT = 1, "text"
-        IMG = 2, "image"
-        VID = 3, "video"
+    class ChatType(models.TextChoices):
+        TXT = "text", "text"
+        IMG = "image", "image"
+        VID = "video", "video"
 
     type = models.CharField(max_length=10, choices=ChatType.choices, default=ChatType.TXT)
     room = models.ForeignKey(

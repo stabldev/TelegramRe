@@ -41,30 +41,40 @@ export const ChatBubble = (props: Props) => {
 			ref={(ref) => {
 				el = ref;
 			}}
-			class="flex w-max gap-2 rounded-lg px-3 py-1 text-white"
+			class="flex flex-col w-max gap-2 rounded-lg px-3 py-1 text-white overflow-hidden"
 			classList={{
 				"bg-blue-500": self(),
-				"bg-stone-800": !self()
+				"bg-stone-800": !self(),
+				"!p-0": message().type === "image",
 			}}
 		>
-			<span class="self-center whitespace-pre-line text-[0.8rem]">{message().content}</span>
-			<span class="select-none self-end text-[0.7rem] uppercase leading-none text-white/80">{formatedDate}</span>
-			<Show when={self()}>
-				<Show
-					when={message().is_read}
-					fallback={
-						<Tick
-							variant="single"
-							class="self-end text-sm text-white"
-						/>
-					}
-				>
-					<Tick
-						variant="double"
-						class="self-end text-base text-white"
-					/>
-				</Show>
+			<Show when={message().type == "image"}>
+				<img
+					src={message().file!}
+					alt="Image"
+					class="w-60 cursor-pointer"
+				/>
 			</Show>
+			<div class="flex gap-2 w-full" classList={{ "px-3 pb-1": message().type === "image" }}>
+				<span class="whitespace-pre-line text-[0.8rem]">{message().content}</span>
+				<span class="select-none self-end ml-auto text-[0.7rem] uppercase leading-none text-white/80">{formatedDate}</span>
+				<Show when={self()}>
+					<Show
+						when={message().is_read}
+						fallback={
+							<Tick
+								variant="single"
+								class="self-end text-sm text-white"
+							/>
+						}
+					>
+						<Tick
+							variant="double"
+							class="self-end text-base text-white"
+						/>
+					</Show>
+				</Show>
+			</div>
 		</div>
 	);
 };
