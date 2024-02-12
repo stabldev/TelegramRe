@@ -8,10 +8,14 @@ from .serializers import ChatMessageSerializer, OnlineUserSerializer
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
-    def save_message(self, room_id, message):
+    def save_message(self, room_id, content, type):
         chat_room = ChatRoom.objects.get(room_id=room_id)
         chat_message = ChatMessage.objects.create(
-            room=chat_room, sender=self.user, content=message
+            room=chat_room,
+            sender=self.user,
+            type=type,
+            content=content["message"],
+            file=content["file"],
         )
         serializer = ChatMessageSerializer(chat_message, many=False)
         return {
@@ -89,8 +93,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
         send_message = {}
 
         if action == "message":
-            message = data["message"]
-            send_message = await database_sync_to_async(self.save_message)(room_id, message)
+            content = data["content"]
+            type = data["type"]
+            send_message = await database_sync_to_async(self.save_message)(room_id, content, type)
         elif action == "read_room":
             await database_sync_to_async(self.read_room)(room_id)
             send_message = {

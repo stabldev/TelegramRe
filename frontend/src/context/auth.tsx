@@ -6,6 +6,7 @@ import { User } from "~/types/user.types";
 type AuthType = "login" | "register";
 
 type AuthStore = {
+	csrfToken: Accessor<string>;
 	loading: Accessor<boolean>;
 	user: Accessor<User | undefined>;
 	isAuthenticated: Accessor<boolean>;
@@ -29,11 +30,10 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 			credentials: "include"
 		});
 		const data = await res.json();
+		initializeCSRF();
 		if (data.isAuthenticated) {
 			setIsAuthenticated(true);
-		} else {
-			initializeCSRF();
-		}
+		};
 	};
 
 	const initializeCSRF = async () => {
@@ -138,6 +138,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	});
 
 	const context_value: AuthStore = {
+		csrfToken: csrfToken,
 		user: user,
 		isAuthenticated: isAuthenticated,
 		loading: loading,

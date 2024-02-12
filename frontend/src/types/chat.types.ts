@@ -1,8 +1,10 @@
 export type ChatMessage = {
 	id: number;
+	type: "text" | "image" | "video";
 	room: number;
 	sender: number;
 	content: string;
+	file: string | null;
 	is_read: boolean;
 	timestamp: string;
 };

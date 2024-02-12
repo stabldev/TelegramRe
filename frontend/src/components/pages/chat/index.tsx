@@ -56,17 +56,6 @@ export const ChatScreen: Component = () => {
 
 	let chatAreaRef: HTMLDivElement;
 
-	const handleAddMessage = (e: CustomEvent) => {
-		const message = e.detail;
-		socket()!.send(
-			JSON.stringify({
-				action: "message",
-				message: message,
-				room_id: activeRoom()?.room_id
-			})
-		);
-	};
-
 	return (
 		<div class="relative grid grid-rows-[min-content_1fr]">
 			<ChatHeader />
@@ -76,7 +65,7 @@ export const ChatScreen: Component = () => {
 					ref={chatAreaRef!}
 				/>
 			</Show>
-			<ChatInput onMessage={handleAddMessage} />
+			<ChatInput />
 		</div>
 	);
 };
