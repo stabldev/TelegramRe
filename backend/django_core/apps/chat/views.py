@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpRequest, JsonResponse
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework.views import APIView
+from rest_framework import mixins, generics
+from rest_framework.response import Response
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 
 from .models import ChatRoom, ChatMessage
 from ..user.models import OnlineUser
@@ -21,7 +25,11 @@ class ChatRoomListView(ListAPIView):
         return chat_rooms
 
 
-class ChatMessageListView(ListAPIView):
+class ChatMessageView (
+    mixins.ListModelMixin,
+    mixins.CreateModelMixin,
+    generics.GenericAPIView
+):
     serializer_class = ChatMessageSerializer
     model = ChatMessage
 
@@ -29,6 +37,31 @@ class ChatMessageListView(ListAPIView):
         room_id = self.kwargs["room_id"]
         chat_messages = self.model.objects.filter(room__room_id=room_id)
         return chat_messages
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        response = self.create(request, *args, **kwargs)
+
+        if response.status_code == 201:
+            channel_layer = get_channel_layer()
+            new_message = response.data
+            room = ChatRoom.objects.get(pk=new_message["room"])
+            
+            async_to_sync(channel_layer.group_send)(
+                room.room_id,
+                {
+                    "type": "send_message",
+                    "message": {
+                        "action": "message",
+                        "message": new_message,
+                    },
+                }
+            )
+
+        return response
+
 
 class ReadRoomChatMessages(APIView):
     def get(self, request, *args, **kwargs):

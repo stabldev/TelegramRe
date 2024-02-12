@@ -25,7 +25,10 @@ export const ChatInput = (props: Props) => {
 		if (!message()) return;
 		// else dispatch custom event
 		const detail = {
-			content: message(),
+			content: {
+				file: null,
+				message: message(),
+			},
 			type: "text",
 		};
 		dispatch("message", detail, { cancelable: true });

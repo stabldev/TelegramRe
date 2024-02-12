@@ -57,27 +57,41 @@ export const ChatScreen: Component = () => {
 	let chatAreaRef: HTMLDivElement;
 
 	const handleAddMessage = (e: CustomEvent<{
-		content: string | File;
-		type: string
+		content: {
+			file: File | null;
+			message: string;
+		};
+		type: "text" | "image";
 	}>) => {
 		const { content, type } = e.detail;
 
-		// socket()!.send(
-		// 	JSON.stringify({
-		// 		action: "message",
-		// 		type: type,
-		// 		content: content,
-		// 		room_id: activeRoom()?.room_id
-		// 	})
-		// );
-		console.log(
-			{
-				action: "message",
-				type: type,
-				content: content,
-				room_id: activeRoom()?.room_id
-			}
-		)
+		if (type === "text") {
+			socket()!.send(
+				JSON.stringify({
+					action: "message",
+					type: type,
+					content: content,
+					room_id: activeRoom()?.room_id
+				})
+			);
+		} else if (type === "image") {
+			if (!content.file) return;
+
+			if (content.file.size > 10000000) {
+				console.log("File should be smaller than 1MB");
+				return;
+			};
+
+			let reader = new FileReader();
+			let rawData = new ArrayBuffer(content.file.size);
+
+			reader.onload = function(e) {
+				if (e.target?.result) rawData = e.target.result as ArrayBuffer;
+				console.log(rawData, "Here");
+			};
+
+			reader.readAsArrayBuffer(content.file);
+		};
 	};
 
 	return (

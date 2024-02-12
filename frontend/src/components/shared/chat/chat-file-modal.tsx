@@ -35,7 +35,10 @@ export const ChatFileModal = (props: Props) => {
     const handleFileSubmit = (e?: SubmitEvent) => {
         e?.preventDefault();
         const detail = {
-            content: props.file,
+            content: {
+                file: props.file,
+                message: caption(),
+            },
             type: "image",
         };
 
