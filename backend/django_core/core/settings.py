@@ -200,7 +200,6 @@ SESSION_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_HTTPONLY = True
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
 
@@ -209,7 +208,6 @@ CSRF_TRUSTED_ORIGINS = [
 # SESSION_COOKIE_SECURE = True
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
 CORS_EXPOSE_HEADERS = ["Content-Type", "X-CSRFToken"]

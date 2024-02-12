@@ -24,7 +24,6 @@ class ChatRoomListView(ListAPIView):
         ).distinct()
         return chat_rooms
 
-
 class ChatMessageView (
     mixins.ListModelMixin,
     mixins.CreateModelMixin,

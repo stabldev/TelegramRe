@@ -1,22 +1,23 @@
 import { Show, createSignal } from "solid-js";
-import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import TextareaAutosize from "solid-textarea-autosize";
 import Emoji from "~/icons/emoji";
 import Mic from "~/icons/mic";
 import Send from "~/icons/send";
 import Clip from "~/icons/clip";
 import { ChatFileModal } from "~/components/shared/chat/chat-file-modal";
+import { useChat } from "~/context/chat";
+import ApiEndpoints from "~/connections/api/api-endpoints";
+import { useAuth } from "~/context/auth";
 
-interface Props {
-	onMessage: (e: CustomEvent) => void;
-}
 
-export const ChatInput = (props: Props) => {
+export const ChatInput = () => {
+	const { socket, activeRoom } = useChat();
+	const { csrfToken, user } = useAuth();
+
 	const [message, setMessage] = createSignal("");
 	const [showFileModel, setShowFileModel] = createSignal(false);
 	const [file, setFile] = createSignal<File>();
 
-	const dispatch = createEventDispatcher(props);
 	let inputRef: HTMLTextAreaElement;
 
 	const handleSubmit = (e?: SubmitEvent) => {
@@ -31,13 +32,54 @@ export const ChatInput = (props: Props) => {
 			},
 			type: "text",
 		};
-		dispatch("message", detail, { cancelable: true });
+
+		socket()!.send(
+			JSON.stringify({
+				action: "message",
+				type: detail.type,
+				content: detail.content,
+				room_id: activeRoom()?.room_id
+			})
+		);
+
 		setMessage(""); // clear input
 		inputRef.focus();
 	};
 
-	const handleFileSubmit = (e: CustomEvent) => {
-		dispatch("message", e.detail, { cancelable: true });
+	const handleFileSubmit = async (e: CustomEvent<{
+		type: string;
+		content: {
+			file: File;
+			message: string;
+		}
+	}>) => {
+		try {
+			const { type, content } = e.detail;
+
+			const formData = new FormData();
+			formData.append("type", type);
+			formData.append("room", activeRoom()?.id);
+			formData.append("sender", user()?.id);
+			formData.append("content", content.message);
+			formData.append("file", content.file);
+
+			const res = await fetch(ApiEndpoints.chat.CHAT_ROOMS + activeRoom()?.room_id + "/", {
+				method: "POST",
+				headers: {
+					"X-CSRFToken": csrfToken(),
+				},
+				credentials: "include",
+				body: formData,
+			});
+
+			if (!res.ok) {
+				throw new Error(res.statusText);
+			};
+		} catch (err) {
+			throw err;
+		} finally {
+			setShowFileModel(false);
+		};
 	};
 
 	const handleKeyDown = (e: KeyboardEvent) => {

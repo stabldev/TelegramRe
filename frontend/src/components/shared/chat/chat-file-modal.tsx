@@ -13,16 +13,21 @@ type Props = {
 export const ChatFileModal = (props: Props) => {
 	const [preview, setPreview] = createSignal("");
 	const [caption, setCaption] = createSignal("");
+    const [sending, setSending] = createSignal(false);
 
     const dispatch = createEventDispatcher(props);
 
     let ref: HTMLDivElement;
     let inputRef: HTMLTextAreaElement;
 
-    const handleFileClose = () => {
+    const handleCleanComponent = () => {
+        setSending(false);
 		setPreview("");
         setCaption("");
+    };
 
+    const handleFileClose = () => {
+        handleCleanComponent();
         dispatch("modalClose");
 	};
 
@@ -33,6 +38,7 @@ export const ChatFileModal = (props: Props) => {
     };
 
     const handleFileSubmit = (e?: SubmitEvent) => {
+        setSending(true);
         e?.preventDefault();
         const detail = {
             content: {
@@ -58,6 +64,7 @@ export const ChatFileModal = (props: Props) => {
     });
 
     onCleanup(() => {
+        handleCleanComponent();
         document.removeEventListener('click', handleOutsideClick);
     });
 
@@ -107,8 +114,9 @@ export const ChatFileModal = (props: Props) => {
                         maxRows={5}
                     />
                     <button
+                        disabled={sending()}
                         type="submit"
-                        class="bg-blue-500 rounded-lg p-2 px-4 text-sm uppercase font-medium self-end"
+                        class="bg-blue-500 rounded-lg p-2 px-4 text-sm uppercase font-medium self-end disabled:opacity-75 duration-150"
                     >
                         Send
                     </button>
