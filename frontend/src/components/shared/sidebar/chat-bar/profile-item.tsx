@@ -94,8 +94,7 @@ export const ProfileItem = (props: ChatRoom) => {
 								fallback={
 									<Tick
 										variant="single"
-										class="md:size-4 flex-shrink-0 text-blue-300"
-										classList={{ "!text-white": isActive() }}
+										class="md:size-4 flex-shrink-0"
 									/>
 								}
 							>
