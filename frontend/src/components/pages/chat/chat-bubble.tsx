@@ -41,7 +41,7 @@ export const ChatBubble = (props: Props) => {
 			ref={(ref) => {
 				el = ref;
 			}}
-			class="flex flex-col w-max gap-1 rounded-lg px-2.5 py-1 text-white overflow-hidden"
+			class="flex flex-col w-max max-w-md gap-1 rounded-lg px-2.5 py-1 text-white overflow-hidden"
 			classList={{
 				"bg-blue-500": self(),
 				"bg-stone-800": !self(),

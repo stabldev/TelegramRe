@@ -8,6 +8,7 @@ import Tick from "~/icons/tick";
 import { ChatRoom } from "~/types/chat.types";
 import { useChat } from "~/context/chat";
 import Verified from "~/icons/verified";
+import Photo from "~/icons/photo";
 
 export const ProfileItem = (props: ChatRoom) => {
 	const { user } = useAuth();
@@ -86,9 +87,29 @@ export const ProfileItem = (props: ChatRoom) => {
 							</div>
 						</Show>
 					</div>
-					<span class="text-xs uppercase">{formated_timestamp}</span>
+					<div class="flex items-center gap-1">
+						<Show when={self_message}>
+							<Show
+								when={message().is_read}
+								fallback={
+									<Tick
+										variant="single"
+										class="md:size-4 flex-shrink-0 text-blue-300"
+										classList={{ "!text-white": isActive() }}
+									/>
+								}
+							>
+								<Tick
+									variant="double"
+									class="md:size-4 flex-shrink-0 text-blue-300"
+									classList={{ "!text-white": isActive() }}
+								/>
+							</Show>
+						</Show>
+						<span class="text-xs uppercase">{formated_timestamp}</span>
+					</div>
 				</div>
-				<div class="flex items-center justify-between md:gap-3">
+				<div class="flex items-center justify-between md:gap-1">
 					<span class="line-clamp-1 text-sm">{message().content}</span>
 					<Show
 						when={self_message}
@@ -98,20 +119,8 @@ export const ProfileItem = (props: ChatRoom) => {
 							</Show>
 						}
 					>
-						<Show
-							when={message().is_read}
-							fallback={
-								<Tick
-									variant="single"
-									class="text-base text-white"
-								/>
-							}
-						>
-							<Tick
-								variant="double"
-								class="text-lg text-blue-300"
-								classList={{ "!text-white": isActive() }}
-							/>
+						<Show when={message().type === "image"}>
+							<Photo class="md:size-4 flex-shrink-0" />
 						</Show>
 					</Show>
 				</div>
