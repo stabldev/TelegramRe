@@ -58,8 +58,8 @@ export const ChatInput = () => {
 
 			const formData = new FormData();
 			formData.append("type", type);
-			formData.append("room", activeRoom()?.id);
-			formData.append("sender", user()?.id);
+			formData.append("room", activeRoom()?.id.toString()!);
+			formData.append("sender", user()?.id.toString()!);
 			formData.append("content", content.message);
 			formData.append("file", content.file);
 
