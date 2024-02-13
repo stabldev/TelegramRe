@@ -66,7 +66,7 @@ export const ChatBubble = (props: Props) => {
 				class="flex gap-1 w-full"
 				classList={{
 					"px-2.5 pb-1": message().type === "image",
-					"absolute bottom-0 right-0 p-1 bg-black/75 w-max rounded-md m-1": message().type === "gif",
+					"absolute bottom-0 right-0 p-1 bg-black/50 w-max rounded-md m-1": message().type === "gif",
 				}}
 			>
 				<span class="whitespace-pre-line text-[0.8rem] leading-snug">{message().content}</span>
