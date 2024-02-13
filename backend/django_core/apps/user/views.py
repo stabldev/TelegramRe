@@ -103,11 +103,15 @@ def who_am_i_view(request: HttpRequest):
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
+
 def logout_view(request: HttpRequest):
     if not request.user.is_authenticated:
-        return JsonResponse({ "detail": "User isn't authenticated" }, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse(
+            {"detail": "User isn't authenticated"}, status=status.HTTP_400_BAD_REQUEST
+        )
     logout(request)
-    return JsonResponse({ "detail": "User logout successfully" })
+    return JsonResponse({"detail": "User logout successfully"})
+
 
 # Class-based views
 class UserDetailView(generics.RetrieveUpdateAPIView):

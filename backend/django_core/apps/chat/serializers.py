@@ -18,7 +18,16 @@ class ChatMemberSerializer(serializers.ModelSerializer):
 class ChatMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatMessage
-        fields = ["id", "type", "room", "sender", "content", "file", "is_read", "timestamp"]
+        fields = [
+            "id",
+            "type",
+            "room",
+            "sender",
+            "content",
+            "file",
+            "is_read",
+            "timestamp",
+        ]
 
 
 class ChatRoomSerializer(serializers.ModelSerializer):
@@ -38,6 +47,7 @@ class ChatRoomSerializer(serializers.ModelSerializer):
     def get_unreads(self, obj):
         unreads = obj.chat_message.filter(is_read=False).count()
         return unreads
+
 
 class OnlineUserSerializer(serializers.ModelSerializer):
     class Meta:

@@ -24,10 +24,9 @@ class ChatRoomListView(ListAPIView):
         ).distinct()
         return chat_rooms
 
-class ChatMessageView (
-    mixins.ListModelMixin,
-    mixins.CreateModelMixin,
-    generics.GenericAPIView
+
+class ChatMessageView(
+    mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView
 ):
     serializer_class = ChatMessageSerializer
     model = ChatMessage
@@ -47,7 +46,7 @@ class ChatMessageView (
             channel_layer = get_channel_layer()
             new_message = response.data
             room = ChatRoom.objects.get(pk=new_message["room"])
-            
+
             async_to_sync(channel_layer.group_send)(
                 room.room_id,
                 {
@@ -56,7 +55,7 @@ class ChatMessageView (
                         "action": "message",
                         "message": new_message,
                     },
-                }
+                },
             )
 
         return response
@@ -70,7 +69,8 @@ class ReadRoomChatMessages(APIView):
         for message in unread_messages:
             message.is_read = True
             message.save()
-        return JsonResponse({ "detail": "Messages Readed" })
+        return JsonResponse({"detail": "Messages Readed"})
+
 
 class OnlineUsersView(ListAPIView):
     queryset = OnlineUser.objects.all()
