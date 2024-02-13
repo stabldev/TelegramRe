@@ -88,13 +88,13 @@ export const ProfileItem = (props: ChatRoom) => {
 								fallback={
 									<Tick
 										variant="single"
-										class="md:size-4 flex-shrink-0"
+										class="flex-shrink-0 md:size-4"
 									/>
 								}
 							>
 								<Tick
 									variant="double"
-									class="md:size-4 flex-shrink-0 text-blue-300"
+									class="flex-shrink-0 text-blue-300 md:size-4"
 									classList={{ "!text-white": isActive() }}
 								/>
 							</Show>
@@ -105,7 +105,7 @@ export const ProfileItem = (props: ChatRoom) => {
 				<div class="flex items-center justify-between md:gap-1">
 					<Show
 						when={message().type === "gif"}
-						fallback={ <span class="line-clamp-1 text-sm">{message().content}</span> }
+						fallback={<span class="line-clamp-1 text-sm">{message().content}</span>}
 					>
 						<span class="text-sm">GIF</span>
 					</Show>
@@ -119,9 +119,9 @@ export const ProfileItem = (props: ChatRoom) => {
 					>
 						<Show
 							when={message().type === "image"}
-							fallback={ <Gif class="md:size-4 flex-shrink-0" /> }
+							fallback={<Gif class="flex-shrink-0 md:size-4" />}
 						>
-							<Photo class="md:size-4 flex-shrink-0" />
+							<Photo class="flex-shrink-0 md:size-4" />
 						</Show>
 					</Show>
 				</div>

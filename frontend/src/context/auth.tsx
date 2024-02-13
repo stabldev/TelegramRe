@@ -33,7 +33,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		initializeCSRF();
 		if (data.isAuthenticated) {
 			setIsAuthenticated(true);
-		};
+		}
 	};
 
 	const initializeCSRF = async () => {

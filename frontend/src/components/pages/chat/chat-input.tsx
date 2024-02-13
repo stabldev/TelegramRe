@@ -10,7 +10,6 @@ import ApiEndpoints from "~/connections/api/api-endpoints";
 import { useAuth } from "~/context/auth";
 import { ChatFileTypeSelect } from "~/components/shared/chat/chat-file-type-select";
 
-
 export const ChatInput = () => {
 	const { socket, activeRoom } = useChat();
 	const { csrfToken, user } = useAuth();
@@ -30,9 +29,9 @@ export const ChatInput = () => {
 		const detail = {
 			content: {
 				file: null,
-				message: message(),
+				message: message()
 			},
-			type: "text",
+			type: "text"
 		};
 
 		socket()!.send(
@@ -48,13 +47,15 @@ export const ChatInput = () => {
 		inputRef.focus();
 	};
 
-	const handleFileSubmit = async (e: CustomEvent<{
-		type: string;
-		content: {
-			file: File;
-			message: string;
-		}
-	}>) => {
+	const handleFileSubmit = async (
+		e: CustomEvent<{
+			type: string;
+			content: {
+				file: File;
+				message: string;
+			};
+		}>
+	) => {
 		try {
 			const { type, content } = e.detail;
 
@@ -68,20 +69,20 @@ export const ChatInput = () => {
 			const res = await fetch(ApiEndpoints.chat.CHAT_ROOMS + activeRoom()?.room_id + "/", {
 				method: "POST",
 				headers: {
-					"X-CSRFToken": csrfToken(),
+					"X-CSRFToken": csrfToken()
 				},
 				credentials: "include",
-				body: formData,
+				body: formData
 			});
 
 			if (!res.ok) {
 				throw new Error(res.statusText);
-			};
+			}
 		} catch (err) {
 			throw err;
 		} finally {
 			setShowFileModel(false);
-		};
+		}
 	};
 
 	const handleKeyDown = (e: KeyboardEvent) => {
@@ -114,12 +115,24 @@ export const ChatInput = () => {
 				onSubmit={handleSubmit}
 				class="absolute bottom-0 flex w-full items-end gap-3 bg-stone-900 p-3"
 			>
-				<div class="flex relative">
+				<div class="relative flex">
 					<Show when={showFileTypeSelect()}>
 						<ChatFileTypeSelect onClose={handleToggleShowFileTypeSelect} />
 					</Show>
-					<input type="file" id="image-file-input" accept=".png,.jpg,.jpeg" class="hidden" onChange={handleFileChange} />
-					<input type="file" id="gif-file-input" accept=".gif" class="hidden" onChange={handleFileChange} />
+					<input
+						type="file"
+						id="image-file-input"
+						accept=".png,.jpg,.jpeg"
+						class="hidden"
+						onChange={handleFileChange}
+					/>
+					<input
+						type="file"
+						id="gif-file-input"
+						accept=".gif"
+						class="hidden"
+						onChange={handleFileChange}
+					/>
 					<button
 						onClick={handleToggleShowFileTypeSelect}
 						class="cursor-pointer text-2xl text-white/50 transition-colors hover:text-white/75"
