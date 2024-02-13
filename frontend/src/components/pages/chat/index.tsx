@@ -7,6 +7,7 @@ import { useChat } from "~/context/chat";
 import { OnlineUser } from "~/types/user.types";
 import SocketActions from "~/connections/socket/socket-actions";
 import ApiEndpoints from "~/connections/api/api-endpoints";
+import { makeCache } from "@solid-primitives/resource";
 
 async function fetchMessages({ room_id }: { room_id: string }) {
 	const url = ApiEndpoints.chat.CHAT_ROOMS + room_id + "/";
@@ -17,7 +18,9 @@ async function fetchMessages({ room_id }: { room_id: string }) {
 
 export const ChatScreen: Component = () => {
 	const { socket, activeRoom, setChatRooms, setOnlineUsers } = useChat();
-	const [messages, { mutate }] = createResource(activeRoom, fetchMessages);
+
+	const [cachedFetcher] = makeCache(fetchMessages, { storage: localStorage });
+	const [messages, { mutate }] = createResource(activeRoom, cachedFetcher);
 
 	socket()!.onmessage = function (e: MessageEvent) {
 		const data: {
