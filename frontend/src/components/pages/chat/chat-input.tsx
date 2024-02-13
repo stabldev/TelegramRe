@@ -116,7 +116,7 @@ export const ChatInput = () => {
 				class="absolute bottom-0 flex w-full items-end gap-3 bg-stone-900 p-3"
 			>
 				<div class="flex relative">
-					<Show when={!showFileTypeSelect()}>
+					<Show when={showFileTypeSelect()}>
 						<div class="absolute bottom-11 z-50 w-max select-none overflow-hidden rounded-xl bg-stone-900">
 							<label
 								for="image-file-input"
