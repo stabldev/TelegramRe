@@ -7,20 +7,23 @@ import { useChat } from "~/context/chat";
 import { OnlineUser } from "~/types/user.types";
 import SocketActions from "~/connections/socket/socket-actions";
 import ApiEndpoints from "~/connections/api/api-endpoints";
-import { makeCache } from "@solid-primitives/resource";
-
-async function fetchMessages({ room_id }: { room_id: string }) {
-	const url = ApiEndpoints.chat.CHAT_ROOMS + room_id + "/";
-	const res = await fetch(url, { credentials: "include" });
-	const data = (await res.json()) as ChatMessage[];
-	return data;
-}
+import { makeCache, makeAbortable } from "@solid-primitives/resource";
 
 export const ChatScreen: Component = () => {
 	const { socket, activeRoom, setChatRooms, setOnlineUsers } = useChat();
 
 	const [cachedFetcher] = makeCache(fetchMessages, { storage: localStorage });
+	const [signal] = makeAbortable({ timeout: 10000 });
 	const [messages, { mutate }] = createResource(activeRoom, cachedFetcher);
+
+	async function fetchMessages({ room_id }: { room_id: string }) {
+		const url = ApiEndpoints.chat.CHAT_ROOMS + room_id + "/";
+		const res = await fetch(url, {
+			signal: signal(),
+			credentials: "include"
+		});
+		return await res.json() as ChatMessage[];
+	}
 
 	socket()!.onmessage = function (e: MessageEvent) {
 		const data: {
