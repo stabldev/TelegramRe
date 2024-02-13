@@ -1,6 +1,6 @@
 export type ChatMessage = {
 	id: number;
-	type: "text" | "image" | "video";
+	type: "text" | "image" | "gif";
 	room: number;
 	sender: number;
 	content: string;

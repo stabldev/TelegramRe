@@ -48,7 +48,7 @@ export const ChatBubble = (props: Props) => {
 				"!p-0 !max-w-60": message().type === "image",
 			}}
 		>
-			<Show when={message().type == "image"}>
+			<Show when={message().type == "image" || message().type === "gif"}>
 				<img
 					src={message().file!}
 					alt="Image"

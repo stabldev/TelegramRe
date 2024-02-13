@@ -8,8 +8,7 @@ import { ChatFileModal } from "~/components/shared/chat/chat-file-modal";
 import { useChat } from "~/context/chat";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { useAuth } from "~/context/auth";
-import Photo from "~/icons/photo";
-import Gif from "~/icons/gif";
+import { ChatFileTypeSelect } from "~/components/shared/chat/chat-file-type-select";
 
 
 export const ChatInput = () => {
@@ -117,22 +116,7 @@ export const ChatInput = () => {
 			>
 				<div class="flex relative">
 					<Show when={showFileTypeSelect()}>
-						<div class="absolute bottom-11 z-50 w-max select-none overflow-hidden rounded-xl bg-stone-900">
-							<label
-								for="image-file-input"
-								class="cursor-pointer grid grid-cols-12 gap-2 px-3 py-2 text-start text-stone-300 transition-colors hover:bg-stone-800 hover:text-stone-100"
-							>
-								<Photo class="col-span-2 size-full" />
-								<span class="col-span-10 text-sm font-medium">Send Photo</span>
-							</label>
-							<label
-								for="gif-file-input"
-								class="cursor-pointer grid grid-cols-12 gap-2 px-3 py-2 text-start text-stone-300 transition-colors hover:bg-stone-800 hover:text-stone-100"
-							>
-								<Gif class="col-span-2 size-full" />
-								<span class="col-span-10 text-sm font-medium">Send GIF</span>
-							</label>
-						</div>
+						<ChatFileTypeSelect onClose={handleToggleShowFileTypeSelect} />
 					</Show>
 					<input type="file" id="image-file-input" accept=".png,.jpg,.jpeg" class="hidden" onChange={handleFileChange} />
 					<input type="file" id="gif-file-input" accept=".gif" class="hidden" onChange={handleFileChange} />
