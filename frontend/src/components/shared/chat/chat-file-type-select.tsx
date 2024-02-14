@@ -28,7 +28,7 @@ export const ChatFileTypeSelect = (props: Props) => {
 	return (
 		<div
 			ref={ref!}
-			class="absolute bottom-11 z-50 w-max select-none overflow-hidden rounded-xl bg-stone-900"
+			class="absolute bottom-11 z-50 w-max select-none overflow-hidden rounded-lg bg-stone-900"
 		>
 			<label
 				for="image-file-input"
