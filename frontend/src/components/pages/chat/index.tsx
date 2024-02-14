@@ -22,7 +22,7 @@ export const ChatScreen: Component = () => {
 			signal: signal(),
 			credentials: "include"
 		});
-		return await res.json() as ChatMessage[];
+		return (await res.json()) as ChatMessage[];
 	}
 
 	socket()!.onmessage = function (e: MessageEvent) {

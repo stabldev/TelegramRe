@@ -9,6 +9,7 @@ import { ChatRoom } from "~/types/chat.types";
 import { useChat } from "~/context/chat";
 import Verified from "~/icons/verified";
 import Photo from "~/icons/photo";
+import Gif from "~/icons/gif";
 
 export const ProfileItem = (props: ChatRoom) => {
 	const { user } = useAuth();
@@ -25,13 +26,6 @@ export const ProfileItem = (props: ChatRoom) => {
 
 	const handleChatClick = () => {
 		setActiveRoom(props);
-		// send read message
-		// socket()!.send(
-		// 	JSON.stringify({
-		// 		action: "read_room",
-		// 		room_id: activeRoom()?.room_id
-		// 	})
-		// );
 	};
 
 	createEffect(() => {
@@ -94,13 +88,13 @@ export const ProfileItem = (props: ChatRoom) => {
 								fallback={
 									<Tick
 										variant="single"
-										class="md:size-4 flex-shrink-0"
+										class="flex-shrink-0 md:size-4"
 									/>
 								}
 							>
 								<Tick
 									variant="double"
-									class="md:size-4 flex-shrink-0 text-blue-300"
+									class="flex-shrink-0 text-blue-300 md:size-4"
 									classList={{ "!text-white": isActive() }}
 								/>
 							</Show>
@@ -109,7 +103,12 @@ export const ProfileItem = (props: ChatRoom) => {
 					</div>
 				</div>
 				<div class="flex items-center justify-between md:gap-1">
-					<span class="line-clamp-1 text-sm">{message().content}</span>
+					<Show
+						when={message().type === "gif"}
+						fallback={<span class="line-clamp-1 text-sm">{message().content}</span>}
+					>
+						<span class="text-sm">GIF</span>
+					</Show>
 					<Show
 						when={self_message}
 						fallback={
@@ -118,8 +117,11 @@ export const ProfileItem = (props: ChatRoom) => {
 							</Show>
 						}
 					>
-						<Show when={message().type === "image"}>
-							<Photo class="md:size-4 flex-shrink-0" />
+						<Show
+							when={message().type === "image"}
+							fallback={<Gif class="flex-shrink-0 md:size-4" />}
+						>
+							<Photo class="flex-shrink-0 md:size-4" />
 						</Show>
 					</Show>
 				</div>

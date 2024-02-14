@@ -18,9 +18,11 @@ class ChatMessage(models.Model):
     class ChatType(models.TextChoices):
         TXT = "text", "text"
         IMG = "image", "image"
-        VID = "video", "video"
+        GIF = "gif", "gif"
 
-    type = models.CharField(max_length=10, choices=ChatType.choices, default=ChatType.TXT)
+    type = models.CharField(
+        max_length=10, choices=ChatType.choices, default=ChatType.TXT
+    )
     room = models.ForeignKey(
         ChatRoom, on_delete=models.SET_NULL, null=True, related_name="chat_message"
     )

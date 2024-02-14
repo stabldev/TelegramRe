@@ -29,6 +29,7 @@ class CustomUser(AbstractUser):
 
     objects = UserManager()
 
+
 class OnlineUser(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 

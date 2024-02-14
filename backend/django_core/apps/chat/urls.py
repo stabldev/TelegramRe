@@ -2,6 +2,7 @@ from django.urls import path, include
 
 from . import views
 
+# fmt: on
 urlpatterns = [
     path("chat-rooms/", include([
         path("", views.ChatRoomListView.as_view()),
@@ -12,3 +13,4 @@ urlpatterns = [
     ])),
     path("online-users/", views.OnlineUsersView.as_view()),
 ]
+# fmt: off

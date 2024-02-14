@@ -88,6 +88,7 @@ class CustomUserAdmin(UserAdmin):
         ),
     )
 
+
 @admin.register(OnlineUser)
 class OnlineUserAdmin(admin.ModelAdmin):
     model = OnlineUser

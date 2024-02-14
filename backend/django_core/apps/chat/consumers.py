@@ -29,10 +29,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message.save()
 
         serializer = ChatMessageSerializer(message, many=False)
-        return {
-            "action": "read_message",
-            "message": serializer.data
-        }
+        return {"action": "read_message", "message": serializer.data}
 
     def get_online_users(self):
         online_users = OnlineUser.objects.all()
@@ -42,12 +39,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
     def add_online_user(self, user):
         try:
             OnlineUser.objects.create(user=user)
-        except: pass
+        except:
+            pass
 
     def delete_online_user(self, user):
         try:
             OnlineUser.objects.get(user=user).delete()
-        except: pass
+        except:
+            pass
 
     def read_room(self, room_id):
         chat_room = ChatRoom.objects.get(room_id=room_id)
@@ -95,7 +94,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
         if action == "message":
             content = data["content"]
             type = data["type"]
-            send_message = await database_sync_to_async(self.save_message)(room_id, content, type)
+            send_message = await database_sync_to_async(self.save_message)(
+                room_id, content, type
+            )
         elif action == "read_room":
             await database_sync_to_async(self.read_room)(room_id)
             send_message = {
