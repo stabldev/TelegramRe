@@ -36,8 +36,12 @@ export const SettingsBar = (props: Props) => {
 							<Verified class="text-xl text-blue-500" />
 						</Show>
 					</div>
-					<span class="text-sm text-stone-400">{onlineUsers()?.some((onlineUser) => onlineUser.user === user()?.id) ? "Online" : "Offline"}</span>
-
+					<Show
+						when={onlineUsers()?.some((onlineUser) => onlineUser.user === user()?.id)}
+						fallback={<span class="text-sm text-white/50">Offline</span>}
+					>
+						<span class="text-sm text-blue-300">Online</span>
+					</Show>
 					<div class="mt-3 grid grid-cols-8">
 						<At class="col-span-1 size-6 self-center text-stone-400" />
 						<div class="col-span-7 flex flex-col">

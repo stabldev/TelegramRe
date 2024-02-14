@@ -37,7 +37,12 @@ export const ChatSidebar = () => {
 						</Show>
 					</div>
 					<Show when={IS_DM}>
-						<span class="text-sm text-stone-400">{onlineUsers()?.some((onlineUser) => onlineUser.user === activeRoom()?.member[0].id) ? "Online" : "Offline"}</span>
+						<Show
+							when={onlineUsers()?.some((onlineUser) => onlineUser.user === activeRoom()?.member[0].id)}
+							fallback={<span class="text-sm text-white/50">Offline</span>}
+						>
+							<span class="text-sm text-blue-300">Online</span>
+						</Show>
 					</Show>
 
 					<div class="mt-3 grid grid-cols-8">
