@@ -1,7 +1,7 @@
 import { A, useParams } from "solid-start";
 import { destructure } from "@solid-primitives/destructure";
 import { FormatDate } from "~/functions/format-date";
-import { Show, createEffect, createSignal } from "solid-js";
+import { Match, Show, Switch, createEffect, createSignal } from "solid-js";
 import { get_username } from "~/functions/get-username";
 import { useAuth } from "~/context/auth";
 import Tick from "~/icons/tick";
@@ -117,12 +117,14 @@ export const ProfileItem = (props: ChatRoom) => {
 							</Show>
 						}
 					>
-						<Show
-							when={message().type === "image"}
-							fallback={<Gif class="flex-shrink-0 md:size-4" />}
-						>
-							<Photo class="flex-shrink-0 md:size-4" />
-						</Show>
+						<Switch>
+							<Match when={message().type === "image"}>
+								<Photo class="flex-shrink-0 md:size-4" />
+							</Match>
+							<Match when={message().type === "gif"}>
+								<Gif class="flex-shrink-0 md:size-4" />
+							</Match>
+						</Switch>
 					</Show>
 				</div>
 			</div>
