@@ -1,4 +1,4 @@
-import { Component, Show, createResource } from "solid-js";
+import { Component, Show, createEffect, createResource } from "solid-js";
 import { ChatHeader } from "./chat-header";
 import { ChatInput } from "./chat-input";
 import { ChatArea } from "./chat-area";
@@ -8,9 +8,12 @@ import { OnlineUser } from "~/types/user.types";
 import SocketActions from "~/connections/socket/socket-actions";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { makeCache, makeAbortable } from "@solid-primitives/resource";
+import { useParams } from "solid-start";
+import { scrollToBottom } from "~/functions/scroll-to-bottom";
 
 export const ChatScreen: Component = () => {
 	const { socket, activeRoom, setChatRooms, setOnlineUsers } = useChat();
+	const params = useParams<{username: string}>();
 
 	const [cachedFetcher] = makeCache(fetchMessages, { storage: localStorage });
 	const [signal] = makeAbortable({ timeout: 10000 });
@@ -57,10 +60,21 @@ export const ChatScreen: Component = () => {
 			}
 
 			setChatRooms((chatRooms) => chatRooms?.map((room) => (room.id === data.message?.room ? { ...room, message: data.message!, unreads: 0 } : room)));
-		}
+		};
+
+		requestAnimationFrame(() => {
+			scrollToBottom(chatAreaRef, { behavior: "smooth" });
+		});
 	};
 
 	let chatAreaRef: HTMLDivElement;
+
+	createEffect(() => {
+		console.log(params.username);
+		requestAnimationFrame(() => {
+			scrollToBottom(chatAreaRef, { behavior: "smooth" });
+		});
+	});
 
 	return (
 		<div class="relative grid grid-rows-[min-content_1fr]">
