@@ -32,6 +32,8 @@ export const ChatFileModal = (props: Props) => {
 	};
 
 	const handleOutsideClick = (event: MouseEvent) => {
+		if (sending()) return;
+
 		if (!ref.contains(event.target as HTMLElement)) {
 			dispatch("modalClose");
 		}
@@ -45,7 +47,7 @@ export const ChatFileModal = (props: Props) => {
 				file: props.file,
 				message: caption()
 			},
-			type: "image"
+			type: props.file.type === "image/gif" ? "gif" : "image",
 		};
 
 		dispatch("fileSubmit", detail);
@@ -84,7 +86,9 @@ export const ChatFileModal = (props: Props) => {
 				class="flex flex-col gap-2 rounded-xl bg-stone-900 text-stone-100"
 			>
 				<div class="flex items-center justify-between md:p-2 md:pl-3">
-					<span class="font-medium">Send File</span>
+					<span class="font-medium">
+						Send {props.file.type === "image/gif" ? "GIF" : "File"}
+					</span>
 					<button
 						onClick={handleFileClose}
 						class="text-white/75 transition-colors hover:text-white md:size-6"
@@ -108,6 +112,7 @@ export const ChatFileModal = (props: Props) => {
 					class="flex items-center gap-2 p-2 md:pl-3"
 				>
 					<TextareaAutosize
+						disabled={props.file.type === "image/gif"}
 						ref={inputRef!}
 						value={caption()}
 						onInput={(e) => setCaption(e.currentTarget.value)}
