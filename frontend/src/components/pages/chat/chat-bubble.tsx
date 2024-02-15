@@ -15,7 +15,7 @@ interface Props {
 
 export const ChatBubble = (props: Props) => {
 	const { socket, activeRoom } = useChat();
-	const { message, self } = destructure(props);
+	const { message, self, firstMsg, lastMsg } = destructure(props);
 	const formatedDate = new FormatDate(message().timestamp).format_to_relative_time;
 
 	let el: HTMLDivElement;
@@ -49,10 +49,10 @@ export const ChatBubble = (props: Props) => {
 				"bg-stone-800 rounded-l": !self(),
 				"!p-0 !max-w-60": message().type === "image",
 				"!p-0 overflow-visible bg-transparent": message().type === "gif",
-				"rounded-tr-xl": self() && props.firstMsg,
-				"rounded-br-xl": self() && props.lastMsg,
-				"rounded-tl-xl": !self() && props.firstMsg,
-				"rounded-bl-xl": !self() && props.lastMsg,
+				"rounded-tr-xl": self() && firstMsg(),
+				"rounded-br-xl": self() && lastMsg(),
+				"rounded-tl-xl": !self() && firstMsg(),
+				"rounded-bl-xl": !self() && lastMsg(),
 			}}
 		>
 			<Show when={message().type == "image" || message().type === "gif"}>
