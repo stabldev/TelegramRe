@@ -53,6 +53,7 @@ export const ChatBubble = (props: Props) => {
 				<img
 					src={message().file!}
 					alt="Image"
+					loading="lazy"
 					class="cursor-pointer"
 					classList={{
 						"rounded-lg": message().type === "gif"
