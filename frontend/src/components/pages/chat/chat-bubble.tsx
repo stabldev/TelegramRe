@@ -9,6 +9,8 @@ import { useChat } from "~/context/chat";
 interface Props {
 	message: ChatMessage;
 	self: boolean;
+	firstMsg: boolean;
+	lastMsg: boolean;
 }
 
 export const ChatBubble = (props: Props) => {
@@ -46,7 +48,11 @@ export const ChatBubble = (props: Props) => {
 				"bg-blue-500 rounded-r": self(),
 				"bg-stone-800 rounded-l": !self(),
 				"!p-0 !max-w-60": message().type === "image",
-				"!p-0 overflow-visible bg-transparent": message().type === "gif"
+				"!p-0 overflow-visible bg-transparent": message().type === "gif",
+				"rounded-tr-xl": self() && props.firstMsg,
+				"rounded-br-xl": self() && props.lastMsg,
+				"rounded-tl-xl": !self() && props.firstMsg,
+				"rounded-bl-xl": !self() && props.lastMsg,
 			}}
 		>
 			<Show when={message().type == "image" || message().type === "gif"}>
