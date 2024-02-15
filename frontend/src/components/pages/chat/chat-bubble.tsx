@@ -41,10 +41,10 @@ export const ChatBubble = (props: Props) => {
 			ref={(ref) => {
 				el = ref;
 			}}
-			class="relative flex w-max max-w-md flex-col gap-1 overflow-hidden rounded-lg px-2.5 py-1 text-white"
+			class="relative flex w-max max-w-md flex-col gap-1 overflow-hidden rounded-xl px-2.5 py-1 text-white"
 			classList={{
-				"bg-blue-500": self(),
-				"bg-stone-800": !self(),
+				"bg-blue-500 rounded-r-md": self(),
+				"bg-stone-800 rounded-l-md": !self(),
 				"!p-0 !max-w-60": message().type === "image",
 				"!p-0 overflow-visible bg-transparent": message().type === "gif"
 			}}
