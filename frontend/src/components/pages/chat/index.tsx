@@ -1,4 +1,4 @@
-import { Component, Show, createEffect, createResource } from "solid-js";
+import { Component, Show, createEffect, createResource, createSignal } from "solid-js";
 import { ChatHeader } from "./chat-header";
 import { ChatInput } from "./chat-input";
 import { ChatArea } from "./chat-area";
@@ -18,7 +18,7 @@ export const ChatScreen: Component = () => {
 	const [cachedFetcher] = makeCache(fetchMessages, { storage: localStorage });
 	const [signal] = makeAbortable({ timeout: 10000 });
 	const [messages, { mutate }] = createResource(activeRoom, cachedFetcher);
-
+	
 	async function fetchMessages({ room_id }: { room_id: string }) {
 		const url = ApiEndpoints.chat.CHAT_ROOMS + room_id + "/";
 		const res = await fetch(url, {
