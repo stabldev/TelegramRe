@@ -17,9 +17,10 @@ type Props = {
 
 export const ChatContextMenu = (props: Props) => {
     const [copied, setCopied] = createSignal(false);
+    const [x, setX] = createSignal(props.x);
+    const [y, setY] = createSignal(props.y);
 
     const dispatch = createEventDispatcher(props);
-    const { x, y } = destructure(props);
     let ref: HTMLDivElement;
     const formatedDate = new FormatDate(props.message().timestamp).format_to_relative_time;
 
@@ -30,6 +31,10 @@ export const ChatContextMenu = (props: Props) => {
 	};
 
 	onMount(() => {
+        const rect = ref.getBoundingClientRect();
+        setX((prev) => prev > window.innerWidth - rect.width ? prev - rect.width : prev);
+        setY((prev) => prev > window.innerHeight - rect.height ? prev - rect.height : prev);
+
 		document.addEventListener("click", handleOutsideClick);
 	});
 
