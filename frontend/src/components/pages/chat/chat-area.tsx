@@ -18,7 +18,7 @@ export const ChatArea = (props: Props) => {
 		<>
 			<div
 				ref={ref()}
-				class="mx-auto flex w-full h-full flex-col gap-2 overflow-y-scroll px-2 pb-2 pt-10 [scrollbar-color:_rgba(255,255,255,0.1)_transparent] [scrollbar-width:none] md:w-[43rem] md:min-w-[43rem] relative"
+				class="mx-auto flex w-full h-full flex-col gap-2 overflow-y-scroll px-2 pt-10 [scrollbar-color:_rgba(255,255,255,0.1)_transparent] [scrollbar-width:none] md:w-[43rem] md:min-w-[43rem] relative"
 			>
 				<For each={groupChatBySender(chat())}>
 					{(group) => (
