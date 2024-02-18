@@ -30,6 +30,7 @@ class ChatMessage(models.Model):
     content = models.TextField(null=True, blank=True)
     file = models.FileField(upload_to="chat_files/", null=True, blank=True)
     is_read = models.BooleanField(default=False)
+    edited = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

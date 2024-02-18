@@ -77,7 +77,17 @@ export const ChatBubble = (props: Props) => {
 				}}
 			>
 				<span class="whitespace-pre-line text-[0.8rem] leading-snug">{message().content}</span>
-				<span class="ml-auto select-none self-end text-[0.7rem] uppercase leading-none text-white/80">{formatedDate}</span>
+				<Show when={message().edited}>
+					<span class="text-[0.7rem] self-end italic text-white/80 leading-none ml-auto select-none">edited</span>
+				</Show>
+				<span
+					classList={{
+						"ml-auto": !message().edited,
+					}}
+					class="select-none self-end text-[0.7rem] uppercase leading-none text-white/80"
+				>
+						{formatedDate}
+				</span>
 				<Show when={self()}>
 					<Show
 						when={message().is_read}

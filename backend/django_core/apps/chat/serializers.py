@@ -26,6 +26,7 @@ class ChatMessageSerializer(serializers.ModelSerializer):
             "content",
             "file",
             "is_read",
+            "edited",
             "timestamp",
         ]
 
