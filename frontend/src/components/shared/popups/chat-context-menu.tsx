@@ -1,6 +1,7 @@
 import { destructure } from "@solid-primitives/destructure";
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import { Accessor, Show, createSignal, onCleanup, onMount } from "solid-js";
+import { useShared } from "~/context/shared";
 import { FormatDate } from "~/functions/format-date";
 import Copy from "~/icons/copy";
 import Pencil from "~/icons/pencil";
@@ -16,6 +17,8 @@ type Props = {
 };
 
 export const ChatContextMenu = (props: Props) => {
+    const { setEditMessage } = useShared();
+
     const [copied, setCopied] = createSignal(false);
     const [x, setX] = createSignal(props.x);
     const [y, setY] = createSignal(props.y);
@@ -42,9 +45,15 @@ export const ChatContextMenu = (props: Props) => {
 		document.removeEventListener("click", handleOutsideClick);
 	});
 
+    // Functions
     const handleCopy = async () => {
         await navigator.clipboard.writeText(props.message().content);
         setCopied(true);
+    };
+
+    const handleEdit = () => {
+        setEditMessage(props.message());
+        dispatch("close", {});
     };
 
     return (
@@ -66,6 +75,7 @@ export const ChatContextMenu = (props: Props) => {
             </Show>
 			<Show when={props.self()}>
                 <div
+                    onClick={handleEdit}
                     class="grid cursor-pointer grid-cols-12 gap-2 px-3 py-1.5 rounded-md text-start text-stone-300 hover:bg-stone-800 hover:text-stone-100"
                 >
                     <Pencil class="col-span-2 size-full" />

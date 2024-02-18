@@ -9,10 +9,14 @@ import { useChat } from "~/context/chat";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { useAuth } from "~/context/auth";
 import { ChatFileTypeSelect } from "~/components/shared/chat/chat-file-type-select";
+import { useShared } from "~/context/shared";
+import Pencil from "~/icons/pencil";
+import Close from "~/icons/close";
 
 export const ChatInput = () => {
 	const { socket, activeRoom } = useChat();
 	const { csrfToken, user } = useAuth();
+	const { editMessage, isEditingMessage, setEditMessage } = useShared();
 
 	const [message, setMessage] = createSignal("");
 	const [showFileModel, setShowFileModel] = createSignal(false);
@@ -34,16 +38,21 @@ export const ChatInput = () => {
 			type: "text"
 		};
 
-		socket()!.send(
-			JSON.stringify({
-				action: "message",
-				type: detail.type,
-				content: detail.content,
-				room_id: activeRoom()?.room_id
-			})
-		);
+		if (isEditingMessage()) {
+			console.log("send edit signal");
+		} else {
+			socket()!.send(
+				JSON.stringify({
+					action: "message",
+					type: detail.type,
+					content: detail.content,
+					room_id: activeRoom()?.room_id
+				})
+			);
+		};
 
 		setMessage(""); // clear input
+		setEditMessage(undefined);
 		inputRef.focus();
 	};
 
@@ -113,59 +122,82 @@ export const ChatInput = () => {
 			</Show>
 			<form
 				onSubmit={handleSubmit}
-				class="absolute bottom-0 flex w-full items-end gap-3 bg-stone-900 p-3"
+				class="absolute flex flex-col bottom-0 bg-stone-900 p-3 inset-x-0"
+				classList={{
+					"pt-1.5 md:gap-2": isEditingMessage(),
+				}}
 			>
-				<div class="relative flex">
-					<Show when={showFileTypeSelect()}>
-						<ChatFileTypeSelect onClose={handleToggleShowFileTypeSelect} />
-					</Show>
-					<input
-						type="file"
-						id="image-file-input"
-						accept=".png,.jpg,.jpeg"
-						class="hidden"
-						onChange={handleFileChange}
-					/>
-					<input
-						type="file"
-						id="gif-file-input"
-						accept=".gif"
-						class="hidden"
-						onChange={handleFileChange}
+				<Show when={isEditingMessage()}>
+					<div class="flex items-center w-full gap-3">
+						<Pencil class="md:size-6 text-blue-500" />
+						<div class="flex gap-2 overflow-y-hidden relative bg-stone-800 px-2 py-0.5 leading-none flex-1 rounded-md">
+							<div class="absolute inset-y-0 left-0 md:w-1 bg-blue-500" />
+							<div class="pl-1">
+								<span class="text-xs text-blue-300 select-none">Editing</span>
+								<span class="text-sm text-white/60 line-clamp-1">{editMessage()?.content}</span>
+							</div>
+						</div>
+						<button
+							onClick={() => setEditMessage(undefined)}
+							class="cursor-pointer text-2xl text-blue-500 transition-colors hover:text-blue-300"
+						>
+							<Close class="md:size-7" />
+						</button>
+					</div>
+				</Show>
+				<div class="flex w-full items-end gap-3">
+					<div class="relative flex">
+						<Show when={showFileTypeSelect()}>
+							<ChatFileTypeSelect onClose={handleToggleShowFileTypeSelect} />
+						</Show>
+						<input
+							type="file"
+							id="image-file-input"
+							accept=".png,.jpg,.jpeg"
+							class="hidden"
+							onChange={handleFileChange}
+						/>
+						<input
+							type="file"
+							id="gif-file-input"
+							accept=".gif"
+							class="hidden"
+							onChange={handleFileChange}
+						/>
+						<button
+							onClick={handleToggleShowFileTypeSelect}
+							class="cursor-pointer text-2xl text-white/50 transition-colors hover:text-white/75"
+						>
+							<Clip />
+						</button>
+					</div>
+					<TextareaAutosize
+						ref={(ref) => (inputRef = ref)}
+						value={isEditingMessage() ? editMessage()?.content : message()}
+						onInput={(e) => setMessage(e.currentTarget.value)}
+						onKeyDown={handleKeyDown}
+						class="flex-1 resize-none border-none bg-transparent text-sm text-white outline-none [scrollbar-width:none]"
+						placeholder="Write a message..."
+						maxRows={5}
 					/>
 					<button
-						onClick={handleToggleShowFileTypeSelect}
-						class="cursor-pointer text-2xl text-white/50 transition-colors hover:text-white/75"
+						type="button"
+						class="text-xl text-white/50 transition-colors hover:text-white/75"
 					>
-						<Clip />
+						<Emoji />
+					</button>
+					<button
+						type="submit"
+						class="text-xl text-white/50 transition-colors hover:text-white/75"
+					>
+						<Show
+							when={message() || editMessage()}
+							fallback={<Mic />}
+						>
+							<Send />
+						</Show>
 					</button>
 				</div>
-				<TextareaAutosize
-					ref={(ref) => (inputRef = ref)}
-					value={message()}
-					onInput={(e) => setMessage(e.currentTarget.value)}
-					onKeyDown={handleKeyDown}
-					class="flex-1 resize-none border-none bg-transparent text-sm text-white outline-none [scrollbar-width:none]"
-					placeholder="Write a message..."
-					maxRows={5}
-				/>
-				<button
-					type="button"
-					class="text-xl text-white/50 transition-colors hover:text-white/75"
-				>
-					<Emoji />
-				</button>
-				<button
-					type="submit"
-					class="text-xl text-white/50 transition-colors hover:text-white/75"
-				>
-					<Show
-						when={message()}
-						fallback={<Mic />}
-					>
-						<Send />
-					</Show>
-				</button>
 			</form>
 		</>
 	);
