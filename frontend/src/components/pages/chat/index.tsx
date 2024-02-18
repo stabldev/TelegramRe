@@ -77,7 +77,7 @@ export const ChatScreen: Component = () => {
 	});
 
 	return (
-		<div class="relative grid grid-rows-[min-content_1fr]">
+		<div class="relative grid grid-rows-[max-content_auto_max-content] h-screen">
 			<ChatHeader />
 			<Show when={!messages.loading}>
 				<ChatArea

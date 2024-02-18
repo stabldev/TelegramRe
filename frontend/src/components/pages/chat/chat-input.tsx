@@ -122,7 +122,7 @@ export const ChatInput = () => {
 			</Show>
 			<form
 				onSubmit={handleSubmit}
-				class="absolute flex flex-col bottom-0 bg-stone-900 p-3 inset-x-0"
+				class="flex flex-col bottom-0 bg-stone-900 p-3 inset-x-0"
 				classList={{
 					"pt-1.5 md:gap-2": isEditingMessage(),
 				}}
