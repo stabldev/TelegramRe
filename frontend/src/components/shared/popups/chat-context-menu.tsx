@@ -51,12 +51,14 @@ export const ChatContextMenu = (props: Props) => {
                     <span class="col-span-10 text-sm font-medium">Seen {formatedDate}</span>
                 </div>
             </Show>
-			<div
-				class="grid cursor-pointer grid-cols-12 gap-2 px-3 py-1.5 rounded-md text-start text-stone-300 hover:bg-stone-800 hover:text-stone-100"
-			>
-				<Pencil class="col-span-2 size-full" />
-				<span class="col-span-10 text-sm font-medium">Edit</span>
-			</div>
+			<Show when={props.self()}>
+                <div
+                    class="grid cursor-pointer grid-cols-12 gap-2 px-3 py-1.5 rounded-md text-start text-stone-300 hover:bg-stone-800 hover:text-stone-100"
+                >
+                    <Pencil class="col-span-2 size-full" />
+                    <span class="col-span-10 text-sm font-medium">Edit</span>
+                </div>
+            </Show>
 		</div>
     )
 };
