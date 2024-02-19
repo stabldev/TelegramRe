@@ -1,4 +1,4 @@
-import { Show, createSignal } from "solid-js";
+import { Show, createEffect, createSignal } from "solid-js";
 import TextareaAutosize from "solid-textarea-autosize";
 import Emoji from "~/icons/emoji";
 import Mic from "~/icons/mic";
@@ -117,6 +117,11 @@ export const ChatInput = () => {
 	const handleToggleShowFileTypeSelect = () => {
 		setShowFileTypeSelect((prev) => !prev);
 	};
+
+	createEffect(() => {
+		inputRef.focus();
+		isEditingMessage() && inputRef.focus();
+	});
 
 	return (
 		<>
