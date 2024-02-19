@@ -61,11 +61,19 @@ export const ChatScreen: Component = () => {
 
 			setChatRooms((chatRooms) => chatRooms?.map((room) => (room.id === data.message?.room ? { ...room, message: data.message!, unreads: 0 } : room)));
 		} else if (data.action === SocketActions.EDIT_MESSAGE) {
-			if (data.message?.room !== activeRoom()?.id) return;
+			if (data.message?.room === activeRoom()?.id) {
+				let room_id = activeRoom()?.room_id ?? "";
+				invalidate({ room_id: room_id });
+				mutate((messages) => messages?.map((message) => (message.id === data.message?.id ? data.message : message)));
+			};
 
-			let room_id = activeRoom()?.room_id ?? "";
-			invalidate({ room_id: room_id });
-			mutate((messages) => messages?.map((message) => (message.id === data.message?.id ? data.message : message)));
+			setChatRooms((chatRooms) =>
+				chatRooms?.map((room) =>
+					room.id === data.message?.room && room.message.id === data.message.id ?
+					{ ...room, message: data.message }
+					: room
+				)
+			);
 		};
 
 		requestAnimationFrame(() => {

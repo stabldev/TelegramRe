@@ -31,7 +31,7 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 
 		socket()!.onmessage = function (e: MessageEvent) {
 			const data: {
-				action: "online_users" | "message";
+				action: "online_users" | "message" | "edit_message";
 				message?: ChatMessage;
 				online_users_list?: OnlineUser[];
 			} = JSON.parse(e.data);
@@ -49,7 +49,15 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 				});
 			} else if (data.action === SocketActions.ONLINE_USERS) {
 				setOnlineUsers(data.online_users_list);
-			}
+			} else if (data.action === SocketActions.EDIT_MESSAGE) {
+				setChatRooms((chatRooms) =>
+					chatRooms?.map((room) =>
+						room.id === data.message?.room && room.message.id === data.message.id ?
+						{ ...room, message: data.message }
+						: room
+					)
+				);
+			};
 		};
 	});
 
