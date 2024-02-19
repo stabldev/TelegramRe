@@ -15,7 +15,7 @@ export const ChatScreen: Component = () => {
 	const { socket, activeRoom, setChatRooms, setOnlineUsers } = useChat();
 	const params = useParams<{username: string}>();
 
-	const [cachedFetcher] = makeCache(fetchMessages, { storage: localStorage });
+	const [cachedFetcher, invalidate] = makeCache(fetchMessages, { storage: localStorage });
 	const [signal] = makeAbortable({ timeout: 10000 });
 	const [messages, { mutate }] = createResource(activeRoom, cachedFetcher);
 
@@ -61,9 +61,11 @@ export const ChatScreen: Component = () => {
 
 			setChatRooms((chatRooms) => chatRooms?.map((room) => (room.id === data.message?.room ? { ...room, message: data.message!, unreads: 0 } : room)));
 		} else if (data.action === SocketActions.EDIT_MESSAGE) {
-			if (data.message?.room === activeRoom()?.id) {
-				mutate((messages) => messages?.map((message) => (message.id === data.message?.id ? data.message : message)));
-			};
+			if (data.message?.room !== activeRoom()?.id) return;
+
+			let room_id = activeRoom()?.room_id ?? "";
+			invalidate({ room_id: room_id });
+			mutate((messages) => messages?.map((message) => (message.id === data.message?.id ? data.message : message)));
 		};
 
 		requestAnimationFrame(() => {

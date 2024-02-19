@@ -45,7 +45,6 @@ export const ChatBubble = (props: Props) => {
 
 	const handleContextMenu = (e: any) => {
 		e.preventDefault();
-		console.log(e);
 		setContextPos({
 			x: e.x,
 			y: e.y,
