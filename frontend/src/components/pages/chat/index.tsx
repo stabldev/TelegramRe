@@ -18,7 +18,7 @@ export const ChatScreen: Component = () => {
 	const [cachedFetcher] = makeCache(fetchMessages, { storage: localStorage });
 	const [signal] = makeAbortable({ timeout: 10000 });
 	const [messages, { mutate }] = createResource(activeRoom, cachedFetcher);
-	
+
 	async function fetchMessages({ room_id }: { room_id: string }) {
 		const url = ApiEndpoints.chat.CHAT_ROOMS + room_id + "/";
 		const res = await fetch(url, {
@@ -30,7 +30,7 @@ export const ChatScreen: Component = () => {
 
 	socket()!.onmessage = function (e: MessageEvent) {
 		const data: {
-			action: "message" | "online_users" | "read_room";
+			action: "message" | "online_users" | "read_room" | "edit_message";
 			message?: ChatMessage;
 			online_users_list?: OnlineUser[];
 		} = JSON.parse(e.data);
@@ -60,6 +60,10 @@ export const ChatScreen: Component = () => {
 			}
 
 			setChatRooms((chatRooms) => chatRooms?.map((room) => (room.id === data.message?.room ? { ...room, message: data.message!, unreads: 0 } : room)));
+		} else if (data.action === SocketActions.EDIT_MESSAGE) {
+			if (data.message?.room === activeRoom()?.id) {
+				mutate((messages) => messages?.map((message) => (message.id === data.message?.id ? data.message : message)));
+			};
 		};
 
 		requestAnimationFrame(() => {

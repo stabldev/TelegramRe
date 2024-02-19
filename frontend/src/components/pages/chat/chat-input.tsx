@@ -39,7 +39,14 @@ export const ChatInput = () => {
 		};
 
 		if (isEditingMessage()) {
-			console.log("send edit signal");
+			socket()!.send(
+				JSON.stringify({
+					action: "edit_message",
+					message_id: editMessage()?.id,
+					new_message: message(),
+					room_id: activeRoom()?.room_id,
+				})
+			);
 		} else {
 			socket()!.send(
 				JSON.stringify({
