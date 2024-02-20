@@ -47,14 +47,15 @@ export const SettingsHeader = (props: Props) => {
 					<button
 						onClick={toggleMenu}
 						class="text-lg text-white/50 transition-colors hover:text-white/75"
+						classList={{ "!text-white/75": openMenu() }}
 					>
 						<Menu variant="dots" />
 					</button>
 					<Show when={openMenu()}>
-						<div class="absolute right-0 top-10 z-50 w-max select-none overflow-hidden rounded-xl bg-stone-800">
+						<div class="absolute right-0 top-10 z-50 w-max select-none overflow-hidden rounded-lg bg-stone-900 p-1">
 							<button
 								onClick={handleLogout}
-								class="grid grid-cols-12 gap-2 px-3 py-2 text-start text-stone-300 transition-colors hover:bg-stone-700 hover:text-stone-100"
+								class="grid cursor-pointer grid-cols-12 gap-2 px-3 py-1.5 rounded-md text-start text-stone-300 hover:bg-stone-800 hover:text-stone-100"
 							>
 								<Logout class="col-span-2 size-full" />
 								<span class="col-span-10 text-sm font-medium">Logout</span>

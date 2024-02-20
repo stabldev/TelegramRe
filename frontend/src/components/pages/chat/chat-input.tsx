@@ -132,7 +132,7 @@ export const ChatInput = () => {
 					onFileSubmit={handleFileSubmit}
 				/>
 			</Show>
-			<div class="flex items-end md:w-[42rem] md:min-w-[42rem] my-2 mx-auto md:gap-2">
+			<div class="flex items-end md:w-[42rem] md:min-w-[42rem] mb-2 mt-1 mx-auto md:gap-2">
 				<form
 					onSubmit={handleSubmit}
 					class="flex flex-col p-3 rounded-xl w-full bg-stone-900"
