@@ -31,6 +31,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
         serializer = ChatMessageSerializer(message, many=False)
         return {"action": "read_message", "message": serializer.data}
 
+    def edit_message(self, message_id, new_message):
+        message = ChatMessage.objects.get(pk=message_id)
+        message.content = new_message
+        if message.edited is not True:
+            message.edited = True
+        message.save()
+
+        serializer = ChatMessageSerializer(message, many=False)
+        return {"action": "edit_message", "message": serializer.data}
+
     def get_online_users(self):
         online_users = OnlineUser.objects.all()
         serializer = OnlineUserSerializer(online_users, many=True)
@@ -105,6 +115,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
         elif action == "read_message":
             message_id = data["message_id"]
             send_message = await database_sync_to_async(self.read_message)(message_id)
+        elif action == "edit_message":
+            message_id = data["message_id"]
+            new_message = data["new_message"]
+            send_message = await database_sync_to_async(self.edit_message)(message_id, new_message)
 
         await self.channel_layer.group_send(
             room_id,

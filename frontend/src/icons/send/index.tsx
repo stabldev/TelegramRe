@@ -2,17 +2,8 @@ import { Icon } from "~/types/icon.types";
 
 export default function Send(props: Icon) {
 	return (
-		<svg
-			{...props}
-			fill="currentColor"
-			stroke-width="0"
-			xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 16 16"
-			style={{ overflow: "visible" }}
-			height="1em"
-			width="1em"
-		>
-			<path d="m1 1.91.78-.41L15 7.449v.95L1.78 14.33 1 13.91 2.583 8 1 1.91ZM3.612 8.5 2.33 13.13 13.5 7.9 2.33 2.839l1.282 4.6L9 7.5v1H3.612Z" />
+		<svg {...props} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
+			<path fill="currentColor" d="M7.262 4.244c-1.787-.893-3.765.812-3.146 2.711L8.13 19.26a2 2 0 0 0 1.573 1.352l15.86 2.643c.835.14.835 1.34 0 1.48L9.704 27.378a2 2 0 0 0-1.573 1.352L4.116 41.042c-.62 1.9 1.359 3.605 3.146 2.712l35.494-17.742c1.659-.83 1.659-3.197 0-4.026z" />
 		</svg>
 	);
 }

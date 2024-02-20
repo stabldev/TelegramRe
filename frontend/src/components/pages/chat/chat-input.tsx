@@ -1,4 +1,4 @@
-import { Show, createSignal } from "solid-js";
+import { Show, createEffect, createSignal } from "solid-js";
 import TextareaAutosize from "solid-textarea-autosize";
 import Emoji from "~/icons/emoji";
 import Mic from "~/icons/mic";
@@ -9,10 +9,14 @@ import { useChat } from "~/context/chat";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { useAuth } from "~/context/auth";
 import { ChatFileTypeSelect } from "~/components/shared/chat/chat-file-type-select";
+import { useShared } from "~/context/shared";
+import Pencil from "~/icons/pencil";
+import Close from "~/icons/close";
 
 export const ChatInput = () => {
 	const { socket, activeRoom } = useChat();
 	const { csrfToken, user } = useAuth();
+	const { editMessage, isEditingMessage, setEditMessage } = useShared();
 
 	const [message, setMessage] = createSignal("");
 	const [showFileModel, setShowFileModel] = createSignal(false);
@@ -34,16 +38,28 @@ export const ChatInput = () => {
 			type: "text"
 		};
 
-		socket()!.send(
-			JSON.stringify({
-				action: "message",
-				type: detail.type,
-				content: detail.content,
-				room_id: activeRoom()?.room_id
-			})
-		);
+		if (isEditingMessage()) {
+			socket()!.send(
+				JSON.stringify({
+					action: "edit_message",
+					message_id: editMessage()?.id,
+					new_message: message(),
+					room_id: activeRoom()?.room_id,
+				})
+			);
+		} else {
+			socket()!.send(
+				JSON.stringify({
+					action: "message",
+					type: detail.type,
+					content: detail.content,
+					room_id: activeRoom()?.room_id
+				})
+			);
+		};
 
 		setMessage(""); // clear input
+		setEditMessage(undefined);
 		inputRef.focus();
 	};
 
@@ -102,6 +118,11 @@ export const ChatInput = () => {
 		setShowFileTypeSelect((prev) => !prev);
 	};
 
+	createEffect(() => {
+		inputRef.focus();
+		isEditingMessage() && inputRef.focus();
+	});
+
 	return (
 		<>
 			<Show when={showFileModel()}>
@@ -111,62 +132,87 @@ export const ChatInput = () => {
 					onFileSubmit={handleFileSubmit}
 				/>
 			</Show>
-			<form
-				onSubmit={handleSubmit}
-				class="absolute bottom-0 flex w-full items-end gap-3 bg-stone-900 p-3"
-			>
-				<div class="relative flex">
-					<Show when={showFileTypeSelect()}>
-						<ChatFileTypeSelect onClose={handleToggleShowFileTypeSelect} />
-					</Show>
-					<input
-						type="file"
-						id="image-file-input"
-						accept=".png,.jpg,.jpeg"
-						class="hidden"
-						onChange={handleFileChange}
-					/>
-					<input
-						type="file"
-						id="gif-file-input"
-						accept=".gif"
-						class="hidden"
-						onChange={handleFileChange}
-					/>
-					<button
-						onClick={handleToggleShowFileTypeSelect}
-						class="cursor-pointer text-2xl text-white/50 transition-colors hover:text-white/75"
-					>
-						<Clip />
-					</button>
-				</div>
-				<TextareaAutosize
-					ref={(ref) => (inputRef = ref)}
-					value={message()}
-					onInput={(e) => setMessage(e.currentTarget.value)}
-					onKeyDown={handleKeyDown}
-					class="flex-1 resize-none border-none bg-transparent text-sm text-white outline-none [scrollbar-width:none]"
-					placeholder="Write a message..."
-					maxRows={5}
-				/>
-				<button
-					type="button"
-					class="text-xl text-white/50 transition-colors hover:text-white/75"
+			<div class="flex items-end md:w-[42rem] md:min-w-[42rem] my-2 mx-auto md:gap-2">
+				<form
+					onSubmit={handleSubmit}
+					class="flex flex-col p-3 rounded-xl w-full bg-stone-900"
+					classList={{
+						"pt-1.5 md:gap-2": isEditingMessage(),
+					}}
 				>
-					<Emoji />
-				</button>
+					<Show when={isEditingMessage()}>
+						<div class="flex items-center w-full gap-3">
+							<Pencil class="md:size-6 text-blue-500" />
+							<div class="flex gap-2 overflow-y-hidden relative bg-stone-800 px-2 py-0.5 leading-none flex-1 rounded-md">
+								<div class="absolute inset-y-0 left-0 md:w-1 bg-blue-500" />
+								<div class="pl-1">
+									<span class="text-xs text-blue-300 select-none">Editing</span>
+									<span class="text-sm text-white/60 line-clamp-1">{editMessage()?.content}</span>
+								</div>
+							</div>
+							<button
+								onClick={() => setEditMessage(undefined)}
+								class="cursor-pointer text-2xl text-blue-500 transition-colors hover:text-blue-300"
+							>
+								<Close class="md:size-7" />
+							</button>
+						</div>
+					</Show>
+					<div class="flex w-full items-end gap-3">
+						<div class="relative flex">
+							<Show when={showFileTypeSelect()}>
+								<ChatFileTypeSelect onClose={handleToggleShowFileTypeSelect} />
+							</Show>
+							<input
+								type="file"
+								id="image-file-input"
+								accept=".png,.jpg,.jpeg"
+								class="hidden"
+								onChange={handleFileChange}
+							/>
+							<input
+								type="file"
+								id="gif-file-input"
+								accept=".gif"
+								class="hidden"
+								onChange={handleFileChange}
+							/>
+							<button
+								onClick={handleToggleShowFileTypeSelect}
+								class="cursor-pointer text-2xl text-white/50 transition-colors hover:text-white/75"
+							>
+								<Clip />
+							</button>
+						</div>
+						<TextareaAutosize
+							ref={(ref) => (inputRef = ref)}
+							value={isEditingMessage() ? editMessage()?.content : message()}
+							onInput={(e) => setMessage(e.currentTarget.value)}
+							onKeyDown={handleKeyDown}
+							class="flex-1 resize-none border-none bg-transparent text-sm text-white outline-none [scrollbar-width:none]"
+							placeholder="Write a message..."
+							maxRows={5}
+						/>
+						<button
+							type="button"
+							class="text-xl text-white/50 transition-colors hover:text-white/75"
+						>
+							<Emoji />
+						</button>
+					</div>
+				</form>
 				<button
 					type="submit"
-					class="text-xl text-white/50 transition-colors hover:text-white/75"
+					class="text-white rounded-full aspect-square h-12 bg-blue-500 grid place-items-center"
 				>
 					<Show
-						when={message()}
-						fallback={<Mic />}
+						when={message() || editMessage()}
+						fallback={<Mic class="md:size-6" />}
 					>
-						<Send />
+						<Send class="md:size-5" />
 					</Show>
 				</button>
-			</form>
+			</div>
 		</>
 	);
 };

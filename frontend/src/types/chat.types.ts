@@ -6,6 +6,7 @@ export type ChatMessage = {
 	content: string;
 	file: string | null;
 	is_read: boolean;
+	edited: boolean;
 	timestamp: string;
 };
 
