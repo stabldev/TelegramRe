@@ -7,7 +7,7 @@ type Props = {
 	onClose: (e: CustomEvent) => void;
 };
 
-export const ChatFileTypeSelect = (props: Props) => {
+export const ChatFileType = (props: Props) => {
 	const dispatch = createEventDispatcher(props);
 	let ref: HTMLDivElement;
 
