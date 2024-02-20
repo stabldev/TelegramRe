@@ -4,11 +4,11 @@ import Emoji from "~/icons/emoji";
 import Mic from "~/icons/mic";
 import Send from "~/icons/send";
 import Clip from "~/icons/clip";
-import { ChatFileModal } from "~/components/shared/chat/chat-file-modal";
+import { ChatFileModal } from "~/components/shared/modals/chat-file-modal";
 import { useChat } from "~/context/chat";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { useAuth } from "~/context/auth";
-import { ChatFileTypeSelect } from "~/components/shared/chat/chat-file-type-select";
+import { ChatFileType } from "~/components/shared/popups/chat-file-type";
 import { useShared } from "~/context/shared";
 import Pencil from "~/icons/pencil";
 import Close from "~/icons/close";
@@ -132,7 +132,7 @@ export const ChatInput = () => {
 					onFileSubmit={handleFileSubmit}
 				/>
 			</Show>
-			<div class="flex items-end md:w-[42rem] md:min-w-[42rem] my-2 mx-auto md:gap-2">
+			<div class="flex items-end md:w-[42rem] md:min-w-[42rem] mb-2 mt-1 mx-auto md:gap-2">
 				<form
 					onSubmit={handleSubmit}
 					class="flex flex-col p-3 rounded-xl w-full bg-stone-900"
@@ -161,7 +161,7 @@ export const ChatInput = () => {
 					<div class="flex w-full items-end gap-3">
 						<div class="relative flex">
 							<Show when={showFileTypeSelect()}>
-								<ChatFileTypeSelect onClose={handleToggleShowFileTypeSelect} />
+								<ChatFileType onClose={handleToggleShowFileTypeSelect} />
 							</Show>
 							<input
 								type="file"
