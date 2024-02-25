@@ -13,7 +13,6 @@ export default function Root() {
 		<Html
 			lang="en"
 			data-theme="dark_re"
-			style={{ "background-image": "url(/wallpaper.svg)" }}
 		>
 			<Head>
 				<Title>Telegram RE</Title>
@@ -23,7 +22,7 @@ export default function Root() {
 					content="width=device-width, initial-scale=1"
 				/>
 			</Head>
-			<Body>
+			<Body style={{ "background-image": "url(/wallpaper.svg)" }}>
 				<Suspense>
 					<ErrorBoundary>
 						<MultiProvider values={[AuthProvider, SharedProvider, ChatProvider]}>

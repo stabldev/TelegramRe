@@ -10,9 +10,9 @@ export const SearchHeader = (props: Props) => {
 		<div class="flex h-12 items-center gap-3 px-3">
 			<button
 				onClick={props.toggleView}
-				class="text-xl text-white/50 transition-colors hover:text-white/75"
+				class="btn btn-sm btn-circle"
 			>
-				<UserSettings />
+				<UserSettings class="md:size-5" />
 			</button>
 			<form class="relative flex w-full items-center">
 				<Search class="pointer-events-none absolute left-2 text-lg text-white/50" />
