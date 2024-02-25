@@ -29,7 +29,7 @@ export const ChatHeader: Component = () => {
 			disabled: true,
 		},
 		split: {
-			icon: <Split />,
+			icon: <Split class="!text-xl" />,
 			onClick: () => toggleShowSidebar(),
 			disabled: false,
 		},
@@ -69,13 +69,13 @@ export const ChatHeader: Component = () => {
 					</Show>
 				</div>
 			</button>
-			<div class="flex items-center gap-1">
+			<div class="flex items-center gap-1.5">
 				<For each={Object.values(icon_mapping)}>
 					{(icon) => (
 						<button
 							onClick={icon.onClick}
 							disabled={icon.disabled}
-							class="btn btn-circle btn-sm text-base btn-ghost text-neutral-content/75"
+							class="btn btn-circle btn-sm text-lg btn-ghost text-neutral-content/75"
 						>
 							{icon.icon}
 						</button>
