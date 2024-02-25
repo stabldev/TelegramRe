@@ -135,7 +135,7 @@ export const ChatInput = () => {
 			<div class="flex items-end md:w-[42rem] md:min-w-[42rem] mb-2 mt-1 mx-auto md:gap-2">
 				<form
 					onSubmit={handleSubmit}
-					class="flex flex-col p-3 rounded-xl w-full bg-stone-900"
+					class="flex flex-col p-2 rounded-xl w-full bg-base-300"
 					classList={{
 						"pt-1.5 md:gap-2": isEditingMessage(),
 					}}
@@ -179,9 +179,9 @@ export const ChatInput = () => {
 							/>
 							<button
 								onClick={handleToggleShowFileTypeSelect}
-								class="cursor-pointer text-2xl text-white/50 transition-colors hover:text-white/75"
+								class="btn btn-sm btn-ghost btn-circle"
 							>
-								<Clip />
+								<Clip class="md:size-6" />
 							</button>
 						</div>
 						<TextareaAutosize
@@ -189,21 +189,21 @@ export const ChatInput = () => {
 							value={isEditingMessage() ? editMessage()?.content : message()}
 							onInput={(e) => setMessage(e.currentTarget.value)}
 							onKeyDown={handleKeyDown}
-							class="flex-1 resize-none border-none bg-transparent text-sm text-white outline-none [scrollbar-width:none]"
+							class="flex-1 self-center resize-none border-none bg-transparent text-sm text-white outline-none [scrollbar-width:none]"
 							placeholder="Write a message..."
 							maxRows={5}
 						/>
 						<button
 							type="button"
-							class="text-xl text-white/50 transition-colors hover:text-white/75"
+							class="btn btn-sm btn-ghost btn-circle text-neutral-content/75"
 						>
-							<Emoji />
+							<Emoji class="md:size-5" />
 						</button>
 					</div>
 				</form>
 				<button
 					type="submit"
-					class="text-white rounded-full aspect-square h-12 bg-blue-500 grid place-items-center"
+					class="btn btn-circle btn-primary text-accent"
 				>
 					<Show
 						when={message() || editMessage()}

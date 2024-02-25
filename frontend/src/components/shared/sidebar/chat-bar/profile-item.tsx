@@ -63,18 +63,18 @@ export const ProfileItem = (props: ChatRoom) => {
 			<div
 				class="flex w-full flex-col"
 				classList={{
-					"text-white": isActive(),
-					"text-white/75": !isActive()
+					"text-accent": isActive(),
+					"text-secondary": !isActive()
 				}}
 			>
 				<div class="flex items-center justify-between">
 					<div class="flex items-center md:gap-1">
-						<span class="text-sm font-medium text-white">{chat_user.full_name}</span>
+						<span class="text-sm font-medium text-accent">{chat_user.full_name}</span>
 						<Show when={chat_user.is_verified}>
 							<div
 								classList={{
-									"text-white": isActive(),
-									"text-blue-500": !isActive()
+									"text-accent": isActive(),
+									"text-primary": !isActive()
 								}}
 							>
 								<Verified />
@@ -94,8 +94,8 @@ export const ProfileItem = (props: ChatRoom) => {
 							>
 								<Tick
 									variant="double"
-									class="flex-shrink-0 text-blue-300 md:size-4"
-									classList={{ "!text-white": isActive() }}
+									class="flex-shrink-0 text-primary md:size-4"
+									classList={{ "!text-accent": isActive() }}
 								/>
 							</Show>
 						</Show>
@@ -113,7 +113,7 @@ export const ProfileItem = (props: ChatRoom) => {
 						when={self_message}
 						fallback={
 							<Show when={unreads() && !isActive()}>
-								<span class="grid place-items-center rounded-full bg-blue-500 font-semibold leading-none md:size-5 md:text-xs">{unreads()}</span>
+								<span class="grid place-items-center rounded-full bg-primary font-semibold leading-none md:size-5 md:text-xs">{unreads()}</span>
 							</Show>
 						}
 					>
