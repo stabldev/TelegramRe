@@ -40,6 +40,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		const res = await fetch(ApiEndpoints.user.auth.CSRF, {
 			credentials: "include"
 		});
+		console.log(res);
 		const token = res.headers.get("X-CSRFToken");
 		if (!token) return;
 		setCsrfToken(token);
