@@ -10,6 +10,7 @@ import { useChat } from "~/context/chat";
 import Verified from "~/icons/verified";
 import Photo from "~/icons/photo";
 import Gif from "~/icons/gif";
+import { cn } from "~/functions/cn";
 
 export const ProfileItem = (props: ChatRoom) => {
 	const { user } = useAuth();
@@ -40,8 +41,7 @@ export const ProfileItem = (props: ChatRoom) => {
 	return (
 		<A
 			href={`/@${chat_user.username}`}
-			class="flex w-full select-none items-center gap-3 rounded-lg px-3 py-2"
-			activeClass="bg-blue-500 hover:bg-blue-500 before:absolute before:left-3 before:w-1 before:h-8 before:bg-blue-50 before:rounded-full before:rounded-l-none"
+			class={cn(isActive() && "!bg-primary", "btn w-full h-auto flex-nowrap flex select-none items-center gap-3 rounded-xl px-3 py-2 bg-transparent hover:bg-base-100 border-none")}
 			onClick={handleChatClick}
 		>
 			<div class="relative size-12 flex-shrink-0">
@@ -54,8 +54,8 @@ export const ProfileItem = (props: ChatRoom) => {
 					<div
 						class="absolute bottom-0 right-0 rounded-full ring-4 md:size-2.5"
 						classList={{
-							"ring-blue-500 bg-white": isActive(),
-							"ring-stone-900 bg-blue-500": !isActive()
+							"ring-primary bg-accent": isActive(),
+							"ring-base-200 bg-primary": !isActive()
 						}}
 					/>
 				</Show>
@@ -99,13 +99,13 @@ export const ProfileItem = (props: ChatRoom) => {
 								/>
 							</Show>
 						</Show>
-						<span class="text-xs uppercase">{formated_timestamp}</span>
+						<span class="text-xs uppercase font-normal">{formated_timestamp}</span>
 					</div>
 				</div>
 				<div class="flex items-center justify-between md:gap-1">
 					<Show
 						when={message().type === "gif"}
-						fallback={<span class="line-clamp-1 text-sm">{message().content}</span>}
+						fallback={<span class="line-clamp-1 text-sm font-normal">{message().content}</span>}
 					>
 						<span class="text-sm">GIF</span>
 					</Show>

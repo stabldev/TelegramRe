@@ -19,7 +19,7 @@ export const SearchHeader = (props: Props) => {
 				<input
 					placeholder="Search"
 					type="text"
-					class="h-9 w-full rounded-full border-none bg-stone-800 px-2 pl-8 text-sm text-white outline-none ring-stone-700 focus:ring-[0.1vw]"
+					class="h-9 w-full rounded-full border-none bg-base-100 px-2 pl-8 text-sm text-accent outline-none ring-primary focus:ring-2"
 				/>
 			</form>
 		</div>

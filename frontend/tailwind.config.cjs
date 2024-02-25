@@ -31,5 +31,18 @@ module.exports = {
 			}
 		}
 	},
-	plugins: []
+	daisyui: {
+		themes: [
+			{
+				dark_re: {
+					"primary": "#8774e1",
+					"secondary": "#aaaaaa",
+					"accent": "#FFFFFF",
+					"neutral": "#2B2B2B",
+					"base-100": "#212121",
+				},
+			},
+		],
+	},
+	plugins: [require("daisyui")],
 };

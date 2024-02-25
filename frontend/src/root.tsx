@@ -12,6 +12,7 @@ export default function Root() {
 	return (
 		<Html
 			lang="en"
+			data-theme="dark_re"
 			style={{ "background-image": "url(/wallpaper.svg)" }}
 		>
 			<Head>
