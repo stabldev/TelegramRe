@@ -12,7 +12,7 @@ type SharedStore = {
 const SharedContext = createContext<SharedStore>();
 
 export function SharedProvider(props: { children?: JSX.Element }) {
-	const [showSidebar, setShowSidebar] = createSignal(true);
+	const [showSidebar, setShowSidebar] = createSignal(false);
 	const [editMessage, setEditMessage] = createSignal<ChatMessage>();
 	const [isEditingMessage, setIsEditingMessage] = createSignal(false);
 
