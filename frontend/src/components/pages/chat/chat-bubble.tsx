@@ -70,10 +70,10 @@ export const ChatBubble = (props: Props) => {
 					el = ref;
 				}}
 				onContextMenu={handleContextMenu}
-				class="relative flex w-max max-w-md flex-col gap-1 overflow-hidden rounded-xl px-2.5 py-1 text-white"
+				class="relative flex w-max max-w-md flex-col gap-1 overflow-hidden rounded-xl px-2.5 py-1 text-accent"
 				classList={{
-					"bg-blue-500 rounded-r": self(),
-					"bg-stone-800 rounded-l": !self(),
+					"bg-primary rounded-r": self(),
+					"bg-base-100 rounded-l": !self(),
 					"!p-0 !max-w-60": message().type === "image",
 					"!p-0 overflow-visible bg-transparent": message().type === "gif",
 					"rounded-tr-xl": self() && firstMsg(),
@@ -94,24 +94,24 @@ export const ChatBubble = (props: Props) => {
 					/>
 				</Show>
 				<Show when={message().type === "gif"}>
-					<span class="absolute left-0 top-0 m-1 w-max rounded-md bg-black/50 p-1 text-xs text-white/80">GIF</span>
+					<span class="absolute left-0 top-0 m-1 w-max rounded-md bg-base-300/50 p-1 text-xs text-accent/80">GIF</span>
 				</Show>
 				<div
 					class="flex w-full gap-1"
 					classList={{
 						"px-2.5 pb-1": message().type === "image",
-						"absolute bottom-0 right-0 p-1 bg-black/50 w-max rounded-md m-1": message().type === "gif"
+						"absolute bottom-0 right-0 p-1 bg-base-300/50 w-max rounded-md m-1": message().type === "gif"
 					}}
 				>
-					<span class="whitespace-pre-line text-[0.8rem] leading-snug">{message().content}</span>
+					<span class="whitespace-pre-line text-[0.8rem] leading-snug text-accent">{message().content}</span>
 					<Show when={message().edited}>
-						<span class="text-[0.7rem] self-end italic text-white/80 leading-none ml-auto select-none">edited</span>
+						<span class="text-[0.7rem] self-end italic text-accent/80 leading-none ml-auto select-none">edited</span>
 					</Show>
 					<span
 						classList={{
 							"ml-auto": !message().edited,
 						}}
-						class="select-none self-end text-[0.7rem] uppercase leading-none text-white/80"
+						class="select-none self-end text-[0.7rem] uppercase leading-none text-accent/80"
 					>
 							{formatedDate}
 					</span>
@@ -121,13 +121,13 @@ export const ChatBubble = (props: Props) => {
 							fallback={
 								<Tick
 									variant="single"
-									class="flex-shrink-0 self-end text-white md:size-3.5"
+									class="flex-shrink-0 self-end text-accent md:size-3.5"
 								/>
 							}
 						>
 							<Tick
 								variant="double"
-								class="flex-shrink-0 self-end text-white md:size-4"
+								class="flex-shrink-0 self-end text-accent md:size-4"
 							/>
 						</Show>
 					</Show>

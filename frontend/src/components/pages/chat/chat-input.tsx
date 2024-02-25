@@ -10,7 +10,6 @@ import ApiEndpoints from "~/connections/api/api-endpoints";
 import { useAuth } from "~/context/auth";
 import { ChatFileType } from "~/components/shared/popups/chat-file-type";
 import { useShared } from "~/context/shared";
-import Pencil from "~/icons/pencil";
 import Close from "~/icons/close";
 
 export const ChatInput = () => {
@@ -137,14 +136,13 @@ export const ChatInput = () => {
 					onSubmit={handleSubmit}
 					class="flex flex-col p-2 rounded-xl w-full bg-base-300"
 					classList={{
-						"pt-1.5 md:gap-2": isEditingMessage(),
+						"pt-1 md:gap-2": isEditingMessage(),
 					}}
 				>
 					<Show when={isEditingMessage()}>
 						<div class="flex items-center w-full gap-3">
-							<Pencil class="md:size-6 text-blue-500" />
-							<div class="flex gap-2 overflow-y-hidden relative bg-stone-800 px-2 py-0.5 leading-none flex-1 rounded-md">
-								<div class="absolute inset-y-0 left-0 md:w-1 bg-blue-500" />
+							<div class="flex gap-2 overflow-y-hidden relative bg-base-100 px-2 py-0.5 leading-none flex-1 rounded-md">
+								<div class="absolute inset-y-0 left-0 md:w-1 bg-primary" />
 								<div class="pl-1">
 									<span class="text-xs text-blue-300 select-none">Editing</span>
 									<span class="text-sm text-white/60 line-clamp-1">{editMessage()?.content}</span>
@@ -152,7 +150,7 @@ export const ChatInput = () => {
 							</div>
 							<button
 								onClick={() => setEditMessage(undefined)}
-								class="cursor-pointer text-2xl text-blue-500 transition-colors hover:text-blue-300"
+								class="btn btn-link p-0.5"
 							>
 								<Close class="md:size-7" />
 							</button>
