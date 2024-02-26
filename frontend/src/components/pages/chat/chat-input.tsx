@@ -173,20 +173,20 @@ export const ChatInput = () => {
 									<Clip class="md:size-6" />
 								</button>
 							</div>
-							<ul tabindex="0" class="dropdown-content z-10 p-1 shadow bg-base-300 w-44 rounded-xl md:mb-4">
+							<ul tabindex="0" class="dropdown-content bg-base-300 gap-0 z-10 p-1 shadow w-44 rounded-xl md:mb-4">
 								<label
 									for="image-file-input"
-									class="grid cursor-pointer grid-cols-12 gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
+									class="flex items-center cursor-pointer gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100 w-full"
 								>
-									<Photo class="col-span-2 size-full" />
-									<span class="col-span-10 text-sm font-medium">Send Photo</span>
+									<Photo class="size-4" />
+									<span class="text-sm font-medium">Send Photo</span>
 								</label>
 								<label
 									for="gif-file-input"
-									class="grid cursor-pointer grid-cols-12 gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
+									class="flex items-center cursor-pointer gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100 w-full"
 								>
-									<Gif class="col-span-2 size-full" />
-									<span class="col-span-10 text-sm font-medium">Send GIF</span>
+									<Gif class="size-4" />
+									<span class="text-sm font-medium">Send GIF</span>
 								</label>
 							</ul>
 						</div>

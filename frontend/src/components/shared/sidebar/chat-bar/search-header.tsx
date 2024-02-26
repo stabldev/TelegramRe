@@ -18,37 +18,37 @@ export const SearchHeader = (props: Props) => {
 						<Menu variant="bars" class="md:size-4" />
 					</button>
 				</div>
-				<ul tabindex="0" class="dropdown-content z-10 p-1 md:mt-3 md:ml-1 shadow bg-base-300 w-max rounded-xl">
+				<ul tabindex="0" class="dropdown-content z-10 p-1 md:mt-3 md:ml-1 shadow bg-base-300 w-40 rounded-xl">
 					<button
-						class="grid cursor-pointer grid-cols-12 gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
+						class="flex items-center w-full gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
 						onClick={props.toggleView}
 					>
-						<UserSettings class="col-span-2 size-full" />
-						<span class="col-span-10 text-sm font-medium">Settings</span>
+						<UserSettings class="size-4" />
+						<span class="text-sm font-medium">Settings</span>
 					</button>
 					<a
 						href="https://github.com/tokitouq/telegram-re/issues"
 						target="_blank"
-						class="grid cursor-pointer grid-cols-12 gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
+						class="flex items-center w-full gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
 					>
-						<BugReport class="col-span-2 size-full" />
-						<span class="col-span-10 text-sm font-medium">Report Bug</span>
+						<BugReport class="size-4" />
+						<span class="text-sm font-medium">Report Bug</span>
 					</a>
 					<a
 						href="https://github.com/tokitouq/telegram-re"
 						target="_blank"
-						class="grid cursor-pointer grid-cols-12 gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
+						class="flex items-center w-full gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
 					>
-						<Code class="col-span-2 size-full" />
-						<span class="col-span-10 text-sm font-medium">Source</span>
+						<Code class="size-4" />
+						<span class="text-sm font-medium">Source</span>
 					</a>
 					<a
 						href="https://github.com/tokitouq/telegram-re/blob/main/LICENSE"
 						target="_blank"
-						class="grid cursor-pointer grid-cols-12 gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
+						class="flex items-center w-full gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
 					>
-						<License class="col-span-2 size-full" />
-						<span class="col-span-10 text-sm font-medium">License</span>
+						<License class="size-4" />
+						<span class="text-sm font-medium">License</span>
 					</a>
 					<span class="flex px-3 py-1 text-xs text-secondary">TG-RE version 1.0</span>
 				</ul>

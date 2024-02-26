@@ -49,13 +49,13 @@ export const SettingsHeader = (props: Props) => {
 							<Menu variant="dots" class="md:size-4" />
 						</button>
 					</div>
-					<ul tabindex="0" class="dropdown-content z-10 p-1 md:mt-3 shadow bg-base-300 w-max rounded-xl">
+					<ul tabindex="0" class="dropdown-content z-10 p-1 md:mt-3 shadow bg-base-300 w-40 rounded-xl">
 						<button
 							onClick={handleLogout}
-							class="grid cursor-pointer grid-cols-12 gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
+							class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100 w-full"
 						>
-							<Logout class="col-span-2 size-full" />
-							<span class="col-span-10 text-sm font-medium">Logout</span>
+							<Logout class="size-4" />
+							<span class="text-sm font-medium">Logout</span>
 						</button>
 						<span class="flex px-3 py-1 text-xs text-secondary">TG-RE version 1.0</span>
 					</ul>

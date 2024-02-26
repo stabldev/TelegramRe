@@ -66,30 +66,28 @@ export const ChatContextMenu = (props: Props) => {
                 left: `${x()}px`,
             }}
         >
-            <div class="btn btn-base-300 z-50 flex-col gap-0 w-max h-max min-h-max select-none overflow-hidden rounded-xl border-none shadow p-1">
+            <div class="btn btn-base-300 z-50 flex-col gap-0 w-40 h-max min-h-max select-none overflow-hidden rounded-xl border-none shadow p-1">
                 <Show when={props.message().is_read && props.self()}>
-                    <div
-                        class="grid grid-cols-12 gap-2 px-3 py-1.5 text-start text-accent"
-                    >
-                        <Tick variant="double" class="col-span-2 size-full" />
-                        <span class="col-span-10 text-sm font-medium">Seen {formatedDate}</span>
+                    <div class="flex items-center gap-2 px-3 py-1.5 text-start text-accent w-full">
+                        <Tick variant="double" class="size-4" />
+                        <span class="text-sm font-medium">Seen {formatedDate}</span>
                     </div>
                 </Show>
                 <Show when={props.self()}>
                     <div
                         onClick={handleEdit}
-                        class="grid cursor-pointer grid-cols-12 gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
+                        class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100 w-full"
                     >
-                        <Pencil class="col-span-2 size-full" />
-                        <span class="col-span-10 text-sm font-medium">Edit</span>
+                        <Pencil class="size-4" />
+                        <span class="text-sm font-medium">Edit</span>
                     </div>
                 </Show>
                 <div
                     onClick={handleCopy}
-                    class="grid cursor-pointer grid-cols-12 gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
+                    class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100 w-full"
                 >
-                    <Copy class="col-span-2 size-full" />
-                    <span class="col-span-10 text-sm font-medium">
+                    <Copy class="size-4" />
+                    <span class="text-sm font-medium">
                         {copied() ? "Copied" : "Copy"}
                     </span>
                 </div>
