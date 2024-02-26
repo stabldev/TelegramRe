@@ -9,7 +9,7 @@ import Verified from "~/icons/verified";
 
 export const ChatSidebar = () => {
 	const { toggleShowSidebar } = useShared();
-	const { activeRoom, onlineUsers } = useChat();
+	const { activeRoom } = useChat();
 	const params = useParams<{ username: string }>();
 	const IS_DM = activeRoom()?.type === "DM";
 
@@ -39,15 +39,6 @@ export const ChatSidebar = () => {
 							<Verified class="text-xl text-primary" />
 						</Show>
 					</div>
-					<Show when={IS_DM}>
-						<Show
-							when={onlineUsers()?.some((onlineUser) => onlineUser.user === activeRoom()?.member[0].id)}
-							fallback={<span class="text-sm text-secondary">Offline</span>}
-						>
-							<span class="text-sm text-info">Online</span>
-						</Show>
-					</Show>
-
 					<div class="mt-3 grid grid-cols-8">
 						<At class="col-span-1 size-6 self-center text-secondary" />
 						<div class="col-span-7 flex flex-col">
