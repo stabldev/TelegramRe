@@ -8,9 +8,10 @@ import { ChatFileModal } from "~/components/shared/modals/chat-file-modal";
 import { useChat } from "~/context/chat";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { useAuth } from "~/context/auth";
-import { ChatFileType } from "~/components/shared/popups/chat-file-type";
 import { useShared } from "~/context/shared";
 import Close from "~/icons/close";
+import Photo from "~/icons/photo";
+import Gif from "~/icons/gif";
 
 export const ChatInput = () => {
 	const { socket, activeRoom } = useChat();
@@ -19,7 +20,6 @@ export const ChatInput = () => {
 
 	const [message, setMessage] = createSignal("");
 	const [showFileModel, setShowFileModel] = createSignal(false);
-	const [showFileTypeSelect, setShowFileTypeSelect] = createSignal(false);
 	const [file, setFile] = createSignal<File>();
 
 	let inputRef: HTMLTextAreaElement;
@@ -113,10 +113,6 @@ export const ChatInput = () => {
 		setShowFileModel(true);
 	};
 
-	const handleToggleShowFileTypeSelect = () => {
-		setShowFileTypeSelect((prev) => !prev);
-	};
-
 	createEffect(() => {
 		inputRef.focus();
 		isEditingMessage() && inputRef.focus();
@@ -157,30 +153,42 @@ export const ChatInput = () => {
 						</div>
 					</Show>
 					<div class="flex w-full items-end gap-3">
-						<div class="relative flex">
-							<Show when={showFileTypeSelect()}>
-								<ChatFileType onClose={handleToggleShowFileTypeSelect} />
-							</Show>
-							<input
-								type="file"
-								id="image-file-input"
-								accept=".png,.jpg,.jpeg"
-								class="hidden"
-								onChange={handleFileChange}
-							/>
-							<input
-								type="file"
-								id="gif-file-input"
-								accept=".gif"
-								class="hidden"
-								onChange={handleFileChange}
-							/>
-							<button
-								onClick={handleToggleShowFileTypeSelect}
-								class="btn btn-sm btn-ghost btn-circle"
-							>
-								<Clip class="md:size-6" />
-							</button>
+						<input
+							type="file"
+							id="image-file-input"
+							accept=".png,.jpg,.jpeg"
+							class="hidden"
+							onChange={handleFileChange}
+						/>
+						<input
+							type="file"
+							id="gif-file-input"
+							accept=".gif"
+							class="hidden"
+							onChange={handleFileChange}
+						/>
+						<div class="dropdown dropdown-top">
+							<div tabindex="0" role="button">
+								<button class="btn btn-sm btn-neutral btn-circle">
+									<Clip class="md:size-6" />
+								</button>
+							</div>
+							<ul tabindex="0" class="dropdown-content z-10 p-1 shadow bg-base-300 w-44 rounded-xl md:mb-4">
+								<label
+									for="image-file-input"
+									class="grid cursor-pointer grid-cols-12 gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
+								>
+									<Photo class="col-span-2 size-full" />
+									<span class="col-span-10 text-sm font-medium">Send Photo</span>
+								</label>
+								<label
+									for="gif-file-input"
+									class="grid cursor-pointer grid-cols-12 gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
+								>
+									<Gif class="col-span-2 size-full" />
+									<span class="col-span-10 text-sm font-medium">Send GIF</span>
+								</label>
+							</ul>
 						</div>
 						<TextareaAutosize
 							ref={(ref) => (inputRef = ref)}

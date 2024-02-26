@@ -47,7 +47,7 @@ export const ChatHeader: Component = () => {
 		<div class="flex h-12 select-none items-center justify-between border-b-[0.1vw] border-black/50 bg-base-300 px-3">
 			<button
 				onClick={toggleShowSidebar}
-				class="flex items-center gap-3 btn bg-transparent border-none p-0"
+				class="flex items-center gap-3"
 			>
 				<Show when={IS_DM}>
 					<img
