@@ -140,8 +140,8 @@ export const ChatInput = () => {
 							<div class="flex gap-2 overflow-y-hidden relative bg-base-100 px-2 py-0.5 leading-none flex-1 rounded-md">
 								<div class="absolute inset-y-0 left-0 md:w-1 bg-primary" />
 								<div class="pl-1">
-									<span class="text-xs text-blue-300 select-none">Editing</span>
-									<span class="text-sm text-white/60 line-clamp-1">{editMessage()?.content}</span>
+									<span class="text-xs text-info select-none">Editing</span>
+									<span class="text-sm text-secondary line-clamp-1">{editMessage()?.content}</span>
 								</div>
 							</div>
 							<button
