@@ -31,7 +31,7 @@ const Sidebar: Component = () => {
 	const { setChatRooms, setOnlineUsers } = useChat();
 	const [data] = createResource<ChatRoom[]>(getChatRooms);
 	const [online_users] = createResource<OnlineUser[]>(getOnlineUsers);
-	const [isChatBarOpen, setIsChatBarOpen] = createSignal(false);
+	const [isChatBarOpen, setIsChatBarOpen] = createSignal(true);
 
 	const toggleView = () => setIsChatBarOpen((prev) => !prev);
 

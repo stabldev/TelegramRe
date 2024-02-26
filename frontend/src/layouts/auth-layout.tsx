@@ -10,7 +10,7 @@ export function AuthLayout(props: { children?: JSX.Element; class?: string }) {
 			when={!isAuthenticated()}
 			fallback={<Navigate href={"/"} />}
 		>
-			<main class="relative grid h-screen w-screen place-items-center bg-stone-900">
+			<main class="relative grid h-screen w-screen place-items-center bg-base-300">
 				<div class={cn(props.class, "flex flex-col items-center text-center")}>{props.children}</div>
 			</main>
 		</Show>
