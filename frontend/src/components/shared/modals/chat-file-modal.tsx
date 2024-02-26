@@ -1,8 +1,9 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
-import { createEffect, createSignal, onCleanup, onMount } from "solid-js";
+import { Show, createEffect, createSignal, onCleanup, onMount } from "solid-js";
 import TextareaAutosize from "solid-textarea-autosize";
 import Close from "~/icons/close";
 import { filesize } from "filesize";
+import Send from "~/icons/send";
 
 type Props = {
 	file: File;
@@ -17,26 +18,22 @@ export const ChatFileModal = (props: Props) => {
 
 	const dispatch = createEventDispatcher(props);
 
-	let ref: HTMLDivElement;
-	let inputRef: HTMLTextAreaElement;
+	let ref: HTMLDivElement,
+		inputRef: HTMLTextAreaElement,
+		dialogRef: HTMLDialogElement;
 
 	const handleCleanComponent = () => {
 		setSending(false);
 		setPreview("");
 		setCaption("");
+		dialogRef.close();
 	};
 
 	const handleFileClose = () => {
-		handleCleanComponent();
-		dispatch("modalClose");
-	};
-
-	const handleOutsideClick = (event: MouseEvent) => {
 		if (sending()) return;
 
-		if (!ref.contains(event.target as HTMLElement)) {
-			dispatch("modalClose");
-		}
+		handleCleanComponent();
+		dispatch("modalClose");
 	};
 
 	const handleFileSubmit = (e?: SubmitEvent) => {
@@ -61,13 +58,12 @@ export const ChatFileModal = (props: Props) => {
 	};
 
 	onMount(() => {
+		dialogRef.showModal();
 		inputRef.focus();
-		document.addEventListener("click", handleOutsideClick);
 	});
 
 	onCleanup(() => {
 		handleCleanComponent();
-		document.removeEventListener("click", handleOutsideClick);
 	});
 
 	createEffect(() => {
@@ -80,56 +76,64 @@ export const ChatFileModal = (props: Props) => {
 	}, []);
 
 	return (
-		<div class="absolute inset-0 grid place-items-center">
-			<div
-				ref={ref!}
-				class="flex flex-col gap-2 rounded-xl bg-stone-900 text-stone-100"
-			>
-				<div class="flex items-center justify-between md:p-2 md:pl-3">
-					<span class="font-medium">
-						Send {props.file.type === "image/gif" ? "GIF" : "File"}
-					</span>
-					<button
-						onClick={handleFileClose}
-						class="text-white/75 transition-colors hover:text-white md:size-6"
-					>
-						<Close />
-					</button>
-				</div>
-				<div class="flex items-center gap-3 px-3">
-					<img
-						src={preview()}
-						alt={props.file.name}
-						class="size-16 flex-shrink-0 rounded-md object-cover"
-					/>
-					<div class="flex flex-col">
-						<span>{props.file.name}</span>
-						<span class="text-sm text-stone-300">{filesize(props.file.size, { standard: "jedec" })}</span>
-					</div>
-				</div>
-				<form
-					onSubmit={handleFileSubmit}
-					class="flex items-center gap-2 p-2 md:pl-3"
+		<>
+			<dialog ref={dialogRef!} class="modal">
+				<div
+					ref={ref!}
+					class="modal-box p-0 flex flex-col gap-1 w-max h-max rounded-2xl bg-base-300 text-accent"
 				>
-					<TextareaAutosize
-						disabled={props.file.type === "image/gif"}
-						ref={inputRef!}
-						value={caption()}
-						onInput={(e) => setCaption(e.currentTarget.value)}
-						onKeyDown={handleKeyDown}
-						class="flex-1 resize-none border-none bg-transparent text-sm text-white outline-none [scrollbar-width:none]"
-						placeholder="Add a caption..."
-						maxRows={5}
-					/>
-					<button
-						disabled={sending()}
-						type="submit"
-						class="self-end rounded-lg bg-blue-500 p-2 px-4 text-sm font-medium uppercase duration-150 disabled:opacity-75"
+					<div class="flex items-center justify-between md:p-2 md:pl-3">
+						<span class="font-medium">
+							Send {props.file.type === "image/gif" ? "GIF" : "File"}
+						</span>
+						<button
+							onClick={handleFileClose}
+							class="btn btn-ghost btn-circle p-0 h-max min-h-max w-max text-neutral-content/75"
+						>
+							<Close class="md:size-6" />
+						</button>
+					</div>
+					<div class="flex items-start gap-3 px-3">
+						<img
+							src={preview()}
+							alt={props.file.name}
+							class="size-16 flex-shrink-0 rounded-lg object-cover"
+						/>
+						<div class="flex flex-col">
+							<span>{props.file.name}</span>
+							<span class="text-sm text-secondary">{filesize(props.file.size, { standard: "jedec" })}</span>
+						</div>
+					</div>
+					<form
+						onSubmit={handleFileSubmit}
+						class="flex items-center gap-2 p-2 md:pl-3"
 					>
-						Send
-					</button>
-				</form>
-			</div>
-		</div>
+						<TextareaAutosize
+							disabled={props.file.type === "image/gif"}
+							ref={inputRef!}
+							value={caption()}
+							onInput={(e) => setCaption(e.currentTarget.value)}
+							onKeyDown={handleKeyDown}
+							class="flex-1 resize-none border-none bg-transparent text-sm text-accent outline-none [scrollbar-width:none]"
+							placeholder="Add a caption..."
+							maxRows={5}
+						/>
+						<button
+							disabled={sending()}
+							type="submit"
+							class="self-end btn btn-primary disabled:bg-neutral px-4 h-10 min-h-full"
+						>
+							Send
+							<Show
+								when={sending()}
+								fallback={<Send />}
+							>
+								<span class="loading loading-xs loading-spinner"></span>
+							</Show>
+						</button>
+					</form>
+				</div>
+			</dialog>
+		</>
 	);
 };
