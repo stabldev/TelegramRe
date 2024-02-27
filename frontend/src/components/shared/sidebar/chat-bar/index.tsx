@@ -18,8 +18,8 @@ export const ChatBar = (props: Props) => {
 			<div class="overflow-y-scroll px-3 [scrollbar-width:_thin]">
 				<For each={chatRooms()?.sort((a, b) => b.message.id - a.message.id)}>{(room) => <ProfileItem {...room} />}</For>
 			</div>
-			<button class="absolute bottom-3 right-3 rounded-full bg-blue-500 p-4">
-				<Pencil class="text-xl text-white" />
+			<button class="btn btn-primary btn-circle absolute bottom-3 right-3">
+				<Pencil class="size-5 text-accent" />
 			</button>
 		</>
 	);

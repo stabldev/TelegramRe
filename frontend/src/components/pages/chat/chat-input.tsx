@@ -8,10 +8,10 @@ import { ChatFileModal } from "~/components/shared/modals/chat-file-modal";
 import { useChat } from "~/context/chat";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { useAuth } from "~/context/auth";
-import { ChatFileType } from "~/components/shared/popups/chat-file-type";
 import { useShared } from "~/context/shared";
-import Pencil from "~/icons/pencil";
 import Close from "~/icons/close";
+import Photo from "~/icons/photo";
+import Gif from "~/icons/gif";
 
 export const ChatInput = () => {
 	const { socket, activeRoom } = useChat();
@@ -20,7 +20,6 @@ export const ChatInput = () => {
 
 	const [message, setMessage] = createSignal("");
 	const [showFileModel, setShowFileModel] = createSignal(false);
-	const [showFileTypeSelect, setShowFileTypeSelect] = createSignal(false);
 	const [file, setFile] = createSignal<File>();
 
 	let inputRef: HTMLTextAreaElement;
@@ -114,10 +113,6 @@ export const ChatInput = () => {
 		setShowFileModel(true);
 	};
 
-	const handleToggleShowFileTypeSelect = () => {
-		setShowFileTypeSelect((prev) => !prev);
-	};
-
 	createEffect(() => {
 		inputRef.focus();
 		isEditingMessage() && inputRef.focus();
@@ -135,75 +130,86 @@ export const ChatInput = () => {
 			<div class="flex items-end md:w-[42rem] md:min-w-[42rem] mb-2 mt-1 mx-auto md:gap-2">
 				<form
 					onSubmit={handleSubmit}
-					class="flex flex-col p-3 rounded-xl w-full bg-stone-900"
+					class="flex flex-col p-2 rounded-xl w-full bg-base-300"
 					classList={{
-						"pt-1.5 md:gap-2": isEditingMessage(),
+						"pt-1 md:gap-2": isEditingMessage(),
 					}}
 				>
 					<Show when={isEditingMessage()}>
 						<div class="flex items-center w-full gap-3">
-							<Pencil class="md:size-6 text-blue-500" />
-							<div class="flex gap-2 overflow-y-hidden relative bg-stone-800 px-2 py-0.5 leading-none flex-1 rounded-md">
-								<div class="absolute inset-y-0 left-0 md:w-1 bg-blue-500" />
+							<div class="flex gap-2 overflow-y-hidden relative bg-base-100 px-2 py-0.5 leading-none flex-1 rounded-md">
+								<div class="absolute inset-y-0 left-0 md:w-1 bg-primary" />
 								<div class="pl-1">
-									<span class="text-xs text-blue-300 select-none">Editing</span>
-									<span class="text-sm text-white/60 line-clamp-1">{editMessage()?.content}</span>
+									<span class="text-xs text-info select-none">Editing</span>
+									<span class="text-sm text-secondary line-clamp-1">{editMessage()?.content}</span>
 								</div>
 							</div>
 							<button
 								onClick={() => setEditMessage(undefined)}
-								class="cursor-pointer text-2xl text-blue-500 transition-colors hover:text-blue-300"
+								class="btn btn-link p-0.5"
 							>
 								<Close class="md:size-7" />
 							</button>
 						</div>
 					</Show>
 					<div class="flex w-full items-end gap-3">
-						<div class="relative flex">
-							<Show when={showFileTypeSelect()}>
-								<ChatFileType onClose={handleToggleShowFileTypeSelect} />
-							</Show>
-							<input
-								type="file"
-								id="image-file-input"
-								accept=".png,.jpg,.jpeg"
-								class="hidden"
-								onChange={handleFileChange}
-							/>
-							<input
-								type="file"
-								id="gif-file-input"
-								accept=".gif"
-								class="hidden"
-								onChange={handleFileChange}
-							/>
-							<button
-								onClick={handleToggleShowFileTypeSelect}
-								class="cursor-pointer text-2xl text-white/50 transition-colors hover:text-white/75"
-							>
-								<Clip />
-							</button>
+						<input
+							type="file"
+							id="image-file-input"
+							accept=".png,.jpg,.jpeg"
+							class="hidden"
+							onChange={handleFileChange}
+						/>
+						<input
+							type="file"
+							id="gif-file-input"
+							accept=".gif"
+							class="hidden"
+							onChange={handleFileChange}
+						/>
+						<div class="dropdown dropdown-top">
+							<div tabindex="0" role="button">
+								<button class="btn btn-sm btn-neutral btn-circle">
+									<Clip class="md:size-6" />
+								</button>
+							</div>
+							<ul tabindex="0" class="dropdown-content bg-base-300 gap-0 z-10 p-1 shadow w-44 rounded-xl md:mb-4">
+								<label
+									for="image-file-input"
+									class="flex items-center cursor-pointer gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100 w-full"
+								>
+									<Photo class="size-4" />
+									<span class="text-sm font-medium">Send Photo</span>
+								</label>
+								<label
+									for="gif-file-input"
+									class="flex items-center cursor-pointer gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100 w-full"
+								>
+									<Gif class="size-4" />
+									<span class="text-sm font-medium">Send GIF</span>
+								</label>
+							</ul>
 						</div>
 						<TextareaAutosize
 							ref={(ref) => (inputRef = ref)}
 							value={isEditingMessage() ? editMessage()?.content : message()}
 							onInput={(e) => setMessage(e.currentTarget.value)}
 							onKeyDown={handleKeyDown}
-							class="flex-1 resize-none border-none bg-transparent text-sm text-white outline-none [scrollbar-width:none]"
+							class="flex-1 self-center resize-none border-none bg-transparent text-sm text-white outline-none [scrollbar-width:none]"
 							placeholder="Write a message..."
 							maxRows={5}
 						/>
 						<button
 							type="button"
-							class="text-xl text-white/50 transition-colors hover:text-white/75"
+							class="btn btn-sm btn-ghost btn-circle text-neutral-content/75"
 						>
-							<Emoji />
+							<Emoji class="md:size-5" />
 						</button>
 					</div>
 				</form>
 				<button
 					type="submit"
-					class="text-white rounded-full aspect-square h-12 bg-blue-500 grid place-items-center"
+					class="btn btn-circle btn-primary text-accent"
 				>
 					<Show
 						when={message() || editMessage()}

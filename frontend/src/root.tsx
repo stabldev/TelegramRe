@@ -12,7 +12,7 @@ export default function Root() {
 	return (
 		<Html
 			lang="en"
-			style={{ "background-image": "url(/wallpaper.svg)" }}
+			data-theme="dark_re"
 		>
 			<Head>
 				<Title>Telegram RE</Title>
@@ -22,13 +22,13 @@ export default function Root() {
 					content="width=device-width, initial-scale=1"
 				/>
 			</Head>
-			<Body>
+			<Body style={{ "background-image": "url(/wallpaper.svg)" }}>
 				<Suspense>
 					<ErrorBoundary>
 						<MultiProvider values={[AuthProvider, SharedProvider, ChatProvider]}>
 							<Toaster
-								position="bottom-right"
-								toastOptions={{ className: "!bg-stone-800 !text-stone-100 md:!text-sm md:!px-3 md:!py-2 !rounded-lg" }}
+								position="bottom-center"
+								toastOptions={{ className: "!bg-neutral !text-accent md:!text-sm md:!px-3 md:!py-2 !rounded-lg" }}
 							/>
 							<Routes>
 								<FileRoutes />

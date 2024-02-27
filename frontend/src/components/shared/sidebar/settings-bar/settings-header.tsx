@@ -29,40 +29,36 @@ export const SettingsHeader = (props: Props) => {
 	};
 
 	return (
-		<div class="flex h-12 items-center justify-between gap-3 px-3 text-stone-50">
+		<div class="flex h-12 items-center justify-between gap-3 px-3 text-accent">
 			<div class="flex items-center gap-3">
 				<button
 					onClick={props.toggleView}
-					class="text-xl text-white/50 transition-colors hover:text-white/75"
+					class="btn btn-sm btn-circle btn-ghost text-xl text-neutral-content/95"
 				>
 					<Arrow variant="left" />
 				</button>
-				<h3 class="select-none text-lg font-medium">Settings</h3>
+				<h3 class="select-none text-base font-medium">Settings</h3>
 			</div>
-			<div class="flex items-center gap-2">
-				<button class="text-lg text-white/50 transition-colors hover:text-white/75">
-					<Pencil />
+			<div class="flex items-center gap-1">
+				<button disabled class="btn btn-sm btn-circle btn-ghost text-neutral-content/75">
+					<Pencil class="md:size-5" />
 				</button>
-				<div class="relative flex">
-					<button
-						onClick={toggleMenu}
-						class="text-lg text-white/50 transition-colors hover:text-white/75"
-						classList={{ "!text-white/75": openMenu() }}
-					>
-						<Menu variant="dots" />
-					</button>
-					<Show when={openMenu()}>
-						<div class="absolute right-0 top-10 z-50 w-max select-none overflow-hidden rounded-lg bg-stone-900 p-1">
-							<button
-								onClick={handleLogout}
-								class="grid cursor-pointer grid-cols-12 gap-2 px-3 py-1.5 rounded-md text-start text-stone-300 hover:bg-stone-800 hover:text-stone-100"
-							>
-								<Logout class="col-span-2 size-full" />
-								<span class="col-span-10 text-sm font-medium">Logout</span>
-							</button>
-							<span class="flex px-3 py-1 text-xs text-stone-400">TG-RE version 1.0</span>
-						</div>
-					</Show>
+				<div class="dropdown dropdown-bottom dropdown-end">
+					<div tabindex="0" role="button">
+						<button class="btn btn-sm btn-circle btn-ghost text-neutral-content/75">
+							<Menu variant="dots" class="md:size-4" />
+						</button>
+					</div>
+					<ul tabindex="0" class="dropdown-content z-10 p-1 md:mt-3 shadow bg-base-300 w-40 rounded-xl">
+						<button
+							onClick={handleLogout}
+							class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100 w-full"
+						>
+							<Logout class="size-4" />
+							<span class="text-sm font-medium">Logout</span>
+						</button>
+						<span class="flex px-3 py-1 text-xs text-secondary">TG-RE version 1.0</span>
+					</ul>
 				</div>
 			</div>
 		</div>
