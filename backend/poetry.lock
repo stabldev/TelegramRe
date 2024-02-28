@@ -365,12 +365,12 @@ colorama = {version = "*", markers = "platform_system == \"Windows\""}
 
 [[package]]
 name = "cloudinary"
-version = "1.38.0"
+version = "1.39.0"
 description = "Python and Django SDK for Cloudinary"
 optional = false
 python-versions = "*"
 files = [
-    {file = "cloudinary-1.38.0.tar.gz", hash = "sha256:5e2d3eee1f2d8d9eecfe575ed1bf82c851a279a79a6d449d19eef506f6b672e1"},
+    {file = "cloudinary-1.39.0.tar.gz", hash = "sha256:ef577671361c6b3814a8c143246ff2722837c6806fe85e8dfd0e6ad52029782a"},
 ]
 
 [package.dependencies]
@@ -1263,4 +1263,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "5e884f363536110315ace8eadaa559598d6c131465a0f035485dae1b714711b0"
+content-hash = "20911ab1a303db1492fc5551b75d15dc65a5bed9ae9e5a6393716182f8a78781"
