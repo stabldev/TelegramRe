@@ -23,8 +23,8 @@ devDependencies:
     specifier: ^0.2.1
     version: 0.2.2(solid-js@1.8.15)
   '@solid-primitives/destructure':
-    specifier: ^0.1.15
-    version: 0.1.15(solid-js@1.8.15)
+    specifier: ^0.1.16
+    version: 0.1.16(solid-js@1.8.15)
   '@solid-primitives/event-dispatcher':
     specifier: ^0.0.105
     version: 0.0.105(solid-js@1.8.15)
@@ -1845,12 +1845,12 @@ packages:
       solid-js: 1.8.15
     dev: true
 
-  /@solid-primitives/destructure@0.1.15(solid-js@1.8.15):
-    resolution: {integrity: sha512-KQDTrAKXBLwjeMe2AwNcEeZi8xbMX+qo2O6TCUD4kJ6Eg6+3cuPnxCFiDSR92v0XD2Dny5M/NbBFFRFEJU8q3w==}
+  /@solid-primitives/destructure@0.1.16(solid-js@1.8.15):
+    resolution: {integrity: sha512-0uHvnyKBlnxwZCIImajzYX+kJ3Kfra2U0lzo5FLW5i/U9r1Tt3NtZ5AcgX4rDgy3LWK/EGSLtZEBApJXo5F8zw==}
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:
-      '@solid-primitives/utils': 6.2.2(solid-js@1.8.15)
+      '@solid-primitives/utils': 6.2.3(solid-js@1.8.15)
       solid-js: 1.8.15
     dev: true
 
@@ -1876,7 +1876,7 @@ packages:
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:
-      '@solid-primitives/utils': 6.2.1(solid-js@1.8.15)
+      '@solid-primitives/utils': 6.2.2(solid-js@1.8.15)
       solid-js: 1.8.15
     dev: true
 
@@ -1896,16 +1896,16 @@ packages:
       solid-js: 1.8.15
     dev: true
 
-  /@solid-primitives/utils@6.2.1(solid-js@1.8.15):
-    resolution: {integrity: sha512-TsecNzxiO5bLfzqb4OOuzfUmdOROcssuGqgh5rXMMaasoFZ3GoveUgdY1wcf17frMJM7kCNGNuK34EjErneZkg==}
+  /@solid-primitives/utils@6.2.2(solid-js@1.8.15):
+    resolution: {integrity: sha512-11ypVbp987XxETeRqY5Y3OmmTpm8/jZqJXRvo6AyqBthzkvvjEdReuUMU2yVb+pwWGxfZpWHZ6EUCcGXUMhfwg==}
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:
       solid-js: 1.8.15
     dev: true
 
-  /@solid-primitives/utils@6.2.2(solid-js@1.8.15):
-    resolution: {integrity: sha512-11ypVbp987XxETeRqY5Y3OmmTpm8/jZqJXRvo6AyqBthzkvvjEdReuUMU2yVb+pwWGxfZpWHZ6EUCcGXUMhfwg==}
+  /@solid-primitives/utils@6.2.3(solid-js@1.8.15):
+    resolution: {integrity: sha512-CqAwKb2T5Vi72+rhebSsqNZ9o67buYRdEJrIFzRXz3U59QqezuuxPsyzTSVCacwS5Pf109VRsgCJQoxKRoECZQ==}
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:
