@@ -13,7 +13,7 @@
 		"@solid-primitives/destructure": "^0.1.15",
 		"@solid-primitives/event-dispatcher": "^0.0.105",
 		"@solid-primitives/intersection-observer": "^2.1.4",
-		"@solid-primitives/resource": "^0.1.1",
+		"@solid-primitives/resource": "^0.1.2",
 		"@typescript-eslint/eslint-plugin": "^7.0.0",
 		"@typescript-eslint/parser": "^6.21.0",
 		"autoprefixer": "^10.4.18",
