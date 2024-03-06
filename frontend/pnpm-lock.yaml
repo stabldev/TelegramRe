@@ -26,14 +26,14 @@ devDependencies:
     specifier: ^0.1.15
     version: 0.1.15(solid-js@1.8.15)
   '@solid-primitives/event-dispatcher':
-    specifier: ^0.0.105
-    version: 0.0.105(solid-js@1.8.15)
+    specifier: ^0.0.107
+    version: 0.0.107(solid-js@1.8.15)
   '@solid-primitives/intersection-observer':
     specifier: ^2.1.6
     version: 2.1.6(solid-js@1.8.15)
   '@solid-primitives/resource':
-    specifier: ^0.1.1
-    version: 0.1.1(solid-js@1.8.15)
+    specifier: ^0.1.2
+    version: 0.1.2(solid-js@1.8.15)
   '@typescript-eslint/eslint-plugin':
     specifier: ^7.0.0
     version: 7.0.0(@typescript-eslint/parser@6.21.0)(eslint@8.57.0)(typescript@5.3.3)
@@ -1854,8 +1854,8 @@ packages:
       solid-js: 1.8.15
     dev: true
 
-  /@solid-primitives/event-dispatcher@0.0.105(solid-js@1.8.15):
-    resolution: {integrity: sha512-VWHULLNKc4kuuhIY9UcmgacUun+RQXMRx3dLXv+T1a2YjB1RJQ5mrygJvqx+rX8tIUIYPX12XNSJoTX2g36Djw==}
+  /@solid-primitives/event-dispatcher@0.0.107(solid-js@1.8.15):
+    resolution: {integrity: sha512-DtSz/fu5wmO7i5OVVx7lf1ykhFvEF/OEpuND6o5/8ktfBCdIJw2OlaXI7UG3O5CcFyaXxp1gVdoEi7Yt0Ezw7Q==}
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:
@@ -1880,8 +1880,8 @@ packages:
       solid-js: 1.8.15
     dev: true
 
-  /@solid-primitives/resource@0.1.1(solid-js@1.8.15):
-    resolution: {integrity: sha512-o0GHZHbswTcWLIgdseN34uU1ZWf43pM9MrMC89d/4syjzCAJsUapBIsIAb3Fx+9v4jE3yxuvGwN0Ep1hgld3RA==}
+  /@solid-primitives/resource@0.1.2(solid-js@1.8.15):
+    resolution: {integrity: sha512-jeXWy1khbrCMRja4yxXPwmUxRrRUrm/U47lRh2qO2jSkvVPg9Vyf0Dx3flGzykqnTFgJ5pPVjFlQmYvjtnj0Zw==}
     peerDependencies:
       solid-js: ^1.6.0
     dependencies:
