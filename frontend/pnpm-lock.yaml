@@ -26,8 +26,8 @@ devDependencies:
     specifier: ^0.1.15
     version: 0.1.15(solid-js@1.8.15)
   '@solid-primitives/event-dispatcher':
-    specifier: ^0.0.105
-    version: 0.0.105(solid-js@1.8.15)
+    specifier: ^0.0.107
+    version: 0.0.107(solid-js@1.8.15)
   '@solid-primitives/intersection-observer':
     specifier: ^2.1.4
     version: 2.1.4(solid-js@1.8.15)
@@ -1854,8 +1854,8 @@ packages:
       solid-js: 1.8.15
     dev: true
 
-  /@solid-primitives/event-dispatcher@0.0.105(solid-js@1.8.15):
-    resolution: {integrity: sha512-VWHULLNKc4kuuhIY9UcmgacUun+RQXMRx3dLXv+T1a2YjB1RJQ5mrygJvqx+rX8tIUIYPX12XNSJoTX2g36Djw==}
+  /@solid-primitives/event-dispatcher@0.0.107(solid-js@1.8.15):
+    resolution: {integrity: sha512-DtSz/fu5wmO7i5OVVx7lf1ykhFvEF/OEpuND6o5/8ktfBCdIJw2OlaXI7UG3O5CcFyaXxp1gVdoEi7Yt0Ezw7Q==}
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:
