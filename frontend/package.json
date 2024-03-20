@@ -40,7 +40,7 @@
 	"dependencies": {
 		"@solidjs/meta": "^0.29.3",
 		"@solidjs/router": "^0.9.1",
-		"solid-js": "^1.8.15",
+		"solid-js": "^1.8.16",
 		"solid-start": "^0.3.10"
 	},
 	"engines": {
