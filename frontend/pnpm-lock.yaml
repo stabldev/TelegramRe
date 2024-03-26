@@ -16,7 +16,7 @@ dependencies:
     version: 1.8.16
   solid-start:
     specifier: ^0.3.11
-    version: 0.3.11(@solidjs/meta@0.29.3)(@solidjs/router@0.9.1)(solid-js@1.8.16)(solid-start-node@0.3.11)(solid-start-vercel@0.3.10)(vite@5.2.6)
+    version: 0.3.11(@solidjs/meta@0.29.3)(@solidjs/router@0.9.1)(solid-js@1.8.16)(solid-start-node@0.3.11)(solid-start-vercel@0.3.11)(vite@5.2.6)
 
 devDependencies:
   '@solid-primitives/context':
@@ -77,8 +77,8 @@ devDependencies:
     specifier: ^0.3.11
     version: 0.3.11(solid-start@0.3.11)(vite@5.2.6)
   solid-start-vercel:
-    specifier: ^0.3.10
-    version: 0.3.10(solid-start@0.3.11)(vite@5.2.6)
+    specifier: ^0.3.11
+    version: 0.3.11(solid-start@0.3.11)(vite@5.2.6)
   solid-textarea-autosize:
     specifier: ^0.0.5
     version: 0.0.5(solid-js@1.8.16)
@@ -4450,14 +4450,14 @@ packages:
       polka: 1.0.0-next.22
       rollup: 3.29.4
       sirv: 2.0.4
-      solid-start: 0.3.11(@solidjs/meta@0.29.3)(@solidjs/router@0.9.1)(solid-js@1.8.16)(solid-start-node@0.3.11)(solid-start-vercel@0.3.10)(vite@5.2.6)
+      solid-start: 0.3.11(@solidjs/meta@0.29.3)(@solidjs/router@0.9.1)(solid-js@1.8.16)(solid-start-node@0.3.11)(solid-start-vercel@0.3.11)(vite@5.2.6)
       terser: 5.26.0
       vite: 5.2.6
     transitivePeerDependencies:
       - supports-color
 
-  /solid-start-vercel@0.3.10(solid-start@0.3.11)(vite@5.2.6):
-    resolution: {integrity: sha512-ZgWJoyWfpodiGkAPw3/LwrG5XBuPAth8taKtoqlOGNrnW/0rwl6YoXLOOO6tj/OZN2+CN8lIlBdfdhXegZD9OQ==}
+  /solid-start-vercel@0.3.11(solid-start@0.3.11)(vite@5.2.6):
+    resolution: {integrity: sha512-W0PrdFh5glz8dJhUMAvqqMlktZud1lA4CjH7jH135u9KEVyt03mvw/JmG8t0n6jFRfUJV9PxhGgFhkqCmdstzQ==}
     peerDependencies:
       solid-start: '*'
       vite: '*'
@@ -4469,14 +4469,14 @@ packages:
       fast-glob: 3.2.12
       micromatch: 4.0.5
       rollup: 3.29.4
-      solid-start: 0.3.11(@solidjs/meta@0.29.3)(@solidjs/router@0.9.1)(solid-js@1.8.16)(solid-start-node@0.3.11)(solid-start-vercel@0.3.10)(vite@5.2.6)
+      solid-start: 0.3.11(@solidjs/meta@0.29.3)(@solidjs/router@0.9.1)(solid-js@1.8.16)(solid-start-node@0.3.11)(solid-start-vercel@0.3.11)(vite@5.2.6)
       terser: 5.26.0
       vite: 5.2.6
     transitivePeerDependencies:
       - encoding
       - supports-color
 
-  /solid-start@0.3.11(@solidjs/meta@0.29.3)(@solidjs/router@0.9.1)(solid-js@1.8.16)(solid-start-node@0.3.11)(solid-start-vercel@0.3.10)(vite@5.2.6):
+  /solid-start@0.3.11(@solidjs/meta@0.29.3)(@solidjs/router@0.9.1)(solid-js@1.8.16)(solid-start-node@0.3.11)(solid-start-vercel@0.3.11)(vite@5.2.6):
     resolution: {integrity: sha512-zVv1CI/Zwr3nBgRLqp0xxXZh9TGSqFcBTdcDwDT89HeVnL3ly2+bZGfXd3K9cEAJ/H9JUSmEyr0EzZfGhjZ/Yg==}
     hasBin: true
     peerDependencies:
@@ -4542,7 +4542,7 @@ packages:
       sirv: 2.0.4
       solid-js: 1.8.16
       solid-start-node: 0.3.11(solid-start@0.3.11)(vite@5.2.6)
-      solid-start-vercel: 0.3.10(solid-start@0.3.11)(vite@5.2.6)
+      solid-start-vercel: 0.3.11(solid-start@0.3.11)(vite@5.2.6)
       terser: 5.26.0
       undici: 5.28.3
       vite: 5.2.6
