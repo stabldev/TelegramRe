@@ -16,7 +16,7 @@ python-dotenv = "^1.0.1"
 black = "^24.3.0"
 djangorestframework = "^3.15.0"
 markdown = "^3.6"
-django-filter = "^24.1"
+django-filter = "^24.2"
 django-stubs-ext = "^4.2.7"
 django-cors-headers = "^4.3.1"
 channels = {extras = ["daphne"], version = "^4.0.0"}
