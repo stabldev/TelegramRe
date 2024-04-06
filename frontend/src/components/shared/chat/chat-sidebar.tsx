@@ -50,8 +50,7 @@ export const ChatSidebar = () => {
 						<div class="col-span-7 flex flex-col">
 							<span>
 								{IS_DM
-									? activeRoom()?.member[0]
-											.username
+									? activeRoom()?.member[0].username
 									: activeRoom()?.name}
 							</span>
 							<span class="select-none text-sm text-secondary">
@@ -63,13 +62,7 @@ export const ChatSidebar = () => {
 						<div class="mt-2 grid grid-cols-8">
 							<Info class="col-span-1 size-[1.4rem] self-center text-secondary" />
 							<div class="col-span-7 flex flex-col">
-								<span>
-									{
-										activeRoom()
-											?.member[0]
-											.bio
-									}
-								</span>
+								<span>{activeRoom()?.member[0].bio}</span>
 								<span class="select-none text-sm text-secondary">
 									Bio
 								</span>

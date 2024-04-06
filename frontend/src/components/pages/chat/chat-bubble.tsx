@@ -21,14 +21,18 @@ export const ChatBubble = (props: Props) => {
 	const [contextPos, setContextPos] = createSignal({ x: 0, y: 0 });
 
 	const { message, self, firstMsg, lastMsg } = destructure(props);
-	const formatedDate = new FormatDate(message().timestamp).format_to_relative_time;
+	const formatedDate = new FormatDate(message().timestamp)
+		.format_to_relative_time;
 
 	let el: HTMLDivElement;
 	const useVisibilityObserver = createVisibilityObserver({ threshold: 1 });
 	const visible = useVisibilityObserver(() => el);
 
 	createEffect(() => {
-		visible() && !self() && !message().is_read && handleReadMessage(message().id);
+		visible() &&
+			!self() &&
+			!message().is_read &&
+			handleReadMessage(message().id);
 	}, []);
 
 	async function handleReadMessage(id: number) {
@@ -83,7 +87,9 @@ export const ChatBubble = (props: Props) => {
 					"rounded-bl-xl": !self() && lastMsg()
 				}}
 			>
-				<Show when={message().type == "image" || message().type === "gif"}>
+				<Show
+					when={message().type == "image" || message().type === "gif"}
+				>
 					<img
 						src={message().file!}
 						alt="Image"

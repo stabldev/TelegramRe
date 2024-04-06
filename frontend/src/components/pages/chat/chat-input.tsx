@@ -147,17 +147,12 @@ export const ChatInput = () => {
 										Editing
 									</span>
 									<span class="line-clamp-1 text-sm text-secondary">
-										{
-											editMessage()
-												?.content
-										}
+										{editMessage()?.content}
 									</span>
 								</div>
 							</div>
 							<button
-								onClick={() =>
-									setEditMessage(undefined)
-								}
+								onClick={() => setEditMessage(undefined)}
 								class="btn btn-link p-0.5"
 							>
 								<Close class="md:size-7" />
@@ -219,9 +214,7 @@ export const ChatInput = () => {
 									? editMessage()?.content
 									: message()
 							}
-							onInput={(e) =>
-								setMessage(e.currentTarget.value)
-							}
+							onInput={(e) => setMessage(e.currentTarget.value)}
 							onKeyDown={handleKeyDown}
 							class="flex-1 resize-none self-center border-none bg-transparent text-sm text-white outline-none [scrollbar-width:none]"
 							placeholder="Write a message..."

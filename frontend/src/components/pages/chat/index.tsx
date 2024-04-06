@@ -15,7 +15,9 @@ export const ChatScreen: Component = () => {
 	const { socket, activeRoom, setChatRooms, setOnlineUsers } = useChat();
 	const params = useParams<{ username: string }>();
 
-	const [cachedFetcher, invalidate] = makeCache(fetchMessages, { storage: localStorage });
+	const [cachedFetcher, invalidate] = makeCache(fetchMessages, {
+		storage: localStorage
+	});
 	const [signal] = makeAbortable({ timeout: 10000 });
 	const [messages, { mutate }] = createResource(activeRoom, cachedFetcher);
 
@@ -67,9 +69,7 @@ export const ChatScreen: Component = () => {
 			if (data.message?.room !== activeRoom()?.room_id) {
 				mutate((messages) =>
 					messages?.map((message) =>
-						message.id === data.message?.id
-							? data.message
-							: message
+						message.id === data.message?.id ? data.message : message
 					)
 				);
 			}
@@ -87,9 +87,7 @@ export const ChatScreen: Component = () => {
 				invalidate({ room_id: room_id });
 				mutate((messages) =>
 					messages?.map((message) =>
-						message.id === data.message?.id
-							? data.message
-							: message
+						message.id === data.message?.id ? data.message : message
 					)
 				);
 			}

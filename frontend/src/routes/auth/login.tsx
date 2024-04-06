@@ -14,7 +14,10 @@ type AuthForm = {
 
 export default function Login() {
 	const [activeForm, setActiveForm] = createSignal<ActiveForm>("email");
-	const [authForm, setAuthForm] = createSignal<AuthForm>({ email: "", otp: "" });
+	const [authForm, setAuthForm] = createSignal<AuthForm>({
+		email: "",
+		otp: ""
+	});
 	const { handleEmailVerification, handleOTPVerification } = useAuth();
 
 	const handleFormSubmit = async (e: CustomEvent) => {
@@ -24,11 +27,14 @@ export default function Login() {
 		}));
 
 		try {
-			await toast.promise(handleEmailVerification(authForm().email, "login"), {
-				loading: "Verifying email...",
-				success: () => <span>Email verification complete!</span>,
-				error: <span>User not found!</span>
-			});
+			await toast.promise(
+				handleEmailVerification(authForm().email, "login"),
+				{
+					loading: "Verifying email...",
+					success: () => <span>Email verification complete!</span>,
+					error: <span>User not found!</span>
+				}
+			);
 
 			setActiveForm("otp");
 		} catch (err) {

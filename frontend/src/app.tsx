@@ -18,16 +18,13 @@ export default function App() {
 				<MetaProvider>
 					<Title>Telegram - RE</Title>
 					<MultiProvider
-						values={[
-							AuthProvider,
-							SharedProvider,
-							ChatProvider
-						]}
+						values={[AuthProvider, SharedProvider, ChatProvider]}
 					>
 						<Toaster
 							position="bottom-center"
 							toastOptions={{
-								className: "!bg-neutral !text-accent md:!text-sm md:!px-3 md:!py-2 !rounded-lg"
+								className:
+									"!bg-neutral !text-accent md:!text-sm md:!px-3 md:!py-2 !rounded-lg"
 							}}
 						/>
 						<Suspense>{props.children}</Suspense>

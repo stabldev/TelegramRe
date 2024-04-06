@@ -30,9 +30,7 @@ export const SettingsBar = (props: Props) => {
 				<div class="flex flex-col p-3 text-accent">
 					<div class="flex items-center gap-2">
 						<span class="font-medium md:text-lg">
-							{user()?.first_name +
-								" " +
-								user()?.last_name}
+							{user()?.first_name + " " + user()?.last_name}
 						</span>
 						<Show when={user()?.is_verified}>
 							<Verified class="text-xl text-primary" />

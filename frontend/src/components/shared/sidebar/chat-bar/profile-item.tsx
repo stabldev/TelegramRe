@@ -23,7 +23,8 @@ export const ProfileItem = (props: ChatRoom) => {
 
 	const chat_user = member()[0];
 	const self_message = message().sender === user()?.id;
-	const formated_timestamp = new FormatDate(message().timestamp).format_to_relative_time;
+	const formated_timestamp = new FormatDate(message().timestamp)
+		.format_to_relative_time;
 
 	const handleChatClick = () => {
 		setActiveRoom(props);
@@ -31,7 +32,9 @@ export const ProfileItem = (props: ChatRoom) => {
 
 	createEffect(() => {
 		setIsOnline(
-			onlineUsers()?.some((user) => user.user === chat_user.id) ? true : false
+			onlineUsers()?.some((user) => user.user === chat_user.id)
+				? true
+				: false
 		);
 	}, [onlineUsers]);
 
@@ -103,8 +106,7 @@ export const ProfileItem = (props: ChatRoom) => {
 									variant="double"
 									class="flex-shrink-0 text-primary md:size-4"
 									classList={{
-										"!text-accent":
-											isActive()
+										"!text-accent": isActive()
 									}}
 								/>
 							</Show>

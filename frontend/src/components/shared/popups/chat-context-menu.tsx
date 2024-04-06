@@ -24,7 +24,8 @@ export const ChatContextMenu = (props: Props) => {
 
 	const dispatch = createEventDispatcher(props);
 	let ref: HTMLDivElement;
-	const formatedDate = new FormatDate(props.message().timestamp).format_to_relative_time;
+	const formatedDate = new FormatDate(props.message().timestamp)
+		.format_to_relative_time;
 
 	const handleOutsideClick = (event: MouseEvent) => {
 		if (!ref.contains(event.target as HTMLElement)) {
@@ -34,7 +35,9 @@ export const ChatContextMenu = (props: Props) => {
 
 	onMount(() => {
 		const rect = ref.getBoundingClientRect();
-		setX((prev) => (prev > window.innerWidth - rect.width ? prev - rect.width : prev));
+		setX((prev) =>
+			prev > window.innerWidth - rect.width ? prev - rect.width : prev
+		);
 		setY((prev) =>
 			prev > window.innerHeight - rect.height ? prev - rect.height : prev
 		);

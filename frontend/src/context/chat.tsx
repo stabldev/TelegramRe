@@ -1,4 +1,12 @@
-import { Accessor, JSX, Setter, createContext, createSignal, onMount, useContext } from "solid-js";
+import {
+	Accessor,
+	JSX,
+	Setter,
+	createContext,
+	createSignal,
+	onMount,
+	useContext
+} from "solid-js";
 import SocketActions from "~/connections/socket/socket-actions";
 import SocketUrls from "~/connections/socket/socket-endpoints";
 import { ChatMessage, ChatRoom } from "~/types/chat.types";
@@ -76,7 +84,11 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 		socket: socket
 	};
 
-	return <ChatContext.Provider value={context_value}>{props.children}</ChatContext.Provider>;
+	return (
+		<ChatContext.Provider value={context_value}>
+			{props.children}
+		</ChatContext.Provider>
+	);
 }
 
 export function useChat() {

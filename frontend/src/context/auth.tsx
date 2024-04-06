@@ -1,4 +1,11 @@
-import { Accessor, JSX, createContext, createSignal, useContext, createEffect } from "solid-js";
+import {
+	Accessor,
+	JSX,
+	createContext,
+	createSignal,
+	useContext,
+	createEffect
+} from "solid-js";
 // import { useNavigate } from "@solidjs/router";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { User } from "~/types/user.types";
@@ -10,7 +17,10 @@ type AuthStore = {
 	loading: Accessor<boolean>;
 	user: Accessor<User | undefined>;
 	isAuthenticated: Accessor<boolean>;
-	handleEmailVerification: (email: string, authType: AuthType) => Promise<void>;
+	handleEmailVerification: (
+		email: string,
+		authType: AuthType
+	) => Promise<void>;
 	handleOTPVerification: (email: string, otp: string) => Promise<void>;
 	logoutUser: () => Promise<void>;
 };
@@ -45,7 +55,10 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		setCsrfToken(token);
 	};
 
-	const handleEmailVerification = async (email: string, authType: AuthType = "login") => {
+	const handleEmailVerification = async (
+		email: string,
+		authType: AuthType = "login"
+	) => {
 		setLoading(true);
 		try {
 			const url =
@@ -150,7 +163,11 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		logoutUser: logoutUser
 	};
 
-	return <AuthContext.Provider value={context_value}>{props.children}</AuthContext.Provider>;
+	return (
+		<AuthContext.Provider value={context_value}>
+			{props.children}
+		</AuthContext.Provider>
+	);
 }
 
 export function useAuth() {

@@ -18,7 +18,9 @@ export const ChatFileModal = (props: Props) => {
 
 	const dispatch = createEventDispatcher(props);
 
-	let ref: HTMLDivElement, inputRef: HTMLTextAreaElement, dialogRef: HTMLDialogElement;
+	let ref: HTMLDivElement,
+		inputRef: HTMLTextAreaElement,
+		dialogRef: HTMLDialogElement;
 
 	const handleCleanComponent = () => {
 		setSending(false);
@@ -86,9 +88,7 @@ export const ChatFileModal = (props: Props) => {
 					<div class="flex items-center justify-between md:p-2 md:pl-3">
 						<span class="font-medium">
 							Send{" "}
-							{props.file.type === "image/gif"
-								? "GIF"
-								: "File"}
+							{props.file.type === "image/gif" ? "GIF" : "File"}
 						</span>
 						<button
 							onClick={handleFileClose}
@@ -120,9 +120,7 @@ export const ChatFileModal = (props: Props) => {
 							disabled={props.file.type === "image/gif"}
 							ref={inputRef!}
 							value={caption()}
-							onInput={(e) =>
-								setCaption(e.currentTarget.value)
-							}
+							onInput={(e) => setCaption(e.currentTarget.value)}
 							onKeyDown={handleKeyDown}
 							class="flex-1 resize-none border-none bg-transparent text-sm text-accent outline-none [scrollbar-width:none]"
 							placeholder="Add a caption..."

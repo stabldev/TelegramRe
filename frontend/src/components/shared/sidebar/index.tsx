@@ -1,4 +1,10 @@
-import { Component, Show, createEffect, createResource, createSignal } from "solid-js";
+import {
+	Component,
+	Show,
+	createEffect,
+	createResource,
+	createSignal
+} from "solid-js";
 import { formatChatRoom } from "~/functions/format-room";
 import { ChatRoom } from "~/types/chat.types";
 import { useChat } from "~/context/chat";

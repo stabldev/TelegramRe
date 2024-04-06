@@ -1,4 +1,11 @@
-import { Component, For, JSX, Show, createEffect, createSignal } from "solid-js";
+import {
+	Component,
+	For,
+	JSX,
+	Show,
+	createEffect,
+	createSignal
+} from "solid-js";
 import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
 import Menu from "~/icons/menu";
@@ -41,7 +48,9 @@ export const ChatHeader: Component = () => {
 
 	createEffect(() => {
 		setIsOnline(
-			onlineUsers()?.some((user) => user.user === activeRoom()?.member[0].id)
+			onlineUsers()?.some(
+				(user) => user.user === activeRoom()?.member[0].id
+			)
 				? true
 				: false
 		);
@@ -72,9 +81,7 @@ export const ChatHeader: Component = () => {
 					<Show
 						when={IS_DM && isOnline()}
 						fallback={
-							<span class="text-xs font-normal">
-								Offline
-							</span>
+							<span class="text-xs font-normal">Offline</span>
 						}
 					>
 						<span class="text-xs font-normal">Online</span>

@@ -1,6 +1,9 @@
 import { Signal, createSignal } from "solid-js";
 
-export const createLocalStorageSignal = <T>(key: string, defaultValue: T): Signal<T> => {
+export const createLocalStorageSignal = <T>(
+	key: string,
+	defaultValue: T
+): Signal<T> => {
 	const storage = typeof window !== "undefined" ? window.localStorage : null;
 
 	const initialValue = storage?.getItem(key)
