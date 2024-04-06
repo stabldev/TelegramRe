@@ -18,7 +18,7 @@ type Props = {
 
 export const ChatContextMenu = (props: Props) => {
 	const { setEditMessage } = useShared();
-	const { x: PropX, y: PropY, message} = destructure(props);
+	const { x: PropX, y: PropY, message } = destructure(props);
 
 	const [copied, setCopied] = createSignal(false);
 	const [x, setX] = createSignal(PropX());

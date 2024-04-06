@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const SearchHeader = (props: Props) => {
-	const { toggleView } =  destructure(props);
+	const { toggleView } = destructure(props);
 
 	return (
 		<div class="flex h-12 items-center gap-3 px-3">
