@@ -1,4 +1,4 @@
-import { A, useParams } from "solid-start";
+import { A, useParams } from "@solidjs/router";
 import { destructure } from "@solid-primitives/destructure";
 import { FormatDate } from "~/functions/format-date";
 import { Match, Show, Switch, createEffect, createSignal } from "solid-js";

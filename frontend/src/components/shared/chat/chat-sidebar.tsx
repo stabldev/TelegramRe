@@ -1,5 +1,5 @@
 import { Show } from "solid-js";
-import { useParams } from "solid-start";
+import { useParams } from "@solidjs/router";
 import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
 import At from "~/icons/at";

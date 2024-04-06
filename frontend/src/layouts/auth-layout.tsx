@@ -1,5 +1,5 @@
 import { JSX, Show } from "solid-js";
-import { Navigate } from "solid-start";
+import { Navigate } from "@solidjs/router";
 import { useAuth } from "~/context/auth";
 import { cn } from "~/functions/cn";
 

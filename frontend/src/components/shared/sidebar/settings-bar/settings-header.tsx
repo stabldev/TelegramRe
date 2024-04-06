@@ -1,4 +1,3 @@
-import { Show, createSignal } from "solid-js";
 import toast from "solid-toast";
 import { useAuth } from "~/context/auth";
 import Arrow from "~/icons/arrow";
@@ -12,9 +11,6 @@ type Props = {
 
 export const SettingsHeader = (props: Props) => {
 	const { logoutUser } = useAuth();
-	const [openMenu, setOpenMenu] = createSignal(true);
-
-	const toggleMenu = () => setOpenMenu((prev) => !prev);
 
 	const handleLogout = async () => {
 		try {

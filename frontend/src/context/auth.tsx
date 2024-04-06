@@ -1,5 +1,5 @@
 import { Accessor, JSX, createContext, createSignal, useContext, createEffect } from "solid-js";
-import { useNavigate } from "solid-start";
+// import { useNavigate } from "@solidjs/router";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { User } from "~/types/user.types";
 
@@ -23,7 +23,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const [isAuthenticated, setIsAuthenticated] = createSignal(false);
 	const [user, setUser] = createSignal<User | undefined>();
 
-	const nagivate = useNavigate();
+	// const nagivate = useNavigate();
 
 	const initializeSession = async () => {
 		const res = await fetch(ApiEndpoints.user.auth.SESSION, {
@@ -86,7 +86,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 			await getMyInfo();
 			setIsAuthenticated(true);
-			nagivate("/", { replace: true });
+			// nagivate("/", { replace: true });
 		} catch (err) {
 			throw err;
 		} finally {
@@ -124,7 +124,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 			setIsAuthenticated(false);
 			setUser(undefined);
 			setCsrfToken("");
-			nagivate("/auth/login/");
+			// nagivate("/auth/login/");
 		} catch (err) {
 			throw err;
 		}

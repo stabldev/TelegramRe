@@ -1,6 +1,6 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import { Show } from "solid-js";
-import { A } from "solid-start";
+import { A } from "@solidjs/router";
 import { useAuth } from "~/context/auth";
 import At from "~/icons/at";
 import Google from "~/icons/google";

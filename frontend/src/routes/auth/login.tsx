@@ -1,4 +1,4 @@
-import { Match, Switch, createSignal, lazy } from "solid-js";
+import { Match, Switch, createSignal } from "solid-js";
 import { useAuth } from "~/context/auth";
 import { AuthLayout } from "~/layouts/auth-layout";
 import toast from "solid-toast";
