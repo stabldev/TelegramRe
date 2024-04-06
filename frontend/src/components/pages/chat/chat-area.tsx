@@ -37,10 +37,10 @@ export const ChatArea = (props: Props) => {
 							>
 								<For each={group.chats}>
 									{(message, idx) => {
-										let isFirstMsg =
+										const isFirstMsg =
 											group.chats[idx() - 1]?.sender !==
 											message.sender;
-										let isLastMsg =
+										const isLastMsg =
 											group.chats[idx() + 1]?.sender !==
 											message.sender;
 

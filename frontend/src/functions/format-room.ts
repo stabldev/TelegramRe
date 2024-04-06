@@ -10,7 +10,7 @@ export function formatChatRoom(chatRooms: ChatRoom[] | undefined) {
 
 	return chatRooms.reduce((acumulator, chat) => {
 		if (chat.type === "DM") {
-			let newChat = { ...chat };
+			const newChat = { ...chat };
 			newChat.member = chat.member.filter((user) => user.id !== userId);
 			acumulator.push(newChat);
 			return acumulator;

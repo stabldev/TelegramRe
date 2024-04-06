@@ -1,3 +1,4 @@
+import { destructure } from "@solid-primitives/destructure";
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import { Accessor, Show, createSignal, onCleanup, onMount } from "solid-js";
 import { useShared } from "~/context/shared";
@@ -17,14 +18,15 @@ type Props = {
 
 export const ChatContextMenu = (props: Props) => {
 	const { setEditMessage } = useShared();
+	const { x: PropX, y: PropY, message } = destructure(props);
 
 	const [copied, setCopied] = createSignal(false);
-	const [x, setX] = createSignal(props.x);
-	const [y, setY] = createSignal(props.y);
+	const [x, setX] = createSignal(PropX());
+	const [y, setY] = createSignal(PropY());
 
 	const dispatch = createEventDispatcher(props);
 	let ref: HTMLDivElement;
-	const formatedDate = new FormatDate(props.message().timestamp)
+	const formatedDate = new FormatDate(message()().timestamp)
 		.format_to_relative_time;
 
 	const handleOutsideClick = (event: MouseEvent) => {

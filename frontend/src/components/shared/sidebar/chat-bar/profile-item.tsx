@@ -14,7 +14,7 @@ import { cn } from "~/functions/cn";
 
 export const ProfileItem = (props: ChatRoom) => {
 	const { user } = useAuth();
-	const { onlineUsers, setActiveRoom, socket, activeRoom } = useChat();
+	const { onlineUsers, setActiveRoom } = useChat();
 	const [isActive, setIsActive] = createSignal(false);
 	const [isOnline, setIsOnline] = createSignal(false);
 	const params = useParams<{ username: string }>();
@@ -36,12 +36,12 @@ export const ProfileItem = (props: ChatRoom) => {
 				? true
 				: false
 		);
-	}, [onlineUsers]);
+	});
 
 	createEffect(() => {
 		if (!params.username) return;
 		setIsActive(get_username(params.username) === chat_user.username);
-	}, [params.username]);
+	});
 
 	return (
 		<A

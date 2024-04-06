@@ -83,7 +83,7 @@ export const ChatScreen: Component = () => {
 			);
 		} else if (data.action === SocketActions.EDIT_MESSAGE) {
 			if (data.message?.room === activeRoom()?.id) {
-				let room_id = activeRoom()?.room_id ?? "";
+				const room_id = activeRoom()?.room_id ?? "";
 				invalidate({ room_id: room_id });
 				mutate((messages) =>
 					messages?.map((message) =>

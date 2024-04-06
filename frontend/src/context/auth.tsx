@@ -77,8 +77,6 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 			const data = await res.json();
 			if (!res.ok) throw new Error(data.detail);
-		} catch (err) {
-			throw err;
 		} finally {
 			setLoading(false);
 		}
@@ -103,30 +101,24 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 			await getMyInfo();
 			setIsAuthenticated(true);
 			// nagivate("/", { replace: true });
-		} catch (err) {
-			throw err;
 		} finally {
 			setLoading(false);
 		}
 	};
 
 	const getMyInfo = async () => {
-		try {
-			const res = await fetch(ApiEndpoints.user.auth.WHO_AM_I, {
-				headers: {
-					"Content-Type": "application/json",
-					"X-CSRFToken": csrfToken()
-				},
-				credentials: "include"
-			});
+		const res = await fetch(ApiEndpoints.user.auth.WHO_AM_I, {
+			headers: {
+				"Content-Type": "application/json",
+				"X-CSRFToken": csrfToken()
+			},
+			credentials: "include"
+		});
 
-			const data = await res.json();
-			if (!res.ok) throw new Error("Something is wrong!");
+		const data = await res.json();
+		if (!res.ok) throw new Error("Something is wrong!");
 
-			setUser(data.detail);
-		} catch (err) {
-			console.error(err);
-		}
+		setUser(data.detail);
 	};
 
 	const logoutUser = async () => {

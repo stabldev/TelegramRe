@@ -73,7 +73,7 @@ export const ChatFileModal = (props: Props) => {
 
 			return () => URL.revokeObjectURL(objectUrl);
 		}
-	}, []);
+	});
 
 	return (
 		<>
@@ -136,7 +136,7 @@ export const ChatFileModal = (props: Props) => {
 								when={sending()}
 								fallback={<Send />}
 							>
-								<span class="loading loading-spinner loading-xs"></span>
+								<span class="loading loading-spinner loading-xs" />
 							</Show>
 						</button>
 					</form>

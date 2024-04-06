@@ -76,8 +76,8 @@ export const ChatInput = () => {
 
 			const formData = new FormData();
 			formData.append("type", type);
-			formData.append("room", activeRoom()?.id.toString()!);
-			formData.append("sender", user()?.id.toString()!);
+			formData.append("room", String(activeRoom()?.id));
+			formData.append("sender", String(user()?.id));
 			formData.append("content", content.message);
 			formData.append("file", content.file);
 
@@ -96,8 +96,6 @@ export const ChatInput = () => {
 			if (!res.ok) {
 				throw new Error(res.statusText);
 			}
-		} catch (err) {
-			throw err;
 		} finally {
 			setShowFileModel(false);
 		}
