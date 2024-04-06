@@ -16,7 +16,7 @@ export default function App() {
     <Router
       root={props => (
         <MetaProvider>
-          <Title>SolidStart - Basic</Title>
+          <Title>Telegram - RE</Title>
           <MultiProvider values={[AuthProvider, SharedProvider, ChatProvider]}>
             <Toaster
               position="bottom-center"
