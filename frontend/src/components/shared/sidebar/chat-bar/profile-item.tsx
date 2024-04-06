@@ -1,4 +1,4 @@
-import { A, useParams } from "solid-start";
+import { A, useParams } from "@solidjs/router";
 import { destructure } from "@solid-primitives/destructure";
 import { FormatDate } from "~/functions/format-date";
 import { Match, Show, Switch, createEffect, createSignal } from "solid-js";
@@ -14,7 +14,7 @@ import { cn } from "~/functions/cn";
 
 export const ProfileItem = (props: ChatRoom) => {
 	const { user } = useAuth();
-	const { onlineUsers, setActiveRoom, socket, activeRoom } = useChat();
+	const { onlineUsers, setActiveRoom } = useChat();
 	const [isActive, setIsActive] = createSignal(false);
 	const [isOnline, setIsOnline] = createSignal(false);
 	const params = useParams<{ username: string }>();
@@ -23,25 +23,33 @@ export const ProfileItem = (props: ChatRoom) => {
 
 	const chat_user = member()[0];
 	const self_message = message().sender === user()?.id;
-	const formated_timestamp = new FormatDate(message().timestamp).format_to_relative_time;
+	const formated_timestamp = new FormatDate(message().timestamp)
+		.format_to_relative_time;
 
 	const handleChatClick = () => {
 		setActiveRoom(props);
 	};
 
 	createEffect(() => {
-		setIsOnline(onlineUsers()?.some((user) => user.user === chat_user.id) ? true : false);
-	}, [onlineUsers]);
+		setIsOnline(
+			onlineUsers()?.some((user) => user.user === chat_user.id)
+				? true
+				: false
+		);
+	});
 
 	createEffect(() => {
 		if (!params.username) return;
 		setIsActive(get_username(params.username) === chat_user.username);
-	}, [params.username]);
+	});
 
 	return (
 		<A
 			href={`/@${chat_user.username}`}
-			class={cn(isActive() && "!bg-primary", "btn w-full h-auto flex-nowrap flex select-none items-center gap-3 rounded-xl px-3 py-2 bg-transparent hover:bg-base-100 border-none")}
+			class={cn(
+				isActive() && "!bg-primary",
+				"btn flex h-auto w-full select-none flex-nowrap items-center gap-3 rounded-xl border-none bg-transparent px-3 py-2 hover:bg-base-100"
+			)}
 			onClick={handleChatClick}
 		>
 			<div class="relative size-12 flex-shrink-0">
@@ -69,7 +77,9 @@ export const ProfileItem = (props: ChatRoom) => {
 			>
 				<div class="flex items-center justify-between">
 					<div class="flex items-center md:gap-1">
-						<span class="text-sm font-medium text-accent">{chat_user.full_name}</span>
+						<span class="text-sm font-medium text-accent">
+							{chat_user.full_name}
+						</span>
 						<Show when={chat_user.is_verified}>
 							<div
 								classList={{
@@ -95,17 +105,25 @@ export const ProfileItem = (props: ChatRoom) => {
 								<Tick
 									variant="double"
 									class="flex-shrink-0 text-primary md:size-4"
-									classList={{ "!text-accent": isActive() }}
+									classList={{
+										"!text-accent": isActive()
+									}}
 								/>
 							</Show>
 						</Show>
-						<span class="text-xs uppercase font-normal">{formated_timestamp}</span>
+						<span class="text-xs font-normal uppercase">
+							{formated_timestamp}
+						</span>
 					</div>
 				</div>
 				<div class="flex items-center justify-between md:gap-1">
 					<Show
 						when={message().type === "gif"}
-						fallback={<span class="line-clamp-1 text-sm font-normal">{message().content}</span>}
+						fallback={
+							<span class="line-clamp-1 text-sm font-normal">
+								{message().content}
+							</span>
+						}
 					>
 						<span class="text-sm">GIF</span>
 					</Show>
@@ -113,7 +131,9 @@ export const ProfileItem = (props: ChatRoom) => {
 						when={self_message}
 						fallback={
 							<Show when={unreads() && !isActive()}>
-								<span class="grid place-items-center rounded-full bg-primary font-semibold leading-none md:size-5 md:text-xs">{unreads()}</span>
+								<span class="grid place-items-center rounded-full bg-primary font-semibold leading-none md:size-5 md:text-xs">
+									{unreads()}
+								</span>
 							</Show>
 						}
 					>

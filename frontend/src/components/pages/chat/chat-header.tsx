@@ -1,4 +1,11 @@
-import { Component, For, JSX, Show, createEffect, createSignal } from "solid-js";
+import {
+	Component,
+	For,
+	JSX,
+	Show,
+	createEffect,
+	createSignal
+} from "solid-js";
 import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
 import Menu from "~/icons/menu";
@@ -22,26 +29,32 @@ export const ChatHeader: Component = () => {
 	} = {
 		search: {
 			icon: <Search />,
-			disabled: true,
+			disabled: true
 		},
 		phone: {
 			icon: <Phone />,
-			disabled: true,
+			disabled: true
 		},
 		split: {
 			icon: <Split class="!text-xl" />,
 			onClick: () => toggleShowSidebar(),
-			disabled: false,
+			disabled: false
 		},
 		menu: {
 			icon: <Menu variant="dots" />,
-			disabled: false,
+			disabled: false
 		}
 	};
 
 	createEffect(() => {
-		setIsOnline(onlineUsers()?.some((user) => user.user === activeRoom()?.member[0].id) ? true : false);
-	}, [onlineUsers, activeRoom]);
+		setIsOnline(
+			onlineUsers()?.some(
+				(user) => user.user === activeRoom()?.member[0].id
+			)
+				? true
+				: false
+		);
+	});
 
 	return (
 		<div class="flex h-12 select-none items-center justify-between border-b-[0.1vw] border-black/50 bg-base-300 px-3">
@@ -53,17 +66,23 @@ export const ChatHeader: Component = () => {
 					<img
 						src={activeRoom()?.member[0].avatar ?? ""}
 						alt="anya-forger"
-						class="size-7 rounded-full ring-2 ring-secondary/50 ring-offset-base-300 ring-offset-2"
+						class="size-7 rounded-full ring-2 ring-secondary/50 ring-offset-2 ring-offset-base-300"
 						classList={{
-							"!ring-primary": isOnline(),
+							"!ring-primary": isOnline()
 						}}
 					/>
 				</Show>
 				<div class="flex flex-col items-start leading-none text-secondary">
-					<span class="text-sm font-medium text-accent">{IS_DM ? activeRoom()?.member[0].full_name : activeRoom()?.name}</span>
+					<span class="text-sm font-medium text-accent">
+						{IS_DM
+							? activeRoom()?.member[0].full_name
+							: activeRoom()?.name}
+					</span>
 					<Show
 						when={IS_DM && isOnline()}
-						fallback={<span class="text-xs font-normal">Offline</span>}
+						fallback={
+							<span class="text-xs font-normal">Offline</span>
+						}
 					>
 						<span class="text-xs font-normal">Online</span>
 					</Show>
@@ -75,7 +94,7 @@ export const ChatHeader: Component = () => {
 						<button
 							onClick={icon.onClick}
 							disabled={icon.disabled}
-							class="btn btn-circle btn-sm text-lg btn-ghost text-neutral-content/75"
+							class="btn btn-circle btn-ghost btn-sm text-lg text-neutral-content/75"
 						>
 							{icon.icon}
 						</button>

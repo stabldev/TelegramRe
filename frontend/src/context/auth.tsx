@@ -1,5 +1,12 @@
-import { Accessor, JSX, createContext, createSignal, useContext, createEffect } from "solid-js";
-import { useNavigate } from "solid-start";
+import {
+	Accessor,
+	JSX,
+	createContext,
+	createSignal,
+	useContext,
+	createEffect
+} from "solid-js";
+// import { useNavigate } from "@solidjs/router";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { User } from "~/types/user.types";
 
@@ -10,7 +17,10 @@ type AuthStore = {
 	loading: Accessor<boolean>;
 	user: Accessor<User | undefined>;
 	isAuthenticated: Accessor<boolean>;
-	handleEmailVerification: (email: string, authType: AuthType) => Promise<void>;
+	handleEmailVerification: (
+		email: string,
+		authType: AuthType
+	) => Promise<void>;
 	handleOTPVerification: (email: string, otp: string) => Promise<void>;
 	logoutUser: () => Promise<void>;
 };
@@ -23,7 +33,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const [isAuthenticated, setIsAuthenticated] = createSignal(false);
 	const [user, setUser] = createSignal<User | undefined>();
 
-	const nagivate = useNavigate();
+	// const nagivate = useNavigate();
 
 	const initializeSession = async () => {
 		const res = await fetch(ApiEndpoints.user.auth.SESSION, {
@@ -45,10 +55,16 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		setCsrfToken(token);
 	};
 
-	const handleEmailVerification = async (email: string, authType: AuthType = "login") => {
+	const handleEmailVerification = async (
+		email: string,
+		authType: AuthType = "login"
+	) => {
 		setLoading(true);
 		try {
-			const url = authType === "login" ? ApiEndpoints.user.auth.EMAIL_VERIFICATION : ApiEndpoints.user.auth.REGISTER_EMAIL_VERIFICATION;
+			const url =
+				authType === "login"
+					? ApiEndpoints.user.auth.EMAIL_VERIFICATION
+					: ApiEndpoints.user.auth.REGISTER_EMAIL_VERIFICATION;
 			const res = await fetch(url, {
 				method: "POST",
 				headers: {
@@ -61,8 +77,6 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 			const data = await res.json();
 			if (!res.ok) throw new Error(data.detail);
-		} catch (err) {
-			throw err;
 		} finally {
 			setLoading(false);
 		}
@@ -86,31 +100,25 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 			await getMyInfo();
 			setIsAuthenticated(true);
-			nagivate("/", { replace: true });
-		} catch (err) {
-			throw err;
+			// nagivate("/", { replace: true });
 		} finally {
 			setLoading(false);
 		}
 	};
 
 	const getMyInfo = async () => {
-		try {
-			const res = await fetch(ApiEndpoints.user.auth.WHO_AM_I, {
-				headers: {
-					"Content-Type": "application/json",
-					"X-CSRFToken": csrfToken()
-				},
-				credentials: "include"
-			});
+		const res = await fetch(ApiEndpoints.user.auth.WHO_AM_I, {
+			headers: {
+				"Content-Type": "application/json",
+				"X-CSRFToken": csrfToken()
+			},
+			credentials: "include"
+		});
 
-			const data = await res.json();
-			if (!res.ok) throw new Error("Something is wrong!");
+		const data = await res.json();
+		if (!res.ok) throw new Error("Something is wrong!");
 
-			setUser(data.detail);
-		} catch (err) {
-			console.error(err);
-		}
+		setUser(data.detail);
 	};
 
 	const logoutUser = async () => {
@@ -124,7 +132,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 			setIsAuthenticated(false);
 			setUser(undefined);
 			setCsrfToken("");
-			nagivate("/auth/login/");
+			// nagivate("/auth/login/");
 		} catch (err) {
 			throw err;
 		}
@@ -147,7 +155,11 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		logoutUser: logoutUser
 	};
 
-	return <AuthContext.Provider value={context_value}>{props.children}</AuthContext.Provider>;
+	return (
+		<AuthContext.Provider value={context_value}>
+			{props.children}
+		</AuthContext.Provider>
+	);
 }
 
 export function useAuth() {

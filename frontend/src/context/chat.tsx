@@ -1,4 +1,12 @@
-import { Accessor, JSX, Setter, createContext, createSignal, onMount, useContext } from "solid-js";
+import {
+	Accessor,
+	JSX,
+	Setter,
+	createContext,
+	createSignal,
+	onMount,
+	useContext
+} from "solid-js";
 import SocketActions from "~/connections/socket/socket-actions";
 import SocketUrls from "~/connections/socket/socket-endpoints";
 import { ChatMessage, ChatRoom } from "~/types/chat.types";
@@ -41,7 +49,11 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 				setChatRooms((chatRooms) => {
 					const updatedChatRoom = chatRooms?.map((room) => {
 						if (room.id === data.message?.room) {
-							return { ...room, message: data.message!, unreads: room.unreads + 1 };
+							return {
+								...room,
+								message: data.message!,
+								unreads: room.unreads + 1
+							};
 						}
 						return room;
 					});
@@ -52,12 +64,13 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 			} else if (data.action === SocketActions.EDIT_MESSAGE) {
 				setChatRooms((chatRooms) =>
 					chatRooms?.map((room) =>
-						room.id === data.message?.room && room.message.id === data.message.id ?
-						{ ...room, message: data.message }
-						: room
+						room.id === data.message?.room &&
+						room.message.id === data.message.id
+							? { ...room, message: data.message }
+							: room
 					)
 				);
-			};
+			}
 		};
 	});
 
@@ -71,7 +84,11 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 		socket: socket
 	};
 
-	return <ChatContext.Provider value={context_value}>{props.children}</ChatContext.Provider>;
+	return (
+		<ChatContext.Provider value={context_value}>
+			{props.children}
+		</ChatContext.Provider>
+	);
 }
 
 export function useChat() {

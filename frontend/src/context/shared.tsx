@@ -1,4 +1,12 @@
-import { Accessor, JSX, Setter, createContext, createEffect, createSignal, useContext } from "solid-js";
+import {
+	Accessor,
+	JSX,
+	Setter,
+	createContext,
+	createEffect,
+	createSignal,
+	useContext
+} from "solid-js";
 import { ChatMessage } from "~/types/chat.types";
 
 type SharedStore = {
@@ -28,10 +36,14 @@ export function SharedProvider(props: { children?: JSX.Element }) {
 		toggleShowSidebar: toggleShowSidebar,
 		editMessage: editMessage,
 		setEditMessage: setEditMessage,
-		isEditingMessage: isEditingMessage,
+		isEditingMessage: isEditingMessage
 	};
 
-	return <SharedContext.Provider value={context_value}>{props.children}</SharedContext.Provider>;
+	return (
+		<SharedContext.Provider value={context_value}>
+			{props.children}
+		</SharedContext.Provider>
+	);
 }
 
 export function useShared() {

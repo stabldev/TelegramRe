@@ -1,3 +1,4 @@
+import { destructure } from "@solid-primitives/destructure";
 import Code from "~/icons/code";
 import License from "~/icons/license";
 import Menu from "~/icons/menu";
@@ -10,18 +11,29 @@ type Props = {
 };
 
 export const SearchHeader = (props: Props) => {
+	const { toggleView } = destructure(props);
+
 	return (
 		<div class="flex h-12 items-center gap-3 px-3">
 			<div class="dropdown dropdown-bottom">
-				<div tabindex="0" role="button">
-					<button class="btn btn-sm btn-circle btn-ghost text-neutral-content/75">
-						<Menu variant="bars" class="md:size-4" />
+				<div
+					tabindex="0"
+					role="button"
+				>
+					<button class="btn btn-circle btn-ghost btn-sm text-neutral-content/75">
+						<Menu
+							variant="bars"
+							class="md:size-4"
+						/>
 					</button>
 				</div>
-				<ul tabindex="0" class="dropdown-content z-10 p-1 md:mt-3 md:ml-1 shadow bg-base-300 w-40 rounded-xl">
+				<ul
+					tabindex="0"
+					class="dropdown-content z-10 w-40 rounded-xl bg-base-300 p-1 shadow md:ml-1 md:mt-3"
+				>
 					<button
-						class="flex items-center w-full gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
-						onClick={props.toggleView}
+						class="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-start text-accent hover:bg-base-100"
+						onClick={toggleView()}
 					>
 						<UserSettings class="size-4" />
 						<span class="text-sm font-medium">Settings</span>
@@ -29,7 +41,7 @@ export const SearchHeader = (props: Props) => {
 					<a
 						href="https://github.com/tokitouq/telegram-re/issues"
 						target="_blank"
-						class="flex items-center w-full gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
+						class="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-start text-accent hover:bg-base-100"
 					>
 						<BugReport class="size-4" />
 						<span class="text-sm font-medium">Report Bug</span>
@@ -37,7 +49,7 @@ export const SearchHeader = (props: Props) => {
 					<a
 						href="https://github.com/tokitouq/telegram-re"
 						target="_blank"
-						class="flex items-center w-full gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
+						class="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-start text-accent hover:bg-base-100"
 					>
 						<Code class="size-4" />
 						<span class="text-sm font-medium">Source</span>
@@ -45,12 +57,14 @@ export const SearchHeader = (props: Props) => {
 					<a
 						href="https://github.com/tokitouq/telegram-re/blob/main/LICENSE"
 						target="_blank"
-						class="flex items-center w-full gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100"
+						class="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-start text-accent hover:bg-base-100"
 					>
 						<License class="size-4" />
 						<span class="text-sm font-medium">License</span>
 					</a>
-					<span class="flex px-3 py-1 text-xs text-secondary">TG-RE version 1.0</span>
+					<span class="flex px-3 py-1 text-xs text-secondary">
+						TG-RE version 1.0
+					</span>
 				</ul>
 			</div>
 			<form class="relative flex w-full items-center">

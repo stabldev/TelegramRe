@@ -1,5 +1,5 @@
 import { Show } from "solid-js";
-import { useParams } from "solid-start";
+import { useParams } from "@solidjs/router";
 import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
 import At from "~/icons/at";
@@ -19,11 +19,13 @@ export const ChatSidebar = () => {
 				<div class="flex items-center justify-between md:px-3 md:py-2">
 					<h3 class="flex items-center font-medium text-accent md:gap-3 md:text-sm">
 						Profile
-						<span class="font-normal text-secondary">{params.username}</span>
+						<span class="font-normal text-secondary">
+							{params.username}
+						</span>
 					</h3>
 					<button
 						onClick={toggleShowSidebar}
-						class="btn btn-ghost btn-circle btn-sm text-neutral-content/75"
+						class="btn btn-circle btn-ghost btn-sm text-neutral-content/75"
 					>
 						<Close class="md:size-6" />
 					</button>
@@ -34,7 +36,11 @@ export const ChatSidebar = () => {
 				/>
 				<div class="flex flex-col p-3 text-accent">
 					<div class="flex items-center gap-2">
-						<span class="font-medium md:text-lg">{IS_DM ? activeRoom()?.member[0].full_name : activeRoom()?.name}</span>
+						<span class="font-medium md:text-lg">
+							{IS_DM
+								? activeRoom()?.member[0].full_name
+								: activeRoom()?.name}
+						</span>
 						<Show when={activeRoom()?.member[0].is_verified}>
 							<Verified class="text-xl text-primary" />
 						</Show>
@@ -42,8 +48,14 @@ export const ChatSidebar = () => {
 					<div class="mt-3 grid grid-cols-8">
 						<At class="col-span-1 size-6 self-center text-secondary" />
 						<div class="col-span-7 flex flex-col">
-							<span>{IS_DM ? activeRoom()?.member[0].username : activeRoom()?.name}</span>
-							<span class="select-none text-sm text-secondary">Username</span>
+							<span>
+								{IS_DM
+									? activeRoom()?.member[0].username
+									: activeRoom()?.name}
+							</span>
+							<span class="select-none text-sm text-secondary">
+								Username
+							</span>
 						</div>
 					</div>
 					<Show when={IS_DM}>
@@ -51,7 +63,9 @@ export const ChatSidebar = () => {
 							<Info class="col-span-1 size-[1.4rem] self-center text-secondary" />
 							<div class="col-span-7 flex flex-col">
 								<span>{activeRoom()?.member[0].bio}</span>
-								<span class="select-none text-sm text-secondary">Bio</span>
+								<span class="select-none text-sm text-secondary">
+									Bio
+								</span>
 							</div>
 						</div>
 					</Show>

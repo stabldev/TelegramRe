@@ -44,7 +44,7 @@ export const ChatFileModal = (props: Props) => {
 				file: props.file,
 				message: caption()
 			},
-			type: props.file.type === "image/gif" ? "gif" : "image",
+			type: props.file.type === "image/gif" ? "gif" : "image"
 		};
 
 		dispatch("fileSubmit", detail);
@@ -73,22 +73,26 @@ export const ChatFileModal = (props: Props) => {
 
 			return () => URL.revokeObjectURL(objectUrl);
 		}
-	}, []);
+	});
 
 	return (
 		<>
-			<dialog ref={dialogRef!} class="modal">
+			<dialog
+				ref={dialogRef!}
+				class="modal"
+			>
 				<div
 					ref={ref!}
-					class="modal-box p-0 flex flex-col gap-1 w-max h-max rounded-2xl bg-base-300 text-accent"
+					class="modal-box flex h-max w-max flex-col gap-1 rounded-2xl bg-base-300 p-0 text-accent"
 				>
 					<div class="flex items-center justify-between md:p-2 md:pl-3">
 						<span class="font-medium">
-							Send {props.file.type === "image/gif" ? "GIF" : "File"}
+							Send{" "}
+							{props.file.type === "image/gif" ? "GIF" : "File"}
 						</span>
 						<button
 							onClick={handleFileClose}
-							class="btn btn-ghost btn-circle p-0 h-max min-h-max w-max text-neutral-content/75"
+							class="btn btn-circle btn-ghost h-max min-h-max w-max p-0 text-neutral-content/75"
 						>
 							<Close class="md:size-6" />
 						</button>
@@ -101,7 +105,11 @@ export const ChatFileModal = (props: Props) => {
 						/>
 						<div class="flex flex-col">
 							<span>{props.file.name}</span>
-							<span class="text-sm text-secondary">{filesize(props.file.size, { standard: "jedec" })}</span>
+							<span class="text-sm text-secondary">
+								{filesize(props.file.size, {
+									standard: "jedec"
+								})}
+							</span>
 						</div>
 					</div>
 					<form
@@ -121,14 +129,14 @@ export const ChatFileModal = (props: Props) => {
 						<button
 							disabled={sending()}
 							type="submit"
-							class="self-end btn btn-primary disabled:bg-neutral px-4 h-10 min-h-full"
+							class="btn btn-primary h-10 min-h-full self-end px-4 disabled:bg-neutral"
 						>
 							Send
 							<Show
 								when={sending()}
 								fallback={<Send />}
 							>
-								<span class="loading loading-xs loading-spinner"></span>
+								<span class="loading loading-spinner loading-xs" />
 							</Show>
 						</button>
 					</form>

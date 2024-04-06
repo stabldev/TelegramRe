@@ -1,7 +1,10 @@
-import { Component, For, Show, createEffect, createResource, createSignal } from "solid-js";
-import { SearchHeader } from "./chat-bar/search-header";
-import Pencil from "~/icons/pencil";
-import { ProfileItem } from "./chat-bar/profile-item";
+import {
+	Component,
+	Show,
+	createEffect,
+	createResource,
+	createSignal
+} from "solid-js";
 import { formatChatRoom } from "~/functions/format-room";
 import { ChatRoom } from "~/types/chat.types";
 import { useChat } from "~/context/chat";
@@ -20,7 +23,7 @@ async function getChatRooms() {
 
 async function getOnlineUsers() {
 	const res = await fetch(ApiEndpoints.chat.ONLINE_USERS, {
-		credentials: "include",
+		credentials: "include"
 	});
 	const data = (await res.json()) as OnlineUser[];
 	console.log(data);
@@ -35,10 +38,10 @@ const Sidebar: Component = () => {
 
 	const toggleView = () => setIsChatBarOpen((prev) => !prev);
 
-	createEffect(async () => {
+	createEffect(() => {
 		setChatRooms(formatChatRoom(data()));
 		setOnlineUsers(online_users());
-	}, []);
+	});
 
 	return (
 		<div class="relative grid h-screen w-full grid-rows-[min-content_1fr] border-r border-black/50 bg-base-300">

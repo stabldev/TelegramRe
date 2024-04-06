@@ -14,7 +14,10 @@ type AuthForm = {
 
 export default function Register() {
 	const [activeForm, setActiveForm] = createSignal<ActiveForm>("email");
-	const [authForm, setAuthForm] = createSignal<AuthForm>({ email: "", otp: "" });
+	const [authForm, setAuthForm] = createSignal<AuthForm>({
+		email: "",
+		otp: ""
+	});
 	const { handleEmailVerification, handleOTPVerification } = useAuth();
 
 	const handleFormSubmit = async (e: CustomEvent) => {
@@ -24,11 +27,14 @@ export default function Register() {
 		}));
 
 		try {
-			await toast.promise(handleEmailVerification(authForm().email, "register"), {
-				loading: "Verifying email...",
-				success: () => <span>Email verification complete!</span>,
-				error: <span>User with same email already exists!</span>
-			});
+			await toast.promise(
+				handleEmailVerification(authForm().email, "register"),
+				{
+					loading: "Verifying email...",
+					success: () => <span>Email verification complete!</span>,
+					error: <span>User with same email already exists!</span>
+				}
+			);
 
 			setActiveForm("otp");
 		} catch (err) {
@@ -43,11 +49,14 @@ export default function Register() {
 		}));
 
 		try {
-			await toast.promise(handleOTPVerification(authForm().email, authForm().otp), {
-				loading: "Verifying OTP...",
-				success: () => <span>OTP verification complete!</span>,
-				error: <span>Wrong OTP! please check again</span>
-			});
+			await toast.promise(
+				handleOTPVerification(authForm().email, authForm().otp),
+				{
+					loading: "Verifying OTP...",
+					success: () => <span>OTP verification complete!</span>,
+					error: <span>Wrong OTP! please check again</span>
+				}
+			);
 		} catch (err) {
 			console.error(err);
 		}

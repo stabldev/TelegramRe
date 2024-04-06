@@ -1,6 +1,5 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import { useAuth } from "~/context/auth";
-import At from "~/icons/at";
 
 interface Props {
 	onOtpSubmit: (e: CustomEvent) => void;
@@ -22,9 +21,12 @@ const OtpForm = (props: Props) => {
 	return (
 		<>
 			<div class="flex flex-col md:gap-2">
-				<h2 class="font-semibold text-accent md:text-2xl">Email verification.</h2>
+				<h2 class="font-semibold text-accent md:text-2xl">
+					Email verification.
+				</h2>
 				<span class="flex self-center text-secondary md:text-sm">
-					Please enter the OTP which we've send to <br /> your email to complete.
+					Please enter the OTP which we've send to <br /> your email
+					to complete.
 				</span>
 			</div>
 			<form
@@ -38,7 +40,7 @@ const OtpForm = (props: Props) => {
 					minLength={5}
 					maxLength={5}
 					placeholder="OTP you recieved"
-					class="w-full bg-transparent text-accent border-2 border-neutral focus-within:border-primary md:rounded-lg md:p-2.5 md:text-base"
+					class="w-full border-2 border-neutral bg-transparent text-accent focus-within:border-primary md:rounded-lg md:p-2.5 md:text-base"
 				/>
 				<button
 					disabled={loading()}

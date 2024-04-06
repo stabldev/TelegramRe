@@ -13,7 +13,11 @@ export class FormatDate {
 		 * if not: retusn in foramt like "24 SEPT"
 		 * */
 
-		if (this.#date.getDate() === current_date.getDate() && this.#date.getMonth() === current_date.getMonth() && this.#date.getFullYear() === current_date.getFullYear()) {
+		if (
+			this.#date.getDate() === current_date.getDate() &&
+			this.#date.getMonth() === current_date.getMonth() &&
+			this.#date.getFullYear() === current_date.getFullYear()
+		) {
 			return this.#date.toLocaleTimeString([], {
 				hour: "numeric",
 				minute: "numeric",

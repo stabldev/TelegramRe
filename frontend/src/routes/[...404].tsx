@@ -1,4 +1,4 @@
-import { HttpStatusCode } from "solid-start/server";
+import { HttpStatusCode } from "@solidjs/start";
 
 export default function NotFound() {
 	return (
