@@ -63,9 +63,13 @@ export const SettingsHeader = (props: Props) => {
 							class="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-start text-accent hover:bg-base-100"
 						>
 							<Logout class="size-4" />
-							<span class="text-sm font-medium">Logout</span>
+							<span class="text-sm font-medium">
+								Logout
+							</span>
 						</button>
-						<span class="flex px-3 py-1 text-xs text-secondary">TG-RE version 1.0</span>
+						<span class="flex px-3 py-1 text-xs text-secondary">
+							TG-RE version 1.0
+						</span>
 					</ul>
 				</div>
 			</div>

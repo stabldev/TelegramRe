@@ -75,7 +75,8 @@ export const ChatBubble = (props: Props) => {
 					"bg-primary rounded-r": self(),
 					"bg-base-100 rounded-l": !self(),
 					"!p-0 !max-w-60": message().type === "image",
-					"!p-0 overflow-visible bg-transparent": message().type === "gif",
+					"!p-0 overflow-visible bg-transparent":
+						message().type === "gif",
 					"rounded-tr-xl": self() && firstMsg(),
 					"rounded-br-xl": self() && lastMsg(),
 					"rounded-tl-xl": !self() && firstMsg(),

@@ -59,7 +59,9 @@ export const SearchHeader = (props: Props) => {
 						<License class="size-4" />
 						<span class="text-sm font-medium">License</span>
 					</a>
-					<span class="flex px-3 py-1 text-xs text-secondary">TG-RE version 1.0</span>
+					<span class="flex px-3 py-1 text-xs text-secondary">
+						TG-RE version 1.0
+					</span>
 				</ul>
 			</div>
 			<form class="relative flex w-full items-center">

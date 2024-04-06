@@ -16,7 +16,11 @@ export const ChatBar = (props: Props) => {
 		<>
 			<SearchHeader toggleView={props.toggleView} />
 			<div class="overflow-y-scroll px-3 [scrollbar-width:_thin]">
-				<For each={chatRooms()?.sort((a, b) => b.message.id - a.message.id)}>
+				<For
+					each={chatRooms()?.sort(
+						(a, b) => b.message.id - a.message.id
+					)}
+				>
 					{(room) => <ProfileItem {...room} />}
 				</For>
 			</div>

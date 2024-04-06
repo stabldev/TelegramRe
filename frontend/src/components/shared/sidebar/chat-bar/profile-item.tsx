@@ -30,7 +30,9 @@ export const ProfileItem = (props: ChatRoom) => {
 	};
 
 	createEffect(() => {
-		setIsOnline(onlineUsers()?.some((user) => user.user === chat_user.id) ? true : false);
+		setIsOnline(
+			onlineUsers()?.some((user) => user.user === chat_user.id) ? true : false
+		);
 	}, [onlineUsers]);
 
 	createEffect(() => {
@@ -72,7 +74,9 @@ export const ProfileItem = (props: ChatRoom) => {
 			>
 				<div class="flex items-center justify-between">
 					<div class="flex items-center md:gap-1">
-						<span class="text-sm font-medium text-accent">{chat_user.full_name}</span>
+						<span class="text-sm font-medium text-accent">
+							{chat_user.full_name}
+						</span>
 						<Show when={chat_user.is_verified}>
 							<div
 								classList={{
@@ -98,17 +102,26 @@ export const ProfileItem = (props: ChatRoom) => {
 								<Tick
 									variant="double"
 									class="flex-shrink-0 text-primary md:size-4"
-									classList={{ "!text-accent": isActive() }}
+									classList={{
+										"!text-accent":
+											isActive()
+									}}
 								/>
 							</Show>
 						</Show>
-						<span class="text-xs font-normal uppercase">{formated_timestamp}</span>
+						<span class="text-xs font-normal uppercase">
+							{formated_timestamp}
+						</span>
 					</div>
 				</div>
 				<div class="flex items-center justify-between md:gap-1">
 					<Show
 						when={message().type === "gif"}
-						fallback={<span class="line-clamp-1 text-sm font-normal">{message().content}</span>}
+						fallback={
+							<span class="line-clamp-1 text-sm font-normal">
+								{message().content}
+							</span>
+						}
 					>
 						<span class="text-sm">GIF</span>
 					</Show>

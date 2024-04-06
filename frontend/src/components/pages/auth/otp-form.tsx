@@ -21,9 +21,12 @@ const OtpForm = (props: Props) => {
 	return (
 		<>
 			<div class="flex flex-col md:gap-2">
-				<h2 class="font-semibold text-accent md:text-2xl">Email verification.</h2>
+				<h2 class="font-semibold text-accent md:text-2xl">
+					Email verification.
+				</h2>
 				<span class="flex self-center text-secondary md:text-sm">
-					Please enter the OTP which we've send to <br /> your email to complete.
+					Please enter the OTP which we've send to <br /> your email
+					to complete.
 				</span>
 			</div>
 			<form

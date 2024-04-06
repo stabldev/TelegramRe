@@ -35,7 +35,9 @@ export const ChatContextMenu = (props: Props) => {
 	onMount(() => {
 		const rect = ref.getBoundingClientRect();
 		setX((prev) => (prev > window.innerWidth - rect.width ? prev - rect.width : prev));
-		setY((prev) => (prev > window.innerHeight - rect.height ? prev - rect.height : prev));
+		setY((prev) =>
+			prev > window.innerHeight - rect.height ? prev - rect.height : prev
+		);
 
 		document.addEventListener("click", handleOutsideClick);
 		document.addEventListener("contextmenu", handleOutsideClick);
@@ -73,7 +75,9 @@ export const ChatContextMenu = (props: Props) => {
 							variant="double"
 							class="size-4"
 						/>
-						<span class="text-sm font-medium">Seen {formatedDate}</span>
+						<span class="text-sm font-medium">
+							Seen {formatedDate}
+						</span>
 					</div>
 				</Show>
 				<Show when={props.self()}>
@@ -90,7 +94,9 @@ export const ChatContextMenu = (props: Props) => {
 					class="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-start text-accent hover:bg-base-100"
 				>
 					<Copy class="size-4" />
-					<span class="text-sm font-medium">{copied() ? "Copied" : "Copy"}</span>
+					<span class="text-sm font-medium">
+						{copied() ? "Copied" : "Copy"}
+					</span>
 				</div>
 			</div>
 		</div>

@@ -41,7 +41,9 @@ export const ChatHeader: Component = () => {
 
 	createEffect(() => {
 		setIsOnline(
-			onlineUsers()?.some((user) => user.user === activeRoom()?.member[0].id) ? true : false
+			onlineUsers()?.some((user) => user.user === activeRoom()?.member[0].id)
+				? true
+				: false
 		);
 	}, [onlineUsers, activeRoom]);
 
@@ -63,11 +65,17 @@ export const ChatHeader: Component = () => {
 				</Show>
 				<div class="flex flex-col items-start leading-none text-secondary">
 					<span class="text-sm font-medium text-accent">
-						{IS_DM ? activeRoom()?.member[0].full_name : activeRoom()?.name}
+						{IS_DM
+							? activeRoom()?.member[0].full_name
+							: activeRoom()?.name}
 					</span>
 					<Show
 						when={IS_DM && isOnline()}
-						fallback={<span class="text-xs font-normal">Offline</span>}
+						fallback={
+							<span class="text-xs font-normal">
+								Offline
+							</span>
+						}
 					>
 						<span class="text-xs font-normal">Online</span>
 					</Show>

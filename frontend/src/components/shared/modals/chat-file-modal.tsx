@@ -84,7 +84,12 @@ export const ChatFileModal = (props: Props) => {
 					class="modal-box flex h-max w-max flex-col gap-1 rounded-2xl bg-base-300 p-0 text-accent"
 				>
 					<div class="flex items-center justify-between md:p-2 md:pl-3">
-						<span class="font-medium">Send {props.file.type === "image/gif" ? "GIF" : "File"}</span>
+						<span class="font-medium">
+							Send{" "}
+							{props.file.type === "image/gif"
+								? "GIF"
+								: "File"}
+						</span>
 						<button
 							onClick={handleFileClose}
 							class="btn btn-circle btn-ghost h-max min-h-max w-max p-0 text-neutral-content/75"
@@ -101,7 +106,9 @@ export const ChatFileModal = (props: Props) => {
 						<div class="flex flex-col">
 							<span>{props.file.name}</span>
 							<span class="text-sm text-secondary">
-								{filesize(props.file.size, { standard: "jedec" })}
+								{filesize(props.file.size, {
+									standard: "jedec"
+								})}
 							</span>
 						</div>
 					</div>
@@ -113,7 +120,9 @@ export const ChatFileModal = (props: Props) => {
 							disabled={props.file.type === "image/gif"}
 							ref={inputRef!}
 							value={caption()}
-							onInput={(e) => setCaption(e.currentTarget.value)}
+							onInput={(e) =>
+								setCaption(e.currentTarget.value)
+							}
 							onKeyDown={handleKeyDown}
 							class="flex-1 resize-none border-none bg-transparent text-sm text-accent outline-none [scrollbar-width:none]"
 							placeholder="Add a caption..."

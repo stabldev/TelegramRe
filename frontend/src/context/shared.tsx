@@ -39,7 +39,11 @@ export function SharedProvider(props: { children?: JSX.Element }) {
 		isEditingMessage: isEditingMessage
 	};
 
-	return <SharedContext.Provider value={context_value}>{props.children}</SharedContext.Provider>;
+	return (
+		<SharedContext.Provider value={context_value}>
+			{props.children}
+		</SharedContext.Provider>
+	);
 }
 
 export function useShared() {

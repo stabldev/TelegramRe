@@ -24,23 +24,52 @@ export const ChatArea = (props: Props) => {
 					{(group) => (
 						<div
 							class="relative flex items-end gap-2"
-							classList={{ "self-end flex-row-reverse": group.sender === user()?.id }}
+							classList={{
+								"self-end flex-row-reverse":
+									group.sender === user()?.id
+							}}
 						>
 							<div
 								class="flex flex-col gap-0.5"
-								classList={{ "items-end": group.sender === user()?.id }}
+								classList={{
+									"items-end":
+										group.sender ===
+										user()?.id
+								}}
 							>
 								<For each={group.chats}>
 									{(message, idx) => {
-										let isFirstMsg = group.chats[idx() - 1]?.sender !== message.sender;
-										let isLastMsg = group.chats[idx() + 1]?.sender !== message.sender;
+										let isFirstMsg =
+											group.chats[
+												idx() -
+													1
+											]
+												?.sender !==
+											message.sender;
+										let isLastMsg =
+											group.chats[
+												idx() +
+													1
+											]
+												?.sender !==
+											message.sender;
 
 										return (
 											<ChatBubble
-												message={message}
-												self={message.sender === user()?.id}
-												firstMsg={isFirstMsg}
-												lastMsg={isLastMsg}
+												message={
+													message
+												}
+												self={
+													message.sender ===
+													user()
+														?.id
+												}
+												firstMsg={
+													isFirstMsg
+												}
+												lastMsg={
+													isLastMsg
+												}
 											/>
 										);
 									}}

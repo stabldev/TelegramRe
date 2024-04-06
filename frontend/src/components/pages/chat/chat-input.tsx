@@ -81,14 +81,17 @@ export const ChatInput = () => {
 			formData.append("content", content.message);
 			formData.append("file", content.file);
 
-			const res = await fetch(ApiEndpoints.chat.CHAT_ROOMS + activeRoom()?.room_id + "/", {
-				method: "POST",
-				headers: {
-					"X-CSRFToken": csrfToken()
-				},
-				credentials: "include",
-				body: formData
-			});
+			const res = await fetch(
+				ApiEndpoints.chat.CHAT_ROOMS + activeRoom()?.room_id + "/",
+				{
+					method: "POST",
+					headers: {
+						"X-CSRFToken": csrfToken()
+					},
+					credentials: "include",
+					body: formData
+				}
+			);
 
 			if (!res.ok) {
 				throw new Error(res.statusText);
@@ -140,12 +143,21 @@ export const ChatInput = () => {
 							<div class="relative flex flex-1 gap-2 overflow-y-hidden rounded-md bg-base-100 px-2 py-0.5 leading-none">
 								<div class="absolute inset-y-0 left-0 bg-primary md:w-1" />
 								<div class="pl-1">
-									<span class="select-none text-xs text-info">Editing</span>
-									<span class="line-clamp-1 text-sm text-secondary">{editMessage()?.content}</span>
+									<span class="select-none text-xs text-info">
+										Editing
+									</span>
+									<span class="line-clamp-1 text-sm text-secondary">
+										{
+											editMessage()
+												?.content
+										}
+									</span>
 								</div>
 							</div>
 							<button
-								onClick={() => setEditMessage(undefined)}
+								onClick={() =>
+									setEditMessage(undefined)
+								}
 								class="btn btn-link p-0.5"
 							>
 								<Close class="md:size-7" />
@@ -185,21 +197,31 @@ export const ChatInput = () => {
 									class="flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-1.5 text-start text-accent hover:bg-base-100"
 								>
 									<Photo class="size-4" />
-									<span class="text-sm font-medium">Send Photo</span>
+									<span class="text-sm font-medium">
+										Send Photo
+									</span>
 								</label>
 								<label
 									for="gif-file-input"
 									class="flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-1.5 text-start text-accent hover:bg-base-100"
 								>
 									<Gif class="size-4" />
-									<span class="text-sm font-medium">Send GIF</span>
+									<span class="text-sm font-medium">
+										Send GIF
+									</span>
 								</label>
 							</ul>
 						</div>
 						<TextareaAutosize
 							ref={(ref) => (inputRef = ref)}
-							value={isEditingMessage() ? editMessage()?.content : message()}
-							onInput={(e) => setMessage(e.currentTarget.value)}
+							value={
+								isEditingMessage()
+									? editMessage()?.content
+									: message()
+							}
+							onInput={(e) =>
+								setMessage(e.currentTarget.value)
+							}
 							onKeyDown={handleKeyDown}
 							class="flex-1 resize-none self-center border-none bg-transparent text-sm text-white outline-none [scrollbar-width:none]"
 							placeholder="Write a message..."

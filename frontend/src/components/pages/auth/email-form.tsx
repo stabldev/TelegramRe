@@ -28,15 +28,20 @@ const EmailForm = (props: Props) => {
 				when={props.authType === "login"}
 				fallback={
 					<div class="flex flex-col md:gap-2">
-						<h2 class="font-semibold text-accent md:text-2xl">Join Telegram RE</h2>
+						<h2 class="font-semibold text-accent md:text-2xl">
+							Join Telegram RE
+						</h2>
 						<span class="flex self-center text-secondary md:text-sm">
-							Use OAuth or register via Email <br /> ( Passwordless )
+							Use OAuth or register via Email <br /> (
+							Passwordless )
 						</span>
 					</div>
 				}
 			>
 				<div class="flex flex-col md:gap-2">
-					<h2 class="font-semibold text-accent md:text-2xl">Login to Telegram RE</h2>
+					<h2 class="font-semibold text-accent md:text-2xl">
+						Login to Telegram RE
+					</h2>
 					<span class="flex self-center text-secondary md:text-sm">
 						Use OAuth or login via Email <br /> ( Passwordless )
 					</span>

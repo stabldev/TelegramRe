@@ -19,7 +19,9 @@ export const ChatSidebar = () => {
 				<div class="flex items-center justify-between md:px-3 md:py-2">
 					<h3 class="flex items-center font-medium text-accent md:gap-3 md:text-sm">
 						Profile
-						<span class="font-normal text-secondary">{params.username}</span>
+						<span class="font-normal text-secondary">
+							{params.username}
+						</span>
 					</h3>
 					<button
 						onClick={toggleShowSidebar}
@@ -35,7 +37,9 @@ export const ChatSidebar = () => {
 				<div class="flex flex-col p-3 text-accent">
 					<div class="flex items-center gap-2">
 						<span class="font-medium md:text-lg">
-							{IS_DM ? activeRoom()?.member[0].full_name : activeRoom()?.name}
+							{IS_DM
+								? activeRoom()?.member[0].full_name
+								: activeRoom()?.name}
 						</span>
 						<Show when={activeRoom()?.member[0].is_verified}>
 							<Verified class="text-xl text-primary" />
@@ -44,16 +48,31 @@ export const ChatSidebar = () => {
 					<div class="mt-3 grid grid-cols-8">
 						<At class="col-span-1 size-6 self-center text-secondary" />
 						<div class="col-span-7 flex flex-col">
-							<span>{IS_DM ? activeRoom()?.member[0].username : activeRoom()?.name}</span>
-							<span class="select-none text-sm text-secondary">Username</span>
+							<span>
+								{IS_DM
+									? activeRoom()?.member[0]
+											.username
+									: activeRoom()?.name}
+							</span>
+							<span class="select-none text-sm text-secondary">
+								Username
+							</span>
 						</div>
 					</div>
 					<Show when={IS_DM}>
 						<div class="mt-2 grid grid-cols-8">
 							<Info class="col-span-1 size-[1.4rem] self-center text-secondary" />
 							<div class="col-span-7 flex flex-col">
-								<span>{activeRoom()?.member[0].bio}</span>
-								<span class="select-none text-sm text-secondary">Bio</span>
+								<span>
+									{
+										activeRoom()
+											?.member[0]
+											.bio
+									}
+								</span>
+								<span class="select-none text-sm text-secondary">
+									Bio
+								</span>
 							</div>
 						</div>
 					</Show>

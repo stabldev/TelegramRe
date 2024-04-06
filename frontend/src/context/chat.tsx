@@ -41,7 +41,11 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 				setChatRooms((chatRooms) => {
 					const updatedChatRoom = chatRooms?.map((room) => {
 						if (room.id === data.message?.room) {
-							return { ...room, message: data.message!, unreads: room.unreads + 1 };
+							return {
+								...room,
+								message: data.message!,
+								unreads: room.unreads + 1
+							};
 						}
 						return room;
 					});
@@ -52,7 +56,8 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 			} else if (data.action === SocketActions.EDIT_MESSAGE) {
 				setChatRooms((chatRooms) =>
 					chatRooms?.map((room) =>
-						room.id === data.message?.room && room.message.id === data.message.id
+						room.id === data.message?.room &&
+						room.message.id === data.message.id
 							? { ...room, message: data.message }
 							: room
 					)

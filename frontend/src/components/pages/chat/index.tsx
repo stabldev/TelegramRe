@@ -45,7 +45,10 @@ export const ChatScreen: Component = () => {
 						? {
 								...room,
 								message: data.message,
-								unreads: room.id !== activeRoom()?.id ? room.unreads + 1 : 0
+								unreads:
+									room.id !== activeRoom()?.id
+										? room.unreads + 1
+										: 0
 							}
 						: room
 				)
@@ -54,18 +57,28 @@ export const ChatScreen: Component = () => {
 			setOnlineUsers(data.online_users_list);
 		} else if (data.action === SocketActions.READ_ROOM) {
 			setChatRooms((chatRooms) =>
-				chatRooms?.map((room) => (room.id === activeRoom()?.id ? { ...room, unreads: 0 } : room))
+				chatRooms?.map((room) =>
+					room.id === activeRoom()?.id
+						? { ...room, unreads: 0 }
+						: room
+				)
 			);
 		} else if (data.action === SocketActions.READ_MESSAGE) {
 			if (data.message?.room !== activeRoom()?.room_id) {
 				mutate((messages) =>
-					messages?.map((message) => (message.id === data.message?.id ? data.message : message))
+					messages?.map((message) =>
+						message.id === data.message?.id
+							? data.message
+							: message
+					)
 				);
 			}
 
 			setChatRooms((chatRooms) =>
 				chatRooms?.map((room) =>
-					room.id === data.message?.room ? { ...room, message: data.message!, unreads: 0 } : room
+					room.id === data.message?.room
+						? { ...room, message: data.message!, unreads: 0 }
+						: room
 				)
 			);
 		} else if (data.action === SocketActions.EDIT_MESSAGE) {
@@ -73,13 +86,18 @@ export const ChatScreen: Component = () => {
 				let room_id = activeRoom()?.room_id ?? "";
 				invalidate({ room_id: room_id });
 				mutate((messages) =>
-					messages?.map((message) => (message.id === data.message?.id ? data.message : message))
+					messages?.map((message) =>
+						message.id === data.message?.id
+							? data.message
+							: message
+					)
 				);
 			}
 
 			setChatRooms((chatRooms) =>
 				chatRooms?.map((room) =>
-					room.id === data.message?.room && room.message.id === data.message.id
+					room.id === data.message?.room &&
+					room.message.id === data.message.id
 						? { ...room, message: data.message }
 						: room
 				)
