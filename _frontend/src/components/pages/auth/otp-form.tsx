@@ -1,6 +1,5 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import { useAuth } from "~/context/auth";
-import At from "~/icons/at";
 
 interface Props {
 	onOtpSubmit: (e: CustomEvent) => void;

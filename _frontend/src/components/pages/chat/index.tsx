@@ -1,4 +1,4 @@
-import { Component, Show, createEffect, createResource, createSignal } from "solid-js";
+import { Component, Show, createEffect, createResource } from "solid-js";
 import { ChatHeader } from "./chat-header";
 import { ChatInput } from "./chat-input";
 import { ChatArea } from "./chat-area";
@@ -8,7 +8,7 @@ import { OnlineUser } from "~/types/user.types";
 import SocketActions from "~/connections/socket/socket-actions";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { makeCache, makeAbortable } from "@solid-primitives/resource";
-import { useParams } from "solid-start";
+import { useParams } from "@solidjs/router";
 import { scrollToBottom } from "~/functions/scroll-to-bottom";
 
 export const ChatScreen: Component = () => {
