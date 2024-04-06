@@ -52,12 +52,12 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 			} else if (data.action === SocketActions.EDIT_MESSAGE) {
 				setChatRooms((chatRooms) =>
 					chatRooms?.map((room) =>
-						room.id === data.message?.room && room.message.id === data.message.id ?
-						{ ...room, message: data.message }
-						: room
+						room.id === data.message?.room && room.message.id === data.message.id
+							? { ...room, message: data.message }
+							: room
 					)
 				);
-			};
+			}
 		};
 	});
 

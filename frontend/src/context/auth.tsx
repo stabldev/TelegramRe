@@ -48,7 +48,10 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const handleEmailVerification = async (email: string, authType: AuthType = "login") => {
 		setLoading(true);
 		try {
-			const url = authType === "login" ? ApiEndpoints.user.auth.EMAIL_VERIFICATION : ApiEndpoints.user.auth.REGISTER_EMAIL_VERIFICATION;
+			const url =
+				authType === "login"
+					? ApiEndpoints.user.auth.EMAIL_VERIFICATION
+					: ApiEndpoints.user.auth.REGISTER_EMAIL_VERIFICATION;
 			const res = await fetch(url, {
 				method: "POST",
 				headers: {

@@ -12,22 +12,25 @@ import { ChatProvider } from "./context/chat";
 import "./app.css";
 
 export default function App() {
-  return (
-    <Router
-      root={props => (
-        <MetaProvider>
-          <Title>Telegram - RE</Title>
-          <MultiProvider values={[AuthProvider, SharedProvider, ChatProvider]}>
-            <Toaster
-              position="bottom-center"
-              toastOptions={{ className: "!bg-neutral !text-accent md:!text-sm md:!px-3 md:!py-2 !rounded-lg" }}
-            />
-            <Suspense>{props.children}</Suspense>
-          </MultiProvider>
-        </MetaProvider>
-      )}
-    >
-      <FileRoutes />
-    </Router>
-  );
+	return (
+		<Router
+			root={(props) => (
+				<MetaProvider>
+					<Title>Telegram - RE</Title>
+					<MultiProvider values={[AuthProvider, SharedProvider, ChatProvider]}>
+						<Toaster
+							position="bottom-center"
+							toastOptions={{
+								className:
+									"[display:flex] !bg-neutral !text-accent md:!text-sm md:!px-3 md:!py-2 !rounded-lg"
+							}}
+						/>
+						<Suspense>{props.children}</Suspense>
+					</MultiProvider>
+				</MetaProvider>
+			)}
+		>
+			<FileRoutes />
+		</Router>
+	);
 }

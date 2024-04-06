@@ -29,26 +29,38 @@ export const SettingsHeader = (props: Props) => {
 			<div class="flex items-center gap-3">
 				<button
 					onClick={props.toggleView}
-					class="btn btn-sm btn-circle btn-ghost text-xl text-neutral-content/95"
+					class="btn btn-circle btn-ghost btn-sm text-xl text-neutral-content/95"
 				>
 					<Arrow variant="left" />
 				</button>
 				<h3 class="select-none text-base font-medium">Settings</h3>
 			</div>
 			<div class="flex items-center gap-1">
-				<button disabled class="btn btn-sm btn-circle btn-ghost text-neutral-content/75">
+				<button
+					disabled
+					class="btn btn-circle btn-ghost btn-sm text-neutral-content/75"
+				>
 					<Pencil class="md:size-5" />
 				</button>
-				<div class="dropdown dropdown-bottom dropdown-end">
-					<div tabindex="0" role="button">
-						<button class="btn btn-sm btn-circle btn-ghost text-neutral-content/75">
-							<Menu variant="dots" class="md:size-4" />
+				<div class="dropdown dropdown-end dropdown-bottom">
+					<div
+						tabindex="0"
+						role="button"
+					>
+						<button class="btn btn-circle btn-ghost btn-sm text-neutral-content/75">
+							<Menu
+								variant="dots"
+								class="md:size-4"
+							/>
 						</button>
 					</div>
-					<ul tabindex="0" class="dropdown-content z-10 p-1 md:mt-3 shadow bg-base-300 w-40 rounded-xl">
+					<ul
+						tabindex="0"
+						class="dropdown-content z-10 w-40 rounded-xl bg-base-300 p-1 shadow md:mt-3"
+					>
 						<button
 							onClick={handleLogout}
-							class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-start text-accent hover:bg-base-100 w-full"
+							class="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-start text-accent hover:bg-base-100"
 						>
 							<Logout class="size-4" />
 							<span class="text-sm font-medium">Logout</span>

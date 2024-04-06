@@ -41,7 +41,10 @@ export const ProfileItem = (props: ChatRoom) => {
 	return (
 		<A
 			href={`/@${chat_user.username}`}
-			class={cn(isActive() && "!bg-primary", "btn w-full h-auto flex-nowrap flex select-none items-center gap-3 rounded-xl px-3 py-2 bg-transparent hover:bg-base-100 border-none")}
+			class={cn(
+				isActive() && "!bg-primary",
+				"btn flex h-auto w-full select-none flex-nowrap items-center gap-3 rounded-xl border-none bg-transparent px-3 py-2 hover:bg-base-100"
+			)}
 			onClick={handleChatClick}
 		>
 			<div class="relative size-12 flex-shrink-0">
@@ -99,7 +102,7 @@ export const ProfileItem = (props: ChatRoom) => {
 								/>
 							</Show>
 						</Show>
-						<span class="text-xs uppercase font-normal">{formated_timestamp}</span>
+						<span class="text-xs font-normal uppercase">{formated_timestamp}</span>
 					</div>
 				</div>
 				<div class="flex items-center justify-between md:gap-1">
@@ -113,7 +116,9 @@ export const ProfileItem = (props: ChatRoom) => {
 						when={self_message}
 						fallback={
 							<Show when={unreads() && !isActive()}>
-								<span class="grid place-items-center rounded-full bg-primary font-semibold leading-none md:size-5 md:text-xs">{unreads()}</span>
+								<span class="grid place-items-center rounded-full bg-primary font-semibold leading-none md:size-5 md:text-xs">
+									{unreads()}
+								</span>
 							</Show>
 						}
 					>

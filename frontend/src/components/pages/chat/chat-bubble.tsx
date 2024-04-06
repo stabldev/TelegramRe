@@ -18,7 +18,7 @@ interface Props {
 export const ChatBubble = (props: Props) => {
 	const { socket, activeRoom } = useChat();
 	const [showContextMenu, setShowContextMenu] = createSignal(false);
-	const [contextPos, setContextPos] = createSignal({x: 0, y: 0});
+	const [contextPos, setContextPos] = createSignal({ x: 0, y: 0 });
 
 	const { message, self, firstMsg, lastMsg } = destructure(props);
 	const formatedDate = new FormatDate(message().timestamp).format_to_relative_time;
@@ -47,8 +47,8 @@ export const ChatBubble = (props: Props) => {
 		e.preventDefault();
 		setContextPos({
 			x: e.x,
-			y: e.y,
-		})
+			y: e.y
+		});
 		setShowContextMenu(true);
 	};
 
@@ -79,7 +79,7 @@ export const ChatBubble = (props: Props) => {
 					"rounded-tr-xl": self() && firstMsg(),
 					"rounded-br-xl": self() && lastMsg(),
 					"rounded-tl-xl": !self() && firstMsg(),
-					"rounded-bl-xl": !self() && lastMsg(),
+					"rounded-bl-xl": !self() && lastMsg()
 				}}
 			>
 				<Show when={message().type == "image" || message().type === "gif"}>
@@ -94,26 +94,33 @@ export const ChatBubble = (props: Props) => {
 					/>
 				</Show>
 				<Show when={message().type === "gif"}>
-					<span class="absolute left-0 top-0 m-1 w-max rounded-md bg-base-300/50 p-1 text-xs text-accent/80">GIF</span>
+					<span class="absolute left-0 top-0 m-1 w-max rounded-md bg-base-300/50 p-1 text-xs text-accent/80">
+						GIF
+					</span>
 				</Show>
 				<div
 					class="flex w-full gap-1"
 					classList={{
 						"px-2.5 pb-1": message().type === "image",
-						"absolute bottom-0 right-0 p-1 bg-base-300/50 w-max rounded-md m-1": message().type === "gif"
+						"absolute bottom-0 right-0 p-1 bg-base-300/50 w-max rounded-md m-1":
+							message().type === "gif"
 					}}
 				>
-					<span class="whitespace-pre-line text-[0.8rem] leading-snug text-accent">{message().content}</span>
+					<span class="whitespace-pre-line text-[0.8rem] leading-snug text-accent">
+						{message().content}
+					</span>
 					<Show when={message().edited}>
-						<span class="text-[0.7rem] self-end italic text-accent/80 leading-none ml-auto select-none">edited</span>
+						<span class="ml-auto select-none self-end text-[0.7rem] italic leading-none text-accent/80">
+							edited
+						</span>
 					</Show>
 					<span
 						classList={{
-							"ml-auto": !message().edited,
+							"ml-auto": !message().edited
 						}}
 						class="select-none self-end text-[0.7rem] uppercase leading-none text-accent/80"
 					>
-							{formatedDate}
+						{formatedDate}
 					</span>
 					<Show when={self()}>
 						<Show

@@ -23,7 +23,7 @@ export const ChatSidebar = () => {
 					</h3>
 					<button
 						onClick={toggleShowSidebar}
-						class="btn btn-ghost btn-circle btn-sm text-neutral-content/75"
+						class="btn btn-circle btn-ghost btn-sm text-neutral-content/75"
 					>
 						<Close class="md:size-6" />
 					</button>
@@ -34,7 +34,9 @@ export const ChatSidebar = () => {
 				/>
 				<div class="flex flex-col p-3 text-accent">
 					<div class="flex items-center gap-2">
-						<span class="font-medium md:text-lg">{IS_DM ? activeRoom()?.member[0].full_name : activeRoom()?.name}</span>
+						<span class="font-medium md:text-lg">
+							{IS_DM ? activeRoom()?.member[0].full_name : activeRoom()?.name}
+						</span>
 						<Show when={activeRoom()?.member[0].is_verified}>
 							<Verified class="text-xl text-primary" />
 						</Show>

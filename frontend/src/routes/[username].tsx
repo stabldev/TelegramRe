@@ -10,7 +10,7 @@ import { DefaultLayout } from "~/layouts/default-layout";
 export default function Username() {
 	const { showSidebar } = useShared();
 	const { activeRoom } = useChat();
-	
+
 	const params = useParams<{ username: string }>();
 	const title = activeRoom()?.member[0].full_name ?? params.username;
 

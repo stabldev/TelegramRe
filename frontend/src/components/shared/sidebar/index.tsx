@@ -17,7 +17,7 @@ async function getChatRooms() {
 
 async function getOnlineUsers() {
 	const res = await fetch(ApiEndpoints.chat.ONLINE_USERS, {
-		credentials: "include",
+		credentials: "include"
 	});
 	const data = (await res.json()) as OnlineUser[];
 	console.log(data);

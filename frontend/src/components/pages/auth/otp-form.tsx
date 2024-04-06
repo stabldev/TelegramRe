@@ -37,7 +37,7 @@ const OtpForm = (props: Props) => {
 					minLength={5}
 					maxLength={5}
 					placeholder="OTP you recieved"
-					class="w-full bg-transparent text-accent border-2 border-neutral focus-within:border-primary md:rounded-lg md:p-2.5 md:text-base"
+					class="w-full border-2 border-neutral bg-transparent text-accent focus-within:border-primary md:rounded-lg md:p-2.5 md:text-base"
 				/>
 				<button
 					disabled={loading()}

@@ -23,13 +23,15 @@ export const SettingsBar = (props: Props) => {
 						alt={user()?.username}
 						class="size-full object-cover"
 					/>
-					<button class="absolute -bottom-7 right-3 btn btn-circle btn-primary">
+					<button class="btn btn-circle btn-primary absolute -bottom-7 right-3">
 						<Photo class="text-xl text-accent" />
 					</button>
 				</div>
 				<div class="flex flex-col p-3 text-accent">
 					<div class="flex items-center gap-2">
-						<span class="font-medium md:text-lg">{user()?.first_name + " " + user()?.last_name}</span>
+						<span class="font-medium md:text-lg">
+							{user()?.first_name + " " + user()?.last_name}
+						</span>
 						<Show when={user()?.is_verified}>
 							<Verified class="text-xl text-primary" />
 						</Show>

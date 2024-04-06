@@ -48,15 +48,15 @@ const EmailForm = (props: Props) => {
 			>
 				<button
 					type="button"
-					class="flex items-center flex-nowrap overflow-hidden btn btn-neutral p-0 w-full"
+					class="btn btn-neutral flex w-full flex-nowrap items-center overflow-hidden p-0"
 				>
-					<div class="bg-base-300 w-16 h-full grid place-items-center">
+					<div class="grid h-full w-16 place-items-center bg-base-300">
 						<Google class="text-stone-100 md:size-7" />
 					</div>
 					<span class="w-full md:p-3">Continue with Google</span>
 				</button>
-				<div class="border-2 border-neutral focus-within:border-primary md:rounded-lg md:p-2.5 md:text-base relative flex items-center">
-					<At class="absolute pointer-events-none md:size-6 md:ml-1 text-secondary" />
+				<div class="relative flex items-center border-2 border-neutral focus-within:border-primary md:rounded-lg md:p-2.5 md:text-base">
+					<At class="pointer-events-none absolute text-secondary md:ml-1 md:size-6" />
 					<input
 						required
 						type="email"
@@ -66,8 +66,13 @@ const EmailForm = (props: Props) => {
 						class="w-full bg-transparent text-accent md:pl-10"
 					/>
 				</div>
-				<label class="label justify-start md:gap-2 p-0">
-					<input name="keep-me" type="checkbox" checked class="checkbox checkbox-primary checkbox-xs" />
+				<label class="label justify-start p-0 md:gap-2">
+					<input
+						name="keep-me"
+						type="checkbox"
+						checked
+						class="checkbox-primary checkbox checkbox-xs"
+					/>
 					<span class="label-text">Keep me signed in</span>
 				</label>
 				<button
@@ -81,7 +86,7 @@ const EmailForm = (props: Props) => {
 					when={props.authType === "login"}
 					fallback={
 						<A
-							class="text-secondary md:text-sm btn btn-link font-normal p-0 h-max min-h-max"
+							class="btn btn-link h-max min-h-max p-0 font-normal text-secondary md:text-sm"
 							href="../login"
 						>
 							Already have an account? Login!
@@ -89,7 +94,7 @@ const EmailForm = (props: Props) => {
 					}
 				>
 					<A
-						class="text-secondary md:text-sm btn btn-link font-normal p-0 h-max min-h-max"
+						class="btn btn-link h-max min-h-max p-0 font-normal text-secondary md:text-sm"
 						href="../register"
 					>
 						Don't have an account? Register!
