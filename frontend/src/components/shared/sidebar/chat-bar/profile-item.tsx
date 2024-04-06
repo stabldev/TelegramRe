@@ -36,12 +36,12 @@ export const ProfileItem = (props: ChatRoom) => {
 				? true
 				: false
 		);
-	}, [onlineUsers]);
+	}, );
 
 	createEffect(() => {
 		if (!params.username) return;
 		setIsActive(get_username(params.username) === chat_user.username);
-	}, [params.username]);
+	}, );
 
 	return (
 		<A

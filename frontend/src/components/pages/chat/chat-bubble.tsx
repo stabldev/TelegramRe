@@ -33,7 +33,7 @@ export const ChatBubble = (props: Props) => {
 			!self() &&
 			!message().is_read &&
 			handleReadMessage(message().id);
-	}, []);
+	}, );
 
 	async function handleReadMessage(id: number) {
 		message().is_read = true;
