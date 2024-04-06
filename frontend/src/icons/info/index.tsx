@@ -20,7 +20,7 @@ export default function Info(props: Icon) {
 					cx={12}
 					cy={12}
 					r={10}
-				 />
+				/>
 				<path d="M12 16v-4m0-4h.01" />
 			</g>
 		</svg>

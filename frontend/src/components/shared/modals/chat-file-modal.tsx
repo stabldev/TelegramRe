@@ -73,7 +73,7 @@ export const ChatFileModal = (props: Props) => {
 
 			return () => URL.revokeObjectURL(objectUrl);
 		}
-	}, );
+	});
 
 	return (
 		<>

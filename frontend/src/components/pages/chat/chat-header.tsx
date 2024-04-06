@@ -54,7 +54,7 @@ export const ChatHeader: Component = () => {
 				? true
 				: false
 		);
-	}, );
+	});
 
 	return (
 		<div class="flex h-12 select-none items-center justify-between border-b-[0.1vw] border-black/50 bg-base-300 px-3">

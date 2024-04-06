@@ -38,10 +38,10 @@ const Sidebar: Component = () => {
 
 	const toggleView = () => setIsChatBarOpen((prev) => !prev);
 
-	createEffect(async () => {
+	createEffect(() => {
 		setChatRooms(formatChatRoom(data()));
 		setOnlineUsers(online_users());
-	}, );
+	});
 
 	return (
 		<div class="relative grid h-screen w-full grid-rows-[min-content_1fr] border-r border-black/50 bg-base-300">

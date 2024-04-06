@@ -1,3 +1,4 @@
+import { destructure } from "@solid-primitives/destructure";
 import toast from "solid-toast";
 import { useAuth } from "~/context/auth";
 import Arrow from "~/icons/arrow";
@@ -11,6 +12,7 @@ type Props = {
 
 export const SettingsHeader = (props: Props) => {
 	const { logoutUser } = useAuth();
+	const { toggleView } = destructure(props);
 
 	const handleLogout = async () => {
 		try {
@@ -28,7 +30,7 @@ export const SettingsHeader = (props: Props) => {
 		<div class="flex h-12 items-center justify-between gap-3 px-3 text-accent">
 			<div class="flex items-center gap-3">
 				<button
-					onClick={props.toggleView}
+					onClick={toggleView()}
 					class="btn btn-circle btn-ghost btn-sm text-xl text-neutral-content/95"
 				>
 					<Arrow variant="left" />

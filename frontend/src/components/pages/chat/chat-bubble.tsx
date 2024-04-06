@@ -33,7 +33,7 @@ export const ChatBubble = (props: Props) => {
 			!self() &&
 			!message().is_read &&
 			handleReadMessage(message().id);
-	}, );
+	});
 
 	async function handleReadMessage(id: number) {
 		message().is_read = true;
@@ -41,7 +41,7 @@ export const ChatBubble = (props: Props) => {
 		socket()!.send(
 			JSON.stringify({
 				action: "read_message",
-				message_id: message().id,
+				message_id: id,
 				room_id: activeRoom()?.room_id
 			})
 		);

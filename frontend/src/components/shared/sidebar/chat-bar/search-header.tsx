@@ -1,3 +1,4 @@
+import { destructure } from "@solid-primitives/destructure";
 import Code from "~/icons/code";
 import License from "~/icons/license";
 import Menu from "~/icons/menu";
@@ -10,6 +11,8 @@ type Props = {
 };
 
 export const SearchHeader = (props: Props) => {
+	const { toggleView } =  destructure(props);
+
 	return (
 		<div class="flex h-12 items-center gap-3 px-3">
 			<div class="dropdown dropdown-bottom">
@@ -30,7 +33,7 @@ export const SearchHeader = (props: Props) => {
 				>
 					<button
 						class="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-start text-accent hover:bg-base-100"
-						onClick={props.toggleView}
+						onClick={toggleView()}
 					>
 						<UserSettings class="size-4" />
 						<span class="text-sm font-medium">Settings</span>
