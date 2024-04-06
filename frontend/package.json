@@ -5,7 +5,9 @@
     "dev": "vinxi dev",
     "build": "vinxi build",
     "start": "vinxi start",
-    "version": "vinxi version"
+    "version": "vinxi version",
+    "lint": "prettier --check . && eslint .",
+		"format": "prettier --write ."
   },
   "devDependencies": {
     "@solid-primitives/context": "^0.2.3",
