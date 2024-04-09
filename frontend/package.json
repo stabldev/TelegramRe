@@ -16,7 +16,7 @@
 		"@solid-primitives/intersection-observer": "^2.1.6",
 		"@solid-primitives/resource": "^0.1.2",
 		"@typescript-eslint/eslint-plugin": "^7.5.0",
-		"@typescript-eslint/parser": "^7.5.0",
+		"@typescript-eslint/parser": "^7.6.0",
 		"autoprefixer": "^10.4.19",
 		"clsx": "^2.1.0",
 		"daisyui": "^4.10.1",
