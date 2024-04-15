@@ -11,6 +11,7 @@ import Verified from "~/icons/verified";
 import Photo from "~/icons/photo";
 import Gif from "~/icons/gif";
 import { cn } from "~/functions/cn";
+import { Avatar } from "~/components/ui/avatar";
 
 export const ProfileItem = (props: ChatRoom) => {
 	const { user } = useAuth();
@@ -53,10 +54,10 @@ export const ProfileItem = (props: ChatRoom) => {
 			onClick={handleChatClick}
 		>
 			<div class="relative size-14 flex-shrink-0">
-				<img
-					class="size-full rounded-full"
+				<Avatar
 					src={chat_user.avatar}
 					alt={chat_user.username}
+					class={"size-full rounded-full text-2xl font-bold text-accent"}
 				/>
 				<Show when={isOnline()}>
 					<div
