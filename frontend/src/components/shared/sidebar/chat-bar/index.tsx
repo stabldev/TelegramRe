@@ -15,7 +15,7 @@ export const ChatBar = (props: Props) => {
 	return (
 		<>
 			<SearchHeader toggleView={props.toggleView} />
-			<div class="overflow-y-scroll px-3 [scrollbar-width:_thin]">
+			<div class="overflow-y-scroll px-2 [scrollbar-width:_thin]">
 				<For
 					each={chatRooms()?.sort(
 						(a, b) => b.message.id - a.message.id

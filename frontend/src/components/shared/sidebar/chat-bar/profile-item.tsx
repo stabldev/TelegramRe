@@ -48,14 +48,14 @@ export const ProfileItem = (props: ChatRoom) => {
 			href={`/@${chat_user.username}`}
 			class={cn(
 				isActive() && "!bg-primary",
-				"btn flex h-auto w-full select-none flex-nowrap items-center gap-3 rounded-xl border-none bg-transparent px-3 py-2 hover:bg-base-100"
+				"flex h-auto w-full select-none flex-nowrap items-center gap-3 rounded-xl border-none bg-transparent p-2 hover:bg-base-300 transition-colors"
 			)}
 			onClick={handleChatClick}
 		>
-			<div class="relative size-12 flex-shrink-0">
+			<div class="relative size-14 flex-shrink-0">
 				<img
 					class="size-full rounded-full"
-					src={chat_user.avatar ?? ""}
+					src={chat_user.avatar}
 					alt={chat_user.username}
 				/>
 				<Show when={isOnline()}>
@@ -68,16 +68,10 @@ export const ProfileItem = (props: ChatRoom) => {
 					/>
 				</Show>
 			</div>
-			<div
-				class="flex w-full flex-col"
-				classList={{
-					"text-accent": isActive(),
-					"text-secondary": !isActive()
-				}}
-			>
+			<div class="flex w-full flex-col">
 				<div class="flex items-center justify-between">
 					<div class="flex items-center md:gap-1">
-						<span class="text-sm font-medium text-accent">
+						<span class="text-base font-medium text-accent">
 							{chat_user.full_name}
 						</span>
 						<Show when={chat_user.is_verified}>
@@ -98,7 +92,10 @@ export const ProfileItem = (props: ChatRoom) => {
 								fallback={
 									<Tick
 										variant="single"
-										class="flex-shrink-0 md:size-4"
+										class="flex-shrink-0 md:size-4 text-primary"
+										classList={{
+											"!text-accent": isActive()
+										}}
 									/>
 								}
 							>
@@ -111,7 +108,12 @@ export const ProfileItem = (props: ChatRoom) => {
 								/>
 							</Show>
 						</Show>
-						<span class="text-xs font-normal uppercase">
+						<span
+							class="text-xs font-normal uppercase text-neutral-200"
+							classList={{
+								"!text-accent": isActive(),
+							}}
+						>
 							{formated_timestamp}
 						</span>
 					</div>
@@ -120,12 +122,24 @@ export const ProfileItem = (props: ChatRoom) => {
 					<Show
 						when={message().type === "gif"}
 						fallback={
-							<span class="line-clamp-1 text-sm font-normal">
+							<span
+								class="line-clamp-1 text-base font-normal text-neutral-100"
+								classList={{
+									"!text-accent": isActive()
+								}}
+							>
 								{message().content}
 							</span>
 						}
 					>
-						<span class="text-sm">GIF</span>
+						<span
+							class="text-sm text-neutral-100"
+							classList={{
+								"!text-accent": isActive()
+							}}
+						>
+							GIF
+						</span>
 					</Show>
 					<Show
 						when={self_message}
