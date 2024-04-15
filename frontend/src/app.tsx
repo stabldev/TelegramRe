@@ -1,4 +1,4 @@
-import { MetaProvider, Title } from "@solidjs/meta";
+import { MetaProvider, Title, Meta, Link } from "@solidjs/meta";
 import { Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import { Suspense } from "solid-js";
@@ -16,7 +16,8 @@ export default function App() {
 		<Router
 			root={(props) => (
 				<MetaProvider>
-					<Title>Telegram - RE</Title>
+					<Title>Telegram</Title>
+					<Link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 					<MultiProvider
 						values={[AuthProvider, SharedProvider, ChatProvider]}
 					>
