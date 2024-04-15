@@ -17,12 +17,12 @@ body {
 
 @layer base {
 	:root {
-		--primary-100: #766AC8ff;
+		--primary: #766AC8ff;
 		--base-100: #0F0F0Fff;
 		--base-200: #212121ff;
 		--base-300: #2C2C2Cff;
 		--neutral-100: #717579ff;
 		--neutral-200: #A6A6A6ff;
-		--accent-100: #ffffffff;
+		--accent: #ffffffff;
 	}
 }
