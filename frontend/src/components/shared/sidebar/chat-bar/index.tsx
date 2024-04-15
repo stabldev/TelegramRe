@@ -24,8 +24,8 @@ export const ChatBar = (props: Props) => {
 					{(room) => <ProfileItem {...room} />}
 				</For>
 			</div>
-			<button class="btn btn-circle btn-primary absolute bottom-3 right-3">
-				<Pencil class="size-5 text-accent" />
+			<button class="bg-primary size-14 rounded-full grid place-items-center absolute bottom-3 right-3">
+				<Pencil class="size-6 text-accent" />
 			</button>
 		</>
 	);

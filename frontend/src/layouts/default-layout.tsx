@@ -11,9 +11,9 @@ export function DefaultLayout(props: { children?: JSX.Element }) {
 			when={isAuthenticated()}
 			fallback={<Navigate href={"/auth/login"} />}
 		>
-			<main class="mx-auto grid h-screen w-screen grid-cols-[21rem_1fr_auto]">
+			<main class="mx-auto grid h-screen w-screen grid-cols-[21rem_1fr_auto] bg-[url(/wallpaper.svg)]">
 				{/* dark overlay for background-image */}
-				<div class="absolute inset-0 -z-[9999] bg-black/95" />
+				<div class="absolute inset-0 -z-[9999] bg-base-100" />
 
 				<Sidebar />
 				{props.children}

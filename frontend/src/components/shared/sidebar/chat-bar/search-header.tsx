@@ -14,13 +14,13 @@ export const SearchHeader = (props: Props) => {
 	const { toggleView } = destructure(props);
 
 	return (
-		<div class="flex h-12 items-center gap-3 px-3">
+		<div class="flex h-14 items-center gap-4 px-5 py-2">
 			<div class="dropdown dropdown-bottom">
 				<div
 					tabindex="0"
 					role="button"
 				>
-					<button class="btn btn-circle btn-ghost btn-sm text-neutral-content/75">
+					<button class="text-neutral-100">
 						<Menu
 							variant="bars"
 							class="md:size-4"
@@ -29,6 +29,7 @@ export const SearchHeader = (props: Props) => {
 				</div>
 				<ul
 					tabindex="0"
+					hidden
 					class="dropdown-content z-10 w-40 rounded-xl bg-base-300 p-1 shadow md:ml-1 md:mt-3"
 				>
 					<button
@@ -67,12 +68,12 @@ export const SearchHeader = (props: Props) => {
 					</span>
 				</ul>
 			</div>
-			<form class="relative flex w-full items-center">
-				<Search class="pointer-events-none absolute left-2 text-lg text-accent/50" />
+			<form class="relative flex w-full items-center size-full">
+				<Search class="pointer-events-none absolute left-3.5 size-5 text-neutral-200" />
 				<input
 					placeholder="Search"
 					type="text"
-					class="h-9 w-full rounded-full border-none bg-base-100 px-2 pl-8 text-sm text-accent outline-none ring-primary focus:ring-2"
+					class="size-full rounded-full border-none bg-base-300 pr-3.5 pl-11 text-accent placeholder:text-neutral-200 caret-neutral-200 outline-none ring-primary focus:ring-2"
 				/>
 			</form>
 		</div>
