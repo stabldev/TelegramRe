@@ -74,17 +74,17 @@ export const ChatBubble = (props: Props) => {
 					el = ref;
 				}}
 				onContextMenu={handleContextMenu}
-				class="relative flex w-max max-w-md flex-col gap-1 overflow-hidden rounded-xl px-2.5 py-1 text-accent"
+				class="relative flex w-max max-w-md flex-col gap-1 overflow-hidden rounded-2xl px-2.5 py-1 text-accent"
 				classList={{
 					"bg-primary rounded-r": self(),
-					"bg-base-100 rounded-l": !self(),
+					"bg-base-200 rounded-l": !self(),
 					"!p-0 !max-w-60": message().type === "image",
 					"!p-0 overflow-visible bg-transparent":
 						message().type === "gif",
-					"rounded-tr-xl": self() && firstMsg(),
-					"rounded-br-xl": self() && lastMsg(),
-					"rounded-tl-xl": !self() && firstMsg(),
-					"rounded-bl-xl": !self() && lastMsg()
+					"rounded-tr-2xl": self() && firstMsg(),
+					"rounded-br-2xl": self() && lastMsg(),
+					"rounded-tl-2xl": !self() && firstMsg(),
+					"rounded-bl-2xl": !self() && lastMsg()
 				}}
 			>
 				<Show
@@ -113,7 +113,7 @@ export const ChatBubble = (props: Props) => {
 							message().type === "gif"
 					}}
 				>
-					<span class="whitespace-pre-line text-[0.8rem] leading-snug text-accent">
+					<span class="whitespace-pre-line text-base leading-snug text-accent">
 						{message().content}
 					</span>
 					<Show when={message().edited}>
@@ -125,7 +125,7 @@ export const ChatBubble = (props: Props) => {
 						classList={{
 							"ml-auto": !message().edited
 						}}
-						class="select-none self-end text-[0.7rem] uppercase leading-none text-accent/80"
+						class="select-none self-end text-xs uppercase leading-none text-accent/50"
 					>
 						{formatedDate}
 					</span>

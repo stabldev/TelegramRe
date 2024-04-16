@@ -47,7 +47,7 @@ export const ChatHeader: Component = () => {
 	});
 
 	return (
-		<div class="flex h-14 select-none items-center justify-between bg-base-200 px-6">
+		<div class="flex h-14 select-none items-center justify-between bg-base-200 px-5">
 			<button
 				onClick={toggleShowSidebar}
 				class="flex items-center gap-3"
