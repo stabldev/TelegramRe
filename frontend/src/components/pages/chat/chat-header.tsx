@@ -28,7 +28,7 @@ export const ChatHeader: Component = () => {
 	} = {
 		search: {
 			icon: <Search />,
-			disabled: true
+			disabled: false
 		},
 		menu: {
 			icon: <Menu variant="dots" />,
@@ -83,7 +83,7 @@ export const ChatHeader: Component = () => {
 						<button
 							onClick={icon.onClick}
 							disabled={icon.disabled}
-							class="size-10 text-xl rounded-full disabled:pointer-events-none disabled:opacity-50 hover:bg-neutral-300 transition-colors text-neutral-100 grid place-items-center"
+							class="size-10 text-xl rounded-full disabled:pointer-events-none disabled:opacity-50 hover:bg-neutral-300 text-neutral-100 grid place-items-center"
 						>
 							{icon.icon}
 						</button>
