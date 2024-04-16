@@ -6,6 +6,7 @@ import At from "~/icons/at";
 import Close from "~/icons/close";
 import Info from "~/icons/info";
 import Verified from "~/icons/verified";
+import { Avatar } from "~/components/ui/avatar";
 
 export const ChatSidebar = () => {
 	const { toggleShowSidebar } = useShared();
@@ -15,55 +16,45 @@ export const ChatSidebar = () => {
 
 	return (
 		<>
-			<div class="h-full whitespace-nowrap border-l border-black/50 bg-base-300 md:w-80">
-				<div class="flex items-center justify-between md:px-3 md:py-2">
-					<h3 class="flex items-center font-medium text-accent md:gap-3 md:text-sm">
-						Profile
-						<span class="font-normal text-secondary">
-							{params.username}
-						</span>
-					</h3>
+			<div class="h-full whitespace-nowrap border-l border-neutral-300 bg-base-200 md:w-80 absolute right-0 xl:static">
+				<div class="flex md:gap-4 items-center md:px-5 h-14">
 					<button
 						onClick={toggleShowSidebar}
-						class="btn btn-circle btn-ghost btn-sm text-neutral-content/75"
+						class="md:size-10 text-neutral-100 rounded-full hover:bg-base-300 grid place-items-center"
 					>
-						<Close class="md:size-6" />
+						<Close class="md:size-7" />
 					</button>
+					<h3 class="flex items-center font-medium text-accent md:gap-3 md:text-xl">
+						User Info
+					</h3>
 				</div>
-				<img
-					src={IS_DM ? activeRoom()?.member[0].avatar ?? "" : ""}
-					class="h-56 w-full object-cover"
-				/>
+				<div class="aspect-square object-cover">
+					<Avatar
+						src={IS_DM ? activeRoom()?.member[0].avatar ?? "" : ""}
+						alt={IS_DM ? activeRoom()?.member[0].full_name ?? "" : ""}
+						class="object-cover text-9xl text-accent font-bold"
+					/>
+				</div>
 				<div class="flex flex-col p-3 text-accent">
-					<div class="flex items-center gap-2">
-						<span class="font-medium md:text-lg">
-							{IS_DM
-								? activeRoom()?.member[0].full_name
-								: activeRoom()?.name}
-						</span>
-						<Show when={activeRoom()?.member[0].is_verified}>
-							<Verified class="text-xl text-primary" />
-						</Show>
-					</div>
-					<div class="mt-3 grid grid-cols-8">
-						<At class="col-span-1 size-6 self-center text-secondary" />
+					<div class="grid grid-cols-8">
+						<At class="col-span-1 size-6 self-center text-neutral-100" />
 						<div class="col-span-7 flex flex-col">
 							<span>
 								{IS_DM
 									? activeRoom()?.member[0].username
 									: activeRoom()?.name}
 							</span>
-							<span class="select-none text-sm text-secondary">
+							<span class="select-none text-sm text-neutral-100">
 								Username
 							</span>
 						</div>
 					</div>
 					<Show when={IS_DM}>
 						<div class="mt-2 grid grid-cols-8">
-							<Info class="col-span-1 size-[1.4rem] self-center text-secondary" />
+							<Info class="col-span-1 size-[1.4rem] self-center text-neutral-100" />
 							<div class="col-span-7 flex flex-col">
 								<span>{activeRoom()?.member[0].bio}</span>
-								<span class="select-none text-sm text-secondary">
+								<span class="select-none text-sm text-neutral-100">
 									Bio
 								</span>
 							</div>
