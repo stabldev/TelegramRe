@@ -12,7 +12,7 @@ interface Props {
 const color_mapping = ["#fab387", "#eba0ac", "#a6e3a1"];
 
 export const Avatar = (props: Props) => {
-    const has_avatar = props.src !== null;
+    const has_avatar = props.src !== null && props.src !== "";
 
     const getName = (str: string): string => {
         return str.charAt(0).toUpperCase();
@@ -23,7 +23,7 @@ export const Avatar = (props: Props) => {
             when={has_avatar}
             fallback={
                 <div
-                    class={cn(props.class, "grid place-items-center")}
+                    class={cn(props.class, "size-full grid place-items-center")}
                     style={{"background-color": sample(color_mapping)}}
                 >
                     {getName(props.alt)}
