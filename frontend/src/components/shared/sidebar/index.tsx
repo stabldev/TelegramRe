@@ -44,7 +44,7 @@ const Sidebar: Component = () => {
 	});
 
 	return (
-		<div class="relative grid h-screen w-full grid-rows-[min-content_1fr] border-r border-neutral-300 bg-base-200">
+		<div class="group relative grid h-screen w-full grid-rows-[min-content_1fr] border-r border-neutral-300 bg-base-200">
 			<Show
 				when={isChatBarOpen()}
 				fallback={<SettingsBar toggleView={toggleView} />}

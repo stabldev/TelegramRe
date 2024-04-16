@@ -49,7 +49,7 @@ export const ProfileItem = (props: ChatRoom) => {
 			href={`/@${chat_user.username}`}
 			class={cn(
 				isActive() && "!bg-primary",
-				"flex h-auto w-full select-none flex-nowrap items-center gap-3 rounded-xl border-none bg-transparent p-2 hover:bg-base-300 transition-colors"
+				"flex h-auto w-full select-none flex-nowrap items-center gap-3 rounded-xl border-none bg-transparent p-2 hover:bg-base-300"
 			)}
 			onClick={handleChatClick}
 		>
