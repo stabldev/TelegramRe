@@ -198,13 +198,13 @@ export const ChatInput = () => {
 				</form>
 				<button
 					type="submit"
-					class="size-14 aspect-square bg-base-200 grid place-items-center rounded-full text-neutral-100"
+					class="group size-14 aspect-square bg-base-200 grid place-items-center rounded-full text-neutral-100 hover:bg-primary hover:text-accent"
 				>
 					<Show
 						when={message() || editMessage()}
 						fallback={<Mic class="md:size-6" />}
 					>
-						<Send class="md:size-5 text-primary" />
+						<Send class="md:size-5 text-primary group-hover:text-accent" />
 					</Show>
 				</button>
 			</div>

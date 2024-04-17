@@ -74,7 +74,7 @@ export const ChatBubble = (props: Props) => {
 					el = ref;
 				}}
 				onContextMenu={handleContextMenu}
-				class="relative flex w-max max-w-md flex-col gap-1 overflow-hidden rounded-2xl px-2.5 py-1 text-accent"
+				class="relative flex w-max max-w-md flex-col gap-1 rounded-2xl px-2.5 py-1 text-accent relative before:absolute before:bottom-0 before:size-5 before:[mask-size:_contain] before:[mask-image:_url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMycgaGVpZ2h0PSczJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnPjxwYXRoIGZpbGw9J2JsYWNrJyBkPSdtIDAgMyBMIDMgMyBMIDMgMCBDIDMgMSAxIDMgMCAzJy8+PC9zdmc+)]"
 				classList={{
 					"bg-primary rounded-r": self(),
 					"bg-base-200 rounded-l": !self(),
@@ -82,9 +82,9 @@ export const ChatBubble = (props: Props) => {
 					"!p-0 overflow-visible bg-transparent":
 						message().type === "gif",
 					"rounded-tr-2xl": self() && firstMsg(),
-					"rounded-br-2xl": self() && lastMsg(),
+					"rounded-br-none before:scale-x-[-1] before:bg-primary before:-end-3": self() && lastMsg(),
 					"rounded-tl-2xl": !self() && firstMsg(),
-					"rounded-bl-2xl": !self() && lastMsg()
+					"rounded-bl-none before:bg-base-200 before:-start-3": !self() && lastMsg(),
 				}}
 			>
 				<Show
