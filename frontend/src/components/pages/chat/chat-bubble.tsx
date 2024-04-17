@@ -76,8 +76,8 @@ export const ChatBubble = (props: Props) => {
 				onContextMenu={handleContextMenu}
 				class="relative flex w-max max-w-md flex-col gap-1 rounded-2xl px-2.5 py-1 text-accent relative before:absolute before:bottom-0 before:size-5 before:[mask-size:_contain] before:[mask-image:_url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMycgaGVpZ2h0PSczJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnPjxwYXRoIGZpbGw9J2JsYWNrJyBkPSdtIDAgMyBMIDMgMyBMIDMgMCBDIDMgMSAxIDMgMCAzJy8+PC9zdmc+)]"
 				classList={{
-					"bg-primary rounded-r": self(),
-					"bg-base-200 rounded-l": !self(),
+					"bg-primary rounded-r-lg": self(),
+					"bg-base-200 rounded-l-lg": !self(),
 					"!p-0 !max-w-60": message().type === "image",
 					"!p-0 overflow-visible bg-transparent":
 						message().type === "gif",
