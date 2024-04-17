@@ -23,7 +23,7 @@ export const Avatar = (props: Props) => {
             when={has_avatar}
             fallback={
                 <div
-                    class={cn(props.class, "size-full grid place-items-center")}
+                    class={cn(props.class, "size-full grid place-items-center select-none")}
                     style={{"background-color": sample(color_mapping)}}
                 >
                     {getName(props.alt)}
