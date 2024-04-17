@@ -72,13 +72,13 @@ export const ChatContextMenu = (props: Props) => {
     return (
         <div
             ref={ref!}
-            class="dropdown absolute"
+            class="absolute shadow shadow-base-100/75 rounded-xl bg-base-200 h-max w-52 z-50 p-1"
             style={{
                 top: `${y()}px`,
-                left: `${x()}px`
+                left: `${x()}px`,
             }}
         >
-            <div class="bg-base-200 z-50 h-max w-52 flex-col gap-0 overflow-hidden rounded-xl p-1">
+            <div>
                 <Show when={props.self()}>
                     <button
                         onClick={handleEdit}
