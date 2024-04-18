@@ -41,32 +41,9 @@ export const SettingsHeader = (props: Props) => {
                 <button class="size-10 text-xl text-neutral-100 rounded-full hover:bg-base-300 grid place-items-center">
                     <Pencil />
                 </button>
-                <div class="dropdown dropdown-end dropdown-bottom">
-                    <div
-                        tabindex="0"
-                        role="button"
-                    >
-                        <button class="size-10 text-xl text-neutral-100 rounded-full hover:bg-base-300 grid place-items-center">
-                            <Menu variant="dots" />
-                        </button>
-                    </div>
-                    <ul
-                        tabindex="0"
-                        hidden
-                        class="dropdown-content z-10 w-40 rounded-xl bg-base-300 p-1 shadow md:mt-3"
-                    >
-                        <button
-                            onClick={handleLogout}
-                            class="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-start text-accent hover:bg-base-100"
-                        >
-                            <Logout class="size-4" />
-                            <span class="text-sm font-medium">Logout</span>
-                        </button>
-                        <span class="flex px-3 py-1 text-xs text-secondary">
-                            TG-RE version 1.0
-                        </span>
-                    </ul>
-                </div>
+                <button class="size-10 text-xl text-neutral-100 rounded-full hover:bg-base-300 grid place-items-center">
+                    <Menu variant="dots" />
+                </button>
             </div>
         </div>
     );
