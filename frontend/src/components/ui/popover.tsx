@@ -6,7 +6,7 @@ interface IProps {
     triggerRef: HTMLElement | undefined;
     children: JSX.Element;
     setOpen: Setter<boolean>;
-    class: string;
+    class?: string;
 };
 
 export default function Popover(props: IProps) {
