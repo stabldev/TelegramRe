@@ -11,7 +11,6 @@ import { Avatar } from "~/components/ui/avatar";
 export const ChatSidebar = () => {
     const { toggleShowSidebar } = useShared();
     const { activeRoom } = useChat();
-    const params = useParams<{ username: string }>();
     const IS_DM = activeRoom()?.type === "DM";
 
     return (
