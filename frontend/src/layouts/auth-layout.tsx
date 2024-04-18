@@ -10,7 +10,7 @@ export function AuthLayout(props: { children?: JSX.Element; class?: string }) {
 			when={!isAuthenticated()}
 			fallback={<Navigate href={"/"} />}
 		>
-			<main class="relative grid h-screen w-screen place-items-center bg-base-100 bg-[url(/wallpaper.svg)]">
+			<main class="relative flex flex-col md:gap-3 items-center justify-center h-screen w-screen bg-base-100 bg-[url(/wallpaper.svg)]">
 				<div
 					class={cn(
 						props.class,
@@ -19,6 +19,7 @@ export function AuthLayout(props: { children?: JSX.Element; class?: string }) {
 				>
 					{props.children}
 				</div>
+				<span class="text-neutral-200">Telegram Web RE 1.0</span>
 			</main>
 		</Show>
 	);
