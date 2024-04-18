@@ -14,17 +14,14 @@ export const SearchHeader = (props: Props) => {
 	const { toggleView } = destructure(props);
 
 	return (
-		<div class="flex h-14 items-center gap-4 px-5 py-2">
+		<div class="flex h-14 items-center gap-3 px-3 py-2">
 			<div class="dropdown dropdown-bottom">
 				<div
 					tabindex="0"
 					role="button"
 				>
-					<button class="text-neutral-100">
-						<Menu
-							variant="bars"
-							class="md:size-4"
-						/>
+					<button class="text-neutral-100 text-xl size-10 hover:bg-base-300 rounded-full grid place-items-center">
+						<Menu variant="bars"/>
 					</button>
 				</div>
 				<ul
