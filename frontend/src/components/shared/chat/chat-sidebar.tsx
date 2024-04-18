@@ -23,7 +23,7 @@ export const ChatSidebar = () => {
                     >
                         <Close class="md:size-7" />
                     </button>
-                    <h3 class="flex items-center font-medium text-accent md:gap-3 md:text-xl">
+                    <h3 class="flex items-center font-medium text-accent md:gap-3 md:text-lg">
                         User Info
                     </h3>
                 </div>
