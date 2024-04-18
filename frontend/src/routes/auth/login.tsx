@@ -63,10 +63,10 @@ export default function Login() {
 	};
 
 	return (
-		<AuthLayout class="md:w-80 md:gap-5">
+		<AuthLayout class="md:w-96 md:p-5 md:rounded-2xl border border-neutral-300 md:gap-5 bg-base-200">
 			<img
-				src="/favicon.ico"
-				class="md:size-20"
+				src="/favicon.svg"
+				class="md:size-24"
 			/>
 			<Switch>
 				<Match when={activeForm() === "email"}>

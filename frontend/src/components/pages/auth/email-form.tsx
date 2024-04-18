@@ -4,6 +4,7 @@ import { A } from "@solidjs/router";
 import { useAuth } from "~/context/auth";
 import At from "~/icons/at";
 import Google from "~/icons/google";
+import Arrow from "~/icons/arrow";
 
 interface Props {
 	onFormSubmit: (e: CustomEvent) => void;
@@ -38,73 +39,65 @@ const EmailForm = (props: Props) => {
 					</div>
 				}
 			>
-				<div class="flex flex-col md:gap-2">
-					<h2 class="font-semibold text-accent md:text-2xl">
-						Login to Telegram RE
+				<div class="flex flex-col md:gap-3">
+					<h2 class="font-medium text-accent md:text-3xl">
+						Sign in to Telegram
 					</h2>
-					<span class="flex self-center text-secondary md:text-sm">
-						Use OAuth or login via Email <br /> ( Passwordless )
+					<span class="flex self-center text-neutral-100 md:text-base">
+						Please confirm your country and <br /> enter your email address.
 					</span>
 				</div>
 			</Show>
 			<form
 				onSubmit={handleFormSubmit}
-				class="flex w-full flex-col md:gap-3"
+				class="flex w-full flex-col md:gap-3.5"
 			>
-				<button
-					type="button"
-					class="btn btn-neutral flex w-full flex-nowrap items-center overflow-hidden p-0"
+				<label
+					for="country"
+					class="relative flex items-center border-2 border-neutral-300 focus-within:border-primary md:rounded-xl md:p-2.5 md:text-base"
 				>
-					<div class="grid h-full w-16 place-items-center bg-base-300">
-						<Google class="text-stone-100 md:size-7" />
-					</div>
-					<span class="w-full md:p-3">Continue with Google</span>
-				</button>
-				<div class="relative flex items-center border-2 border-neutral focus-within:border-primary md:rounded-lg md:p-2.5 md:text-base">
-					<At class="pointer-events-none absolute text-secondary md:ml-1 md:size-6" />
+					<input
+						id="country"
+						type="text"
+						name="country"
+						autofocus
+						placeholder=""
+						class="peer w-full outline-none bg-transparent text-accent pl-1.5"
+					/>
+					<span  class="pointer-events-none absolute start-3 top-0 -translate-y-1/2 bg-base-200 p-1 text-neutral-100 duration-200 ease-out text-xs peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs">
+						Country
+					</span>
+					{/* TODO: add select country function */}
+					<Arrow
+						variant="down"
+						class="absolute right-0 md:end-2.5 text-neutral-100 md:size-7"
+					/>
+				</label>
+				<label
+					for="email-address"
+					class="relative flex items-center border-2 border-neutral-300 focus-within:border-primary md:rounded-xl md:p-2.5 md:text-base"
+				>
 					<input
 						required
+						id="email-address"
 						type="email"
 						name="email"
-						autofocus
-						placeholder="Email address"
-						class="w-full bg-transparent text-accent md:pl-10"
+						placeholder=""
+						class="peer w-full outline-none bg-transparent text-accent pl-1.5"
 					/>
-				</div>
-				<label class="label justify-start p-0 md:gap-2">
+					<span  class="pointer-events-none absolute start-3 top-0 -translate-y-1/2 bg-base-200 p-1 text-neutral-100 duration-200 ease-out text-xs peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs">
+						Email address
+					</span>
+				</label>
+				<label class="flex items-center md:gap-3">
 					<input
 						name="keep-me"
 						type="checkbox"
 						checked
-						class="checkbox-primary checkbox checkbox-xs"
+						class="relative peer appearance-none md:size-4 border-2 border-neutral-300 cursor-pointer rounded bg-transparent checked:bg-primary checked:border-0"
 					/>
-					<span class="label-text">Keep me signed in</span>
+					<span class="text-neutral-100">Keep me signed in</span>
 				</label>
-				<button
-					disabled={loading()}
-					classList={{ "opacity-75": loading() }}
-					class="btn btn-primary uppercase"
-				>
-					submit
-				</button>
-				<Show
-					when={props.authType === "login"}
-					fallback={
-						<A
-							class="btn btn-link h-max min-h-max p-0 font-normal text-secondary md:text-sm"
-							href="../login"
-						>
-							Already have an account? Login!
-						</A>
-					}
-				>
-					<A
-						class="btn btn-link h-max min-h-max p-0 font-normal text-secondary md:text-sm"
-						href="../register"
-					>
-						Don't have an account? Register!
-					</A>
-				</Show>
 			</form>
 		</>
 	);

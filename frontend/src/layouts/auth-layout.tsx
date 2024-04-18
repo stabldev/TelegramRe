@@ -10,7 +10,7 @@ export function AuthLayout(props: { children?: JSX.Element; class?: string }) {
 			when={!isAuthenticated()}
 			fallback={<Navigate href={"/"} />}
 		>
-			<main class="relative grid h-screen w-screen place-items-center bg-base-300">
+			<main class="relative grid h-screen w-screen place-items-center bg-base-100 bg-[url(/wallpaper.svg)]">
 				<div
 					class={cn(
 						props.class,

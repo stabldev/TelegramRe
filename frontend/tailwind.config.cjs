@@ -8,6 +8,7 @@ module.exports = {
             none: 'none',
         },
         colors: {
+            "transparent": "transparent",
             "primary": "rgb(var(--primary) / <alpha-value>)",
             "base-100": "rgb(var(--base-100) / <alpha-value>)",
             "base-200": "rgb(var(--base-200) / <alpha-value>)",
