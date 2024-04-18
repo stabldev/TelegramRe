@@ -31,41 +31,41 @@ export const SearchHeader = (props: Props) => {
                 <Popover
                     triggerRef={menuRef}
                     setOpen={setShowMenu}
-                    class="z-10 w-40 rounded-xl bg-base-300 p-1 shadow shadow-base-100/75"
+                    class="shadow shadow-base-100/75 rounded-xl bg-base-200 h-max w-52 z-50 p-1"
                 >
                     <button
-                        class="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-start text-accent hover:bg-base-100"
+                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-100"
                         onClick={toggleView()}
                     >
                         <UserSettings class="size-4" />
-                        <span class="text-sm font-medium">Settings</span>
+                        <span class="text-sm font-medium text-accent">Settings</span>
                     </button>
                     <a
                         href="https://github.com/tokitouq/telegram-re/issues"
                         target="_blank"
-                        class="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-start text-accent hover:bg-base-100"
+                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-100"
                     >
                         <BugReport class="size-4" />
-                        <span class="text-sm font-medium">Report Bug</span>
+                        <span class="text-sm font-medium text-accent">Report Bug</span>
                     </a>
                     <a
                         href="https://github.com/tokitouq/telegram-re"
                         target="_blank"
-                        class="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-start text-accent hover:bg-base-100"
+                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-100"
                     >
                         <Code class="size-4" />
-                        <span class="text-sm font-medium">Source</span>
+                        <span class="text-sm font-medium text-accent">Source</span>
                     </a>
                     <a
                         href="https://github.com/tokitouq/telegram-re/blob/main/LICENSE"
                         target="_blank"
-                        class="flex w-full items-center gap-2 rounded-lg px-3 py-1.5 text-start text-accent hover:bg-base-100"
+                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-100"
                     >
                         <License class="size-4" />
-                        <span class="text-sm font-medium">License</span>
+                        <span class="text-sm font-medium text-accent">License</span>
                     </a>
-                    <span class="flex px-3 py-1 text-xs text-secondary">
-                        TG-RE version 1.0
+                    <span class="flex px-3 py-1 pt-1.5 text-xs text-neutral-100 w-max mx-auto">
+                        Telegram Web RE 1.0
                     </span>
                 </Popover>
             </Show>

@@ -31,7 +31,7 @@ export default function Popover(props: IProps) {
     return (
         <div
             ref={ref}
-            class={cn(props.class, "absolute z-[9999] mt-4")}
+            class={cn(props.class, "absolute z-[9999] mt-5")}
             style={{
                 "top": triggerRef()?.getBoundingClientRect().height + "px",
             }}
