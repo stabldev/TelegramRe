@@ -60,7 +60,6 @@ const EmailForm = (props: Props) => {
 						id="country"
 						type="text"
 						name="country"
-						autofocus
 						placeholder=""
 						class="peer w-full outline-none bg-transparent text-accent pl-1.5"
 					/>
@@ -78,6 +77,7 @@ const EmailForm = (props: Props) => {
 					class="relative flex items-center border-2 border-neutral-300 focus-within:border-primary md:rounded-xl md:p-2.5 md:text-base"
 				>
 					<input
+						autofocus
 						required
 						id="email-address"
 						type="email"
