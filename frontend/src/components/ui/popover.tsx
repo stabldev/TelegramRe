@@ -25,11 +25,15 @@ export default function Popover(props: IProps) {
 
     let ref: HTMLDivElement | undefined = undefined;
 
-    const originMapping = {
-        "bottom-left": "top left",
-        "bottom-right": "top right",
-        "top-left": "bottom left",
-        "top-right": "bottom right"
+    const getOrigin = (pos: Position) => {
+        // "bottom-left" -> "top left"
+        // "top-left" -> "bottom left"
+
+        if (pos.includes("top")) {
+            return pos.replace("top-", "bottom ");
+        } else if (pos.includes("bottom")) {
+            return pos.replace("bottom-", "top ");
+        };
     };
 
     const handleClickOuside = (e: UIEvent) => {
@@ -83,7 +87,7 @@ export default function Popover(props: IProps) {
                 style={{
                     "top": yPos() + "px",
                     "left": xPos() + "px",
-                    "transform-origin": originMapping[position()],
+                    "transform-origin": getOrigin(position()),
                 }}
             >
                 {children()}
