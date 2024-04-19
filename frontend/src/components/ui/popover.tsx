@@ -11,7 +11,7 @@ interface IProps {
 };
 
 export default function Popover(props: IProps) {
-    const { triggerRef, children, setOpen, style } = destructure(props);
+    const { triggerRef, children, setOpen } = destructure(props);
     let ref: HTMLDivElement | undefined = undefined;
 
     const handleClickOuside = (e: UIEvent) => {
