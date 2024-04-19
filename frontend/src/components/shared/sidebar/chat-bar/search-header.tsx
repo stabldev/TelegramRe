@@ -1,5 +1,5 @@
 import { destructure } from "@solid-primitives/destructure";
-import { Show, createSignal, onMount } from "solid-js";
+import { Show, createSignal } from "solid-js";
 import Popover from "~/components/ui/popover";
 import Code from "~/icons/code";
 import License from "~/icons/license";
@@ -31,10 +31,10 @@ export const SearchHeader = (props: Props) => {
                 <Popover
                     triggerRef={menuRef}
                     setOpen={setShowMenu}
-                    class="shadow shadow-base-100/75 rounded-xl bg-base-200 h-max w-52 z-50 p-1"
+                    class="rounded-xl bg-base-100 h-max w-52 z-50 p-1"
                 >
                     <button
-                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-100"
+                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
                         onClick={toggleView()}
                     >
                         <UserSettings class="size-4" />
@@ -43,7 +43,7 @@ export const SearchHeader = (props: Props) => {
                     <a
                         href="https://github.com/tokitouq/telegram-re/issues"
                         target="_blank"
-                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-100"
+                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
                     >
                         <BugReport class="size-4" />
                         <span class="text-sm font-medium text-accent">Report Bug</span>
@@ -51,7 +51,7 @@ export const SearchHeader = (props: Props) => {
                     <a
                         href="https://github.com/tokitouq/telegram-re"
                         target="_blank"
-                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-100"
+                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
                     >
                         <Code class="size-4" />
                         <span class="text-sm font-medium text-accent">Source</span>
@@ -59,7 +59,7 @@ export const SearchHeader = (props: Props) => {
                     <a
                         href="https://github.com/tokitouq/telegram-re/blob/main/LICENSE"
                         target="_blank"
-                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-100"
+                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
                     >
                         <License class="size-4" />
                         <span class="text-sm font-medium text-accent">License</span>

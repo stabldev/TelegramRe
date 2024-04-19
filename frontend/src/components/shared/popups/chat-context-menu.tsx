@@ -72,7 +72,7 @@ export const ChatContextMenu = (props: Props) => {
     return (
         <div
             ref={ref!}
-            class="absolute shadow shadow-base-100/75 rounded-xl bg-base-200 h-max w-52 z-50 p-1"
+            class="absolute rounded-xl bg-base-100 h-max w-52 z-50 p-1"
             style={{
                 top: `${y()}px`,
                 left: `${x()}px`,
@@ -82,7 +82,7 @@ export const ChatContextMenu = (props: Props) => {
                 <Show when={props.self()}>
                     <button
                         onClick={handleEdit}
-                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-100"
+                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
                     >
                         <Pencil class="size-4" />
                         <span class="text-sm font-medium text-accent">Edit</span>
@@ -90,7 +90,7 @@ export const ChatContextMenu = (props: Props) => {
                 </Show>
                 <button
                     onClick={handleCopy}
-                    class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-100"
+                    class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
                 >
                     <Copy class="size-4" />
                     <span class="text-sm font-medium text-accent">
@@ -99,7 +99,7 @@ export const ChatContextMenu = (props: Props) => {
                 </button>
                 <button
                     onClick={handleDelete}
-                    class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-error hover:bg-base-100"
+                    class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-error hover:bg-base-200/50"
                 >
                     <Delete class="size-4" />
                     <span class="text-sm font-medium">Delete</span>

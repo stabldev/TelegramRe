@@ -30,7 +30,9 @@ export default function App() {
 									"!bg-neutral !text-accent md:!text-sm md:!px-3 md:!py-2 !rounded-lg"
 							}}
 						/>
-						<Suspense>{props.children}</Suspense>
+						<Suspense>
+							{props.children}
+						</Suspense>
 					</MultiProvider>
 				</MetaProvider>
 			)}
