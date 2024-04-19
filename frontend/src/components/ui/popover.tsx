@@ -23,10 +23,12 @@ export default function Popover(props: IProps) {
 
     onMount(() => {
         document.addEventListener("click", handleClickOuside);
+        document.addEventListener("contextmenu", handleClickOuside);
     });
 
     onCleanup(() => {
         document.removeEventListener("click", handleClickOuside);
+        document.removeEventListener("contextmenu", handleClickOuside);
     });
 
     return (

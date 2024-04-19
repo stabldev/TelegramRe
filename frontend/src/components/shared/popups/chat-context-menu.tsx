@@ -8,6 +8,7 @@ import Delete from "~/icons/delete";
 import Pencil from "~/icons/pencil";
 import Tick from "~/icons/tick";
 import { ChatMessage } from "~/types/chat.types";
+import { Motion } from "solid-motionone";
 
 type Props = {
     x: number;
@@ -17,6 +18,8 @@ type Props = {
     onClose: (e: CustomEvent) => void;
 };
 
+type Direction = "left" | "right";
+
 export const ChatContextMenu = (props: Props) => {
     const { setEditMessage } = useShared();
     const { x: PropX, y: PropY, message } = destructure(props);
@@ -24,6 +27,7 @@ export const ChatContextMenu = (props: Props) => {
     const [copied, setCopied] = createSignal(false);
     const [x, setX] = createSignal(PropX());
     const [y, setY] = createSignal(PropY());
+    const [direction, setDirection] = createSignal<Direction>("right");
 
     const dispatch = createEventDispatcher(props);
     let ref: HTMLDivElement;
@@ -38,9 +42,16 @@ export const ChatContextMenu = (props: Props) => {
 
     onMount(() => {
         const rect = ref.getBoundingClientRect();
-        setX((prev) =>
-            prev > window.innerWidth - rect.width ? prev - rect.width : prev
-        );
+
+        setX((prev) => {
+            if (prev > window.innerWidth - rect.width) {
+                setDirection("left");
+                return prev - rect.width;
+            } else {
+                return prev;
+            }
+        });
+
         setY((prev) =>
             prev > window.innerHeight - rect.height ? prev - rect.height : prev
         );
@@ -70,9 +81,18 @@ export const ChatContextMenu = (props: Props) => {
     };
 
     return (
-        <div
+        <Motion.div
+            animate={{
+                opacity: [0, 1],
+                scale: [0.95, 1],
+            }}
+            transition={{ duration: 0.1, easing: "ease-out" }}
             ref={ref!}
             class="absolute rounded-xl bg-base-100 h-max w-52 z-50 p-1"
+            classList={{
+                "origin-top-left": direction() === "right",
+                "origin-top-right": direction() === "left",
+            }}
             style={{
                 top: `${y()}px`,
                 left: `${x()}px`,
@@ -116,6 +136,6 @@ export const ChatContextMenu = (props: Props) => {
                     </div>
                 </Show>
             </div>
-        </div>
+        </Motion.div>
     );
 };
