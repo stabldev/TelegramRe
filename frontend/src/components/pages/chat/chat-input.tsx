@@ -10,8 +10,8 @@ import ApiEndpoints from "~/connections/api/api-endpoints";
 import { useAuth } from "~/context/auth";
 import { useShared } from "~/context/shared";
 import Close from "~/icons/close";
-import Photo from "~/icons/photo";
-import Gif from "~/icons/gif";
+import Popover from "~/components/ui/popover";
+import ChatMediaMenu from "~/components/shared/popups/chat-media-menu";
 
 export const ChatInput = () => {
 	const { socket, activeRoom } = useChat();
@@ -20,9 +20,11 @@ export const ChatInput = () => {
 
 	const [message, setMessage] = createSignal("");
 	const [showFileModel, setShowFileModel] = createSignal(false);
+	const [showMediaPopover, setShowMediaPopover] = createSignal(false);
 	const [file, setFile] = createSignal<File>();
 
 	let inputRef: HTMLTextAreaElement;
+	let mediaPopoverBtnRef: HTMLElement | undefined = undefined;
 
 	const handleSubmit = (e?: SubmitEvent) => {
 		e?.preventDefault();
@@ -157,7 +159,7 @@ export const ChatInput = () => {
 							</button>
 						</div>
 					</Show>
-					<div class="flex w-full items-end gap-3">
+					<div class="flex w-full items-end gap-3 relative">
 						<input
 							type="file"
 							id="image-file-input"
@@ -189,11 +191,23 @@ export const ChatInput = () => {
 							maxRows={5}
 						/>
 						<button
+							ref={mediaPopoverBtnRef}
+							onClick={() => setShowMediaPopover((prev) => !prev)}
 							type="button"
 							class="text-neutral-100 hover:text-primary transition-colors"
 						>
 							<Clip class="md:size-6" />
 						</button>
+						<Show when={showMediaPopover()}>
+							<Popover
+								triggerRef={mediaPopoverBtnRef}
+								setOpen={setShowMediaPopover}
+								class="rounded-xl bg-base-100 h-max w-52 z-50 p-1"
+								position="top-right"
+							>
+								<ChatMediaMenu />
+							</Popover>
+						</Show>
 					</div>
 				</form>
 				<button

@@ -31,6 +31,7 @@ export const SearchHeader = (props: Props) => {
                 <Popover
                     triggerRef={menuRef}
                     setOpen={setShowMenu}
+                    position="bottom-left"
                     class="rounded-xl bg-base-100 h-max w-52 z-50 p-1"
                 >
                     <button
