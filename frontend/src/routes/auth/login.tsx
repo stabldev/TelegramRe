@@ -1,4 +1,4 @@
-import { Match, Switch, createSignal } from "solid-js";
+import { Match, Switch, createSignal, lazy, onMount } from "solid-js";
 import { useAuth } from "~/context/auth";
 import { AuthLayout } from "~/layouts/auth-layout";
 import toast from "solid-toast";
@@ -63,10 +63,10 @@ export default function Login() {
 	};
 
 	return (
-		<AuthLayout class="relative md:w-96 md:p-5 md:rounded-2xl border border-neutral-300 md:gap-10 bg-base-200">
+		<AuthLayout class="relative md:w-96 md:p-5 md:rounded-2xl border border-neutral-300 md:gap-5 bg-base-200">
 			<img
 				src="/favicon.svg"
-				class="md:size-20"
+				class="md:size-28"
 			/>
 			<Switch>
 				<Match when={activeForm() === "email"}>

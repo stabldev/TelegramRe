@@ -98,7 +98,7 @@ const EmailForm = (props: Props) => {
 					/>
 					<span class="text-neutral-100">Keep me signed in</span>
 				</label>
-				<input type="submit" class="hidden" />
+				<button class="bg-primary text-accent uppercase w-full h-12 rounded-xl">Next</button>
 			</form>
 		</>
 	);
