@@ -13,6 +13,7 @@ import Close from "~/icons/close";
 import Popover from "~/components/ui/popover";
 import ChatMediaMenu from "~/components/shared/popups/chat-media-menu";
 import Modal from "~/components/ui/modal";
+import Pencil from "~/icons/pencil";
 
 export const ChatInput = () => {
 	const { socket, activeRoom } = useChat();
@@ -138,27 +139,28 @@ export const ChatInput = () => {
 					onSubmit={handleSubmit}
 					class="flex w-full flex-col rounded-2xl bg-base-200 p-4"
 					classList={{
-						"pt-1 md:gap-2": isEditingMessage()
+						"pt-2 md:gap-3": isEditingMessage()
 					}}
 				>
 					<Show when={isEditingMessage()}>
 						<div class="flex w-full items-center gap-3">
-							<div class="relative flex flex-1 gap-2 overflow-y-hidden rounded-md bg-base-100 px-2 py-0.5 leading-none">
+							<Pencil class="md:size-6 text-primary" />
+							<div class="relative flex flex-1 gap-2 overflow-y-hidden rounded-md bg-base-300 px-2 py-0.5 leading-none">
 								<div class="absolute inset-y-0 left-0 bg-primary md:w-1" />
 								<div class="pl-1">
-									<span class="select-none text-xs text-info">
-										Editing
+									<span class="select-none text-sm font-medium text-accent/75">
+										Edit Message
 									</span>
-									<span class="line-clamp-1 text-sm text-secondary">
+									<span class="line-clamp-1 text-sm text-neutral-100">
 										{editMessage()?.content}
 									</span>
 								</div>
 							</div>
 							<button
 								onClick={() => setEditMessage(undefined)}
-								class="btn btn-link p-0.5"
+								class="md:size-10 bg-transparent rounded-full hover:bg-base-300 grid place-items-center"
 							>
-								<Close class="md:size-7" />
+								<Close class="md:size-7 text-primary" />
 							</button>
 						</div>
 					</Show>
