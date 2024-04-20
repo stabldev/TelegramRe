@@ -2,17 +2,6 @@ import { Icon } from "~/types/icon.types";
 
 export default function Search(props: Icon) {
 	return (
-		<svg
-			{...props}
-			fill="currentColor"
-			stroke-width="0"
-			xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 24 24"
-			style={{ overflow: "visible" }}
-			height="1em"
-			width="1em"
-		>
-			<path d="M10.25 2a8.25 8.25 0 0 1 6.34 13.53l5.69 5.69a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215l-5.69-5.69A8.25 8.25 0 1 1 10.25 2ZM3.5 10.25a6.75 6.75 0 1 0 13.5 0 6.75 6.75 0 0 0-13.5 0Z" />
-		</svg>
+		<svg {...props} xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512"><path fill="currentColor" d="M456.69 421.39L362.6 327.3a173.81 173.81 0 0 0 34.84-104.58C397.44 126.38 319.06 48 222.72 48S48 126.38 48 222.72s78.38 174.72 174.72 174.72A173.81 173.81 0 0 0 327.3 362.6l94.09 94.09a25 25 0 0 0 35.3-35.3M97.92 222.72a124.8 124.8 0 1 1 124.8 124.8a124.95 124.95 0 0 1-124.8-124.8"/></svg>
 	);
 }

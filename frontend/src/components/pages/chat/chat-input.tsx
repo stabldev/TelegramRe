@@ -10,8 +10,9 @@ import ApiEndpoints from "~/connections/api/api-endpoints";
 import { useAuth } from "~/context/auth";
 import { useShared } from "~/context/shared";
 import Close from "~/icons/close";
-import Photo from "~/icons/photo";
-import Gif from "~/icons/gif";
+import Popover from "~/components/ui/popover";
+import ChatMediaMenu from "~/components/shared/popups/chat-media-menu";
+import Modal from "~/components/ui/modal";
 
 export const ChatInput = () => {
 	const { socket, activeRoom } = useChat();
@@ -20,9 +21,11 @@ export const ChatInput = () => {
 
 	const [message, setMessage] = createSignal("");
 	const [showFileModel, setShowFileModel] = createSignal(false);
+	const [showMediaPopover, setShowMediaPopover] = createSignal(false);
 	const [file, setFile] = createSignal<File>();
 
 	let inputRef: HTMLTextAreaElement;
+	let mediaPopoverBtnRef: HTMLElement | undefined = undefined;
 
 	const handleSubmit = (e?: SubmitEvent) => {
 		e?.preventDefault();
@@ -122,16 +125,18 @@ export const ChatInput = () => {
 	return (
 		<>
 			<Show when={showFileModel()}>
-				<ChatFileModal
-					file={file()!}
-					onModalClose={() => setShowFileModel(false)}
-					onFileSubmit={handleFileSubmit}
-				/>
+				<Modal setOpen={setShowFileModel}>
+					<ChatFileModal
+						file={file()!}
+						onModalClose={() => setShowFileModel(false)}
+						onFileSubmit={handleFileSubmit}
+					/>
+				</Modal>
 			</Show>
-			<div class="mx-auto mb-2 mt-1 flex items-end md:w-[42rem] md:min-w-[42rem] md:gap-2">
+			<div class="mx-auto mb-5 mt-2 flex items-end md:w-[42.5rem] px-5 md:gap-2">
 				<form
 					onSubmit={handleSubmit}
-					class="flex w-full flex-col rounded-xl bg-base-300 p-2"
+					class="flex w-full flex-col rounded-2xl bg-base-200 p-4"
 					classList={{
 						"pt-1 md:gap-2": isEditingMessage()
 					}}
@@ -157,7 +162,7 @@ export const ChatInput = () => {
 							</button>
 						</div>
 					</Show>
-					<div class="flex w-full items-end gap-3">
+					<div class="flex w-full items-end gap-3 relative">
 						<input
 							type="file"
 							id="image-file-input"
@@ -172,39 +177,9 @@ export const ChatInput = () => {
 							class="hidden"
 							onChange={handleFileChange}
 						/>
-						<div class="dropdown dropdown-top">
-							<div
-								tabindex="0"
-								role="button"
-							>
-								<button class="btn btn-circle btn-neutral btn-sm">
-									<Clip class="md:size-6" />
-								</button>
-							</div>
-							<ul
-								tabindex="0"
-								class="dropdown-content z-10 w-44 gap-0 rounded-xl bg-base-300 p-1 shadow md:mb-4"
-							>
-								<label
-									for="image-file-input"
-									class="flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-1.5 text-start text-accent hover:bg-base-100"
-								>
-									<Photo class="size-4" />
-									<span class="text-sm font-medium">
-										Send Photo
-									</span>
-								</label>
-								<label
-									for="gif-file-input"
-									class="flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-1.5 text-start text-accent hover:bg-base-100"
-								>
-									<Gif class="size-4" />
-									<span class="text-sm font-medium">
-										Send GIF
-									</span>
-								</label>
-							</ul>
-						</div>
+						<button class="text-neutral-100 hover:text-primary transition-colors">
+							<Emoji class="md:size-6" />
+						</button>
 						<TextareaAutosize
 							ref={(ref) => (inputRef = ref)}
 							value={
@@ -214,27 +189,39 @@ export const ChatInput = () => {
 							}
 							onInput={(e) => setMessage(e.currentTarget.value)}
 							onKeyDown={handleKeyDown}
-							class="flex-1 resize-none self-center border-none bg-transparent text-sm text-white outline-none [scrollbar-width:none]"
-							placeholder="Write a message..."
+							class="flex-1 resize-none self-center border-none bg-base-200 caret-accent text-accent outline-none [scrollbar-width:none]"
+							placeholder="Message"
 							maxRows={5}
 						/>
 						<button
+							ref={mediaPopoverBtnRef}
+							onClick={() => setShowMediaPopover((prev) => !prev)}
 							type="button"
-							class="btn btn-circle btn-ghost btn-sm text-neutral-content/75"
+							class="text-neutral-100 hover:text-primary transition-colors"
 						>
-							<Emoji class="md:size-5" />
+							<Clip class="md:size-6" />
 						</button>
+						<Show when={showMediaPopover()}>
+							<Popover
+								triggerRef={mediaPopoverBtnRef}
+								setOpen={setShowMediaPopover}
+								class="rounded-xl bg-base-100 h-max w-52 z-50 p-1"
+								position="top-right"
+							>
+								<ChatMediaMenu />
+							</Popover>
+						</Show>
 					</div>
 				</form>
 				<button
 					type="submit"
-					class="btn btn-circle btn-primary text-accent"
+					class="group size-14 aspect-square bg-base-200 grid place-items-center rounded-full text-neutral-100 hover:bg-primary hover:text-accent"
 				>
 					<Show
 						when={message() || editMessage()}
 						fallback={<Mic class="md:size-6" />}
 					>
-						<Send class="md:size-5" />
+						<Send class="md:size-5 text-primary group-hover:text-accent" />
 					</Show>
 				</button>
 			</div>

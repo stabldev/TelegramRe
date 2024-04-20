@@ -1,4 +1,4 @@
-import { MetaProvider, Title } from "@solidjs/meta";
+import { MetaProvider, Title, Link } from "@solidjs/meta";
 import { Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import { Suspense } from "solid-js";
@@ -9,6 +9,7 @@ import { AuthProvider } from "./context/auth";
 import { SharedProvider } from "./context/shared";
 import { ChatProvider } from "./context/chat";
 
+// import styles
 import "./app.css";
 
 export default function App() {
@@ -16,7 +17,9 @@ export default function App() {
 		<Router
 			root={(props) => (
 				<MetaProvider>
-					<Title>Telegram - RE</Title>
+					<Title>Telegram</Title>
+					<Link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
 					<MultiProvider
 						values={[AuthProvider, SharedProvider, ChatProvider]}
 					>
@@ -27,7 +30,9 @@ export default function App() {
 									"!bg-neutral !text-accent md:!text-sm md:!px-3 md:!py-2 !rounded-lg"
 							}}
 						/>
-						<Suspense>{props.children}</Suspense>
+						<Suspense>
+							{props.children}
+						</Suspense>
 					</MultiProvider>
 				</MetaProvider>
 			)}
