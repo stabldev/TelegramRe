@@ -2,6 +2,7 @@ import { destructure } from "@solid-primitives/destructure";
 import { JSX, Setter } from "solid-js";
 import { Portal } from "solid-js/web";
 import { cn } from "~/functions/cn";
+import { Motion } from "solid-motionone";
 
 interface Props {
 	children: JSX.Element;
@@ -23,14 +24,20 @@ export default function Modal(props: Props) {
 
 	return <>
 		<Portal>
-			<div
+			<Motion.div
+				animate={{ opacity: [0, 1] }}
+				transition={{ duration: 0.15, easing: "ease-out" }}
 				onClick={handleOverlayClick}
 				class={cn(props.class, "absolute inset-0 bg-base-100/25 grid place-items-center")}
 			>
-				<div ref={modalRef}>
+				<Motion.div
+					animate={{ scale: [0.95, 1] }}
+					transition={{ duration: 0.15, easing: "ease-out" }}
+					ref={modalRef}
+				>
 					{children()}
-				</div>
-			</div>
+				</Motion.div>
+			</Motion.div>
 		</Portal>
 	</>
 };
