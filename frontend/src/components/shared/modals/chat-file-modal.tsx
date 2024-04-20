@@ -4,6 +4,7 @@ import TextareaAutosize from "solid-textarea-autosize";
 import Close from "~/icons/close";
 import { filesize } from "filesize";
 import Send from "~/icons/send";
+import Emoji from "~/icons/emoji";
 
 type Props = {
 	file: File;
@@ -18,15 +19,12 @@ export const ChatFileModal = (props: Props) => {
 
 	const dispatch = createEventDispatcher(props);
 
-	let ref: HTMLDivElement,
-		inputRef: HTMLTextAreaElement,
-		dialogRef: HTMLDialogElement;
+	let inputRef: HTMLInputElement | undefined = undefined;
 
 	const handleCleanComponent = () => {
 		setSending(false);
 		setPreview("");
 		setCaption("");
-		dialogRef.close();
 	};
 
 	const handleFileClose = () => {
@@ -58,8 +56,7 @@ export const ChatFileModal = (props: Props) => {
 	};
 
 	onMount(() => {
-		dialogRef.showModal();
-		inputRef.focus();
+		inputRef?.focus();
 	});
 
 	onCleanup(() => {
@@ -75,73 +72,60 @@ export const ChatFileModal = (props: Props) => {
 		}
 	});
 
-	return (
-		<>
-			<dialog
-				ref={dialogRef!}
-				class="modal"
-			>
-				<div
-					ref={ref!}
-					class="modal-box flex h-max w-max flex-col gap-1 rounded-2xl bg-base-300 p-0 text-accent"
+	return <>
+		<div class="flex h-max w-max flex-col rounded-2xl bg-base-200 text-accent">
+			<div class="flex items-center justify-between md:p-2 md:pl-4">
+				<span class="font-medium text-lg">
+					Send{" "}
+					{props.file.type === "image/gif" ? "GIF" : "Photo"}
+				</span>
+				<button
+					onClick={handleFileClose}
+					class="size-10 hover:bg-base-300 text-neutral-100 grid place-items-center rounded-full"
 				>
-					<div class="flex items-center justify-between md:p-2 md:pl-3">
-						<span class="font-medium">
-							Send{" "}
-							{props.file.type === "image/gif" ? "GIF" : "File"}
-						</span>
-						<button
-							onClick={handleFileClose}
-							class="btn btn-circle btn-ghost h-max min-h-max w-max p-0 text-neutral-content/75"
-						>
-							<Close class="md:size-6" />
-						</button>
-					</div>
-					<div class="flex items-start gap-3 px-3">
-						<img
-							src={preview()}
-							alt={props.file.name}
-							class="size-16 flex-shrink-0 rounded-lg object-cover"
-						/>
-						<div class="flex flex-col">
-							<span>{props.file.name}</span>
-							<span class="text-sm text-secondary">
-								{filesize(props.file.size, {
-									standard: "jedec"
-								})}
-							</span>
-						</div>
-					</div>
-					<form
-						onSubmit={handleFileSubmit}
-						class="flex items-center gap-2 p-2 md:pl-3"
-					>
-						<TextareaAutosize
-							disabled={props.file.type === "image/gif"}
-							ref={inputRef!}
-							value={caption()}
-							onInput={(e) => setCaption(e.currentTarget.value)}
-							onKeyDown={handleKeyDown}
-							class="flex-1 resize-none border-none bg-transparent text-sm text-accent outline-none [scrollbar-width:none]"
-							placeholder="Add a caption..."
-							maxRows={5}
-						/>
-						<button
-							disabled={sending()}
-							type="submit"
-							class="btn btn-primary h-10 min-h-full self-end px-4 disabled:bg-neutral"
-						>
-							Send
-							<Show
-								when={sending()}
-								fallback={<Send />}
-							>
-								<span class="loading loading-spinner loading-xs" />
-							</Show>
-						</button>
-					</form>
+					<Close class="md:size-7" />
+				</button>
+			</div>
+			<div class="flex items-start gap-3 px-4">
+				<img
+					src={preview()}
+					alt={props.file.name}
+					class="size-16 flex-shrink-0 rounded-lg object-cover"
+				/>
+				<div class="flex flex-col">
+					<span>{props.file.name}</span>
+					<span class="text-sm text-neutral-100">
+						{filesize(props.file.size, {
+							standard: "jedec"
+						})}
+					</span>
 				</div>
-			</dialog>
-		</>
-	);
+			</div>
+			<form
+				onSubmit={handleFileSubmit}
+				class="flex items-end gap-3 p-3 md:pl-4"
+			>
+				<button class="text-neutral-100 hover:text-primary transition-colors">
+					<Emoji class="md:size-6" />
+				</button>
+				<TextareaAutosize
+					ref={inputRef}
+					disabled={props.file.type === "image/gif"}
+					value={caption()}
+					onInput={(e) => setCaption(e.currentTarget.value)}
+					onKeyDown={handleKeyDown}
+					class="flex-1 resize-none border-none bg-transparent text-accent outline-none [scrollbar-width:none]"
+					placeholder="Add a caption..."
+					maxRows={5}
+				/>
+				<button
+					disabled={sending()}
+					type="submit"
+					class="bg-primary disabled:opacity-50 flex items-center md:gap-2 p-2 px-4 rounded-lg font-medium uppercase"
+				>
+					Send <Send />
+				</button>
+			</form>
+		</div>
+	</>
 };

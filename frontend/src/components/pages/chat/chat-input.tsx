@@ -12,6 +12,7 @@ import { useShared } from "~/context/shared";
 import Close from "~/icons/close";
 import Popover from "~/components/ui/popover";
 import ChatMediaMenu from "~/components/shared/popups/chat-media-menu";
+import Modal from "~/components/ui/modal";
 
 export const ChatInput = () => {
 	const { socket, activeRoom } = useChat();
@@ -124,11 +125,13 @@ export const ChatInput = () => {
 	return (
 		<>
 			<Show when={showFileModel()}>
-				<ChatFileModal
-					file={file()!}
-					onModalClose={() => setShowFileModel(false)}
-					onFileSubmit={handleFileSubmit}
-				/>
+				<Modal setOpen={setShowFileModel}>
+					<ChatFileModal
+						file={file()!}
+						onModalClose={() => setShowFileModel(false)}
+						onFileSubmit={handleFileSubmit}
+					/>
+				</Modal>
 			</Show>
 			<div class="mx-auto mb-5 mt-2 flex items-end md:w-[42.5rem] px-5 md:gap-2">
 				<form
