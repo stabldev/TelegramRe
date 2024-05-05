@@ -1,6 +1,17 @@
 version: "3.8"
 
 services:
+    db:
+        image: postgres:16-alpine
+        container_name: postgres_db
+        restart: unless-stopped
+        environment:
+            POSTGRES_DB: telegram-re-db
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+
     frontend:
         build: ./frontend
         container_name: telegram-re-frontend
@@ -12,3 +23,6 @@ services:
         volumes:
             - ./frontend:/app
             - /app/node_modules
+
+volumes:
+    postgres_data:
