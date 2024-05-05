@@ -15,15 +15,8 @@ services:
     backend:
         build: ./backend
         container_name: telegram-re-backend
-        environment:
-            - DEBUG=on
-            - SECRET_KEY=somethingsecret
-            # Postgres
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=postgres
-            - POSTGRES_NAME=telegram-re-db
-            - POSTGRES_HOST=db
-            - POSTGRES_PORT=5432
+        env_file:
+            - ./backend/.env
         ports:
             - "8000:8000"
         volumes:
