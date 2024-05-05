@@ -1,1 +1,20 @@
-node_modules
+# node_modules directory
+/node_modules
+
+# build output
+/build
+
+# log files
+*.log
+
+# temporary files
+*.tmp
+
+# development-specific files or directories
+.vscode
+.idea
+.DS_Store
+*.bak
+
+# solid build
+.solid
