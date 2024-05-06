@@ -17,4 +17,4 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Run server
-CMD [ "python", "django_core/manage.py", "runserver", "0.0.0.0:8000"]
+CMD [ "python", "django_core/manage.py", "runserver", "0.0.0.0:8000" ]
