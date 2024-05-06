@@ -5,17 +5,12 @@
 
 version: 2
 updates:
-  # Backend
   - package-ecosystem: "pip"
     directory: "/backend/"
     schedule:
       interval: "daily"
-    labels:
-      - "dependencies"
-  # Frontend
+
   - package-ecosystem: "npm"
     directory: "/frontend/"
     schedule:
       interval: "daily"
-    labels:
-      - "dependencies"
