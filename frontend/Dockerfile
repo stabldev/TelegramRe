@@ -1,13 +1,16 @@
-FROM node:20-alpine
+FROM node:18-slim
 
+# Working directory
 WORKDIR /app
-
-COPY package.json .
-
+# Install pnpm
 RUN npm install -g pnpm
-
+# Copy pnpm files
+COPY package.json pnpm-lock.yaml ./
+# Install using pnpm
 RUN pnpm install
-
+# Copy project code to working directory
 COPY . .
 
+EXPOSE 3000
+# Run server on 0.0.0.0:3000
 CMD ["pnpm", "dev"]
