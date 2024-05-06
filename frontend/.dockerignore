@@ -18,3 +18,7 @@
 
 # solid build
 .solid
+
+# Docker files
+Dockerfile
+.dockerignore
