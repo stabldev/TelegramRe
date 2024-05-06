@@ -1,20 +1,27 @@
 FROM python:3.11-slim
 
-# Setting environment variables
-# Diasbles generation of pyc files
-ENV PYTHONDONTWRITEBYTECODE 1
-# stdout and stderr streams are not buffered and sent straight to your terminal
-ENV PYTHONUNBUFFERED 1
+ENV \
+  # python:
+  PYTHONFAULTHANDLER=1 \
+  PYTHONUNBUFFERED=1 \
+  PYTHONHASHSEED=random \
+  # pip:
+  PIP_NO_CACHE_DIR=off \
+  PIP_DISABLE_PIP_VERSION_CHECK=on \
+  PIP_DEFAULT_TIMEOUT=100 \
+  # poetry:
+  POETRY_VERSION=1.8.2 \
+  POETRY_VIRTUALENVS_CREATE=false \
+  POETRY_CACHE_DIR="/var/cache/pypoetry"
 
-# Setting working directory
+RUN pip install "poetry==$POETRY_VERSION" && poetry --version
+
 WORKDIR /code
 
-COPY requirements.txt .
-# Install required dependencies
-RUN pip install -r requirements.txt
+COPY pyproject.toml poetry.lock /code/
 
-# Copy project code to working directory
+RUN poetry install
+
 COPY . .
-
 # Run server
-CMD [ "python", "django_core/manage.py", "runserver", "0.0.0.0:8000" ]
+CMD [ "poetry", "run", "django_core/manage.py", "runserver", "0.0.0.0:8000" ]
