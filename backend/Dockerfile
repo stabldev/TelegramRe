@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.11-slim
 
 # Setting environment variables
 # Diasbles generation of pyc files
