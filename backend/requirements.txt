@@ -26,7 +26,7 @@ hyperlink==21.0.0
 idna==3.7
 incremental==22.10.0
 Markdown==3.6
-msgpack==1.0.7
+msgpack==1.0.8
 mypy-extensions==1.0.0
 packaging==23.2
 pathspec==0.12.1
