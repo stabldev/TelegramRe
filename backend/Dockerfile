@@ -12,6 +12,8 @@ ENV \
   PIP_DEFAULT_TIMEOUT=100
 # Global working directory
 WORKDIR /code
+# Copy poetry files to cache
+COPY pyproject.toml poetry.lock /code/
 
 # Build stage
 FROM base AS build
@@ -25,8 +27,6 @@ ENV \
 
 # Install specific poetry
 RUN pip install "poetry==$POETRY_VERSION" && poetry --version
-# Copy poetry files to cache
-COPY pyproject.toml poetry.lock /code/
 # Install dependencies using poetry
 RUN poetry install --no-interaction --no-ansi
 # Copy project code to working directory
