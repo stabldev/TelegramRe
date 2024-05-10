@@ -1,5 +1,6 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import { onMount, createSignal } from "solid-js";
+import TextInput from "~/components/ui/text-input";
 import { createLocationSignal } from "~/hooks/location";
 import Arrow from "~/icons/arrow";
 import { LocationResponse } from "~/types/location";
@@ -61,23 +62,7 @@ const EmailForm = (props: Props) => {
 						class="absolute right-0 md:end-2.5 text-neutral-100 md:size-7"
 					/>
 				</label>
-				<label
-					for="email-address"
-					class="relative flex items-center border-2 border-neutral-300 focus-within:border-primary md:rounded-xl md:p-2.5 md:text-base"
-				>
-					<input
-						autofocus
-						required
-						id="email-address"
-						type="email"
-						name="email"
-						placeholder=""
-						class="peer w-full outline-none bg-transparent text-accent pl-1.5"
-					/>
-					<span  class="pointer-events-none absolute start-3 top-0 -translate-y-1/2 bg-base-200 p-1 text-neutral-100 duration-200 ease-out text-xs peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs">
-						Email address
-					</span>
-				</label>
+				<TextInput />
 				<label class="relative flex items-center md:gap-3">
 					<input
 						name="keep-me"
