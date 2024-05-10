@@ -42,12 +42,14 @@ const EmailForm = (props: Props) => {
 				onSubmit={handleFormSubmit}
 				class="flex w-full flex-col md:gap-3.5"
 			>
-				<TextInput inputProps={{
-					type: "text",
-					name: "country",
-					placeholder: "Country",
-					value: location()?.country ?? "",
-				}} >
+				<TextInput
+					value={location()?.country ?? ""}
+					inputProps={{
+						type: "text",
+						name: "country",
+						placeholder: "Country",
+					}}
+				>
 					{/* TODO: add select country function */}
 					<Arrow
 						variant="down"

@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 interface Props {
 	children?: JSX.Element;
 	inputProps: JSX.InputHTMLAttributes<HTMLInputElement>;
+	value?: string;
 };
 
 export default function TextInput(props: Props) {
@@ -19,6 +20,7 @@ export default function TextInput(props: Props) {
 				{...inputProps}
 				id={`${inputProps.type ?? "text"}-input-${uuid}`}
 				placeholder="" // input field needs empty placeholder to work
+				value={props.value}
 				class="peer w-full outline-none bg-transparent text-accent pl-1.5"
 			/>
 			<span  class="pointer-events-none absolute start-3 top-0 -translate-y-1/2 bg-base-200 p-1 text-neutral-100 duration-200 ease-out text-xs peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs">
