@@ -1,5 +1,6 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import { onMount, createSignal } from "solid-js";
+import CheckBox from "~/components/ui/checkbox";
 import TextInput from "~/components/ui/text-input";
 import { createLocationSignal } from "~/hooks/location";
 import Arrow from "~/icons/arrow";
@@ -41,50 +42,30 @@ const EmailForm = (props: Props) => {
 				onSubmit={handleFormSubmit}
 				class="flex w-full flex-col md:gap-3.5"
 			>
-				<TextInput
-					inputProps={{
-						type: "text",
-						name: "country",
-						placeholder: "Country",
-						value: location()?.country ?? "",
-					}}
-				>
+				<TextInput inputProps={{
+					type: "text",
+					name: "country",
+					placeholder: "Country",
+					value: location()?.country ?? "",
+				}} >
 					{/* TODO: add select country function */}
 					<Arrow
 						variant="down"
 						class="absolute right-0 md:end-2.5 text-neutral-100 md:size-7"
 					/>
 				</TextInput>
-				<TextInput
-					inputProps={{
-						autofocus: true,
-						required: true,
-						type: "email",
-						name: "email-address",
-						placeholder: "Email address",
-					}}
-				/>
-				<label class="relative flex items-center md:gap-3">
-					<input
-						name="keep-me"
-						type="checkbox"
-						checked
-						class="relative peer appearance-none md:size-4 border-2 border-neutral-300 cursor-pointer rounded bg-transparent checked:bg-primary checked:border-0"
-					/>
-					<svg
-					    class="absolute md:size-3 text-accent self-center start-0.5 hidden peer-checked:block"
-					    xmlns="http://www.w3.org/2000/svg"
-					    viewBox="0 0 24 24"
-					    fill="none"
-					    stroke="currentColor"
-					    stroke-width="4"
-					    stroke-linecap="round"
-					    stroke-linejoin="round"
-					 >
-					    <polyline points="20 6 9 17 4 12"></polyline>
-					</svg>
-					<span class="text-neutral-100">Keep me signed in</span>
-				</label>
+				<TextInput inputProps={{
+					autofocus: true,
+					required: true,
+					type: "email",
+					name: "email-address",
+					placeholder: "Email address",
+				}} />
+				<CheckBox inputProps={{
+					placeholder: "Keep me signed in",
+					checked: true,
+					name: "keep-me",
+				}} />
 				<button class="bg-primary text-accent uppercase w-full h-12 rounded-xl">Next</button>
 			</form>
 		</>

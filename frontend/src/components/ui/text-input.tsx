@@ -7,7 +7,7 @@ interface Props {
 };
 
 export default function TextInput(props: Props) {
-	const { inputProps } = props;
+	const { inputProps, children } = props;
 	const uuid = uuidv4()
 
 	return <>
@@ -24,7 +24,7 @@ export default function TextInput(props: Props) {
 			<span  class="pointer-events-none absolute start-3 top-0 -translate-y-1/2 bg-base-200 p-1 text-neutral-100 duration-200 ease-out text-xs peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs">
 				{inputProps.placeholder}
 			</span>
-			{props.children}
+			{children}
 		</label>
 	</>
 };
