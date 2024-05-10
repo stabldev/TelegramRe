@@ -62,7 +62,12 @@ const EmailForm = (props: Props) => {
 						class="absolute right-0 md:end-2.5 text-neutral-100 md:size-7"
 					/>
 				</label>
-				<TextInput />
+				<TextInput inputProps={{
+					autofocus: true,
+					required: true,
+					type: "email",
+					placeholder: "Email address",
+				}} />
 				<label class="relative flex items-center md:gap-3">
 					<input
 						name="keep-me"
