@@ -1,6 +1,8 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import { Show, onMount, createSignal } from "solid-js";
+import { createLocationSignal } from "~/hooks/location";
 import Arrow from "~/icons/arrow";
+import { LocationResponse } from "~/types/location";
 
 interface Props {
 	onFormSubmit: (e: CustomEvent) => void;
@@ -8,7 +10,7 @@ interface Props {
 }
 
 const EmailForm = (props: Props) => {
-	const [country, setCountry] = createSignal("");
+	const [location, setLocation] = createSignal<LocationResponse | undefined>();
 
 	const dispatch = createEventDispatcher(props);
 
@@ -21,17 +23,8 @@ const EmailForm = (props: Props) => {
 	};
 
 	onMount(async () => {
-		try {
-			const res = await fetch("http://ip-api.com/json/");
-			const data: {
-				country: string;
-			} = await res.json();
-			
-			setCountry(data.country);
-		} catch (err) {
-			// err
-			console.error("Cant fetch user location");
-		};
+		const locationRes = await createLocationSignal();
+		setLocation(locationRes());
 	});
 
 	return (
@@ -72,7 +65,7 @@ const EmailForm = (props: Props) => {
 						type="text"
 						name="country"
 						placeholder=""
-						value={country()}
+						value={location()?.country}
 						class="peer w-full outline-none bg-transparent text-accent pl-1.5"
 					/>
 					<span  class="pointer-events-none absolute start-3 top-0 -translate-y-1/2 bg-base-200 p-1 text-neutral-100 duration-200 ease-out text-xs peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs">
