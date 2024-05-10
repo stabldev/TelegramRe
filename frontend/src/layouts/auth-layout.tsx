@@ -12,10 +12,7 @@ export function AuthLayout() {
 					src="/favicon.svg"
 					class="md:size-28"
 				/>
-				<EmailForm
-					onFormSubmit={handleFormSubmit}
-					authType="login"
-				/>
+				<EmailForm onFormSubmit={handleFormSubmit} />
 				<span class="absolute mx-auto -bottom-8 text-neutral-100 text-sm">Telegram Web RE 1.0</span>
 			</div>
 		</main>

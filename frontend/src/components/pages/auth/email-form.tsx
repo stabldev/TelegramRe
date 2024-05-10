@@ -1,12 +1,11 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
-import { Show, onMount, createSignal } from "solid-js";
+import { onMount, createSignal } from "solid-js";
 import { createLocationSignal } from "~/hooks/location";
 import Arrow from "~/icons/arrow";
 import { LocationResponse } from "~/types/location";
 
 interface Props {
 	onFormSubmit: (e: CustomEvent) => void;
-	authType: "login" | "register";
 }
 
 const EmailForm = (props: Props) => {
@@ -29,29 +28,14 @@ const EmailForm = (props: Props) => {
 
 	return (
 		<>
-			<Show
-				when={props.authType === "login"}
-				fallback={
-					<div class="flex flex-col md:gap-2">
-						<h2 class="font-semibold text-accent md:text-2xl">
-							Join Telegram RE
-						</h2>
-						<span class="flex self-center text-secondary md:text-sm">
-							Use OAuth or register via Email <br /> (
-							Passwordless )
-						</span>
-					</div>
-				}
-			>
-				<div class="flex flex-col md:gap-3">
-					<h2 class="font-medium text-accent md:text-3xl">
-						Sign in to Telegram
-					</h2>
-					<span class="flex self-center text-neutral-100 md:text-base">
-						Please confirm your country and <br /> enter your email address.
-					</span>
-				</div>
-			</Show>
+			<div class="flex flex-col md:gap-3">
+				<h2 class="font-medium text-accent md:text-3xl">
+					Sign in to Telegram
+				</h2>
+				<span class="flex self-center text-neutral-100 md:text-base">
+					Please confirm your country and <br /> enter your email address.
+				</span>
+			</div>
 			<form
 				onSubmit={handleFormSubmit}
 				class="flex w-full flex-col md:gap-3.5"
