@@ -41,33 +41,29 @@ const EmailForm = (props: Props) => {
 				onSubmit={handleFormSubmit}
 				class="flex w-full flex-col md:gap-3.5"
 			>
-				<label
-					for="country"
-					class="relative flex items-center border-2 border-neutral-300 focus-within:border-primary md:rounded-xl md:p-2.5 md:text-base"
+				<TextInput
+					inputProps={{
+						type: "text",
+						name: "country",
+						placeholder: "Country",
+						value: location()?.country ?? "",
+					}}
 				>
-					<input
-						id="country"
-						type="text"
-						name="country"
-						placeholder=""
-						value={location()?.country}
-						class="peer w-full outline-none bg-transparent text-accent pl-1.5"
-					/>
-					<span  class="pointer-events-none absolute start-3 top-0 -translate-y-1/2 bg-base-200 p-1 text-neutral-100 duration-200 ease-out text-xs peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs">
-						Country
-					</span>
 					{/* TODO: add select country function */}
 					<Arrow
 						variant="down"
 						class="absolute right-0 md:end-2.5 text-neutral-100 md:size-7"
 					/>
-				</label>
-				<TextInput inputProps={{
-					autofocus: true,
-					required: true,
-					type: "email",
-					placeholder: "Email address",
-				}} />
+				</TextInput>
+				<TextInput
+					inputProps={{
+						autofocus: true,
+						required: true,
+						type: "email",
+						name: "email-address",
+						placeholder: "Email address",
+					}}
+				/>
 				<label class="relative flex items-center md:gap-3">
 					<input
 						name="keep-me"
