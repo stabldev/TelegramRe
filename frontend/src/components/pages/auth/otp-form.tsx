@@ -35,15 +35,17 @@ const OtpForm = (props: Props) => {
 				onSubmit={handleFormSubmit}
 				class="flex w-full flex-col md:gap-3"
 			>
-				<TextInput inputProps={{
-					autofocus: true,
-					required: true,
-					minLength: 5,
-					maxLength: 5,
-					type: "text",
-					name: "otp",
-					placeholder: "OTP",
-				}} />
+				<TextInput
+					inputProps={{
+						autofocus: true,
+						required: true,
+						minLength: 5,
+						maxLength: 5,
+						type: "text",
+						name: "otp",
+						placeholder: "OTP",
+					}}
+				/>
 				<button
 					disabled={loading()}
 					class="group disabled:cursor-progress bg-primary text-accent uppercase w-full h-12 rounded-xl flex items-center justify-center md:gap-2"
