@@ -1,6 +1,6 @@
 import { For } from "solid-js";
 import { groupChatBySender } from "~/functions/group-chat";
-import { ChatBubble } from "./chat-bubble";
+import ChatBubble from "./chat-bubble";
 import { useAuth } from "~/context/auth";
 import { ChatMessage } from "~/types/chat.types";
 import { destructure } from "@solid-primitives/destructure";
@@ -10,7 +10,7 @@ interface Props {
     ref: HTMLDivElement;
 }
 
-export const ChatArea = (props: Props) => {
+const ChatArea = (props: Props) => {
     const { user } = useAuth();
     const { ref, chat } = destructure(props);
 
@@ -57,3 +57,5 @@ export const ChatArea = (props: Props) => {
         </>
     );
 };
+
+export default ChatArea;

@@ -10,7 +10,7 @@ interface Props {
 	class?: string;
 };
 
-export default function Modal(props: Props) {
+const Modal = (props: Props) => {
 	const { children, setOpen } = destructure(props);
 
 	let modalRef: HTMLElement | undefined = undefined;
@@ -41,3 +41,5 @@ export default function Modal(props: Props) {
 		</Portal>
 	</>
 };
+
+export default Modal;

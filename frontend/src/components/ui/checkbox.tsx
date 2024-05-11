@@ -5,7 +5,7 @@ interface Props {
 	inputProps: JSX.InputHTMLAttributes<HTMLInputElement>;
 };
 
-export default function CheckBox(props: Props) {
+const CheckBox = (props: Props) => {
 	const { inputProps } = props;
 	const uuid = uuidv4()
 
@@ -36,3 +36,5 @@ export default function CheckBox(props: Props) {
 		</label>
 	</>
 };
+
+export default CheckBox;

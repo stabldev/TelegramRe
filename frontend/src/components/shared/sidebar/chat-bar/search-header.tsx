@@ -12,7 +12,7 @@ type Props = {
     toggleView: () => void;
 };
 
-export const SearchHeader = (props: Props) => {
+const SearchHeader = (props: Props) => {
     const [showMenu, setShowMenu] = createSignal(false);
 
     const { toggleView } = destructure(props);
@@ -81,3 +81,5 @@ export const SearchHeader = (props: Props) => {
         </div>
     );
 };
+
+export default SearchHeader;

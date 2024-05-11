@@ -11,7 +11,7 @@ interface Props {
 // TODO add more colors later
 const color_mapping = ["#fab387", "#eba0ac", "#a6e3a1"];
 
-export const Avatar = (props: Props) => {
+const Avatar = (props: Props) => {
     const has_avatar = props.src !== null && props.src !== "";
 
     const getName = (str: string): string => {
@@ -34,3 +34,5 @@ export const Avatar = (props: Props) => {
         </Show>
     </>;
 };
+
+export default Avatar;

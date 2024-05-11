@@ -5,7 +5,7 @@ import Tick from "~/icons/tick";
 import { ChatMessage } from "~/types/chat.types";
 import { createVisibilityObserver } from "@solid-primitives/intersection-observer";
 import { useChat } from "~/context/chat";
-import { ChatContextMenu } from "~/components/shared/popups/chat-context-menu";
+import ChatContextMenu from "~/components/shared/chat/chat-context-menu";
 import { Portal } from "solid-js/web";
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 	lastMsg: boolean;
 }
 
-export const ChatBubble = (props: Props) => {
+const ChatBubble = (props: Props) => {
 	const { socket, activeRoom } = useChat();
 	const [showContextMenu, setShowContextMenu] = createSignal(false);
 	const [contextPos, setContextPos] = createSignal({ x: 0, y: 0 });
@@ -150,3 +150,5 @@ export const ChatBubble = (props: Props) => {
 		</>
 	);
 };
+
+export default ChatBubble;

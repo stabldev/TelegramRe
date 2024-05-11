@@ -1,5 +1,7 @@
-import { DefaultLayout } from "~/layouts/default-layout";
+import DefaultLayout from "~/layouts/default-layout";
 
-export default function Home() {
+const Home = () => {
 	return <DefaultLayout />;
 }
+
+export default Home;

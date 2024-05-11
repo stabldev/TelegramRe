@@ -10,9 +10,9 @@ import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
 import Menu from "~/icons/menu";
 import Search from "~/icons/search";
-import { Avatar } from "~/components/ui/avatar";
+import Avatar from "~/components/ui/avatar";
 
-export const ChatHeader: Component = () => {
+const ChatHeader: Component = () => {
 	const { toggleShowSidebar } = useShared();
 	const { onlineUsers, activeRoom } = useChat();
 
@@ -93,3 +93,5 @@ export const ChatHeader: Component = () => {
 		</div>
 	);
 };
+
+export default ChatHeader;

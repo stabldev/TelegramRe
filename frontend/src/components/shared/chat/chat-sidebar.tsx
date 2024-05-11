@@ -1,14 +1,12 @@
 import { Show } from "solid-js";
-import { useParams } from "@solidjs/router";
 import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
 import At from "~/icons/at";
 import Close from "~/icons/close";
 import Info from "~/icons/info";
-import Verified from "~/icons/verified";
-import { Avatar } from "~/components/ui/avatar";
+import Avatar from "~/components/ui/avatar";
 
-export const ChatSidebar = () => {
+const ChatSidebar = () => {
     const { toggleShowSidebar } = useShared();
     const { activeRoom } = useChat();
     const IS_DM = activeRoom()?.type === "DM";
@@ -68,3 +66,5 @@ export const ChatSidebar = () => {
         </>
     );
 };
+
+export default ChatSidebar;

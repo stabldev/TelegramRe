@@ -11,9 +11,9 @@ import Verified from "~/icons/verified";
 import Photo from "~/icons/photo";
 import Gif from "~/icons/gif";
 import { cn } from "~/functions/cn";
-import { Avatar } from "~/components/ui/avatar";
+import Avatar from "~/components/ui/avatar";
 
-export const ProfileItem = (props: ChatRoom) => {
+const ProfileItem = (props: ChatRoom) => {
 	const { user } = useAuth();
 	const { onlineUsers, setActiveRoom } = useChat();
 	const [isActive, setIsActive] = createSignal(false);
@@ -166,3 +166,5 @@ export const ProfileItem = (props: ChatRoom) => {
 		</A>
 	);
 };
+
+export default ProfileItem;

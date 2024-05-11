@@ -11,7 +11,7 @@ import { makeCache, makeAbortable } from "@solid-primitives/resource";
 import { useParams } from "@solidjs/router";
 import { scrollToBottom } from "~/functions/scroll-to-bottom";
 
-export const ChatScreen: Component = () => {
+const ChatScreen: Component = () => {
 	const { socket, activeRoom, setChatRooms, setOnlineUsers } = useChat();
 	const params = useParams<{ username: string }>();
 

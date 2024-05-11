@@ -1,17 +1,16 @@
 import { useAuth } from "~/context/auth";
 import { SettingsHeader } from "./settings-header";
-import Photo from "~/icons/photo";
 import At from "~/icons/at";
 import Info from "~/icons/info";
 import Verified from "~/icons/verified";
 import { Show } from "solid-js";
-import { Avatar } from "~/components/ui/avatar";
+import Avatar from "~/components/ui/avatar";
 
 type Props = {
     toggleView: () => void;
 };
 
-export const SettingsBar = (props: Props) => {
+const SettingsBar = (props: Props) => {
     const { user } = useAuth();
 
     return (
@@ -58,3 +57,5 @@ export const SettingsBar = (props: Props) => {
         </>
     );
 };
+
+export default SettingsBar;

@@ -2,12 +2,12 @@ import { Title } from "@solidjs/meta";
 import { useParams } from "@solidjs/router";
 import { Show } from "solid-js";
 import ChatScreen from "~/components/pages/chat";
-import { ChatSidebar } from "~/components/shared/chat/chat-sidebar";
+import ChatSidebar from "~/components/shared/chat/chat-sidebar";
 import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
-import { DefaultLayout } from "~/layouts/default-layout";
+import DefaultLayout from "~/layouts/default-layout";
 
-export default function Username() {
+const UserChat = () => {
 	const { showSidebar } = useShared();
 	const { activeRoom } = useChat();
 
@@ -26,3 +26,5 @@ export default function Username() {
 		</>
 	);
 }
+
+export default UserChat;

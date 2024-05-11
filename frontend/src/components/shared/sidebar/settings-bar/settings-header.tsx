@@ -2,7 +2,6 @@ import { destructure } from "@solid-primitives/destructure";
 import toast from "solid-toast";
 import { useAuth } from "~/context/auth";
 import Arrow from "~/icons/arrow";
-import Logout from "~/icons/logout";
 import Menu from "~/icons/menu";
 import Pencil from "~/icons/pencil";
 

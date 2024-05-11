@@ -20,7 +20,7 @@ type Props = {
 
 type Direction = "left" | "right";
 
-export const ChatContextMenu = (props: Props) => {
+const ChatContextMenu = (props: Props) => {
     const { setEditMessage } = useShared();
     const { x: PropX, y: PropY, message } = destructure(props);
 
@@ -139,3 +139,5 @@ export const ChatContextMenu = (props: Props) => {
         </Motion.div>
     );
 };
+
+export default ChatContextMenu;

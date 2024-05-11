@@ -1,7 +1,7 @@
-import { SearchHeader } from "./search-header";
+import SearchHeader from "./search-header";
 import { For } from "solid-js";
 import { useChat } from "~/context/chat";
-import { ProfileItem } from "./profile-item";
+import ProfileItem from "./profile-item";
 import Pencil from "~/icons/pencil";
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 	isLoading: boolean;
 };
 
-export const ChatBar = (props: Props) => {
+const ChatBar = (props: Props) => {
 	const { chatRooms } = useChat();
 
 	return (
@@ -30,3 +30,5 @@ export const ChatBar = (props: Props) => {
 		</>
 	);
 };
+
+export default ChatBar;

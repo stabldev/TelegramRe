@@ -10,8 +10,8 @@ import { ChatRoom } from "~/types/chat.types";
 import { useChat } from "~/context/chat";
 import { OnlineUser } from "~/types/user.types";
 import ApiEndpoints from "~/connections/api/api-endpoints";
-import { ChatBar } from "./chat-bar";
-import { SettingsBar } from "./settings-bar";
+import ChatBar from "./chat-bar";
+import SettingsBar from "./settings-bar";
 
 async function getChatRooms() {
 	const res = await fetch(ApiEndpoints.chat.CHAT_ROOMS, {

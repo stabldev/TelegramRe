@@ -4,18 +4,18 @@ import Emoji from "~/icons/emoji";
 import Mic from "~/icons/mic";
 import Send from "~/icons/send";
 import Clip from "~/icons/clip";
-import { ChatFileModal } from "~/components/shared/modals/chat-file-modal";
 import { useChat } from "~/context/chat";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { useAuth } from "~/context/auth";
 import { useShared } from "~/context/shared";
 import Close from "~/icons/close";
 import Popover from "~/components/ui/popover";
-import ChatMediaMenu from "~/components/shared/popups/chat-media-menu";
+import ChatMediaMenu from "~/components/shared/chat/chat-media-menu";
+import ChatFileModal from "~/components/shared/chat/chat-file-modal";
 import Modal from "~/components/ui/modal";
 import Pencil from "~/icons/pencil";
 
-export const ChatInput = () => {
+const ChatInput = () => {
 	const { socket, activeRoom } = useChat();
 	const { csrfToken, user } = useAuth();
 	const { editMessage, isEditingMessage, setEditMessage } = useShared();
@@ -230,3 +230,5 @@ export const ChatInput = () => {
 		</>
 	);
 };
+
+export default ChatInput;

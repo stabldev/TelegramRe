@@ -17,7 +17,7 @@ interface IProps {
     position: Position;
 };
 
-export default function Popover(props: IProps) {
+const Popover = (props: IProps) => {
     const { triggerRef, children, setOpen, position } = destructure(props);
 
     const [xPos, setXPos] = createSignal(0);
@@ -95,3 +95,5 @@ export default function Popover(props: IProps) {
         </Portal>
     )
 };
+
+export default Popover;

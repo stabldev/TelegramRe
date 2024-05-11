@@ -1,5 +1,5 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
-import { Show, createEffect, createSignal, onCleanup, onMount } from "solid-js";
+import { createEffect, createSignal, onCleanup, onMount } from "solid-js";
 import TextareaAutosize from "solid-textarea-autosize";
 import Close from "~/icons/close";
 import { filesize } from "filesize";
@@ -12,7 +12,7 @@ type Props = {
 	onFileSubmit: (e: CustomEvent) => void;
 };
 
-export const ChatFileModal = (props: Props) => {
+const ChatFileModal = (props: Props) => {
 	const [preview, setPreview] = createSignal("");
 	const [caption, setCaption] = createSignal("");
 	const [sending, setSending] = createSignal(false);
@@ -56,7 +56,7 @@ export const ChatFileModal = (props: Props) => {
 	};
 
 	onMount(() => {
-		inputRef?.focus();
+		inputRef!.focus();
 	});
 
 	onCleanup(() => {
@@ -129,3 +129,5 @@ export const ChatFileModal = (props: Props) => {
 		</div>
 	</>
 };
+
+export default ChatFileModal;

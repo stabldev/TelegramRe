@@ -1,7 +1,7 @@
 import Gif from "~/icons/gif";
 import Photo from "~/icons/photo";
 
-export default function ChatMediaMenu() {
+const ChatMediaMenu = () => {
 	return <>
         <label
             for="image-file-input"
@@ -23,3 +23,5 @@ export default function ChatMediaMenu() {
         </label>
 	</>
 };
+
+export default ChatMediaMenu;

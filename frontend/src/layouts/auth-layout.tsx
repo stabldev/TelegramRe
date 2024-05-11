@@ -1,7 +1,7 @@
 import EmailForm from "~/components/pages/auth/email-form";
 import OtpForm from "~/components/pages/auth/otp-form";
 
-export function AuthLayout() {
+const AuthLayout = () => {
 	const handleEmailSubmit = async (e: CustomEvent) => {
 		console.log(e.detail);
 	};
@@ -24,3 +24,5 @@ export function AuthLayout() {
 		</main>
 	);
 }
+
+export default AuthLayout;

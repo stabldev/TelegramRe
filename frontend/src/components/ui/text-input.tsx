@@ -8,7 +8,7 @@ interface Props {
 	errorMsg?: string;
 };
 
-export default function TextInput(props: Props) {
+const TextInput = (props: Props) => {
 	const { inputProps, children, errorMsg, value } = props;
 	const uuid = uuidv4()
 
@@ -34,3 +34,5 @@ export default function TextInput(props: Props) {
 		</label>
 	</>
 };
+
+export default TextInput;

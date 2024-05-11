@@ -1,6 +1,6 @@
 import { cn } from "~/functions/cn";
 
-export default function Spinner(props: { class?: string; }) {
+const Spinner = (props: { class?: string; }) => {
 	return <>
 		<svg class={cn(props.class, "animate-spin md:size-4 text-accent")} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
 	      	<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -8,3 +8,5 @@ export default function Spinner(props: { class?: string; }) {
 	    </svg>
 	</>
 };
+
+export default Spinner;

@@ -1,9 +1,9 @@
 import { JSX, Show } from "solid-js";
 import Sidebar from "~/components/shared/sidebar";
 import { useAuth } from "~/context/auth";
-import { AuthLayout } from "./auth-layout";
+import AuthLayout from "./auth-layout";
 
-export function DefaultLayout(props: { children?: JSX.Element }) {
+const DefaultLayout = (props: { children?: JSX.Element }) => {
 	const { isAuthenticated } = useAuth();
 
 	return (
@@ -21,3 +21,5 @@ export function DefaultLayout(props: { children?: JSX.Element }) {
 		</Show>
 	);
 }
+
+export default DefaultLayout;

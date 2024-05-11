@@ -1,6 +1,6 @@
 import { HttpStatusCode } from "@solidjs/start";
 
-export default function NotFound() {
+const NotFound = () => {
 	return (
 		<div class="flex h-screen w-screen flex-col items-center justify-center bg-stone-100 leading-none text-stone-900">
 			<HttpStatusCode code={404} />
@@ -9,3 +9,5 @@ export default function NotFound() {
 		</div>
 	);
 }
+
+export default NotFound;
