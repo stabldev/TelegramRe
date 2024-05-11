@@ -1,8 +1,11 @@
+import { Match, Switch, createSignal } from "solid-js";
 import EmailForm from "~/components/pages/auth/email-form";
 import OtpForm from "~/components/pages/auth/otp-form";
 import { VERSION } from "~/config";
 
 const AuthLayout = () => {
+	const [state, setState] = createSignal<"email" | "otp">("email");
+
 	const handleEmailSubmit = async (e: CustomEvent) => {
 		console.log(e.detail);
 	};
@@ -18,8 +21,14 @@ const AuthLayout = () => {
 					src="/favicon.svg"
 					class="md:size-28"
 				/>
-				{/*<EmailForm onFormSubmit={handleEmailSubmit} />*/}
-				<OtpForm onOtpSubmit={handleOTPSubmit} />
+				<Switch>
+					<Match when={state() === "email"}>
+						<EmailForm onFormSubmit={handleEmailSubmit} />
+					</Match>
+					<Match when={state() === "email"}>
+						<OtpForm onOtpSubmit={handleOTPSubmit} />
+					</Match>
+				</Switch>
 				<span class="absolute mx-auto -bottom-8 text-neutral-100 text-sm">Telegram Web RE {VERSION}</span>
 			</div>
 		</main>

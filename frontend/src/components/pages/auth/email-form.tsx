@@ -46,7 +46,7 @@ const EmailForm = (props: Props) => {
 				class="flex w-full flex-col md:gap-3.5"
 			>
 				<TextInput
-					value={location()?.country ?? ""}
+					value={location()?.country}
 					inputProps={{
 						type: "text",
 						name: "country",
