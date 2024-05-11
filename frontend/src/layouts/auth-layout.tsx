@@ -1,5 +1,6 @@
 import EmailForm from "~/components/pages/auth/email-form";
 import OtpForm from "~/components/pages/auth/otp-form";
+import { VERSION } from "~/config";
 
 const AuthLayout = () => {
 	const handleEmailSubmit = async (e: CustomEvent) => {
@@ -19,7 +20,7 @@ const AuthLayout = () => {
 				/>
 				{/*<EmailForm onFormSubmit={handleEmailSubmit} />*/}
 				<OtpForm onOtpSubmit={handleOTPSubmit} />
-				<span class="absolute mx-auto -bottom-8 text-neutral-100 text-sm">Telegram Web RE 1.0</span>
+				<span class="absolute mx-auto -bottom-8 text-neutral-100 text-sm">Telegram Web RE {VERSION}</span>
 			</div>
 		</main>
 	);
