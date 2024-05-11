@@ -12,7 +12,7 @@ import { ChatProvider } from "./context/chat";
 // import styles
 import "./app.css";
 
-export default function App() {
+const App = () => {
 	return (
 		<Router
 			root={(props) => (
@@ -41,3 +41,5 @@ export default function App() {
 		</Router>
 	);
 }
+
+export default App;
