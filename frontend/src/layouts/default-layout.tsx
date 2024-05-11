@@ -20,6 +20,6 @@ const DefaultLayout = (props: { children?: JSX.Element }) => {
 			</main>
 		</Show>
 	);
-}
+};
 
 export default DefaultLayout;

@@ -27,8 +27,8 @@ const OtpForm = (props: Props) => {
 					Email verification
 				</h2>
 				<span class="flex self-center text-neutral-100 md:text-base">
-					Please enter the OTP which we've send to <br /> your email address
-					to complete.
+					Please enter the OTP which we've send to <br /> your email
+					address to complete.
 				</span>
 			</div>
 			<form
@@ -43,12 +43,12 @@ const OtpForm = (props: Props) => {
 						maxLength: 5,
 						type: "text",
 						name: "otp",
-						placeholder: "OTP",
+						placeholder: "OTP"
 					}}
 				/>
 				<button
 					disabled={loading()}
-					class="group disabled:cursor-progress bg-primary text-accent uppercase w-full h-12 rounded-xl flex items-center justify-center md:gap-2"
+					class="group flex h-12 w-full items-center justify-center rounded-xl bg-primary uppercase text-accent disabled:cursor-progress md:gap-2"
 				>
 					verify
 					<Show when={loading()}>

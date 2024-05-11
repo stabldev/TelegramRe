@@ -14,7 +14,9 @@ interface Props {
 
 const EmailForm = (props: Props) => {
 	const { loading } = useAuth();
-	const [location, setLocation] = createSignal<LocationResponse | undefined>();
+	const [location, setLocation] = createSignal<
+		LocationResponse | undefined
+	>();
 
 	const dispatch = createEventDispatcher(props);
 
@@ -38,7 +40,8 @@ const EmailForm = (props: Props) => {
 					Sign in to Telegram
 				</h2>
 				<span class="flex self-center text-neutral-100 md:text-base">
-					Please confirm your country and <br /> enter your email address.
+					Please confirm your country and <br /> enter your email
+					address.
 				</span>
 			</div>
 			<form
@@ -50,30 +53,34 @@ const EmailForm = (props: Props) => {
 					inputProps={{
 						type: "text",
 						name: "country",
-						placeholder: "Country",
+						placeholder: "Country"
 					}}
 				>
 					{/* TODO: add select country function */}
 					<Arrow
 						variant="down"
-						class="absolute right-0 md:end-2.5 text-neutral-100 md:size-7"
+						class="absolute right-0 text-neutral-100 md:end-2.5 md:size-7"
 					/>
 				</TextInput>
-				<TextInput inputProps={{
-					autofocus: true,
-					required: true,
-					type: "email",
-					name: "email-address",
-					placeholder: "Email address",
-				}} />
-				<CheckBox inputProps={{
-					placeholder: "Keep me signed in",
-					checked: true,
-					name: "keep-me",
-				}} />
+				<TextInput
+					inputProps={{
+						autofocus: true,
+						required: true,
+						type: "email",
+						name: "email-address",
+						placeholder: "Email address"
+					}}
+				/>
+				<CheckBox
+					inputProps={{
+						placeholder: "Keep me signed in",
+						checked: true,
+						name: "keep-me"
+					}}
+				/>
 				<button
 					disabled={loading()}
-					class="group disabled:cursor-progress bg-primary text-accent uppercase w-full h-12 rounded-xl flex items-center justify-center md:gap-2"
+					class="group flex h-12 w-full items-center justify-center rounded-xl bg-primary uppercase text-accent disabled:cursor-progress md:gap-2"
 				>
 					next
 					<Show when={loading()}>

@@ -15,8 +15,8 @@ const AuthLayout = () => {
 	};
 
 	return (
-		<main class="relative grid place-items-center h-screen w-screen bg-base-100 bg-[url(/wallpaper.svg)]">
-			<div class={"flex flex-col items-center text-center relative md:w-96 md:p-5 md:rounded-2xl border border-neutral-300 md:gap-5 bg-base-200"}>
+		<main class="relative grid h-screen w-screen place-items-center bg-base-100 bg-[url(/wallpaper.svg)]">
+			<div class="relative flex flex-col items-center border border-neutral-300 bg-base-200 text-center md:w-96 md:gap-5 md:rounded-2xl md:p-5">
 				<img
 					src="/favicon.svg"
 					class="md:size-28"
@@ -29,10 +29,12 @@ const AuthLayout = () => {
 						<OtpForm onOtpSubmit={handleOTPSubmit} />
 					</Match>
 				</Switch>
-				<span class="absolute mx-auto -bottom-8 text-neutral-100 text-sm">Telegram Web RE {VERSION}</span>
+				<span class="absolute -bottom-8 mx-auto text-sm text-neutral-100">
+					Telegram Web RE {VERSION}
+				</span>
 			</div>
 		</main>
 	);
-}
+};
 
 export default AuthLayout;

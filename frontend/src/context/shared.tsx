@@ -5,7 +5,7 @@ import {
 	createContext,
 	createEffect,
 	createSignal,
-	useContext,
+	useContext
 } from "solid-js";
 import { ChatMessage } from "~/types/chat.types";
 

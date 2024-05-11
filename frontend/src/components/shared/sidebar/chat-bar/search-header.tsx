@@ -9,77 +9,85 @@ import Search from "~/icons/search";
 import UserSettings from "~/icons/settings/user";
 
 type Props = {
-    toggleView: () => void;
+	toggleView: () => void;
 };
 
 const SearchHeader = (props: Props) => {
-    const [showMenu, setShowMenu] = createSignal(false);
+	const [showMenu, setShowMenu] = createSignal(false);
 
-    const { toggleView } = destructure(props);
-    let menuRef: HTMLButtonElement | undefined = undefined;
+	const { toggleView } = destructure(props);
+	let menuRef: HTMLButtonElement | undefined = undefined;
 
-    return (
-        <div class="flex h-14 items-center gap-3 px-3 py-2">
-            <button
-                ref={menuRef}
+	return (
+		<div class="flex h-14 items-center gap-3 px-3 py-2">
+			<button
+				ref={menuRef}
 				onClick={() => setShowMenu((prev) => !prev)}
-                class="flex-shrink-0 text-neutral-100 text-xl size-10 hover:bg-base-300 rounded-full grid place-items-center"
-            >
-                <Menu variant="bars" />
-            </button>
-            <Show when={showMenu() && menuRef !== undefined}>
-                <Popover
-                    triggerRef={menuRef}
-                    setOpen={setShowMenu}
-                    position="bottom-left"
-                    class="rounded-xl bg-base-100 h-max w-52 z-50 p-1"
-                >
-                    <button
-                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
-                        onClick={toggleView()}
-                    >
-                        <UserSettings class="size-4" />
-                        <span class="text-sm font-medium text-accent">Settings</span>
-                    </button>
-                    <a
-                        href="https://github.com/tokitouq/telegram-re/issues"
-                        target="_blank"
-                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
-                    >
-                        <BugReport class="size-4" />
-                        <span class="text-sm font-medium text-accent">Report Bug</span>
-                    </a>
-                    <a
-                        href="https://github.com/tokitouq/telegram-re"
-                        target="_blank"
-                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
-                    >
-                        <Code class="size-4" />
-                        <span class="text-sm font-medium text-accent">Source</span>
-                    </a>
-                    <a
-                        href="https://github.com/tokitouq/telegram-re/blob/main/LICENSE"
-                        target="_blank"
-                        class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
-                    >
-                        <License class="size-4" />
-                        <span class="text-sm font-medium text-accent">License</span>
-                    </a>
-                    <span class="flex px-3 py-1 pt-1.5 text-xs text-neutral-100 w-max mx-auto">
-                        Telegram Web RE 1.0
-                    </span>
-                </Popover>
-            </Show>
-            <form class="relative flex w-full items-center size-full">
-                <Search class="pointer-events-none absolute left-3.5 size-5 text-neutral-200" />
-                <input
-                    placeholder="Search"
-                    type="text"
-                    class="size-full rounded-full border-none bg-base-300 pr-3.5 pl-11 text-accent placeholder:text-neutral-200 caret-neutral-200 outline-none ring-primary focus:ring-2"
-                />
-            </form>
-        </div>
-    );
+				class="grid size-10 flex-shrink-0 place-items-center rounded-full text-xl text-neutral-100 hover:bg-base-300"
+			>
+				<Menu variant="bars" />
+			</button>
+			<Show when={showMenu() && menuRef !== undefined}>
+				<Popover
+					triggerRef={menuRef}
+					setOpen={setShowMenu}
+					position="bottom-left"
+					class="z-50 h-max w-52 rounded-xl bg-base-100 p-1"
+				>
+					<button
+						class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
+						onClick={toggleView()}
+					>
+						<UserSettings class="size-4" />
+						<span class="text-sm font-medium text-accent">
+							Settings
+						</span>
+					</button>
+					<a
+						href="https://github.com/tokitouq/telegram-re/issues"
+						target="_blank"
+						class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
+					>
+						<BugReport class="size-4" />
+						<span class="text-sm font-medium text-accent">
+							Report Bug
+						</span>
+					</a>
+					<a
+						href="https://github.com/tokitouq/telegram-re"
+						target="_blank"
+						class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
+					>
+						<Code class="size-4" />
+						<span class="text-sm font-medium text-accent">
+							Source
+						</span>
+					</a>
+					<a
+						href="https://github.com/tokitouq/telegram-re/blob/main/LICENSE"
+						target="_blank"
+						class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
+					>
+						<License class="size-4" />
+						<span class="text-sm font-medium text-accent">
+							License
+						</span>
+					</a>
+					<span class="mx-auto flex w-max px-3 py-1 pt-1.5 text-xs text-neutral-100">
+						Telegram Web RE 1.0
+					</span>
+				</Popover>
+			</Show>
+			<form class="relative flex size-full w-full items-center">
+				<Search class="pointer-events-none absolute left-3.5 size-5 text-neutral-200" />
+				<input
+					placeholder="Search"
+					type="text"
+					class="size-full rounded-full border-none bg-base-300 pl-11 pr-3.5 text-accent caret-neutral-200 outline-none ring-primary placeholder:text-neutral-200 focus:ring-2"
+				/>
+			</form>
+		</div>
+	);
 };
 
 export default SearchHeader;

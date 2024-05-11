@@ -25,6 +25,6 @@ const UserChat = () => {
 			</DefaultLayout>
 		</>
 	);
-}
+};
 
 export default UserChat;

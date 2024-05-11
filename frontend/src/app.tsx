@@ -18,7 +18,11 @@ const App = () => {
 			root={(props) => (
 				<MetaProvider>
 					<Title>Telegram</Title>
-					<Link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+					<Link
+						rel="icon"
+						href="/favicon.svg"
+						type="image/svg+xml"
+					/>
 
 					<MultiProvider
 						values={[AuthProvider, SharedProvider, ChatProvider]}
@@ -30,9 +34,7 @@ const App = () => {
 									"!bg-neutral !text-accent md:!text-sm md:!px-3 md:!py-2 !rounded-lg"
 							}}
 						/>
-						<Suspense>
-							{props.children}
-						</Suspense>
+						<Suspense>{props.children}</Suspense>
 					</MultiProvider>
 				</MetaProvider>
 			)}
@@ -40,6 +42,6 @@ const App = () => {
 			<FileRoutes />
 		</Router>
 	);
-}
+};
 
 export default App;

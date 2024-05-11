@@ -24,7 +24,7 @@ const ChatBar = (props: Props) => {
 					{(room) => <ProfileItem {...room} />}
 				</For>
 			</div>
-			<button class="group-hover:opacity-100 opacity-0 transition-opacity bg-primary size-14 rounded-full grid place-items-center absolute bottom-5 right-5">
+			<button class="absolute bottom-5 right-5 grid size-14 place-items-center rounded-full bg-primary opacity-0 transition-opacity group-hover:opacity-100">
 				<Pencil class="size-6 text-accent" />
 			</button>
 		</>
