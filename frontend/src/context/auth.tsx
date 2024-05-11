@@ -1,5 +1,4 @@
 import {
-	Accessor,
 	JSX,
 	createContext,
 	createSignal,
@@ -10,17 +9,12 @@ import {
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { User } from "~/types/user.types";
 
-type AuthType = "login" | "register";
-
 type AuthStore = {
-	csrfToken: Accessor<string>;
-	loading: Accessor<boolean>;
-	user: Accessor<User | undefined>;
-	isAuthenticated: Accessor<boolean>;
-	handleEmailVerification: (
-		email: string,
-		authType: AuthType
-	) => Promise<void>;
+	csrfToken: string;
+	loading: boolean;
+	user: User | undefined;
+	isAuthenticated: boolean;
+	handleEmailVerification: (email: string) => Promise<void>;
 	handleOTPVerification: (email: string, otp: string) => Promise<void>;
 	logoutUser: () => Promise<void>;
 };
@@ -55,17 +49,10 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		setCsrfToken(token);
 	};
 
-	const handleEmailVerification = async (
-		email: string,
-		authType: AuthType = "login"
-	) => {
+	const handleEmailVerification = async (email: string) => {
 		setLoading(true);
 		try {
-			const url =
-				authType === "login"
-					? ApiEndpoints.user.auth.EMAIL_VERIFICATION
-					: ApiEndpoints.user.auth.REGISTER_EMAIL_VERIFICATION;
-			const res = await fetch(url, {
+			const res = await fetch(ApiEndpoints.user.auth.EMAIL_VERIFICATION, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -122,20 +109,16 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	};
 
 	const logoutUser = async () => {
-		try {
-			const res = await fetch(ApiEndpoints.user.auth.LOGOUT, {
-				credentials: "include"
-			});
+		const res = await fetch(ApiEndpoints.user.auth.LOGOUT, {
+			credentials: "include"
+		});
 
-			if (!res.ok) throw new Error("Something is wrong");
+		if (!res.ok) throw new Error("Something is wrong");
 
-			setIsAuthenticated(false);
-			setUser(undefined);
-			setCsrfToken("");
-			// nagivate("/auth/login/");
-		} catch (err) {
-			throw err;
-		}
+		setIsAuthenticated(false);
+		setUser(undefined);
+		setCsrfToken("");
+		// nagivate("/auth/login/");
 	};
 
 	createEffect(async () => {
@@ -146,10 +129,10 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	});
 
 	const context_value: AuthStore = {
-		csrfToken: csrfToken,
-		user: user,
-		isAuthenticated: isAuthenticated,
-		loading: loading,
+		csrfToken: csrfToken(),
+		user: user(),
+		isAuthenticated: isAuthenticated(),
+		loading: loading(),
 		handleEmailVerification: handleEmailVerification,
 		handleOTPVerification: handleOTPVerification,
 		logoutUser: logoutUser
