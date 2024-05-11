@@ -1,9 +1,11 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
+import { Show } from "solid-js";
+import Spinner from "~/components/ui/spinner";
+import TextInput from "~/components/ui/text-input";
 import { useAuth } from "~/context/auth";
 
 interface Props {
 	onOtpSubmit: (e: CustomEvent) => void;
-	authType: "login" | "register";
 }
 
 const OtpForm = (props: Props) => {
@@ -20,12 +22,12 @@ const OtpForm = (props: Props) => {
 
 	return (
 		<>
-			<div class="flex flex-col md:gap-2">
-				<h2 class="font-semibold text-accent md:text-2xl">
-					Email verification.
+			<div class="flex flex-col md:gap-3">
+				<h2 class="font-medium text-accent md:text-3xl">
+					Email verification
 				</h2>
-				<span class="flex self-center text-secondary md:text-sm">
-					Please enter the OTP which we've send to <br /> your email
+				<span class="flex self-center text-neutral-100 md:text-base">
+					Please enter the OTP which we've send to <br /> your email address
 					to complete.
 				</span>
 			</div>
@@ -33,21 +35,23 @@ const OtpForm = (props: Props) => {
 				onSubmit={handleFormSubmit}
 				class="flex w-full flex-col md:gap-3"
 			>
-				<input
-					autofocus
-					required
-					name="otp"
-					minLength={5}
-					maxLength={5}
-					placeholder="OTP you recieved"
-					class="w-full border-2 border-neutral bg-transparent text-accent focus-within:border-primary md:rounded-lg md:p-2.5 md:text-base"
-				/>
+				<TextInput inputProps={{
+					autofocus: true,
+					required: true,
+					minLength: 5,
+					maxLength: 5,
+					type: "text",
+					name: "otp",
+					placeholder: "OTP",
+				}} />
 				<button
 					disabled={loading()}
-					classList={{ "opacity-75": loading() }}
-					class="btn btn-primary uppercase"
+					class="group disabled:cursor-progress bg-primary text-accent uppercase w-full h-12 rounded-xl flex items-center justify-center md:gap-2"
 				>
 					verify
+					<Show when={loading()}>
+						<Spinner />
+					</Show>
 				</button>
 			</form>
 		</>

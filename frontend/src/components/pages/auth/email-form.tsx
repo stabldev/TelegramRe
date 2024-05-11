@@ -1,16 +1,19 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
-import { onMount, createSignal } from "solid-js";
+import { onMount, createSignal, Show } from "solid-js";
 import CheckBox from "~/components/ui/checkbox";
+import Spinner from "~/components/ui/spinner";
 import TextInput from "~/components/ui/text-input";
+import { useAuth } from "~/context/auth";
 import { createLocationSignal } from "~/hooks/location";
 import Arrow from "~/icons/arrow";
-import { LocationResponse } from "~/types/location";
+import type { LocationResponse } from "~/types/location";
 
 interface Props {
 	onFormSubmit: (e: CustomEvent) => void;
 }
 
 const EmailForm = (props: Props) => {
+	const { loading } = useAuth();
 	const [location, setLocation] = createSignal<LocationResponse | undefined>();
 
 	const dispatch = createEventDispatcher(props);
@@ -68,7 +71,15 @@ const EmailForm = (props: Props) => {
 					checked: true,
 					name: "keep-me",
 				}} />
-				<button class="bg-primary text-accent uppercase w-full h-12 rounded-xl">Next</button>
+				<button
+					disabled={loading()}
+					class="group disabled:cursor-progress bg-primary text-accent uppercase w-full h-12 rounded-xl flex items-center justify-center md:gap-2"
+				>
+					next
+					<Show when={loading()}>
+						<Spinner />
+					</Show>
+				</button>
 			</form>
 		</>
 	);
