@@ -20,8 +20,13 @@ Steps:
 
 ## Docker/Podman
 You could use [docker](https://www.docker.com/) or [podman](https://podman.io/)(recommended) to build/test application.
-### Docker and `docker-compose`
+### Docker and docker-compose
 Install docker and run `docker.service`, also make sure you've [docker-compose](https://docs.docker.com/compose/) installed.
 ```bash
 docker-compose up -d
+```
+### Podman and podman-compose
+Install podman and [podman-compose](https://github.com/containers/podman-compose) on your system.
+```bash
+podman-compose up -d
 ```
