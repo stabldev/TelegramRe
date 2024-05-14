@@ -4,20 +4,20 @@ import Spinner from "~/components/ui/spinner";
 import TextInput from "~/components/ui/text-input";
 import { useAuth } from "~/context/auth";
 
-interface Props {
-	onOtpSubmit: (e: CustomEvent) => void;
-}
+// interface Props {
+// 	onOtpSubmit: (e: CustomEvent) => void;
+// }
 
-const OtpForm = (props: Props) => {
+const OtpForm = () => {
 	const { loading } = useAuth();
-	const dispatch = createEventDispatcher(props);
+	// const dispatch = createEventDispatcher(props);
 
 	const handleFormSubmit = (e: SubmitEvent) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget as HTMLFormElement);
 		const otp = formData.get("otp");
 
-		dispatch("otpSubmit", otp);
+		// dispatch("otpSubmit", otp);
 	};
 
 	return (

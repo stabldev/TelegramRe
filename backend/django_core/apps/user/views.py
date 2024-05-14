@@ -3,7 +3,6 @@ import json
 from django.db.models import Q
 from django.http import HttpRequest
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.views.decorators.http import require_POST
 from django.utils.decorators import method_decorator
 from django.middleware.csrf import get_token
 from django.contrib.auth import get_user_model, login, logout
@@ -44,7 +43,7 @@ class EmailVerificaionAPIView(APIView):
             user.otp = otp
             user.save()
 
-            send_otp(email, otp)
+            # send_otp(email, otp)
             return Response(data={"detail": "OTP sended"})
 
         except User.DoesNotExist:

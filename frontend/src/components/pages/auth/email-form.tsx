@@ -9,23 +9,32 @@ import Arrow from "~/icons/arrow";
 import type { LocationResponse } from "~/types/location";
 
 interface Props {
-	onFormSubmit: (e: CustomEvent) => void;
+	onEmailSubmit: (e: CustomEvent) => void;
 }
 
 const EmailForm = (props: Props) => {
-	const { loading } = useAuth();
+	const { loading, handleEmailVerification } = useAuth();
+
+	const [error, setError] = createSignal("");
 	const [location, setLocation] = createSignal<
 		LocationResponse | undefined
 	>();
 
 	const dispatch = createEventDispatcher(props);
 
-	const handleFormSubmit = (evt: SubmitEvent) => {
+	const handleFormSubmit = async (evt: SubmitEvent) => {
 		evt.preventDefault();
 		const formData = new FormData(evt.currentTarget as HTMLFormElement);
-		const email = formData.get("email");
+		const email = formData.get("email") as string;
 
-		dispatch("formSubmit", email);
+		try {
+			await handleEmailVerification(email);
+			setError("");
+			dispatch("emailSubmit", {});
+		} catch (err) {
+			const errorMsg = (err as {message: string}).message;
+			setError(errorMsg);
+		};
 	};
 
 	onMount(async () => {
@@ -67,9 +76,10 @@ const EmailForm = (props: Props) => {
 						autofocus: true,
 						required: true,
 						type: "email",
-						name: "email-address",
+						name: "email",
 						placeholder: "Email address"
 					}}
+					errorMsg={error()}
 				/>
 				<CheckBox
 					inputProps={{

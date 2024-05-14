@@ -38,6 +38,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		initializeCSRF();
 		if (data.isAuthenticated) {
 			setIsAuthenticated(true);
+			await getMyInfo();
 		}
 	};
 
@@ -65,6 +66,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 			const data = await res.json();
 			if (!res.ok) throw new Error(data.detail);
+			return data;
 		} finally {
 			setLoading(false);
 		}
@@ -125,8 +127,6 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	createEffect(async () => {
 		// check if alraedy loggedIn
 		await initializeSession();
-		// get logged in user info
-		await getMyInfo();
 	});
 
 	const context_value: ReturnType = {

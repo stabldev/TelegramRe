@@ -6,14 +6,6 @@ import { VERSION } from "~/config";
 const AuthLayout = () => {
 	const [state, setState] = createSignal<"email" | "otp">("email");
 
-	const handleEmailSubmit = async (e: CustomEvent) => {
-		console.log(e.detail);
-	};
-
-	const handleOTPSubmit = async (e: CustomEvent) => {
-		console.log(e.detail);
-	};
-
 	return (
 		<main class="relative grid h-screen w-screen place-items-center bg-base-100 bg-[url(/wallpaper.svg)]">
 			<div class="relative flex flex-col items-center border border-neutral-300 bg-base-200 text-center md:w-96 md:gap-5 md:rounded-2xl md:p-5">
@@ -23,10 +15,10 @@ const AuthLayout = () => {
 				/>
 				<Switch>
 					<Match when={state() === "email"}>
-						<EmailForm onFormSubmit={handleEmailSubmit} />
+						<EmailForm onEmailSubmit={() => setState("otp")} />
 					</Match>
-					<Match when={state() === "email"}>
-						<OtpForm onOtpSubmit={handleOTPSubmit} />
+					<Match when={state() === "otp"}>
+						<OtpForm />
 					</Match>
 				</Switch>
 				<span class="absolute -bottom-8 mx-auto text-sm text-neutral-100">
