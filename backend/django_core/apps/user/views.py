@@ -50,28 +50,6 @@ class EmailVerificaionAPIView(APIView):
             return Response(data={"detail": "User doesn't exists"}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class RegisterEmailVerificationAPIView(APIView):
-    def post(self, request: HttpRequest):
-        data = json.loads(request.body)
-        email = data.get("email")
-
-        User = get_user_model()
-        try:
-            user = User.objects.create(email=email)
-            otp = generate_otp()
-            user.otp = otp
-            user.save()
-
-            send_otp(email, otp)
-            return Response(data={"detail": "OTP sended"})
-
-        except User.DoesNotExist:
-            return Response(
-                data={"detail": "User with same email already exists"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-
 class OTPVerificationAPIVIew(APIView):
     def post(self, request: HttpRequest):
         data = json.loads(request.body)
