@@ -3,8 +3,8 @@ import {
 	createContext,
 	createSignal,
 	useContext,
-	createEffect,
-    Accessor
+    Accessor,
+    onMount
 } from "solid-js";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import type { User } from "~/types/user";
@@ -55,7 +55,9 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		initializeCSRF();
 		if (data.isAuthenticated) {
 			setIsAuthenticated(true);
-			await getMyInfo();
+			getMyInfo();
+		} else {
+			initializeUserLocation();
 		}
 	};
 
@@ -143,8 +145,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		// nagivate("/auth/login/");
 	};
 
-	createEffect(async () => {
-		initializeUserLocation();
+	onMount(async () => {
 		// check if alraedy loggedIn
 		await initializeSession();
 	});
