@@ -3,23 +3,24 @@ import {
 	createContext,
 	createSignal,
 	useContext,
-	createEffect
+	createEffect,
+    Accessor
 } from "solid-js";
 // import { useNavigate } from "@solidjs/router";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { User } from "~/types/user.types";
 
-type AuthStore = {
-	csrfToken: string;
-	loading: boolean;
-	user: User | undefined;
-	isAuthenticated: boolean;
+type ReturnType = {
+	csrfToken: Accessor<string>;
+	loading: Accessor<boolean>;
+	user: Accessor<User | undefined>;
+	isAuthenticated: Accessor<boolean>;
 	handleEmailVerification: (email: string) => Promise<void>;
 	handleOTPVerification: (email: string, otp: string) => Promise<void>;
 	logoutUser: () => Promise<void>;
 };
 
-const AuthContext = createContext<AuthStore>();
+const AuthContext = createContext<ReturnType>();
 
 export function AuthProvider(props: { children?: JSX.Element }) {
 	const [loading, setLoading] = createSignal(false);
@@ -128,14 +129,14 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		await getMyInfo();
 	});
 
-	const context_value: AuthStore = {
-		csrfToken: csrfToken(),
-		user: user(),
-		isAuthenticated: isAuthenticated(),
-		loading: loading(),
-		handleEmailVerification: handleEmailVerification,
-		handleOTPVerification: handleOTPVerification,
-		logoutUser: logoutUser
+	const context_value: ReturnType = {
+		csrfToken,
+		user,
+		isAuthenticated,
+		loading,
+		handleEmailVerification,
+		handleOTPVerification,
+		logoutUser,
 	};
 
 	return (
