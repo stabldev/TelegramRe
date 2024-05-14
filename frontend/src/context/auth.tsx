@@ -85,7 +85,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 			const data = await res.json();
 			if (!res.ok) throw new Error(data.detail);
-			// if res is 200
+			// on success response
 			setAuthState((prev) => ({...prev, email: email}));
 			return data;
 		} finally {
@@ -111,7 +111,6 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 			await getMyInfo();
 			setIsAuthenticated(true);
-			// nagivate("/", { replace: true });
 		} finally {
 			setLoading(false);
 		}
@@ -142,7 +141,6 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		setIsAuthenticated(false);
 		setUser(undefined);
 		setCsrfToken("");
-		// nagivate("/auth/login/");
 	};
 
 	onMount(async () => {

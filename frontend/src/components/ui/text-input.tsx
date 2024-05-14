@@ -16,9 +16,9 @@ const TextInput = (props: Props) => {
 		<>
 			<label
 				for={`${inputProps.type ?? "text"}-input-${uuid}`}
-				class="relative flex items-center border-2 border-neutral-300 focus-within:border-primary md:rounded-xl md:p-2.5 md:text-base"
+				class="relative flex items-center border-2 border-neutral-300 focus-within:border-primary md:rounded-xl md:p-2.5 md:text-base duration-200 ease-out"
 				classList={{
-					"!border-error focus-within:!border-error":
+					"focus-within:!border-error":
 						props.errorMsg !== undefined && props.errorMsg?.length !== 0
 				}}
 			>
