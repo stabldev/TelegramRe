@@ -65,8 +65,8 @@ devDependencies:
     specifier: ^0.14.0
     version: 0.14.0(eslint@8.57.0)(typescript@5.4.5)
   filesize:
-    specifier: ^10.1.1
-    version: 10.1.1
+    specifier: ^10.1.2
+    version: 10.1.2
   postcss:
     specifier: ^8.4.38
     version: 8.4.38
@@ -2962,8 +2962,8 @@ packages:
     resolution: {integrity: sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==}
     dev: false
 
-  /filesize@10.1.1:
-    resolution: {integrity: sha512-L0cdwZrKlwZQkMSFnCflJ6J2Y+5egO/p3vgRSDQGxQt++QbUZe5gMbRO6kg6gzwQDPvq2Fk9AmoxUNfZ5gdqaQ==}
+  /filesize@10.1.2:
+    resolution: {integrity: sha512-Dx770ai81ohflojxhU+oG+Z2QGvKdYxgEr9OSA8UVrqhwNHjfH9A8f5NKfg83fEH8ZFA5N5llJo5T3PIoZ4CRA==}
     engines: {node: '>= 10.4.0'}
     dev: true
 
