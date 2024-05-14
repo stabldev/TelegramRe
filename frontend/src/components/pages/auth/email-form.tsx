@@ -13,7 +13,7 @@ interface Props {
 }
 
 const EmailForm = (props: Props) => {
-	const { loading, handleEmailVerification } = useAuth();
+	const { loading, verifyEmail } = useAuth();
 
 	const [error, setError] = createSignal("");
 	const [location, setLocation] = createSignal<
@@ -28,7 +28,7 @@ const EmailForm = (props: Props) => {
 		const email = formData.get("email") as string;
 
 		try {
-			await handleEmailVerification(email);
+			await verifyEmail(email);
 			setError("");
 			dispatch("emailSubmit", {});
 		} catch (err) {

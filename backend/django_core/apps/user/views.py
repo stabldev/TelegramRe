@@ -82,7 +82,7 @@ class OTPVerificationAPIVIew(APIView):
         try:
             user = User.objects.get(email=email)
             if user.otp == otp:
-                login(request, user, backend="apps.user.backends.PasswordlessAuthBackend")
+                # login(request, user, backend="apps.user.backends.PasswordlessAuthBackend")
                 return Response(data={"detail": "Login success"})
             else:
                 return Response(

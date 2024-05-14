@@ -6,17 +6,24 @@ import {
 	createEffect,
     Accessor
 } from "solid-js";
-// import { useNavigate } from "@solidjs/router";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import type { User } from "~/types/user";
+
+type AuthState = {
+	country?: string;
+	email?: string;
+	otp?: string;
+};
 
 type ReturnType = {
 	csrfToken: Accessor<string>;
 	loading: Accessor<boolean>;
 	user: Accessor<User | undefined>;
+	authState: Accessor<AuthState | undefined>;
 	isAuthenticated: Accessor<boolean>;
-	handleEmailVerification: (email: string) => Promise<void>;
-	handleOTPVerification: (email: string, otp: string) => Promise<void>;
+
+	verifyEmail: (email: string) => Promise<void>;
+	verifyOTP: (email: string, otp: string) => Promise<void>;
 	logoutUser: () => Promise<void>;
 };
 
@@ -27,8 +34,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const [csrfToken, setCsrfToken] = createSignal("");
 	const [isAuthenticated, setIsAuthenticated] = createSignal(false);
 	const [user, setUser] = createSignal<User | undefined>();
-
-	// const nagivate = useNavigate();
+	const [authState, setAuthState] = createSignal<AuthState>();
 
 	const initializeSession = async () => {
 		const res = await fetch(ApiEndpoints.user.auth.SESSION, {
@@ -51,7 +57,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		setCsrfToken(token);
 	};
 
-	const handleEmailVerification = async (email: string) => {
+	const verifyEmail = async (email: string) => {
 		setLoading(true);
 		try {
 			const res = await fetch(ApiEndpoints.user.auth.EMAIL_VERIFICATION, {
@@ -66,13 +72,15 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 			const data = await res.json();
 			if (!res.ok) throw new Error(data.detail);
+			// if res is 200
+			setAuthState((prev) => ({...prev, email: email}));
 			return data;
 		} finally {
 			setLoading(false);
 		}
 	};
 
-	const handleOTPVerification = async (email: string, otp: string) => {
+	const verifyOTP = async (email: string, otp: string) => {
 		setLoading(true);
 		try {
 			const res = await fetch(ApiEndpoints.user.auth.OTP_VERIFICATION, {
@@ -134,8 +142,10 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		user,
 		isAuthenticated,
 		loading,
-		handleEmailVerification,
-		handleOTPVerification,
+		authState,
+
+		verifyEmail,
+		verifyOTP,
 		logoutUser,
 	};
 

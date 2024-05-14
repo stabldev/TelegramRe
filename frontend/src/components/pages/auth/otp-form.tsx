@@ -1,23 +1,26 @@
-import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
-import { Show } from "solid-js";
+import { Show, createSignal } from "solid-js";
 import Spinner from "~/components/ui/spinner";
 import TextInput from "~/components/ui/text-input";
 import { useAuth } from "~/context/auth";
 
-// interface Props {
-// 	onOtpSubmit: (e: CustomEvent) => void;
-// }
-
 const OtpForm = () => {
-	const { loading } = useAuth();
-	// const dispatch = createEventDispatcher(props);
+	const { loading, verifyOTP, authState } = useAuth();
+	const [error, setError] = createSignal("");
 
-	const handleFormSubmit = (e: SubmitEvent) => {
+	const handleFormSubmit = async (e: SubmitEvent) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget as HTMLFormElement);
-		const otp = formData.get("otp");
+		const otp = formData.get("otp") as string;
+		const email = authState()!.email!;
 
-		// dispatch("otpSubmit", otp);
+		try {
+			const res = await verifyOTP(email, otp);
+			console.log(res);
+			setError("");
+		} catch(err) {
+			const errorMsg = (err as {message: string}).message;
+			setError(errorMsg);
+		};
 	};
 
 	return (
@@ -45,6 +48,7 @@ const OtpForm = () => {
 						name: "otp",
 						placeholder: "OTP"
 					}}
+					errorMsg={error()}
 				/>
 				<button
 					disabled={loading()}
