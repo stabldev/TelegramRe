@@ -8,7 +8,7 @@ import {
 } from "solid-js";
 // import { useNavigate } from "@solidjs/router";
 import ApiEndpoints from "~/connections/api/api-endpoints";
-import { User } from "~/types/user.types";
+import type { User } from "~/types/user";
 
 type ReturnType = {
 	csrfToken: Accessor<string>;

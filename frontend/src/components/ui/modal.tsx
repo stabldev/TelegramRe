@@ -16,7 +16,7 @@ const Modal = (props: Props) => {
 	let modalRef: HTMLElement | undefined = undefined;
 
 	const handleOverlayClick = (e: UIEvent) => {
-		if (modalRef?.contains(e.target as Node)) return;
+		if (modalRef!.contains(e.target as Node)) return;
 		else {
 			setOpen()(false);
 		}

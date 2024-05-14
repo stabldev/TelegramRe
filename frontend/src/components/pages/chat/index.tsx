@@ -1,10 +1,10 @@
 import { Component, Show, createEffect, createResource } from "solid-js";
-import { ChatHeader } from "./chat-header";
-import { ChatInput } from "./chat-input";
-import { ChatArea } from "./chat-area";
-import { ChatMessage } from "~/types/chat.types";
+import ChatHeader from "./chat-header";
+import ChatInput from "./chat-input";
+import ChatArea from "./chat-area";
+import type { ChatMessage } from "~/types/chat";
 import { useChat } from "~/context/chat";
-import { OnlineUser } from "~/types/user.types";
+import type { OnlineUser } from "~/types/user";
 import SocketActions from "~/connections/socket/socket-actions";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { makeCache, makeAbortable } from "@solid-primitives/resource";

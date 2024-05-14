@@ -6,9 +6,9 @@ import {
 	createSignal
 } from "solid-js";
 import { formatChatRoom } from "~/functions/format-room";
-import { ChatRoom } from "~/types/chat.types";
 import { useChat } from "~/context/chat";
-import { OnlineUser } from "~/types/user.types";
+import type { ChatRoom } from "~/types/chat";
+import type { OnlineUser } from "~/types/user";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import ChatBar from "./chat-bar";
 import SettingsBar from "./settings-bar";

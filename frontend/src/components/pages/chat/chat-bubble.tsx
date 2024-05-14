@@ -2,7 +2,7 @@ import { Show, createEffect, createSignal } from "solid-js";
 import { destructure } from "@solid-primitives/destructure";
 import { FormatDate } from "~/functions/format-date";
 import Tick from "~/icons/tick";
-import { ChatMessage } from "~/types/chat.types";
+import type { ChatMessage } from "~/types/chat";
 import { createVisibilityObserver } from "@solid-primitives/intersection-observer";
 import { useChat } from "~/context/chat";
 import ChatContextMenu from "~/components/shared/chat/chat-context-menu";

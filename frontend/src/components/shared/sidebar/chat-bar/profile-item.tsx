@@ -5,7 +5,7 @@ import { Match, Show, Switch, createEffect, createSignal } from "solid-js";
 import { get_username } from "~/functions/get-username";
 import { useAuth } from "~/context/auth";
 import Tick from "~/icons/tick";
-import { ChatRoom } from "~/types/chat.types";
+import type { ChatRoom } from "~/types/chat";
 import { useChat } from "~/context/chat";
 import Verified from "~/icons/verified";
 import Photo from "~/icons/photo";

@@ -2,7 +2,7 @@ import { For } from "solid-js";
 import { groupChatBySender } from "~/functions/group-chat";
 import ChatBubble from "./chat-bubble";
 import { useAuth } from "~/context/auth";
-import { ChatMessage } from "~/types/chat.types";
+import type { ChatMessage } from "~/types/chat";
 import { destructure } from "@solid-primitives/destructure";
 
 interface Props {

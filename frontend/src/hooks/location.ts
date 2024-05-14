@@ -1,5 +1,5 @@
 import { Accessor, createSignal } from "solid-js";
-import { LocationResponse } from "~/types/location";
+import type { LocationResponse } from "~/types/location";
 
 export const createLocationSignal = async (): Promise<
 	Accessor<LocationResponse | undefined>
