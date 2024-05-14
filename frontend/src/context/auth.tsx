@@ -36,6 +36,17 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const [user, setUser] = createSignal<User | undefined>();
 	const [authState, setAuthState] = createSignal<AuthState>();
 
+	const initializeUserLocation = async () => {
+		try {
+			const res = await fetch("http://ip-api.com/json/");
+			const data: {country: string} = await res.json();
+
+			setAuthState((prev) => ({...prev, country: data.country}));
+		} catch (err) {
+			console.error("Coundn't fetch user location details");
+		}
+	};
+
 	const initializeSession = async () => {
 		const res = await fetch(ApiEndpoints.user.auth.SESSION, {
 			credentials: "include"
@@ -133,6 +144,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	};
 
 	createEffect(async () => {
+		initializeUserLocation();
 		// check if alraedy loggedIn
 		await initializeSession();
 	});

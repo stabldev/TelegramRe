@@ -1,24 +1,18 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
-import { onMount, createSignal, Show } from "solid-js";
+import { createSignal, Show } from "solid-js";
 import CheckBox from "~/components/ui/checkbox";
 import Spinner from "~/components/ui/spinner";
 import TextInput from "~/components/ui/text-input";
 import { useAuth } from "~/context/auth";
-import { createLocationSignal } from "~/hooks/location";
 import Arrow from "~/icons/arrow";
-import type { LocationResponse } from "~/types/location";
 
 interface Props {
 	onEmailSubmit: (e: CustomEvent) => void;
 }
 
 const EmailForm = (props: Props) => {
-	const { loading, verifyEmail } = useAuth();
-
+	const { loading, verifyEmail, authState } = useAuth();
 	const [error, setError] = createSignal("");
-	const [location, setLocation] = createSignal<
-		LocationResponse | undefined
-	>();
 
 	const dispatch = createEventDispatcher(props);
 
@@ -37,11 +31,6 @@ const EmailForm = (props: Props) => {
 		};
 	};
 
-	onMount(async () => {
-		const locationRes = await createLocationSignal();
-		setLocation(locationRes());
-	});
-
 	return (
 		<>
 			<div class="flex flex-col md:gap-3">
@@ -58,7 +47,7 @@ const EmailForm = (props: Props) => {
 				class="flex w-full flex-col md:gap-3.5"
 			>
 				<TextInput
-					value={location()?.country}
+					value={authState()?.country}
 					inputProps={{
 						type: "text",
 						name: "country",
