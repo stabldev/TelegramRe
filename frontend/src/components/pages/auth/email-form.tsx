@@ -1,5 +1,5 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
-import { createSignal, Show } from "solid-js";
+import { Show } from "solid-js";
 import CheckBox from "~/components/ui/checkbox";
 import Spinner from "~/components/ui/spinner";
 import TextInput from "~/components/ui/text-input";
@@ -12,7 +12,6 @@ interface Props {
 
 const EmailForm = (props: Props) => {
 	const { loading, verifyEmail, authState } = useAuth();
-	const [error, setError] = createSignal("");
 
 	const dispatch = createEventDispatcher(props);
 
@@ -23,11 +22,9 @@ const EmailForm = (props: Props) => {
 
 		try {
 			await verifyEmail(email);
-			setError("");
 			dispatch("emailSubmit", {});
 		} catch (err) {
-			const errorMsg = (err as {message: string}).message;
-			setError(errorMsg);
+			console.error(err);
 		};
 	};
 
@@ -67,7 +64,6 @@ const EmailForm = (props: Props) => {
 						name: "email",
 						placeholder: "Email address"
 					}}
-					errorMsg={error()}
 				/>
 				<CheckBox
 					inputProps={{
