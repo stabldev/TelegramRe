@@ -1,4 +1,5 @@
-import { JSX } from "solid-js";
+import { createSignal } from "solid-js";
+import { JSX, createEffect } from "solid-js";
 import { v4 as uuidv4 } from "uuid";
 
 interface Props {
@@ -10,7 +11,15 @@ interface Props {
 
 const TextInput = (props: Props) => {
 	const { inputProps, children } = props;
+	const [inputRef, setInputRef] = createSignal<HTMLInputElement | null>(null);
+
 	const uuid = uuidv4();
+
+	createEffect(() => {
+		if (props.errorMsg && props.errorMsg.length > 0) {
+			inputRef()?.focus();
+		};
+	});
 
 	return (
 		<>
@@ -19,10 +28,11 @@ const TextInput = (props: Props) => {
 				class="relative flex items-center border-2 border-neutral-300 focus-within:border-primary md:rounded-xl md:p-2.5 md:text-base duration-200 ease-out"
 				classList={{
 					"focus-within:!border-error":
-						props.errorMsg !== undefined && props.errorMsg?.length !== 0
+						props.errorMsg !== undefined && props.errorMsg.length !== 0
 				}}
 			>
 				<input
+					ref={setInputRef}
 					{...inputProps}
 					id={`${inputProps.type ?? "text"}-input-${uuid}`}
 					placeholder="" // input field needs empty placeholder to work
