@@ -14,8 +14,7 @@ const OtpForm = () => {
 		const email = authState()!.email!;
 
 		try {
-			const res = await verifyOTP(email, otp);
-			console.log(res);
+			await verifyOTP(email, otp);
 			setError("");
 		} catch(err) {
 			const errorMsg = (err as {message: string}).message;

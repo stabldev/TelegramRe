@@ -6,7 +6,7 @@ from .views import (
     EmailVerificaionAPIView,
     OTPVerificationAPIVIew,
     WhoAmIAPIView,
-    LogOutAPIView,
+    LogoutAPIView,
     UserDetailView,
     SearchUserView,
 )
@@ -25,7 +25,7 @@ urlpatterns = [
         path("email-verification/", EmailVerificaionAPIView.as_view(), name="email-verification"),
         path("otp-verification/", OTPVerificationAPIVIew.as_view(), name="otp-verification"),
         path("who_am_i/", WhoAmIAPIView.as_view(), name="who_am_i"),
-        path("logout/", LogOutAPIView.as_view(), name="logout"),
+        path("logout/", LogoutAPIView.as_view(), name="logout"),
     ])),
 ]
 # fmt: on
