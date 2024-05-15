@@ -5,9 +5,9 @@ import {
 	createContext,
 	createEffect,
 	createSignal,
-	useContext,
+	useContext
 } from "solid-js";
-import { ChatMessage } from "~/types/chat.types";
+import type { ChatMessage } from "~/types/chat";
 
 type SharedStore = {
 	showSidebar: Accessor<boolean>;

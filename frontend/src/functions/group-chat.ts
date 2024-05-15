@@ -1,4 +1,4 @@
-import { ChatMessage } from "../types/chat.types";
+import type { ChatMessage } from "../types/chat";
 
 export function groupChatBySender(chat?: ChatMessage[]) {
 	const groupedChat: {

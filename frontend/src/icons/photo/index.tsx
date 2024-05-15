@@ -1,4 +1,4 @@
-import { Icon } from "~/types/icon.types";
+import type { Icon } from "~/types/icon";
 
 export default function Photo(props: Icon) {
 	return (

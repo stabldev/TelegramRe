@@ -1,39 +1,51 @@
 import {
-	Accessor,
 	JSX,
 	createContext,
 	createSignal,
 	useContext,
-	createEffect
+    Accessor,
+    onMount
 } from "solid-js";
-// import { useNavigate } from "@solidjs/router";
 import ApiEndpoints from "~/connections/api/api-endpoints";
-import { User } from "~/types/user.types";
+import type { User } from "~/types/user";
 
-type AuthType = "login" | "register";
+type AuthState = {
+	country?: string;
+	email?: string;
+	otp?: string;
+};
 
-type AuthStore = {
+type ReturnType = {
 	csrfToken: Accessor<string>;
 	loading: Accessor<boolean>;
 	user: Accessor<User | undefined>;
+	authState: Accessor<AuthState | undefined>;
 	isAuthenticated: Accessor<boolean>;
-	handleEmailVerification: (
-		email: string,
-		authType: AuthType
-	) => Promise<void>;
-	handleOTPVerification: (email: string, otp: string) => Promise<void>;
+
+	verifyEmail: (email: string) => Promise<void>;
+	verifyOTP: (email: string, otp: string) => Promise<void>;
 	logoutUser: () => Promise<void>;
 };
 
-const AuthContext = createContext<AuthStore>();
+const AuthContext = createContext<ReturnType>();
 
 export function AuthProvider(props: { children?: JSX.Element }) {
 	const [loading, setLoading] = createSignal(false);
 	const [csrfToken, setCsrfToken] = createSignal("");
 	const [isAuthenticated, setIsAuthenticated] = createSignal(false);
 	const [user, setUser] = createSignal<User | undefined>();
+	const [authState, setAuthState] = createSignal<AuthState>();
 
-	// const nagivate = useNavigate();
+	const initializeUserLocation = async () => {
+		try {
+			const res = await fetch("http://ip-api.com/json/");
+			const data: {country: string} = await res.json();
+
+			setAuthState((prev) => ({...prev, country: data.country}));
+		} catch (err) {
+			console.error("Coundn't fetch user location details");
+		}
+	};
 
 	const initializeSession = async () => {
 		const res = await fetch(ApiEndpoints.user.auth.SESSION, {
@@ -43,6 +55,9 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		initializeCSRF();
 		if (data.isAuthenticated) {
 			setIsAuthenticated(true);
+			getMyInfo();
+		} else {
+			initializeUserLocation();
 		}
 	};
 
@@ -55,17 +70,10 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		setCsrfToken(token);
 	};
 
-	const handleEmailVerification = async (
-		email: string,
-		authType: AuthType = "login"
-	) => {
+	const verifyEmail = async (email: string) => {
 		setLoading(true);
 		try {
-			const url =
-				authType === "login"
-					? ApiEndpoints.user.auth.EMAIL_VERIFICATION
-					: ApiEndpoints.user.auth.REGISTER_EMAIL_VERIFICATION;
-			const res = await fetch(url, {
+			const res = await fetch(ApiEndpoints.user.auth.EMAIL_VERIFICATION, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -77,12 +85,15 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 			const data = await res.json();
 			if (!res.ok) throw new Error(data.detail);
+			// on success response
+			setAuthState((prev) => ({...prev, email: email}));
+			return data;
 		} finally {
 			setLoading(false);
 		}
 	};
 
-	const handleOTPVerification = async (email: string, otp: string) => {
+	const verifyOTP = async (email: string, otp: string) => {
 		setLoading(true);
 		try {
 			const res = await fetch(ApiEndpoints.user.auth.OTP_VERIFICATION, {
@@ -97,10 +108,10 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 			const data = await res.json();
 			if (!res.ok) throw new Error(data.detail);
-
+			// on success response
 			await getMyInfo();
 			setIsAuthenticated(true);
-			// nagivate("/", { replace: true });
+			return data;
 		} finally {
 			setLoading(false);
 		}
@@ -122,37 +133,32 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	};
 
 	const logoutUser = async () => {
-		try {
-			const res = await fetch(ApiEndpoints.user.auth.LOGOUT, {
-				credentials: "include"
-			});
+		const res = await fetch(ApiEndpoints.user.auth.LOGOUT, {
+			credentials: "include"
+		});
 
-			if (!res.ok) throw new Error("Something is wrong");
+		if (!res.ok) throw new Error("Something is wrong");
 
-			setIsAuthenticated(false);
-			setUser(undefined);
-			setCsrfToken("");
-			// nagivate("/auth/login/");
-		} catch (err) {
-			throw err;
-		}
+		setIsAuthenticated(false);
+		setUser(undefined);
+		setCsrfToken("");
 	};
 
-	createEffect(async () => {
+	onMount(async () => {
 		// check if alraedy loggedIn
 		await initializeSession();
-		// get logged in user info
-		await getMyInfo();
 	});
 
-	const context_value: AuthStore = {
-		csrfToken: csrfToken,
-		user: user,
-		isAuthenticated: isAuthenticated,
-		loading: loading,
-		handleEmailVerification: handleEmailVerification,
-		handleOTPVerification: handleOTPVerification,
-		logoutUser: logoutUser
+	const context_value: ReturnType = {
+		csrfToken,
+		user,
+		isAuthenticated,
+		loading,
+		authState,
+
+		verifyEmail,
+		verifyOTP,
+		logoutUser,
 	};
 
 	return (

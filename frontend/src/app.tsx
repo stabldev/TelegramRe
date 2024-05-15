@@ -12,13 +12,17 @@ import { ChatProvider } from "./context/chat";
 // import styles
 import "./app.css";
 
-export default function App() {
+const App = () => {
 	return (
 		<Router
 			root={(props) => (
 				<MetaProvider>
 					<Title>Telegram</Title>
-					<Link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+					<Link
+						rel="icon"
+						href="/favicon.svg"
+						type="image/svg+xml"
+					/>
 
 					<MultiProvider
 						values={[AuthProvider, SharedProvider, ChatProvider]}
@@ -30,9 +34,7 @@ export default function App() {
 									"!bg-neutral !text-accent md:!text-sm md:!px-3 md:!py-2 !rounded-lg"
 							}}
 						/>
-						<Suspense>
-							{props.children}
-						</Suspense>
+						<Suspense>{props.children}</Suspense>
 					</MultiProvider>
 				</MetaProvider>
 			)}
@@ -40,4 +42,6 @@ export default function App() {
 			<FileRoutes />
 		</Router>
 	);
-}
+};
+
+export default App;

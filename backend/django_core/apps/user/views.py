@@ -3,7 +3,6 @@ import json
 from django.db.models import Q
 from django.http import HttpRequest
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.views.decorators.http import require_POST
 from django.utils.decorators import method_decorator
 from django.middleware.csrf import get_token
 from django.contrib.auth import get_user_model, login, logout
@@ -40,37 +39,15 @@ class EmailVerificaionAPIView(APIView):
         User = get_user_model()
         try:
             user = User.objects.get(email=email)
-            otp = generate_otp()
-            user.otp = otp
-            user.save()
-
-            send_otp(email, otp)
-            return Response(data={"detail": "OTP sended"})
-
         except User.DoesNotExist:
-            return Response(data={"detail": "User doesn't exists"}, status=status.HTTP_400_BAD_REQUEST)
+            user = User.objects.create_user(email=email)
 
+        otp = generate_otp()
+        user.otp = otp
+        user.save()
 
-class RegisterEmailVerificationAPIView(APIView):
-    def post(self, request: HttpRequest):
-        data = json.loads(request.body)
-        email = data.get("email")
-
-        User = get_user_model()
-        try:
-            user = User.objects.create(email=email)
-            otp = generate_otp()
-            user.otp = otp
-            user.save()
-
-            send_otp(email, otp)
-            return Response(data={"detail": "OTP sended"})
-
-        except User.DoesNotExist:
-            return Response(
-                data={"detail": "User with same email already exists"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+        # send_otp(email, otp)
+        return Response(data={"detail": f"OTP sended: {otp}"})
 
 
 class OTPVerificationAPIVIew(APIView):
@@ -109,7 +86,7 @@ class WhoAmIAPIView(APIView):
             )
 
 
-class LogOutAPIView(APIView):
+class LogoutAPIView(APIView):
     def get(self, request: HttpRequest):
         if not request.user.is_authenticated:
             return Response(

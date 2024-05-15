@@ -4,18 +4,18 @@ import Emoji from "~/icons/emoji";
 import Mic from "~/icons/mic";
 import Send from "~/icons/send";
 import Clip from "~/icons/clip";
-import { ChatFileModal } from "~/components/shared/modals/chat-file-modal";
 import { useChat } from "~/context/chat";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { useAuth } from "~/context/auth";
 import { useShared } from "~/context/shared";
 import Close from "~/icons/close";
 import Popover from "~/components/ui/popover";
-import ChatMediaMenu from "~/components/shared/popups/chat-media-menu";
+import ChatMediaMenu from "~/components/shared/chat/chat-media-menu";
+import ChatFileModal from "~/components/shared/chat/chat-file-modal";
 import Modal from "~/components/ui/modal";
 import Pencil from "~/icons/pencil";
 
-export const ChatInput = () => {
+const ChatInput = () => {
 	const { socket, activeRoom } = useChat();
 	const { csrfToken, user } = useAuth();
 	const { editMessage, isEditingMessage, setEditMessage } = useShared();
@@ -134,7 +134,7 @@ export const ChatInput = () => {
 					/>
 				</Modal>
 			</Show>
-			<div class="mx-auto mb-5 mt-2 flex items-end md:w-[42.5rem] px-5 md:gap-2">
+			<div class="mx-auto mb-5 mt-2 flex items-end px-5 md:w-[42.5rem] md:gap-2">
 				<form
 					onSubmit={handleSubmit}
 					class="flex w-full flex-col rounded-2xl bg-base-200 p-4"
@@ -144,7 +144,7 @@ export const ChatInput = () => {
 				>
 					<Show when={isEditingMessage()}>
 						<div class="flex w-full items-center gap-3">
-							<Pencil class="md:size-6 text-primary" />
+							<Pencil class="text-primary md:size-6" />
 							<div class="relative flex flex-1 gap-2 overflow-y-hidden rounded-md bg-base-300 px-2 py-0.5 leading-none">
 								<div class="absolute inset-y-0 left-0 bg-primary md:w-1" />
 								<div class="pl-1">
@@ -158,13 +158,13 @@ export const ChatInput = () => {
 							</div>
 							<button
 								onClick={() => setEditMessage(undefined)}
-								class="md:size-10 bg-transparent rounded-full hover:bg-base-300 grid place-items-center"
+								class="grid place-items-center rounded-full bg-transparent hover:bg-base-300 md:size-10"
 							>
-								<Close class="md:size-7 text-primary" />
+								<Close class="text-primary md:size-7" />
 							</button>
 						</div>
 					</Show>
-					<div class="flex w-full items-end gap-3 relative">
+					<div class="relative flex w-full items-end gap-3">
 						<input
 							type="file"
 							id="image-file-input"
@@ -179,7 +179,7 @@ export const ChatInput = () => {
 							class="hidden"
 							onChange={handleFileChange}
 						/>
-						<button class="text-neutral-100 hover:text-primary transition-colors">
+						<button class="text-neutral-100 transition-colors hover:text-primary">
 							<Emoji class="md:size-6" />
 						</button>
 						<TextareaAutosize
@@ -191,7 +191,7 @@ export const ChatInput = () => {
 							}
 							onInput={(e) => setMessage(e.currentTarget.value)}
 							onKeyDown={handleKeyDown}
-							class="flex-1 resize-none self-center border-none bg-base-200 caret-accent text-accent outline-none [scrollbar-width:none]"
+							class="flex-1 resize-none self-center border-none bg-base-200 text-accent caret-accent outline-none [scrollbar-width:none]"
 							placeholder="Message"
 							maxRows={5}
 						/>
@@ -199,7 +199,7 @@ export const ChatInput = () => {
 							ref={mediaPopoverBtnRef}
 							onClick={() => setShowMediaPopover((prev) => !prev)}
 							type="button"
-							class="text-neutral-100 hover:text-primary transition-colors"
+							class="text-neutral-100 transition-colors hover:text-primary"
 						>
 							<Clip class="md:size-6" />
 						</button>
@@ -207,7 +207,7 @@ export const ChatInput = () => {
 							<Popover
 								triggerRef={mediaPopoverBtnRef}
 								setOpen={setShowMediaPopover}
-								class="rounded-xl bg-base-100 h-max w-52 z-50 p-1"
+								class="z-50 h-max w-52 rounded-xl bg-base-100 p-1"
 								position="top-right"
 							>
 								<ChatMediaMenu />
@@ -217,16 +217,18 @@ export const ChatInput = () => {
 				</form>
 				<button
 					type="submit"
-					class="group size-14 aspect-square bg-base-200 grid place-items-center rounded-full text-neutral-100 hover:bg-primary hover:text-accent"
+					class="group grid aspect-square size-14 place-items-center rounded-full bg-base-200 text-neutral-100 hover:bg-primary hover:text-accent"
 				>
 					<Show
 						when={message() || editMessage()}
 						fallback={<Mic class="md:size-6" />}
 					>
-						<Send class="md:size-5 text-primary group-hover:text-accent" />
+						<Send class="text-primary group-hover:text-accent md:size-5" />
 					</Show>
 				</button>
 			</div>
 		</>
 	);
 };
+
+export default ChatInput;

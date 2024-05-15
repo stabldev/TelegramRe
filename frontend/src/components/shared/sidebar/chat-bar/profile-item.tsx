@@ -5,15 +5,15 @@ import { Match, Show, Switch, createEffect, createSignal } from "solid-js";
 import { get_username } from "~/functions/get-username";
 import { useAuth } from "~/context/auth";
 import Tick from "~/icons/tick";
-import { ChatRoom } from "~/types/chat.types";
+import type { ChatRoom } from "~/types/chat";
 import { useChat } from "~/context/chat";
 import Verified from "~/icons/verified";
 import Photo from "~/icons/photo";
 import Gif from "~/icons/gif";
 import { cn } from "~/functions/cn";
-import { Avatar } from "~/components/ui/avatar";
+import Avatar from "~/components/ui/avatar";
 
-export const ProfileItem = (props: ChatRoom) => {
+const ProfileItem = (props: ChatRoom) => {
 	const { user } = useAuth();
 	const { onlineUsers, setActiveRoom } = useChat();
 	const [isActive, setIsActive] = createSignal(false);
@@ -57,7 +57,9 @@ export const ProfileItem = (props: ChatRoom) => {
 				<Avatar
 					src={chat_user.avatar}
 					alt={chat_user.username}
-					class={"size-full rounded-full text-2xl font-bold text-accent"}
+					class={
+						"size-full rounded-full text-2xl font-bold text-accent"
+					}
 				/>
 				<Show when={isOnline()}>
 					<div
@@ -93,7 +95,7 @@ export const ProfileItem = (props: ChatRoom) => {
 								fallback={
 									<Tick
 										variant="single"
-										class="flex-shrink-0 md:size-4 text-primary"
+										class="flex-shrink-0 text-primary md:size-4"
 										classList={{
 											"!text-accent": isActive()
 										}}
@@ -112,7 +114,7 @@ export const ProfileItem = (props: ChatRoom) => {
 						<span
 							class="text-xs font-normal uppercase text-neutral-200"
 							classList={{
-								"!text-accent": isActive(),
+								"!text-accent": isActive()
 							}}
 						>
 							{formated_timestamp}
@@ -166,3 +168,5 @@ export const ProfileItem = (props: ChatRoom) => {
 		</A>
 	);
 };
+
+export default ProfileItem;

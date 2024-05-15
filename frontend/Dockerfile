@@ -2,10 +2,10 @@ FROM node:18-slim
 
 # Working directory
 WORKDIR /app
+# Copy pnpm files
+COPY package.json pnpm-lock.yaml /app/
 # Install pnpm
 RUN npm install -g pnpm
-# Copy pnpm files
-COPY package.json pnpm-lock.yaml ./
 # Install using pnpm
 RUN pnpm install
 # Copy project code to working directory

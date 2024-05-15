@@ -4,10 +4,9 @@ from .views import (
     CsrfAPIView,
     SessionAPIView,
     EmailVerificaionAPIView,
-    RegisterEmailVerificationAPIView,
     OTPVerificationAPIVIew,
     WhoAmIAPIView,
-    LogOutAPIView,
+    LogoutAPIView,
     UserDetailView,
     SearchUserView,
 )
@@ -24,10 +23,9 @@ urlpatterns = [
         path("csrf/", CsrfAPIView.as_view(), name="csrf"),
         path("session/", SessionAPIView.as_view(), name="session"),
         path("email-verification/", EmailVerificaionAPIView.as_view(), name="email-verification"),
-        path("register-email-verification/", RegisterEmailVerificationAPIView.as_view(), name="register-email-verification"),
         path("otp-verification/", OTPVerificationAPIVIew.as_view(), name="otp-verification"),
         path("who_am_i/", WhoAmIAPIView.as_view(), name="who_am_i"),
-        path("logout/", LogOutAPIView.as_view(), name="logout"),
+        path("logout/", LogoutAPIView.as_view(), name="logout"),
     ])),
 ]
 # fmt: on

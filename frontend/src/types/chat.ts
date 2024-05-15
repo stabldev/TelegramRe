@@ -10,6 +10,15 @@ export type ChatMessage = {
 	timestamp: string;
 };
 
+export type ChatMember = {
+	id: number;
+	username: string;
+	full_name: string;
+	is_verified: boolean;
+	avatar: string;
+	bio: string;
+};
+
 export type ChatRoom = {
 	id: number;
 	room_id: string;
@@ -18,13 +27,4 @@ export type ChatRoom = {
 	unreads: number;
 	message: ChatMessage;
 	member: ChatMember[];
-};
-
-export type ChatMember = {
-	id: number;
-	username: string;
-	full_name: string;
-	is_verified: boolean;
-	avatar: string;
-	bio: string;
 };

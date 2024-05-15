@@ -2,10 +2,10 @@ import { Show, createEffect, createSignal } from "solid-js";
 import { destructure } from "@solid-primitives/destructure";
 import { FormatDate } from "~/functions/format-date";
 import Tick from "~/icons/tick";
-import { ChatMessage } from "~/types/chat.types";
+import type { ChatMessage } from "~/types/chat";
 import { createVisibilityObserver } from "@solid-primitives/intersection-observer";
 import { useChat } from "~/context/chat";
-import { ChatContextMenu } from "~/components/shared/popups/chat-context-menu";
+import ChatContextMenu from "~/components/shared/chat/chat-context-menu";
 import { Portal } from "solid-js/web";
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 	lastMsg: boolean;
 }
 
-export const ChatBubble = (props: Props) => {
+const ChatBubble = (props: Props) => {
 	const { socket, activeRoom } = useChat();
 	const [showContextMenu, setShowContextMenu] = createSignal(false);
 	const [contextPos, setContextPos] = createSignal({ x: 0, y: 0 });
@@ -74,7 +74,7 @@ export const ChatBubble = (props: Props) => {
 					el = ref;
 				}}
 				onContextMenu={handleContextMenu}
-				class="relative flex w-max max-w-md flex-col gap-1 rounded-2xl px-2.5 py-1 text-accent relative before:absolute before:bottom-0 before:size-5 before:[mask-size:_contain] before:[mask-image:_url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMycgaGVpZ2h0PSczJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnPjxwYXRoIGZpbGw9J2JsYWNrJyBkPSdtIDAgMyBMIDMgMyBMIDMgMCBDIDMgMSAxIDMgMCAzJy8+PC9zdmc+)]"
+				class="relative relative flex w-max max-w-md flex-col gap-1 rounded-2xl px-2.5 py-1 text-accent before:absolute before:bottom-0 before:size-5 before:[mask-image:_url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMycgaGVpZ2h0PSczJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnPjxwYXRoIGZpbGw9J2JsYWNrJyBkPSdtIDAgMyBMIDMgMyBMIDMgMCBDIDMgMSAxIDMgMCAzJy8+PC9zdmc+)] before:[mask-size:_contain]"
 				classList={{
 					"bg-primary rounded-r-lg": self(),
 					"bg-base-200 rounded-l-lg": !self(),
@@ -82,9 +82,11 @@ export const ChatBubble = (props: Props) => {
 					"!p-0 overflow-visible bg-transparent":
 						message().type === "gif",
 					"rounded-tr-2xl": self() && firstMsg(),
-					"rounded-br-none before:scale-x-[-1] before:bg-primary before:-end-3": self() && lastMsg(),
+					"rounded-br-none before:scale-x-[-1] before:bg-primary before:-end-3":
+						self() && lastMsg(),
 					"rounded-tl-2xl": !self() && firstMsg(),
-					"rounded-bl-none before:bg-base-200 before:-start-3": !self() && lastMsg(),
+					"rounded-bl-none before:bg-base-200 before:-start-3":
+						!self() && lastMsg()
 				}}
 			>
 				<Show
@@ -150,3 +152,5 @@ export const ChatBubble = (props: Props) => {
 		</>
 	);
 };
+
+export default ChatBubble;
