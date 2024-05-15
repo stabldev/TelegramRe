@@ -21,7 +21,8 @@ const EmailForm = (props: Props) => {
 		const email = formData.get("email") as string;
 
 		try {
-			await verifyEmail(email);
+			const res = await verifyEmail(email);
+			console.log(res);
 			dispatch("emailSubmit", {});
 		} catch (err) {
 			console.error(err);

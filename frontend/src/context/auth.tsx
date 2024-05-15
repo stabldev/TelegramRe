@@ -54,7 +54,6 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		const data = await res.json();
 		initializeCSRF();
 		if (data.isAuthenticated) {
-			setIsAuthenticated(true);
 			getMyInfo();
 		} else {
 			initializeUserLocation();

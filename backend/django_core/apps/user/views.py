@@ -39,15 +39,15 @@ class EmailVerificaionAPIView(APIView):
         User = get_user_model()
         try:
             user = User.objects.get(email=email)
-            otp = generate_otp()
-            user.otp = otp
-            user.save()
-
-            # send_otp(email, otp)
-            return Response(data={"detail": "OTP sended"})
-
         except User.DoesNotExist:
-            return Response(data={"detail": "User doesn't exists"}, status=status.HTTP_400_BAD_REQUEST)
+            user = User.objects.create_user(email=email)
+
+        otp = generate_otp()
+        user.otp = otp
+        user.save()
+
+        # send_otp(email, otp)
+        return Response(data={"detail": f"OTP sended: {otp}"})
 
 
 class OTPVerificationAPIVIew(APIView):
