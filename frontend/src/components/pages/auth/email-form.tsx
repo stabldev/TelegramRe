@@ -60,6 +60,7 @@ const EmailForm = (props: Props) => {
 				</TextInput>
 				<TextInput
 					inputProps={{
+						autofocus: true,
 						required: true,
 						type: "email",
 						name: "email",
