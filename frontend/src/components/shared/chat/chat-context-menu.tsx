@@ -7,7 +7,7 @@ import Copy from "~/icons/copy";
 import Delete from "~/icons/delete";
 import Pencil from "~/icons/pencil";
 import Tick from "~/icons/tick";
-import { ChatMessage } from "~/types/chat.types";
+import type { ChatMessage } from "~/types/chat";
 import { Motion } from "solid-motionone";
 
 type Props = {

@@ -1,6 +1,6 @@
 import { Signal, createSignal } from "solid-js";
 
-export const createLocalStorageSignal = <T>(
+export const useLocalStorageSignal = <T>(
 	key: string,
 	defaultValue: T
 ): Signal<T> => {

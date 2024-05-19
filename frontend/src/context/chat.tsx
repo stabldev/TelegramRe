@@ -9,10 +9,10 @@ import {
 } from "solid-js";
 import SocketActions from "~/connections/socket/socket-actions";
 import SocketUrls from "~/connections/socket/socket-endpoints";
-import { ChatMessage, ChatRoom } from "~/types/chat.types";
-import { OnlineUser } from "~/types/user.types";
+import type { ChatMessage, ChatRoom } from "~/types/chat";
+import type { OnlineUser } from "~/types/user";
 
-type ChatContext = {
+type ChatContextReturnType = {
 	chatRooms: Accessor<ChatRoom[] | undefined>;
 	setChatRooms: Setter<ChatRoom[] | undefined>;
 	onlineUsers: Accessor<OnlineUser[] | undefined>;
@@ -22,7 +22,7 @@ type ChatContext = {
 	socket: Accessor<WebSocket | undefined>;
 };
 
-const ChatContext = createContext<ChatContext>();
+const ChatContext = createContext<ChatContextReturnType>();
 
 export function ChatProvider(props: { children?: JSX.Element }) {
 	const [chatRooms, setChatRooms] = createSignal<ChatRoom[]>();
@@ -74,7 +74,7 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 		};
 	});
 
-	const context_value: ChatContext = {
+	const context_value: ChatContextReturnType = {
 		chatRooms: chatRooms,
 		setChatRooms: setChatRooms,
 		onlineUsers: onlineUsers,
