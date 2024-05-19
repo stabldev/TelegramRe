@@ -9,7 +9,7 @@ import {
 } from "solid-js";
 import type { ChatMessage } from "~/types/chat";
 
-type SharedStore = {
+type SharedContextReturnType = {
 	showSidebar: Accessor<boolean>;
 	toggleShowSidebar: () => void;
 	editMessage: Accessor<ChatMessage | undefined>;
@@ -17,7 +17,7 @@ type SharedStore = {
 	isEditingMessage: Accessor<boolean>;
 };
 
-const SharedContext = createContext<SharedStore>();
+const SharedContext = createContext<SharedContextReturnType>();
 
 export function SharedProvider(props: { children?: JSX.Element }) {
 	const [showSidebar, setShowSidebar] = createSignal(false);
@@ -31,12 +31,12 @@ export function SharedProvider(props: { children?: JSX.Element }) {
 		setIsEditingMessage(editMessage() !== undefined);
 	});
 
-	const context_value: SharedStore = {
-		showSidebar: showSidebar,
-		toggleShowSidebar: toggleShowSidebar,
-		editMessage: editMessage,
-		setEditMessage: setEditMessage,
-		isEditingMessage: isEditingMessage
+	const context_value: SharedContextReturnType = {
+		showSidebar,
+		toggleShowSidebar,
+		editMessage,
+		setEditMessage,
+		isEditingMessage,
 	};
 
 	return (

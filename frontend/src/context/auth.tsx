@@ -15,7 +15,7 @@ type AuthState = {
 	otp?: string;
 };
 
-type ReturnType = {
+type AuthContextReturnType = {
 	csrfToken: Accessor<string>;
 	loading: Accessor<boolean>;
 	user: Accessor<User | undefined>;
@@ -27,7 +27,7 @@ type ReturnType = {
 	logoutUser: () => Promise<void>;
 };
 
-const AuthContext = createContext<ReturnType>();
+const AuthContext = createContext<AuthContextReturnType>();
 
 export function AuthProvider(props: { children?: JSX.Element }) {
 	const [loading, setLoading] = createSignal(false);
@@ -149,7 +149,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		await initializeSession();
 	});
 
-	const context_value: ReturnType = {
+	const context_value: AuthContextReturnType = {
 		csrfToken,
 		user,
 		isAuthenticated,
