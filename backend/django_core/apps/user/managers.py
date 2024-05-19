@@ -1,6 +1,9 @@
 from django.contrib.auth.models import BaseUserManager
 
-
+"""
+custom user manager with passwordless authentication support
+ps: password is only used for admins and staffs
+"""
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -18,6 +21,7 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault("is_superuser", False)
         return self._create_user(email, password, **extra_fields)
 
+    # password is required for creating superusers
     def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)

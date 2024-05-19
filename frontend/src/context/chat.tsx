@@ -30,6 +30,7 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 	const [activeRoom, setActiveRoom] = createSignal<ChatRoom>();
 	const [socket, setSocket] = createSignal<WebSocket>();
 
+	// on context initialize: connect to socket
 	onMount(() => {
 		setSocket(new WebSocket(SocketUrls.CHAT));
 
@@ -37,6 +38,7 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 			console.log("Connection closed");
 		};
 
+		// handle socket incomming messages based on message type
 		socket()!.onmessage = function (e: MessageEvent) {
 			const data: {
 				action: "online_users" | "message" | "edit_message";
@@ -44,6 +46,7 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 				online_users_list?: OnlineUser[];
 			} = JSON.parse(e.data);
 
+			// handle sending messages
 			if (data.action === SocketActions.MESSAGE) {
 				// update sidebar
 				setChatRooms((chatRooms) => {
@@ -60,8 +63,10 @@ export function ChatProvider(props: { children?: JSX.Element }) {
 					return updatedChatRoom;
 				});
 			} else if (data.action === SocketActions.ONLINE_USERS) {
+				// handle online users updates
 				setOnlineUsers(data.online_users_list);
 			} else if (data.action === SocketActions.EDIT_MESSAGE) {
+				// handle edit message event
 				setChatRooms((chatRooms) =>
 					chatRooms?.map((room) =>
 						room.id === data.message?.room &&

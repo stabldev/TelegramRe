@@ -36,6 +36,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const [user, setUser] = createSignal<User | undefined>();
 	const [authState, setAuthState] = createSignal<AuthState>();
 
+	// get user location (country) details of new users
 	const initializeUserLocation = async () => {
 		try {
 			const res = await fetch("http://ip-api.com/json/");
@@ -47,6 +48,13 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		}
 	};
 
+	/**
+	 * check if session exists and initialize csrf token
+	 * if exists:
+	 * get user details
+	 * else:
+	 * get user location details and show login page
+	*/
 	const initializeSession = async () => {
 		const res = await fetch(ApiEndpoints.user.auth.SESSION, {
 			credentials: "include"
@@ -61,6 +69,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		}
 	};
 
+	// initialize a csrf token and save state
 	const initializeCSRF = async () => {
 		const res = await fetch(ApiEndpoints.user.auth.CSRF, {
 			credentials: "include"
@@ -70,6 +79,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		setCsrfToken(token);
 	};
 
+	// verify email address and update authState
 	const verifyEmail = async (email: string) => {
 		setLoading(true);
 		try {
@@ -93,6 +103,8 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		}
 	};
 
+	// verify otp and update authState
+	// on success: get user infos
 	const verifyOTP = async (email: string, otp: string) => {
 		setLoading(true);
 		try {
@@ -117,6 +129,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		}
 	};
 
+	// get request user details
 	const getMyInfo = async () => {
 		const res = await fetch(ApiEndpoints.user.auth.WHO_AM_I, {
 			headers: {
@@ -132,6 +145,8 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 		setUser(data.detail);
 	};
 
+	// delete session and logout user
+	// and update states
 	const logoutUser = async () => {
 		const res = await fetch(ApiEndpoints.user.auth.LOGOUT, {
 			credentials: "include"
@@ -145,7 +160,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	};
 
 	onMount(async () => {
-		// check if alraedy loggedIn
+		// check if user is already loggedIn
 		await initializeSession();
 	});
 

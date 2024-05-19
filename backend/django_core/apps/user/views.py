@@ -18,6 +18,8 @@ from .serializers import CustomUserSerializer
 
 class CsrfAPIView(APIView):
     @method_decorator(ensure_csrf_cookie)
+    # creates a session on client browser
+    # token is generated and send
     def get(self, request: HttpRequest):
         response = Response(data={"detail": "CSRF cookie set!"})
         response["X-CSRFToken"] = get_token(request)
@@ -32,6 +34,12 @@ class SessionAPIView(APIView):
 
 
 class EmailVerificaionAPIView(APIView):
+    """
+    This view checks if user is exists with given email
+    if exists:
+        send an otp to that email and continue validation
+    else: creates a user with given email and begin validation
+    """
     def post(self, request: HttpRequest):
         data = json.loads(request.body)
         email = data.get("email")
@@ -47,7 +55,7 @@ class EmailVerificaionAPIView(APIView):
         user.save()
 
         # send_otp(email, otp)
-        return Response(data={"detail": f"OTP sended: {otp}"})
+        return Response(data={"detail": f"OTP sended: {otp}"}) # sending OTP as response for debugging
 
 
 class OTPVerificationAPIVIew(APIView):
@@ -60,6 +68,7 @@ class OTPVerificationAPIVIew(APIView):
         try:
             user = User.objects.get(email=email)
             if user.otp == otp:
+                # use custom passwordless auth backend
                 login(request, user, backend="apps.user.backends.PasswordlessAuthBackend")
                 return Response(data={"detail": "Login success"})
             else:
@@ -102,11 +111,16 @@ class UserDetailView(generics.RetrieveUpdateAPIView):
     queryset = CustomUser.objects.all()
 
     def perform_update(self, serializer):
+        """
+        on update from admin panel
+        this prevents avatar field getting cleared if new file isnt provided
+        """
         instance = self.get_object()
 
         if "avatar" in self.request.FILES:
             serializer.save()
         else:
+            # save current avatar if new one isnt provided
             serializer.validated_data["avatar"] = instance.avatar
             serializer.save()
 
@@ -117,7 +131,8 @@ class SearchUserView(generics.ListAPIView):
     def get_queryset(self):
         username = self.kwargs["username"]
         request_user = self.request.user
-
+        # search users with username and first name
+        # exclude requested user from response
         search_users = CustomUser.objects.filter(
             Q(username__icontains=username) | Q(first_name__icontains=username)
         ).exclude(id=request_user.id)
