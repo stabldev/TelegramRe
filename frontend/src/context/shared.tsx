@@ -19,6 +19,7 @@ type SharedContextReturnType = {
 
 const SharedContext = createContext<SharedContextReturnType>();
 
+// Shared states that will be used on multiple components
 export function SharedProvider(props: { children?: JSX.Element }) {
 	const [showSidebar, setShowSidebar] = createSignal(false);
 	const [editMessage, setEditMessage] = createSignal<ChatMessage>();
@@ -27,6 +28,7 @@ export function SharedProvider(props: { children?: JSX.Element }) {
 	// Functions
 	const toggleShowSidebar = () => setShowSidebar((prev) => !prev);
 
+	// change to edit mode if editMessage has value
 	createEffect(() => {
 		setIsEditingMessage(editMessage() !== undefined);
 	});
