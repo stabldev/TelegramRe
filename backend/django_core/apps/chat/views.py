@@ -32,6 +32,10 @@ class ChatMessageView(
     model = ChatMessage
 
     def get_queryset(self):
+        """
+        returns all chat messages on specific room with id
+        used for get request (self.list)
+        """
         room_id = self.kwargs["room_id"]
         chat_messages = self.model.objects.filter(room__room_id=room_id)
         return chat_messages
@@ -41,7 +45,11 @@ class ChatMessageView(
 
     def post(self, request, *args, **kwargs):
         response = self.create(request, *args, **kwargs)
-
+        """
+        201 status code means: request successfully create resources in server
+        if response is 201:
+            get created message details and send socket message to that room
+        """
         if response.status_code == 201:
             channel_layer = get_channel_layer()
             new_message = response.data
@@ -61,6 +69,7 @@ class ChatMessageView(
         return response
 
 
+# TODO: add socket support to this as well
 class ReadRoomChatMessages(APIView):
     def get(self, request, *args, **kwargs):
         room_id = self.kwargs["room_id"]

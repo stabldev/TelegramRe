@@ -77,6 +77,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_send("online_users", chat_message)
 
     async def connect(self):
+        """
+        get user from request and get chat rooms where user is a part (includes both DMs and GROUPS)
+        add user and rooms to channel layer
+        update online users list with requested user and send socket message to client
+        """
         self.user = self.scope["user"]
         self.rooms = await database_sync_to_async(list)(
             ChatRoom.objects.filter(member=self.user)
@@ -89,6 +94,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.accept()
 
     async def disconnect(self, close_code):
+        """
+        on disconnect discard all allocations on channel layers
+        update online users and send socket message
+        """
         await database_sync_to_async(self.delete_online_user)(self.user)
         await self.send_online_users_list()
         for room in self.rooms:
@@ -102,24 +111,30 @@ class ChatConsumer(AsyncWebsocketConsumer):
         send_message = {}
 
         if action == "message":
+            # handle when user send message in a room
             content = data["content"]
             type = data["type"]
             send_message = await database_sync_to_async(self.save_message)(
                 room_id, content, type
             )
         elif action == "read_room":
+            # when user opens a chat room, read all messages
             await database_sync_to_async(self.read_room)(room_id)
             send_message = {
                 "action": "read_room",
             }
         elif action == "read_message":
+            # when user sees single message
+            # prolly send on intersection observer from client
             message_id = data["message_id"]
             send_message = await database_sync_to_async(self.read_message)(message_id)
         elif action == "edit_message":
+            # when user edits a message
             message_id = data["message_id"]
             new_message = data["new_message"]
             send_message = await database_sync_to_async(self.edit_message)(message_id, new_message)
 
+        # send socket message to that specific channel (room)
         await self.channel_layer.group_send(
             room_id,
             {

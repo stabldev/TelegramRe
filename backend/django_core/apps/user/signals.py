@@ -8,6 +8,13 @@ from django.db import IntegrityError
 @receiver(post_save, sender=CustomUser)
 def create_username(sender, instance, created, **kwargs):
     if created:
+        """
+        This function triggers when new user is created
+        since username is not provided from client on user creation
+        this creates a loop until custom username is assinged to user
+
+        generates username from email and uuid lib
+        """
         base_username = instance.email.split("@")[0]
 
         while True:
@@ -17,5 +24,6 @@ def create_username(sender, instance, created, **kwargs):
             try:
                 instance.save()
                 break
+            # if username already exists restart loop
             except IntegrityError:
                 continue
