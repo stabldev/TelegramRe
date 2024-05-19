@@ -16,8 +16,8 @@
 		"@solid-primitives/intersection-observer": "^2.1.6",
 		"@solid-primitives/resource": "^0.1.2",
 		"@types/uuid": "^9.0.8",
-		"@typescript-eslint/eslint-plugin": "^7.8.0",
-		"@typescript-eslint/parser": "^7.8.0",
+		"@typescript-eslint/eslint-plugin": "^7.9.0",
+		"@typescript-eslint/parser": "^7.9.0",
 		"autoprefixer": "^10.4.19",
 		"clsx": "^2.1.1",
 		"eslint": "^8.57.0",
@@ -39,7 +39,7 @@
 		"vite": "^5.2.11"
 	},
 	"dependencies": {
-		"@solidjs/meta": "^0.29.2",
+		"@solidjs/meta": "^0.29.4",
 		"@solidjs/router": "^0.13.1",
 		"@solidjs/start": "^1.0.0-rc.1",
 		"solid-js": "^1.8.17",

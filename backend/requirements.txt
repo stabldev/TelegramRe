@@ -31,7 +31,7 @@ mypy-extensions==1.0.0
 packaging==24.0
 pathspec==0.12.1
 pillow==10.3.0
-platformdirs==4.2.1
+platformdirs==4.2.2
 psycopg==3.1.19
 pyasn1==0.6.0
 pyasn1-modules==0.4.0
@@ -49,4 +49,4 @@ Twisted==24.3.0
 txaio==23.1.1
 typing_extensions==4.11.0
 urllib3==2.2.1
-zope.interface==6.3
+zope.interface==6.4
