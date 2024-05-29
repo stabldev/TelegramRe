@@ -16,10 +16,10 @@ const OtpForm = () => {
 		try {
 			await verifyOTP(email, otp);
 			setError("");
-		} catch(err) {
-			const errorMsg = (err as {message: string}).message;
+		} catch (err) {
+			const errorMsg = (err as { message: string }).message;
 			setError(errorMsg);
-		};
+		}
 	};
 
 	return (

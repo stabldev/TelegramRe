@@ -26,7 +26,7 @@ const EmailForm = (props: Props) => {
 			dispatch("emailSubmit", {});
 		} catch (err) {
 			console.error(err);
-		};
+		}
 	};
 
 	return (

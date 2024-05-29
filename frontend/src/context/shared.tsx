@@ -39,7 +39,7 @@ export function SharedProvider(props: { children?: JSX.Element }) {
 		editMessage,
 		isEditingMessage,
 
-		setEditMessage,
+		setEditMessage
 	};
 
 	return (

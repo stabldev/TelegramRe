@@ -3,8 +3,8 @@ import {
 	createContext,
 	createSignal,
 	useContext,
-    Accessor,
-    onMount
+	Accessor,
+	onMount
 } from "solid-js";
 import ApiEndpoints from "~/connections/api/api-endpoints";
 import { fetchAPI } from "~/functions/api/fetch-api";
@@ -41,9 +41,9 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const initializeUserLocation = async () => {
 		try {
 			const res = await fetch("http://ip-api.com/json/");
-			const data: {country: string} = await res.json();
+			const data: { country: string } = await res.json();
 
-			setAuthState((prev) => ({...prev, country: data.country}));
+			setAuthState((prev) => ({ ...prev, country: data.country }));
 		} catch (err) {
 			console.error("Coundn't fetch user location details");
 		}
@@ -55,7 +55,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	 * get user details
 	 * else:
 	 * get user location details and show login page
-	*/
+	 */
 	const initializeSession = async () => {
 		const res = await fetch(ApiEndpoints.user.auth.SESSION, {
 			credentials: "include"
@@ -84,16 +84,19 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const verifyEmail = async (email: string) => {
 		setLoading(true);
 		try {
-			const data = await fetchAPI(ApiEndpoints.user.auth.EMAIL_VERIFICATION, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					"X-CSRFToken": csrfToken()
-				},
-				credentials: "include",
-				body: JSON.stringify({ email })
-			});
-			setAuthState((prev) => ({...prev, email: email}));
+			const data = await fetchAPI(
+				ApiEndpoints.user.auth.EMAIL_VERIFICATION,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						"X-CSRFToken": csrfToken()
+					},
+					credentials: "include",
+					body: JSON.stringify({ email })
+				}
+			);
+			setAuthState((prev) => ({ ...prev, email: email }));
 			return data;
 		} finally {
 			setLoading(false);
@@ -105,15 +108,18 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const verifyOTP = async (email: string, otp: string) => {
 		setLoading(true);
 		try {
-			const data = await fetchAPI(ApiEndpoints.user.auth.OTP_VERIFICATION, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					"X-CSRFToken": csrfToken()
-				},
-				credentials: "include",
-				body: JSON.stringify({ email, otp })
-			});
+			const data = await fetchAPI(
+				ApiEndpoints.user.auth.OTP_VERIFICATION,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						"X-CSRFToken": csrfToken()
+					},
+					credentials: "include",
+					body: JSON.stringify({ email, otp })
+				}
+			);
 			await getMyInfo();
 			setIsAuthenticated(true);
 			return data;
@@ -159,7 +165,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 		verifyEmail,
 		verifyOTP,
-		logoutUser,
+		logoutUser
 	};
 
 	return (
