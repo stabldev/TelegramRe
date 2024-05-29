@@ -5,7 +5,7 @@ import Mic from "~/icons/mic";
 import Send from "~/icons/send";
 import Clip from "~/icons/clip";
 import { useChat } from "~/context/chat";
-import ApiEndpoints from "~/connections/api/api-endpoints";
+import ApiEndpoints from "~/endpoints/api/api-endpoints";
 import { useAuth } from "~/context/auth";
 import { useShared } from "~/context/shared";
 import Close from "~/icons/close";

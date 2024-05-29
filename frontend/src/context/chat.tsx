@@ -7,8 +7,8 @@ import {
 	onMount,
 	useContext
 } from "solid-js";
-import SocketActions from "~/connections/socket/socket-actions";
-import SocketUrls from "~/connections/socket/socket-endpoints";
+import SocketActions from "~/endpoints/socket/socket-actions";
+import SocketUrls from "~/endpoints/socket/socket-endpoints";
 import type { ChatMessage, ChatRoom } from "~/types/chat";
 import type { OnlineUser } from "~/types/user";
 
