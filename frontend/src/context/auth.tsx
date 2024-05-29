@@ -7,6 +7,7 @@ import {
     onMount
 } from "solid-js";
 import ApiEndpoints from "~/connections/api/api-endpoints";
+import { fetchAPI } from "~/functions/api/fetch-api";
 import type { User } from "~/types/user";
 
 type AuthState = {
@@ -83,7 +84,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const verifyEmail = async (email: string) => {
 		setLoading(true);
 		try {
-			const res = await fetch(ApiEndpoints.user.auth.EMAIL_VERIFICATION, {
+			const data = await fetchAPI(ApiEndpoints.user.auth.EMAIL_VERIFICATION, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -92,10 +93,6 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 				credentials: "include",
 				body: JSON.stringify({ email })
 			});
-
-			const data = await res.json();
-			if (!res.ok) throw new Error(data.detail);
-			// on success response
 			setAuthState((prev) => ({...prev, email: email}));
 			return data;
 		} finally {
@@ -108,7 +105,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const verifyOTP = async (email: string, otp: string) => {
 		setLoading(true);
 		try {
-			const res = await fetch(ApiEndpoints.user.auth.OTP_VERIFICATION, {
+			const data = await fetchAPI(ApiEndpoints.user.auth.OTP_VERIFICATION, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -117,10 +114,6 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 				credentials: "include",
 				body: JSON.stringify({ email, otp })
 			});
-
-			const data = await res.json();
-			if (!res.ok) throw new Error(data.detail);
-			// on success response
 			await getMyInfo();
 			setIsAuthenticated(true);
 			return data;
@@ -131,29 +124,22 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 
 	// get request user details
 	const getMyInfo = async () => {
-		const res = await fetch(ApiEndpoints.user.auth.WHO_AM_I, {
+		const data = await fetchAPI(ApiEndpoints.user.auth.WHO_AM_I, {
 			headers: {
 				"Content-Type": "application/json",
 				"X-CSRFToken": csrfToken()
 			},
 			credentials: "include"
 		});
-
-		const data = await res.json();
-		if (!res.ok) throw new Error("Something is wrong!");
-
 		setUser(data.detail);
 	};
 
 	// delete session and logout user
 	// and update states
 	const logoutUser = async () => {
-		const res = await fetch(ApiEndpoints.user.auth.LOGOUT, {
+		const data = await fetchAPI(ApiEndpoints.user.auth.LOGOUT, {
 			credentials: "include"
 		});
-
-		if (!res.ok) throw new Error("Something is wrong");
-
 		setIsAuthenticated(false);
 		setUser(undefined);
 		setCsrfToken("");
