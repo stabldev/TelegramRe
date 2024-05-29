@@ -16,8 +16,8 @@
 		"@solid-primitives/intersection-observer": "^2.1.6",
 		"@solid-primitives/resource": "^0.1.2",
 		"@types/uuid": "^9.0.8",
-		"@typescript-eslint/eslint-plugin": "^7.9.0",
-		"@typescript-eslint/parser": "^7.9.0",
+		"@typescript-eslint/eslint-plugin": "^7.11.0",
+		"@typescript-eslint/parser": "^7.11.0",
 		"autoprefixer": "^10.4.19",
 		"clsx": "^2.1.1",
 		"eslint": "^8.57.0",
@@ -36,12 +36,12 @@
 		"tailwindcss": "^3.4.3",
 		"typescript": "^5.4.5",
 		"uuid": "^9.0.1",
-		"vite": "^5.2.11"
+		"vite": "^5.2.12"
 	},
 	"dependencies": {
 		"@solidjs/meta": "^0.29.4",
 		"@solidjs/router": "^0.13.1",
-		"@solidjs/start": "^1.0.0-rc.1",
+		"@solidjs/start": "^1.0.0",
 		"solid-js": "^1.8.17",
 		"vinxi": "^0.3.10"
 	},
