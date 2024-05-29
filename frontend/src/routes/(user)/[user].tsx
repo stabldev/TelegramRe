@@ -1,13 +1,29 @@
 import { Title } from "@solidjs/meta";
-import { RouteDefinition, RouteSectionProps } from "@solidjs/router";
+import { RouteDefinition, RouteSectionProps, cache } from "@solidjs/router";
 import { Show } from "solid-js";
 import ChatScreen from "~/components/pages/chat";
 import ChatSidebar from "~/components/shared/chat/chat-sidebar";
 import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
+import ApiEndpoints from "~/endpoints/api/api-endpoints";
+import { fetchAPI } from "~/functions/api/fetch-api";
+import { get_username } from "~/functions/get-username";
 import DefaultLayout from "~/layouts/default-layout";
 
+const getUser = cache(async (username: string) => {
+	const data = await fetch(ApiEndpoints.user.auth.WHO_AM_I, {
+		credentials: "include",
+	});
+	console.log(data);
+	return data;
+}, "user");
+
 export const route = {
+	load: (args) => {
+		const username = get_username(args.params.user);
+		console.debug(username);
+		getUser(username);
+	},
   	matchFilters: {
   		user: (v: string) => v.length > 1 && v.includes("@")
   	}
