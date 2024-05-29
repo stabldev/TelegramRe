@@ -11,11 +11,15 @@ import { get_username } from "~/functions/get-username";
 import DefaultLayout from "~/layouts/default-layout";
 
 const getUser = cache(async (username: string) => {
-	const data = await fetch(ApiEndpoints.user.auth.WHO_AM_I, {
-		credentials: "include",
-	});
-	console.log(data);
-	return data;
+	try {
+		const data = await fetchAPI(ApiEndpoints.user.auth.SESSION, {
+			credentials: "include",
+		});
+		console.log("Data on getUser: ", data);
+		return data;
+	} catch (err) {
+		console.log("Err: ", err);
+	};
 }, "user");
 
 export const route = {

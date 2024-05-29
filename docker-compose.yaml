@@ -12,6 +12,7 @@ services:
 
     redis_db:
         image: redis:7.2.4-alpine
+        container_name: redis_db
         restart: always
         ports:
             - "6379:6379"
