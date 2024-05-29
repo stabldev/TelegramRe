@@ -138,3 +138,8 @@ class SearchUserView(generics.ListAPIView):
         ).exclude(id=request_user.id)
 
         return search_users
+
+class CheckUserView(APIView):
+    def get(self, request: HttpRequest, username: str, format=None):
+        user_exists = CustomUser.objects.filter(username=username).exists()
+        return Response(data={"userExists": user_exists})

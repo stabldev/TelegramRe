@@ -9,6 +9,7 @@ from .views import (
     LogoutAPIView,
     UserDetailView,
     SearchUserView,
+    CheckUserView,
 )
 
 # fmt: off
@@ -17,6 +18,7 @@ urlpatterns = [
     path("", include([
         path("<int:pk>/", UserDetailView.as_view(), name="user"),
         path("search/<str:username>/", SearchUserView.as_view(), name="search-user"),
+        path("check/<str:username>/", CheckUserView.as_view(), name="check-user"),
     ])),
     # auth views
     path("auth/", include([
