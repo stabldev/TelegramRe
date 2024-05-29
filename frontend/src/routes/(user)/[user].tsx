@@ -11,8 +11,8 @@ const UserChat = () => {
 	const { showSidebar } = useShared();
 	const { activeRoom } = useChat();
 
-	const params = useParams<{ username: string }>();
-	const title = activeRoom()?.member[0].full_name ?? params.username;
+	const params = useParams<{ user: string }>();
+	const title = activeRoom()?.member[0].full_name ?? params.user;
 
 	return (
 		<>
