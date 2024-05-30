@@ -2,7 +2,6 @@ import { A, useParams } from "@solidjs/router";
 import { destructure } from "@solid-primitives/destructure";
 import { FormatDate } from "~/functions/format-date";
 import { Match, Show, Switch, createEffect, createSignal } from "solid-js";
-import { get_username } from "~/functions/get-username";
 import { useAuth } from "~/context/auth";
 import Tick from "~/icons/tick";
 import type { ChatRoom } from "~/types/chat";
@@ -41,7 +40,7 @@ const ProfileItem = (props: ChatRoom) => {
 
 	createEffect(() => {
 		if (!params.username) return;
-		setIsActive(get_username(params.username) === chat_user.username);
+		setIsActive(params.username.slice(1) === chat_user.username);
 	});
 
 	return (
