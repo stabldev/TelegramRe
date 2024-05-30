@@ -12,8 +12,8 @@ dependencies:
     specifier: ^0.13.1
     version: 0.13.1(solid-js@1.8.17)
   '@solidjs/start':
-    specifier: ^1.0.0
-    version: 1.0.0(solid-js@1.8.17)(vinxi@0.3.11)(vite@5.2.12)
+    specifier: ^1.0.1
+    version: 1.0.1(solid-js@1.8.17)(vinxi@0.3.11)(vite@5.2.12)
   solid-js:
     specifier: ^1.8.17
     version: 1.8.17
@@ -1467,8 +1467,8 @@ packages:
       solid-js: 1.8.17
     dev: false
 
-  /@solidjs/start@1.0.0(solid-js@1.8.17)(vinxi@0.3.11)(vite@5.2.12):
-    resolution: {integrity: sha512-N+Zlb5hrYkOcYecBfKOtJ3jW1DRVNRJnHDsiljSbWefgdncJTvmcnVBr8rjqp898bDHyDo0c7iFdGrhKFEv06A==}
+  /@solidjs/start@1.0.1(solid-js@1.8.17)(vinxi@0.3.11)(vite@5.2.12):
+    resolution: {integrity: sha512-W29OlcJewXUehvDu5Lf+w8hQRiRMdMGaNUwMhnR3neqPxwdZf0LPPPVGyHxZHk4375HdcdBXHuvrOI+xv8Xrcg==}
     dependencies:
       '@vinxi/plugin-directives': 0.3.1(vinxi@0.3.11)
       '@vinxi/server-components': 0.3.3(vinxi@0.3.11)
@@ -3128,6 +3128,7 @@ packages:
 
   /glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
     dependencies:
       fs.realpath: 1.0.0
       inflight: 1.0.6
@@ -3139,6 +3140,7 @@ packages:
   /glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
+    deprecated: Glob versions prior to v9 are no longer supported
     dependencies:
       fs.realpath: 1.0.0
       inflight: 1.0.6
