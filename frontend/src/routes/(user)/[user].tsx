@@ -12,7 +12,7 @@ import DefaultLayout from "~/layouts/default-layout";
 
 const getUser = cache(async (username: string) => {
 	try {
-		const data = await fetchAPI(ApiEndpoints.user.auth.SESSION, {
+		const data = await fetchAPI("http://backend:8000/api/v1/user/auth/session/", {
 			credentials: "include",
 		});
 		console.log("Data on getUser: ", data);
