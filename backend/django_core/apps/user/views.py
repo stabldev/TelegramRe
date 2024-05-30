@@ -124,6 +124,11 @@ class UserDetailView(generics.RetrieveUpdateAPIView):
             serializer.validated_data["avatar"] = instance.avatar
             serializer.save()
 
+class UserDetailViewV2(generics.RetrieveAPIView):
+    lookup_field = "username"
+    serializer_class = CustomUserSerializer
+    queryset = CustomUser.objects.all()
+
 
 class SearchUserView(generics.ListAPIView):
     serializer_class = CustomUserSerializer
@@ -138,3 +143,8 @@ class SearchUserView(generics.ListAPIView):
         ).exclude(id=request_user.id)
 
         return search_users
+
+class CheckUserView(APIView):
+    def get(self, request: HttpRequest, username: str, format=None):
+        user_exists = CustomUser.objects.filter(username=username).exists()
+        return Response(data={"userExists": user_exists})

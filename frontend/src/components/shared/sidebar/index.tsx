@@ -9,7 +9,7 @@ import { formatChatRoom } from "~/functions/format-room";
 import { useChat } from "~/context/chat";
 import type { ChatRoom } from "~/types/chat";
 import type { OnlineUser } from "~/types/user";
-import ApiEndpoints from "~/connections/api/api-endpoints";
+import ApiEndpoints from "~/endpoints/api/api-endpoints";
 import ChatBar from "./chat-bar";
 import SettingsBar from "./settings-bar";
 

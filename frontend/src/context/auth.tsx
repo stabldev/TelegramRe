@@ -6,7 +6,7 @@ import {
 	Accessor,
 	onMount
 } from "solid-js";
-import ApiEndpoints from "~/connections/api/api-endpoints";
+import ApiEndpoints from "~/endpoints/api/api-endpoints";
 import { fetchAPI } from "~/functions/api/fetch-api";
 import type { User } from "~/types/user";
 
