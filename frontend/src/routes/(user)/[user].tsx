@@ -5,7 +5,7 @@ import ChatScreen from "~/components/pages/chat";
 import ChatSidebar from "~/components/shared/chat/chat-sidebar";
 import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
-import { fetchAPI } from "~/functions/api/fetch-api";
+import { fetchAPI } from "~/functions/api/fetch";
 import DefaultLayout from "~/layouts/default-layout";
 
 const getUser = cache(async (username: string) => {

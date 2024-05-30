@@ -1,5 +1,5 @@
 import { Show } from "solid-js";
-import { sample } from "~/functions/sample";
+import { sample } from "~/functions/array/sample";
 import { cn } from "~/functions/cn";
 
 interface Props {
