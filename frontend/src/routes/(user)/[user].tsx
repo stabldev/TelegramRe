@@ -1,5 +1,5 @@
 import { Title } from "@solidjs/meta";
-import { RouteDefinition, RouteSectionProps, cache } from "@solidjs/router";
+import { RouteDefinition, RouteSectionProps, cache, redirect } from "@solidjs/router";
 import { Show } from "solid-js";
 import ChatScreen from "~/components/pages/chat";
 import ChatSidebar from "~/components/shared/chat/chat-sidebar";
@@ -12,13 +12,13 @@ import DefaultLayout from "~/layouts/default-layout";
 
 const getUser = cache(async (username: string) => {
 	try {
-		const data = await fetchAPI("http://backend:8000/api/v1/user/auth/session/", {
-			credentials: "include",
-		});
+		const url = "http://backend:8000/api/v1/user/v2/" + username;
+		const data = await fetchAPI(url);
 		console.log("Data on getUser: ", data);
 		return data;
 	} catch (err) {
 		console.log("Err: ", err);
+		return redirect("/");
 	};
 }, "user");
 

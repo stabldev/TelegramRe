@@ -124,6 +124,11 @@ class UserDetailView(generics.RetrieveUpdateAPIView):
             serializer.validated_data["avatar"] = instance.avatar
             serializer.save()
 
+class UserDetailViewV2(generics.RetrieveAPIView):
+    lookup_field = "username"
+    serializer_class = CustomUserSerializer
+    queryset = CustomUser.objects.all()
+
 
 class SearchUserView(generics.ListAPIView):
     serializer_class = CustomUserSerializer
