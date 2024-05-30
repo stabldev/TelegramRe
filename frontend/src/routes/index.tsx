@@ -1,4 +1,4 @@
-import DefaultLayout from "~/layouts/default-layout";
+import DefaultLayout from "~/layouts/default";
 
 const Home = () => {
 	return <DefaultLayout />;
