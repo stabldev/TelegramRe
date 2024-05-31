@@ -5,7 +5,7 @@ import {
 	createResource,
 	createSignal
 } from "solid-js";
-import { formatChatRoom } from "~/functions/format-room";
+import { formatChatRoom } from "~/functions/chat/format-room";
 import { useChat } from "~/context/chat";
 import type { ChatRoom } from "~/types/chat";
 import type { OnlineUser } from "~/types/user";
