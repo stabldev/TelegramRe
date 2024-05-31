@@ -8,8 +8,6 @@ const ApiEndpoints = {
 	user: {
 		GET_USER: API_URL + "/v1/user/",
 		SEARCH_USER: API_URL + "/v1/user/search/",
-		CHECK_USER: API_URL + "/v1/user/check/",
-		// auth views
 		auth: {
 			CSRF: API_URL + "/v1/user/auth/csrf/",
 			SESSION: API_URL + "/v1/user/auth/session/",
