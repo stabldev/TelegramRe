@@ -6,6 +6,7 @@ import ChatScreen from "~/components/pages/chat";
 import ChatSidebar from "~/components/shared/chat/chat-sidebar";
 import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
+import ApiEndpoints from "~/endpoints/api/api-endpoints";
 import { fetchAPI } from "~/functions/api/fetch";
 import DefaultLayout from "~/layouts/default";
 
@@ -17,7 +18,7 @@ const getUser = cache(async (username: string, intent: Intent) => {
 			// when on server
 			url = "http://backend:8000/api/v1/user/v2/" + username;
 		} else {
-			url = "http://0.0.0.0:8000/api/v1/user/v2/" + username;
+			url = ApiEndpoints.user.GET_USER + "v2/" + username;
 		};
 
 		const data = await fetchAPI(url);
