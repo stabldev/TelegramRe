@@ -3,23 +3,9 @@ A Telegram inspired web messaging experience with the power of [`django`](https:
 Project status: **In Development**
 
 ## Installation and Setup
-1. [Docker/Podman](#dockerpodman)
-2. [Native setup](#nativesetup)
-
-
 > [!IMPORTANT]
-> Make sure you've proper `.env` configured for frontend and backend.
+> Make sure you've proper `.env` configured for both frontend and backend.\
+> Refer: `.env.example`
 
-## Docker/Podman
-You can use [docker](https://www.docker.com/) or [podman](https://podman.io/)(recommended) to build/test application.
-### Docker and docker-compose
-Install docker and run `docker.service`, also make sure you've [docker-compose](https://docs.docker.com/compose/) installed.
-```bash
-docker-compose up -d
-```
-### Podman and podman-compose
-Install podman and [podman-compose](https://github.com/containers/podman-compose) on your system.
-```bash
-podman-compose up -d
-# to run on detach mode
-```
+1. [Docker/Podman](https://github.com/moonlitgrace/telegram-re-monorepo/discussions/410)
+2. [Native setup](https://github.com/moonlitgrace/telegram-re-monorepo/discussions/411)
