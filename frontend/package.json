@@ -36,7 +36,7 @@
 		"tailwindcss": "^3.4.4",
 		"typescript": "^5.4.5",
 		"uuid": "^9.0.1",
-		"vite": "^5.2.12"
+		"vite": "^5.2.13"
 	},
 	"dependencies": {
 		"@solidjs/meta": "^0.29.4",
