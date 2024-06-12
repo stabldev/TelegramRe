@@ -35,8 +35,8 @@ devDependencies:
     specifier: ^2.1.6
     version: 2.1.6(solid-js@1.8.17)
   '@solid-primitives/resource':
-    specifier: ^0.1.2
-    version: 0.1.2(solid-js@1.8.17)
+    specifier: ^0.2.0
+    version: 0.2.0(solid-js@1.8.17)
   '@types/uuid':
     specifier: ^9.0.8
     version: 9.0.8
@@ -1427,8 +1427,8 @@ packages:
       solid-js: 1.8.17
     dev: true
 
-  /@solid-primitives/resource@0.1.2(solid-js@1.8.17):
-    resolution: {integrity: sha512-jeXWy1khbrCMRja4yxXPwmUxRrRUrm/U47lRh2qO2jSkvVPg9Vyf0Dx3flGzykqnTFgJ5pPVjFlQmYvjtnj0Zw==}
+  /@solid-primitives/resource@0.2.0(solid-js@1.8.17):
+    resolution: {integrity: sha512-1aloWqlkgTTlaMIlYwSzTOHwrYtkbtyGi0hZPE92H1t1i/hAp2gIm3rBxdk87g3mDWiHcHC1Ci6tcjwW0tmOtA==}
     peerDependencies:
       solid-js: ^1.6.0
     dependencies:
