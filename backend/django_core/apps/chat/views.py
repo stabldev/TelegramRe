@@ -37,7 +37,7 @@ class ChatMessageView(
         used for get request (self.list)
         """
         room_id = self.kwargs["room_id"]
-        chat_messages = self.model.objects.filter(room__room_id=room_id)
+        chat_messages = self.model.objects.filter(room__id=room_id)
         return chat_messages
 
     def get(self, request, *args, **kwargs):
@@ -56,7 +56,7 @@ class ChatMessageView(
             room = ChatRoom.objects.get(pk=new_message["room"])
 
             async_to_sync(channel_layer.group_send)(
-                room.room_id,
+                room.id,
                 {
                     "type": "send_message",
                     "message": {
@@ -73,7 +73,7 @@ class ChatMessageView(
 class ReadRoomChatMessages(APIView):
     def get(self, request, *args, **kwargs):
         room_id = self.kwargs["room_id"]
-        chat_room = ChatRoom.objects.get(room_id=room_id)
+        chat_room = ChatRoom.objects.get(id=room_id)
         unread_messages = chat_room.chat_message.filter(is_read=False)
         for message in unread_messages:
             message.is_read = True

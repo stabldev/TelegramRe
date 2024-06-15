@@ -2,16 +2,14 @@ from django.db import models
 from apps.user.models import CustomUser
 
 from django_core.mixins.models.uuid import UUIDMixin
-from django_core.utilities.numeric_uuid import generate_numeric_uuid
 
 class ChatRoom(UUIDMixin):
-    room_id = models.CharField(default=generate_numeric_uuid, unique=True, editable=False)
     type = models.CharField(max_length=10, default="DM")
     member = models.ManyToManyField(CustomUser)
     name = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.room_id} -> {self.name}"
+        return f"{self.id}: {self.name if self.name else self.type}"
 
 
 class ChatMessage(models.Model):
