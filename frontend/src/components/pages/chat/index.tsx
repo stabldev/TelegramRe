@@ -1,4 +1,4 @@
-import { Component, Show, createEffect, createResource } from "solid-js";
+import { Accessor, Show, createEffect, createResource, createSignal } from "solid-js";
 import ChatHeader from "./chat-header";
 import ChatInput from "./chat-input";
 import ChatArea from "./chat-area";
@@ -10,25 +10,17 @@ import ApiEndpoints from "~/endpoints/api/api-endpoints";
 import { makeCache, makeAbortable } from "@solid-primitives/resource";
 import { useParams } from "@solidjs/router";
 import { scrollToBottom } from "~/functions/scroll-to-bottom";
+import { destructure } from "@solid-primitives/destructure";
 
-const ChatScreen: Component = () => {
+interface Props {
+	messages: ChatMessage[];
+};
+
+const ChatView = (props: Props) => {
+	const { messages: propsMsgs } = destructure(props);
 	const { socket, activeRoom, setChatRooms, setOnlineUsers } = useChat();
-	const params = useParams<{ username: string }>();
 
-	const [cachedFetcher, invalidate] = makeCache(fetchMessages, {
-		storage: localStorage
-	});
-	const [signal] = makeAbortable({ timeout: 10000 });
-	const [messages, { mutate }] = createResource(activeRoom, cachedFetcher);
-
-	async function fetchMessages({ room_id }: { room_id: string }) {
-		const url = ApiEndpoints.chat.CHAT_ROOMS + room_id + "/";
-		const res = await fetch(url, {
-			signal: signal(),
-			credentials: "include"
-		});
-		return (await res.json()) as ChatMessage[];
-	}
+	const [ messages, setMessages ] = createSignal(propsMsgs());
 
 	socket()!.onmessage = function (e: MessageEvent) {
 		const data: {
@@ -39,7 +31,7 @@ const ChatScreen: Component = () => {
 
 		if (data.action === SocketActions.MESSAGE) {
 			if (data.message?.room === activeRoom()?.id) {
-				mutate((messages) => [...(messages || []), data.message!]);
+				setMessages((prevMessages) => [...(prevMessages || []), (data.message)!]);
 			}
 			setChatRooms((chatRooms) =>
 				chatRooms?.map((room) =>
@@ -67,8 +59,8 @@ const ChatScreen: Component = () => {
 			);
 		} else if (data.action === SocketActions.READ_MESSAGE) {
 			if (data.message?.room !== activeRoom()?.room_id) {
-				mutate((messages) =>
-					messages?.map((message) =>
+				setMessages((prevMessages) =>
+					prevMessages.map((message) =>
 						message.id === data.message?.id ? data.message : message
 					)
 				);
@@ -84,9 +76,8 @@ const ChatScreen: Component = () => {
 		} else if (data.action === SocketActions.EDIT_MESSAGE) {
 			if (data.message?.room === activeRoom()?.id) {
 				const room_id = activeRoom()?.room_id ?? "";
-				invalidate({ room_id: room_id });
-				mutate((messages) =>
-					messages?.map((message) =>
+				setMessages((prevMessages) =>
+					prevMessages.map((message) =>
 						message.id === data.message?.id ? data.message : message
 					)
 				);
@@ -110,24 +101,23 @@ const ChatScreen: Component = () => {
 	let chatAreaRef: HTMLDivElement;
 
 	createEffect(() => {
-		console.log(params.username);
+		setMessages(propsMsgs());
+
 		requestAnimationFrame(() => {
 			scrollToBottom(chatAreaRef, { behavior: "smooth" });
 		});
-	});
+	})
 
 	return (
 		<div class="relative grid h-screen grid-rows-[min-content_1fr_min-content]">
 			<ChatHeader />
-			<Show when={!messages.loading}>
-				<ChatArea
-					chat={messages()!}
-					ref={chatAreaRef!}
-				/>
-			</Show>
+			<ChatArea
+				chat={messages()}
+				ref={chatAreaRef!}
+			/>
 			<ChatInput />
 		</div>
 	);
 };
 
-export default ChatScreen;
+export default ChatView;

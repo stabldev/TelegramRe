@@ -1,56 +1,56 @@
 import { Title } from "@solidjs/meta";
-import { RouteDefinition, RouteSectionProps, cache, redirect } from "@solidjs/router";
+import { RouteDefinition, RouteSectionProps, cache, createAsync, redirect, useParams } from "@solidjs/router";
 import { Intent } from "@solidjs/router/dist/types";
-import { Show } from "solid-js";
-import ChatScreen from "~/components/pages/chat";
+import { Show, createEffect } from "solid-js";
+import ChatView from "~/components/pages/chat";
 import ChatSidebar from "~/components/shared/chat/chat-sidebar";
 import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
 import ApiEndpoints from "~/endpoints/api/api-endpoints";
 import { fetchAPI } from "~/functions/api/fetch";
 import DefaultLayout from "~/layouts/default";
+import { ChatMessage } from "~/types/chat";
 
-const getUser = cache(async (username: string, intent: Intent) => {
+const getRoom = cache(async (room: string, intent: Intent) => {
 	try {
 		let url: string;
 		// check if solid-start fetch from server or browser
 		if (intent === "initial") {
 			// when on server
-			url = "http://backend:8000/api/v1/user/v2/" + username;
+			url = "http://backend:8000/api/v1/chat/chat-rooms/" + room;
 		} else {
-			url = ApiEndpoints.user.GET_USER + "v2/" + username;
+			url = ApiEndpoints.chat.CHAT_ROOMS + room;
 		};
 
 		const data = await fetchAPI(url);
-		console.log("Data: ", data);
 		return data;
 	} catch (err) {
-		console.log("Err: ", err);
 		throw redirect("/");
 	};
-}, "user");
+}, "room");
 
 export const route = {
 	load: (args) => {
-		const username = args.params.user.slice(1);
-		getUser(username, args.intent);
+		const room = args.params.room.slice(1);
+		return getRoom(room, args.intent);
 	},
   	matchFilters: {
-  		user: (v: string) => v.length > 1 && v.includes("@")
+  		room: (v: string) => v.includes("~")
   	}
 } satisfies RouteDefinition;
 
 const UserChat = (props: RouteSectionProps) => {
 	const { showSidebar } = useShared();
-	const { activeRoom } = useChat();
+	const params = useParams<{room: string}>();
 
-	const title = activeRoom()?.member[0].full_name ?? props.params.user;
+	const title = props.params.room;
+	const data = createAsync(() => props.data as Promise<unknown>);
 
 	return (
 		<>
 			<Title>{title}</Title>
 			<DefaultLayout>
-				<ChatScreen />
+				<ChatView messages={data() as ChatMessage[]} />
 				<Show when={showSidebar()}>
 					<ChatSidebar />
 				</Show>

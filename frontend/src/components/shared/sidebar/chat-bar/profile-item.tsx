@@ -15,11 +15,12 @@ import Avatar from "~/components/ui/avatar";
 const ProfileItem = (props: ChatRoom) => {
 	const { user } = useAuth();
 	const { onlineUsers, setActiveRoom } = useChat();
-	const [isActive, setIsActive] = createSignal(false);
-	const [isOnline, setIsOnline] = createSignal(false);
 	const params = useParams<{ username: string }>();
 
-	const { message, member, unreads } = destructure(props);
+	const [isActive, setIsActive] = createSignal(false);
+	const [isOnline, setIsOnline] = createSignal(false);
+
+	const { message, member, unreads, id } = destructure(props);
 
 	const chat_user = member()[0];
 	const self_message = message().sender === user()?.id;
@@ -45,7 +46,7 @@ const ProfileItem = (props: ChatRoom) => {
 
 	return (
 		<A
-			href={`/@${chat_user.username}`}
+			href={`/~${id()}`}
 			class={cn(
 				isActive() && "!bg-primary",
 				"flex h-auto w-full select-none flex-nowrap items-center gap-3 rounded-xl border-none bg-transparent p-2 hover:bg-base-300"
