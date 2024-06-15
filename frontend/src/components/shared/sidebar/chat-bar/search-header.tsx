@@ -79,12 +79,12 @@ const SearchHeader = (props: Props) => {
 				</Popover>
 			</Show>
 			<form class="relative flex size-full w-full items-center">
-				<Search class="pointer-events-none absolute left-3.5 size-5 text-neutral-200" />
 				<input
 					placeholder="Search"
 					type="text"
-					class="size-full rounded-full border-none bg-base-300 pl-11 pr-3.5 text-accent caret-neutral-200 outline-none ring-primary placeholder:text-neutral-200 focus:ring-2"
+					class="peer size-full rounded-full border-none bg-base-300 pl-11 pr-3.5 text-accent caret-neutral-200 outline-none ring-primary placeholder:text-neutral-200 focus:ring-2 focus:bg-base-200"
 				/>
+				<Search class="pointer-events-none absolute left-3.5 size-5 text-neutral-200 peer-focus:text-primary" />
 			</form>
 		</div>
 	);
