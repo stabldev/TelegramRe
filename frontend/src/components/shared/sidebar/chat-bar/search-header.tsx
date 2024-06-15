@@ -44,7 +44,7 @@ const SearchHeader = (props: Props) => {
 						</span>
 					</button>
 					<a
-						href="https://github.com/tokitouq/telegram-re/issues"
+						href="https://github.com/moonlitgrace/telegram-re-monorepo/issues"
 						target="_blank"
 						class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
 					>
@@ -54,7 +54,7 @@ const SearchHeader = (props: Props) => {
 						</span>
 					</a>
 					<a
-						href="https://github.com/tokitouq/telegram-re"
+						href="https://github.com/moonlitgrace/telegram-re-monorepo/"
 						target="_blank"
 						class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
 					>
@@ -64,7 +64,7 @@ const SearchHeader = (props: Props) => {
 						</span>
 					</a>
 					<a
-						href="https://github.com/tokitouq/telegram-re/blob/main/LICENSE"
+						href="https://github.com/moonlitgrace/telegram-re-monorepo/blob/main/LICENSE"
 						target="_blank"
 						class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
 					>
