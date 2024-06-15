@@ -9,7 +9,7 @@ from .serializers import ChatMessageSerializer, OnlineUserSerializer
 
 class ChatConsumer(AsyncWebsocketConsumer):
     def save_message(self, room_id, content, type):
-        chat_room = ChatRoom.objects.get(room_id=room_id)
+        chat_room = ChatRoom.objects.get(id=room_id)
         chat_message = ChatMessage.objects.create(
             room=chat_room,
             sender=self.user,
@@ -59,7 +59,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             pass
 
     def read_room(self, room_id):
-        chat_room = ChatRoom.objects.get(room_id=room_id)
+        chat_room = ChatRoom.objects.get(id=room_id)
         unread_messages = chat_room.chat_message.filter(is_read=False)
         for message in unread_messages:
             message.is_read = True
@@ -87,7 +87,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             ChatRoom.objects.filter(member=self.user)
         )
         for room in self.rooms:
-            await self.channel_layer.group_add(room.room_id, self.channel_name)
+            await self.channel_layer.group_add(room.id, self.channel_name)
         await self.channel_layer.group_add("online_users", self.channel_name)
         await database_sync_to_async(self.add_online_user)(self.user)
         await self.send_online_users_list()
@@ -101,7 +101,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await database_sync_to_async(self.delete_online_user)(self.user)
         await self.send_online_users_list()
         for room in self.rooms:
-            await self.channel_layer.group_discard(room.room_id, self.channel_name)
+            await self.channel_layer.group_discard(room.id, self.channel_name)
         await self.channel_layer.group_discard("online_users", self.channel_name)
 
     async def receive(self, text_data):

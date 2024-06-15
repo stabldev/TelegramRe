@@ -38,6 +38,8 @@ FROM base AS final
 COPY --from=build /code/requirements.txt /code/requirements.txt
 # Install requirements.txt
 RUN pip install -r requirements.txt
+# Set PYTHONPATH to include /code
+ENV PYTHONPATH=/code
 # Expose port
 EXPOSE 8000
 # Run server
