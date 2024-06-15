@@ -33,8 +33,6 @@ const getUser = cache(async (username: string, intent: Intent) => {
 export const route = {
 	load: (args) => {
 		const username = args.params.user.slice(1);
-		console.log(args);
-		console.debug(username);
 		getUser(username, args.intent);
 	},
   	matchFilters: {
