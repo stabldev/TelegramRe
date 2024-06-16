@@ -1,6 +1,3 @@
-from typing import Self
-from django.shortcuts import render
-from django.http import HttpRequest
 from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework.views import APIView
 from rest_framework import mixins, generics, status
@@ -8,7 +5,7 @@ from rest_framework.response import Response
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
-from .models import ChatRoom, ChatMessage
+from .models import ChatRoom
 from ..user.models import OnlineUser
 from .serializers import ChatRoomSerializer, ChatMessageSerializer, OnlineUserSerializer
 
@@ -27,24 +24,24 @@ class ChatRoomListView(ListAPIView):
 
 
 class ChatMessageView(
-    mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView
+    mixins.CreateModelMixin, generics.GenericAPIView
 ):
     serializer_class = ChatMessageSerializer
-    model = ChatRoom
-
-    def get_queryset(self):
-        """
-        returns all chat messages on specific room with id
-        used for get request (self.list)
-        """
-        room_id = self.kwargs["room_id"]
-        chat_room = self.model.objects.get(id=room_id)
-        return chat_room.chat_message.all()
 
     def get(self, request, *args, **kwargs):
         try:
-            return self.list(request, *args, **kwargs)
-        except self.model.DoesNotExist:
+            room_id = self.kwargs["room_id"]
+            chat_room = ChatRoom.objects.get(id=room_id)
+            chat_messages = chat_room.chat_message.all()
+
+            serialize_chat_room = ChatRoomSerializer(chat_room, many=False)
+            serialize_chat_messages = ChatMessageSerializer(chat_messages, many=True)
+
+            return Response(data={
+                "chat_room": serialize_chat_room.data,
+                "chat_messages": serialize_chat_messages.data
+            })
+        except ChatRoom.DoesNotExist:
             return Response(
                 data={"detail": "ChatRoom not found"},
                 status=status.HTTP_404_NOT_FOUND,
