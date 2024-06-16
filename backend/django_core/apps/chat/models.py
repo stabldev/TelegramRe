@@ -1,10 +1,13 @@
 from django.db import models
-from apps.user.models import CustomUser
 
-from django_core.mixins.models.uuid import UUIDMixin
+from apps.user.models import CustomUser
+from mixins.models.uuid import UUIDMixin
 
 class ChatRoom(UUIDMixin):
-    type = models.CharField(max_length=10, default="DM")
+    class ChatRoomType(models.TextChoices):
+        DM = "DM", "DM"
+
+    type = models.CharField(max_length=10, choices=ChatRoomType, default=ChatRoomType.DM)
     member = models.ManyToManyField(CustomUser)
     name = models.CharField(max_length=50, null=True, blank=True)
 

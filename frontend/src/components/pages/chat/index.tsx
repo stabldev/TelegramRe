@@ -1,4 +1,4 @@
-import { Accessor, Show, createEffect, createResource, createSignal } from "solid-js";
+import { createEffect, createSignal } from "solid-js";
 import ChatHeader from "./chat-header";
 import ChatInput from "./chat-input";
 import ChatArea from "./chat-area";
@@ -6,9 +6,6 @@ import type { ChatMessage } from "~/types/chat";
 import { useChat } from "~/context/chat";
 import type { OnlineUser } from "~/types/user";
 import SocketActions from "~/endpoints/socket/socket-actions";
-import ApiEndpoints from "~/endpoints/api/api-endpoints";
-import { makeCache, makeAbortable } from "@solid-primitives/resource";
-import { useParams } from "@solidjs/router";
 import { scrollToBottom } from "~/functions/scroll-to-bottom";
 import { destructure } from "@solid-primitives/destructure";
 
