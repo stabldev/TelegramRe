@@ -47,9 +47,8 @@ export const route = {
 } satisfies RouteDefinition;
 
 const UserChat = (props: RouteSectionProps) => {
-	const { setActiveRoom, activeRoom } = useChat();
+	const { setActiveRoom } = useChat();
 	const { showSidebar } = useShared();
-	const params = useParams<{room: string}>();
 
 	const [ title, setTitle ] = createSignal("Telegram");
 	const data = createAsync(() => props.data as Promise<ChatRoomData>);
