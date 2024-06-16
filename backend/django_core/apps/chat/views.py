@@ -1,6 +1,3 @@
-from typing import Self
-from django.shortcuts import render
-from django.http import HttpRequest
 from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework.views import APIView
 from rest_framework import mixins, generics, status
@@ -8,9 +5,9 @@ from rest_framework.response import Response
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
-from .models import ChatRoom, ChatMessage
+from .models import ChatRoom
 from ..user.models import OnlineUser
-from .serializers import ChatMemberSerializer, ChatRoomSerializer, ChatMessageSerializer, OnlineUserSerializer
+from .serializers import ChatRoomSerializer, ChatMessageSerializer, OnlineUserSerializer
 
 
 # Create your views here.
