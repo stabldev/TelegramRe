@@ -26,7 +26,6 @@ async function getOnlineUsers() {
 		credentials: "include"
 	});
 	const data = (await res.json()) as OnlineUser[];
-	console.log(data);
 	return data;
 }
 

@@ -1,8 +1,9 @@
+from typing import Self
 from django.shortcuts import render
-from django.http import HttpRequest, JsonResponse
+from django.http import HttpRequest
 from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework.views import APIView
-from rest_framework import mixins, generics
+from rest_framework import mixins, generics, status
 from rest_framework.response import Response
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
@@ -29,7 +30,7 @@ class ChatMessageView(
     mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView
 ):
     serializer_class = ChatMessageSerializer
-    model = ChatMessage
+    model = ChatRoom
 
     def get_queryset(self):
         """
@@ -37,11 +38,17 @@ class ChatMessageView(
         used for get request (self.list)
         """
         room_id = self.kwargs["room_id"]
-        chat_messages = self.model.objects.filter(room__id=room_id)
-        return chat_messages
+        chat_room = self.model.objects.get(id=room_id)
+        return chat_room.chat_message.all()
 
     def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
+        try:
+            return self.list(request, *args, **kwargs)
+        except self.model.DoesNotExist:
+            return Response(
+                data={"detail": "ChatRoom not found"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
 
     def post(self, request, *args, **kwargs):
         response = self.create(request, *args, **kwargs)
@@ -78,7 +85,7 @@ class ReadRoomChatMessages(APIView):
         for message in unread_messages:
             message.is_read = True
             message.save()
-        return JsonResponse({"detail": "Messages Readed"})
+        return Response({"detail": "Messages Readed"})
 
 
 class OnlineUsersView(ListAPIView):
