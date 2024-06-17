@@ -15,7 +15,7 @@ import Avatar from "~/components/ui/avatar";
 const ProfileItem = (props: ChatRoom) => {
   const { user } = useAuth();
   const { onlineUsers, setActiveRoom } = useChat();
-  const params = useParams<{ username: string }>();
+  const params = useParams<{ room: string }>();
 
   const [isActive, setIsActive] = createSignal(false);
   const [isOnline, setIsOnline] = createSignal(false);
@@ -38,8 +38,8 @@ const ProfileItem = (props: ChatRoom) => {
   });
 
   createEffect(() => {
-    if (!params.username) return;
-    setIsActive(params.username.slice(1) === chat_user.username);
+    if (!params.room) return;
+    setIsActive(params.room.slice(1) === id().toString());
   });
 
   return (
