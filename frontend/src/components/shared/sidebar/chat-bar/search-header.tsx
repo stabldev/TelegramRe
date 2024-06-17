@@ -16,7 +16,7 @@ const SearchHeader = (props: Props) => {
   const [showMenu, setShowMenu] = createSignal(false);
 
   const { toggleView } = destructure(props);
-  const menuRef: HTMLButtonElement | undefined = undefined;
+  let menuRef: HTMLButtonElement | undefined = undefined;
 
   return (
     <div class="flex h-14 items-center gap-3 px-3 py-2">

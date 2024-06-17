@@ -26,7 +26,7 @@ const ChatInput = () => {
   const [file, setFile] = createSignal<File>();
 
   let inputRef: HTMLTextAreaElement;
-  const mediaPopoverBtnRef: HTMLElement | undefined = undefined;
+  let mediaPopoverBtnRef: HTMLElement | undefined = undefined;
 
   const handleSubmit = (e?: SubmitEvent) => {
     e?.preventDefault();
