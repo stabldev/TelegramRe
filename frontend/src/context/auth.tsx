@@ -84,18 +84,15 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const verifyEmail = async (email: string) => {
 		setLoading(true);
 		try {
-			const data = await fetchAPI(
-				ApiEndpoints.user.auth.EMAIL_VERIFICATION,
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-						"X-CSRFToken": csrfToken()
-					},
-					credentials: "include",
-					body: JSON.stringify({ email })
-				}
-			);
+			const data = await fetchAPI(ApiEndpoints.user.auth.EMAIL_VERIFICATION, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"X-CSRFToken": csrfToken()
+				},
+				credentials: "include",
+				body: JSON.stringify({ email })
+			});
 			setAuthState((prev) => ({ ...prev, email: email }));
 			return data;
 		} finally {
@@ -108,18 +105,15 @@ export function AuthProvider(props: { children?: JSX.Element }) {
 	const verifyOTP = async (email: string, otp: string) => {
 		setLoading(true);
 		try {
-			const data = await fetchAPI(
-				ApiEndpoints.user.auth.OTP_VERIFICATION,
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-						"X-CSRFToken": csrfToken()
-					},
-					credentials: "include",
-					body: JSON.stringify({ email, otp })
-				}
-			);
+			const data = await fetchAPI(ApiEndpoints.user.auth.OTP_VERIFICATION, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"X-CSRFToken": csrfToken()
+				},
+				credentials: "include",
+				body: JSON.stringify({ email, otp })
+			});
 			await getMyInfo();
 			setIsAuthenticated(true);
 			return data;

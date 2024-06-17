@@ -74,13 +74,12 @@ const ChatBubble = (props: Props) => {
 					el = ref;
 				}}
 				onContextMenu={handleContextMenu}
-				class="relative relative flex w-max max-w-md flex-col gap-1 rounded-2xl px-2.5 py-1 text-accent before:absolute before:bottom-0 before:size-5 before:[mask-image:_url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMycgaGVpZ2h0PSczJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnPjxwYXRoIGZpbGw9J2JsYWNrJyBkPSdtIDAgMyBMIDMgMyBMIDMgMCBDIDMgMSAxIDMgMCAzJy8+PC9zdmc+)] before:[mask-size:_contain]"
+				class="relative flex w-max max-w-md flex-col gap-1 rounded-2xl px-2.5 py-1 text-accent before:absolute before:bottom-0 before:size-5 before:[mask-image:_url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMycgaGVpZ2h0PSczJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnPjxwYXRoIGZpbGw9J2JsYWNrJyBkPSdtIDAgMyBMIDMgMyBMIDMgMCBDIDMgMSAxIDMgMCAzJy8+PC9zdmc+)] before:[mask-size:_contain]"
 				classList={{
 					"bg-primary rounded-r-lg": self(),
 					"bg-base-200 rounded-l-lg": !self(),
 					"!p-0 !max-w-60": message().type === "image",
-					"!p-0 overflow-visible bg-transparent":
-						message().type === "gif",
+					"!p-0 overflow-visible bg-transparent": message().type === "gif",
 					"rounded-tr-2xl": self() && firstMsg(),
 					"rounded-br-none before:scale-x-[-1] before:bg-primary before:-end-3":
 						self() && lastMsg(),
@@ -89,9 +88,7 @@ const ChatBubble = (props: Props) => {
 						!self() && lastMsg()
 				}}
 			>
-				<Show
-					when={message().type == "image" || message().type === "gif"}
-				>
+				<Show when={message().type == "image" || message().type === "gif"}>
 					<img
 						src={message().file!}
 						alt="Image"

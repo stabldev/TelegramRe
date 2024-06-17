@@ -38,9 +38,7 @@ const ChatHeader: Component = () => {
 
 	createEffect(() => {
 		setIsOnline(
-			onlineUsers()?.some(
-				(user) => user.user === activeRoom()?.member[0].id
-			)
+			onlineUsers()?.some((user) => user.user === activeRoom()?.member[0].id)
 				? true
 				: false
 		);
@@ -56,19 +54,14 @@ const ChatHeader: Component = () => {
 					<div class="size-10">
 						<Avatar
 							src={activeRoom()?.member[0].avatar ?? ""}
-							alt={
-								activeRoom()?.member[0].full_name ??
-								"Telegram User"
-							}
+							alt={activeRoom()?.member[0].full_name ?? "Telegram User"}
 							class="rounded-full text-lg font-bold text-accent"
 						/>
 					</div>
 				</Show>
 				<div class="text-secondary flex flex-col items-start leading-none">
 					<span class="text-base font-medium text-accent">
-						{IS_DM
-							? activeRoom()?.member[0].full_name
-							: activeRoom()?.name}
+						{IS_DM ? activeRoom()?.member[0].full_name : activeRoom()?.name}
 					</span>
 					<Show
 						when={IS_DM && isOnline()}

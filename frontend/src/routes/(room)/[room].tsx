@@ -1,5 +1,12 @@
 import { Title } from "@solidjs/meta";
-import { RouteDefinition, RouteSectionProps, cache, createAsync, redirect, useParams } from "@solidjs/router";
+import {
+	RouteDefinition,
+	RouteSectionProps,
+	cache,
+	createAsync,
+	redirect,
+	useParams
+} from "@solidjs/router";
 import { Intent } from "@solidjs/router/dist/types";
 import { Show, createEffect, createSignal } from "solid-js";
 import ChatView from "~/components/pages/chat";
@@ -14,7 +21,7 @@ import { ChatMessage, ChatRoom } from "~/types/chat";
 interface ChatRoomData {
 	chat_room: ChatRoom;
 	chat_messages: ChatMessage[];
-};
+}
 
 const getRoom = cache(async (room: string, intent: Intent) => {
 	try {
@@ -25,15 +32,15 @@ const getRoom = cache(async (room: string, intent: Intent) => {
 			url = "http://backend:8000/api/v1/chat/chat-rooms/" + room;
 		} else {
 			url = ApiEndpoints.chat.CHAT_ROOMS + room;
-		};
+		}
 
-		const data = await fetchAPI(url) as ChatRoomData;
-		console.log(data)
+		const data = (await fetchAPI(url)) as ChatRoomData;
+		console.log(data);
 		return data;
 	} catch (err) {
-		console.log(err)
+		console.log(err);
 		throw redirect("/");
-	};
+	}
 }, "room");
 
 export const route = {
@@ -41,16 +48,16 @@ export const route = {
 		const room = args.params.room.slice(1);
 		return getRoom(room, args.intent);
 	},
-  	matchFilters: {
-  		room: (v: string) => v.includes("~")
-  	}
+	matchFilters: {
+		room: (v: string) => v.includes("~")
+	}
 } satisfies RouteDefinition;
 
 const UserChat = (props: RouteSectionProps) => {
 	const { setActiveRoom } = useChat();
 	const { showSidebar } = useShared();
 
-	const [ title, setTitle ] = createSignal("Telegram");
+	const [title, setTitle] = createSignal("Telegram");
 	const data = createAsync(() => props.data as Promise<ChatRoomData>);
 
 	createEffect(() => {
@@ -64,7 +71,7 @@ const UserChat = (props: RouteSectionProps) => {
 				setTitle(roomData.chat_room.name as string);
 			}
 		}
-	})
+	});
 
 	return (
 		<>

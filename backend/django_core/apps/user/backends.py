@@ -6,6 +6,8 @@ custom authentication backend for passwordless auth
 authenticates with email only
 usage: login(backend="....backends.PasswordlessAuthBackend")
 """
+
+
 class PasswordlessAuthBackend(ModelBackend):
     def authenticate(self, request, email):
         User = get_user_model()

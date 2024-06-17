@@ -39,9 +39,7 @@ const SearchHeader = (props: Props) => {
 						onClick={toggleView()}
 					>
 						<UserSettings class="size-4" />
-						<span class="text-sm font-medium text-accent">
-							Settings
-						</span>
+						<span class="text-sm font-medium text-accent">Settings</span>
 					</button>
 					<a
 						href="https://github.com/moonlitgrace/telegram-re-monorepo/issues"
@@ -49,9 +47,7 @@ const SearchHeader = (props: Props) => {
 						class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
 					>
 						<BugReport class="size-4" />
-						<span class="text-sm font-medium text-accent">
-							Report Bug
-						</span>
+						<span class="text-sm font-medium text-accent">Report Bug</span>
 					</a>
 					<a
 						href="https://github.com/moonlitgrace/telegram-re-monorepo/"
@@ -59,9 +55,7 @@ const SearchHeader = (props: Props) => {
 						class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
 					>
 						<Code class="size-4" />
-						<span class="text-sm font-medium text-accent">
-							Source
-						</span>
+						<span class="text-sm font-medium text-accent">Source</span>
 					</a>
 					<a
 						href="https://github.com/moonlitgrace/telegram-re-monorepo/blob/main/LICENSE"
@@ -69,9 +63,7 @@ const SearchHeader = (props: Props) => {
 						class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
 					>
 						<License class="size-4" />
-						<span class="text-sm font-medium text-accent">
-							License
-						</span>
+						<span class="text-sm font-medium text-accent">License</span>
 					</a>
 					<span class="mx-auto flex w-max px-3 py-1 pt-1.5 text-xs text-neutral-100">
 						Telegram Web RE 1.0
@@ -82,7 +74,7 @@ const SearchHeader = (props: Props) => {
 				<input
 					placeholder="Search"
 					type="text"
-					class="peer size-full rounded-full border-none bg-base-300 pl-11 pr-3.5 text-accent caret-neutral-200 outline-none ring-primary placeholder:text-neutral-200 focus:ring-2 focus:bg-base-200"
+					class="peer size-full rounded-full border-none bg-base-300 pl-11 pr-3.5 text-accent caret-neutral-200 outline-none ring-primary placeholder:text-neutral-200 focus:bg-base-200 focus:ring-2"
 				/>
 				<Search class="pointer-events-none absolute left-3.5 size-5 text-neutral-200 peer-focus:text-primary" />
 			</form>

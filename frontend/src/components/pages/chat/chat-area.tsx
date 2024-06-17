@@ -31,11 +31,9 @@ const ChatArea = (props: Props) => {
 							<For each={group.chats}>
 								{(message, idx) => {
 									const isFirstMsg =
-										group.chats[idx() - 1]?.sender !==
-										message.sender;
+										group.chats[idx() - 1]?.sender !== message.sender;
 									const isLastMsg =
-										group.chats[idx() + 1]?.sender !==
-										message.sender;
+										group.chats[idx() + 1]?.sender !== message.sender;
 
 									return (
 										<ChatBubble

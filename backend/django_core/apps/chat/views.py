@@ -23,9 +23,7 @@ class ChatRoomListView(ListAPIView):
         return chat_rooms
 
 
-class ChatMessageView(
-    mixins.CreateModelMixin, generics.GenericAPIView
-):
+class ChatMessageView(mixins.CreateModelMixin, generics.GenericAPIView):
     serializer_class = ChatMessageSerializer
 
     def get(self, request, *args, **kwargs):
@@ -37,10 +35,12 @@ class ChatMessageView(
             serialize_chat_room = ChatRoomSerializer(chat_room, many=False)
             serialize_chat_messages = ChatMessageSerializer(chat_messages, many=True)
 
-            return Response(data={
-                "chat_room": serialize_chat_room.data,
-                "chat_messages": serialize_chat_messages.data
-            })
+            return Response(
+                data={
+                    "chat_room": serialize_chat_room.data,
+                    "chat_messages": serialize_chat_messages.data,
+                }
+            )
         except ChatRoom.DoesNotExist:
             return Response(
                 data={"detail": "ChatRoom not found"},

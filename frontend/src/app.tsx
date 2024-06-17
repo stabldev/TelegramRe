@@ -24,9 +24,7 @@ const App = () => {
 						type="image/svg+xml"
 					/>
 
-					<MultiProvider
-						values={[AuthProvider, SharedProvider, ChatProvider]}
-					>
+					<MultiProvider values={[AuthProvider, SharedProvider, ChatProvider]}>
 						<Toaster
 							position="bottom-center"
 							toastOptions={{

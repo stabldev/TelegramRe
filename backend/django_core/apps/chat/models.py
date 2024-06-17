@@ -4,11 +4,14 @@ from django.utils.translation import gettext_lazy as _
 from apps.user.models import CustomUser
 from mixins.models.uuid import UUIDMixin
 
+
 class ChatRoom(UUIDMixin):
     class ChatRoomType(models.TextChoices):
         DM = "DM", _("DM")
 
-    type = models.CharField(max_length=10, choices=ChatRoomType, default=ChatRoomType.DM)
+    type = models.CharField(
+        max_length=10, choices=ChatRoomType, default=ChatRoomType.DM
+    )
     member = models.ManyToManyField(CustomUser)
     name = models.CharField(max_length=50, null=True, blank=True)
 

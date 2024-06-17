@@ -28,9 +28,7 @@ const ChatSidebar = () => {
 				<div class="relative aspect-square object-cover">
 					<Avatar
 						src={IS_DM ? activeRoom()?.member[0].avatar ?? "" : ""}
-						alt={
-							IS_DM ? activeRoom()?.member[0].full_name ?? "" : ""
-						}
+						alt={IS_DM ? activeRoom()?.member[0].full_name ?? "" : ""}
 						class="object-cover text-[15rem] font-bold text-accent"
 					/>
 					<div class="absolute inset-x-0 bottom-0 flex h-1/2 flex-col justify-end bg-gradient-to-t from-base-200/50 to-transparent md:gap-1.5 md:px-5 md:py-2">
@@ -47,13 +45,9 @@ const ChatSidebar = () => {
 						<At class="col-span-1 size-6 self-center text-neutral-100" />
 						<div class="col-span-7 flex flex-col">
 							<span>
-								{IS_DM
-									? activeRoom()?.member[0].username
-									: activeRoom()?.name}
+								{IS_DM ? activeRoom()?.member[0].username : activeRoom()?.name}
 							</span>
-							<span class="select-none text-sm text-neutral-100">
-								Username
-							</span>
+							<span class="select-none text-sm text-neutral-100">Username</span>
 						</div>
 					</div>
 					<Show when={IS_DM}>
@@ -61,9 +55,7 @@ const ChatSidebar = () => {
 							<Info class="col-span-1 size-[1.4rem] self-center text-neutral-100" />
 							<div class="col-span-7 flex flex-col">
 								<span>{activeRoom()?.member[0].bio}</span>
-								<span class="select-none text-sm text-neutral-100">
-									Bio
-								</span>
+								<span class="select-none text-sm text-neutral-100">Bio</span>
 							</div>
 						</div>
 					</Show>

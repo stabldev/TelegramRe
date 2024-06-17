@@ -105,9 +105,7 @@ const ChatContextMenu = (props: Props) => {
 						class="flex w-full items-center gap-4 rounded-lg px-3 py-1.5 text-start text-neutral-100 hover:bg-base-200/75"
 					>
 						<Pencil class="size-4" />
-						<span class="text-sm font-medium text-accent">
-							Edit
-						</span>
+						<span class="text-sm font-medium text-accent">Edit</span>
 					</button>
 				</Show>
 				<button
@@ -132,9 +130,7 @@ const ChatContextMenu = (props: Props) => {
 							variant="double"
 							class="size-4"
 						/>
-						<span class="text-sm font-medium">
-							Seen {formatedDate}
-						</span>
+						<span class="text-sm font-medium">Seen {formatedDate}</span>
 					</div>
 				</Show>
 			</div>

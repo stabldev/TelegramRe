@@ -11,13 +11,13 @@ import { destructure } from "@solid-primitives/destructure";
 
 interface Props {
 	messages: ChatMessage[];
-};
+}
 
 const ChatView = (props: Props) => {
 	const { messages: propsMsgs } = destructure(props);
 	const { socket, activeRoom, setChatRooms, setOnlineUsers } = useChat();
 
-	const [ messages, setMessages ] = createSignal(propsMsgs());
+	const [messages, setMessages] = createSignal(propsMsgs());
 
 	socket()!.onmessage = function (e: MessageEvent) {
 		const data: {
@@ -28,7 +28,7 @@ const ChatView = (props: Props) => {
 
 		if (data.action === SocketActions.MESSAGE) {
 			if (data.message?.room === activeRoom()?.id) {
-				setMessages((prevMessages) => [...(prevMessages || []), (data.message)!]);
+				setMessages((prevMessages) => [...(prevMessages || []), data.message!]);
 			}
 			setChatRooms((chatRooms) =>
 				chatRooms?.map((room) =>
@@ -36,10 +36,7 @@ const ChatView = (props: Props) => {
 						? {
 								...room,
 								message: data.message,
-								unreads:
-									room.id !== activeRoom()?.id
-										? room.unreads + 1
-										: 0
+								unreads: room.id !== activeRoom()?.id ? room.unreads + 1 : 0
 							}
 						: room
 				)
@@ -49,9 +46,7 @@ const ChatView = (props: Props) => {
 		} else if (data.action === SocketActions.READ_ROOM) {
 			setChatRooms((chatRooms) =>
 				chatRooms?.map((room) =>
-					room.id === activeRoom()?.id
-						? { ...room, unreads: 0 }
-						: room
+					room.id === activeRoom()?.id ? { ...room, unreads: 0 } : room
 				)
 			);
 		} else if (data.action === SocketActions.READ_MESSAGE) {
@@ -82,8 +77,7 @@ const ChatView = (props: Props) => {
 
 			setChatRooms((chatRooms) =>
 				chatRooms?.map((room) =>
-					room.id === data.message?.room &&
-					room.message.id === data.message.id
+					room.id === data.message?.room && room.message.id === data.message.id
 						? { ...room, message: data.message }
 						: room
 				)
@@ -103,7 +97,7 @@ const ChatView = (props: Props) => {
 		requestAnimationFrame(() => {
 			scrollToBottom(chatAreaRef, { behavior: "smooth" });
 		});
-	})
+	});
 
 	return (
 		<div class="relative grid h-screen grid-rows-[min-content_1fr_min-content]">

@@ -32,12 +32,9 @@ const EmailForm = (props: Props) => {
 	return (
 		<>
 			<div class="flex flex-col md:gap-3">
-				<h2 class="font-medium text-accent md:text-3xl">
-					Sign in to Telegram
-				</h2>
+				<h2 class="font-medium text-accent md:text-3xl">Sign in to Telegram</h2>
 				<span class="flex self-center text-neutral-100 md:text-base">
-					Please confirm your country and <br /> enter your email
-					address.
+					Please confirm your country and <br /> enter your email address.
 				</span>
 			</div>
 			<form

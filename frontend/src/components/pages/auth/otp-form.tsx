@@ -25,12 +25,10 @@ const OtpForm = () => {
 	return (
 		<>
 			<div class="flex flex-col md:gap-3">
-				<h2 class="font-medium text-accent md:text-3xl">
-					Email verification
-				</h2>
+				<h2 class="font-medium text-accent md:text-3xl">Email verification</h2>
 				<span class="flex self-center text-neutral-100 md:text-base">
-					Please enter the OTP which we've send to <br /> your email
-					address to complete.
+					Please enter the OTP which we've send to <br /> your email address to
+					complete.
 				</span>
 			</div>
 			<form

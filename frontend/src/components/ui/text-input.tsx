@@ -28,8 +28,7 @@ const TextInput = (props: Props) => {
 				class="relative flex items-center border-2 border-neutral-300 duration-200 ease-out focus-within:border-primary md:rounded-xl md:p-2.5 md:text-base"
 				classList={{
 					"focus-within:!border-error":
-						props.errorMsg !== undefined &&
-						props.errorMsg.length !== 0
+						props.errorMsg !== undefined && props.errorMsg.length !== 0
 				}}
 			>
 				<input

@@ -184,11 +184,7 @@ const ChatInput = () => {
 						</button>
 						<TextareaAutosize
 							ref={(ref) => (inputRef = ref)}
-							value={
-								isEditingMessage()
-									? editMessage()?.content
-									: message()
-							}
+							value={isEditingMessage() ? editMessage()?.content : message()}
 							onInput={(e) => setMessage(e.currentTarget.value)}
 							onKeyDown={handleKeyDown}
 							class="flex-1 resize-none self-center border-none bg-base-200 text-accent caret-accent outline-none [scrollbar-width:none]"

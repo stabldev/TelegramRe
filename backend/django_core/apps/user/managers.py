@@ -4,6 +4,8 @@ from django.contrib.auth.models import BaseUserManager
 custom user manager with passwordless authentication support
 ps: password is only used for admins and staffs
 """
+
+
 class UserManager(BaseUserManager):
     use_in_migrations = True
 

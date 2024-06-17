@@ -33,9 +33,7 @@ const ProfileItem = (props: ChatRoom) => {
 
 	createEffect(() => {
 		setIsOnline(
-			onlineUsers()?.some((user) => user.user === chat_user.id)
-				? true
-				: false
+			onlineUsers()?.some((user) => user.user === chat_user.id) ? true : false
 		);
 	});
 
@@ -57,9 +55,7 @@ const ProfileItem = (props: ChatRoom) => {
 				<Avatar
 					src={chat_user.avatar}
 					alt={chat_user.username}
-					class={
-						"size-full rounded-full text-2xl font-bold text-accent"
-					}
+					class={"size-full rounded-full text-2xl font-bold text-accent"}
 				/>
 				<Show when={isOnline()}>
 					<div
