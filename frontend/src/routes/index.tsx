@@ -1,7 +1,7 @@
 import DefaultLayout from "~/layouts/default";
 
 const Home = () => {
-	return <DefaultLayout />;
+  return <DefaultLayout />;
 };
 
 export default Home;

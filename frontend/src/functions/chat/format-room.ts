@@ -9,19 +9,19 @@ import type { ChatRoom } from "~/types/chat";
  * TODO: handle chat rooms with type "GROUP"
  */
 export function formatChatRoom(chatRooms: ChatRoom[] | undefined) {
-	if (!chatRooms) return;
-	const { user } = useAuth();
-	const userId = user()?.id;
+  if (!chatRooms) return;
+  const { user } = useAuth();
+  const userId = user()?.id;
 
-	const initialValue: ChatRoom[] = [];
+  const initialValue: ChatRoom[] = [];
 
-	return chatRooms.reduce((acumulator, chat) => {
-		if (chat.type === "DM") {
-			const newChat = { ...chat };
-			newChat.member = chat.member.filter((user) => user.id !== userId);
-			acumulator.push(newChat);
-			return acumulator;
-		}
-		return acumulator;
-	}, initialValue);
+  return chatRooms.reduce((acumulator, chat) => {
+    if (chat.type === "DM") {
+      const newChat = { ...chat };
+      newChat.member = chat.member.filter((user) => user.id !== userId);
+      acumulator.push(newChat);
+      return acumulator;
+    }
+    return acumulator;
+  }, initialValue);
 }

@@ -1,9 +1,9 @@
 export const scrollToBottom = (
-	el?: HTMLDivElement,
-	options?: { behavior: ScrollBehavior }
+  el?: HTMLDivElement,
+  options?: { behavior: ScrollBehavior }
 ) => {
-	el?.scrollTo({
-		top: el.scrollHeight,
-		behavior: options?.behavior
-	});
+  el?.scrollTo({
+    top: el.scrollHeight,
+    behavior: options?.behavior
+  });
 };
