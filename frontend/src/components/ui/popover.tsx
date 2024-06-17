@@ -20,7 +20,7 @@ const Popover = (props: IProps) => {
   const [xPos, setXPos] = createSignal(0);
   const [yPos, setYPos] = createSignal(0);
 
-  let ref: HTMLDivElement | undefined = undefined;
+  const ref: HTMLDivElement | undefined = undefined;
 
   const getOrigin = (pos: Position) => {
     // "bottom-left" -> "top left"

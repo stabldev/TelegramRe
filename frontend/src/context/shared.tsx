@@ -31,7 +31,7 @@ export function SharedProvider(props: { children?: JSX.Element }) {
   // change to edit mode if editMessage has value
   createEffect(() => {
     setIsEditingMessage(editMessage() !== undefined);
-  }, [isEditingMessage]);
+  });
 
   const context_value: SharedContextReturnType = {
     showSidebar,

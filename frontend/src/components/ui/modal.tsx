@@ -13,7 +13,7 @@ interface Props {
 const Modal = (props: Props) => {
   const { children, setOpen } = destructure(props);
 
-  let modalRef: HTMLElement | undefined = undefined;
+  const modalRef: HTMLElement | undefined = undefined;
 
   const handleOverlayClick = (e: UIEvent) => {
     if (modalRef!.contains(e.target as Node)) return;

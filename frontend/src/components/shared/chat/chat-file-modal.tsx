@@ -19,7 +19,7 @@ const ChatFileModal = (props: Props) => {
 
   const dispatch = createEventDispatcher(props);
 
-  let inputRef: HTMLInputElement | undefined = undefined;
+  const inputRef: HTMLInputElement | undefined = undefined;
 
   const handleCleanComponent = () => {
     setSending(false);

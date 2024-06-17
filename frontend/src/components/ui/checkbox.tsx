@@ -31,7 +31,7 @@ const CheckBox = (props: Props) => {
           stroke-linecap="round"
           stroke-linejoin="round"
         >
-          <polyline points="20 6 9 17 4 12"></polyline>
+          <polyline points="20 6 9 17 4 12" />
         </svg>
         <span class="text-neutral-100">{inputProps.placeholder}</span>
       </label>
