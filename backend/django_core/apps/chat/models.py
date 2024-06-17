@@ -3,9 +3,10 @@ from django.utils.translation import gettext_lazy as _
 
 from apps.user.models import CustomUser
 from mixins.models.uuid import UUIDMixin
+from mixins.models.created_at import CreatedAtMixin
 
 
-class ChatRoom(UUIDMixin):
+class ChatRoom(UUIDMixin, CreatedAtMixin):
     class ChatRoomType(models.TextChoices):
         DM = "DM", _("DM")
 
