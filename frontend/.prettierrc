@@ -1,11 +1,11 @@
 {
-	"useTabs": true,
-	"tabWidth": 4,
-	"singleQuote": false,
-	"trailingComma": "none",
-	"bracketSameLine": false,
-	"singleAttributePerLine": true,
-	"htmlWhitespaceSensitivity": "ignore",
-	"arrowParens": "always",
-	"plugins": ["prettier-plugin-tailwindcss"]
+  "useTabs": false,
+  "tabWidth": 2,
+  "singleQuote": false,
+  "trailingComma": "none",
+  "bracketSameLine": false,
+  "singleAttributePerLine": true,
+  "htmlWhitespaceSensitivity": "ignore",
+  "arrowParens": "always",
+  "plugins": ["prettier-plugin-tailwindcss"]
 }

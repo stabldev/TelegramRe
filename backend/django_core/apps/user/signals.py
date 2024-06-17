@@ -5,6 +5,7 @@ from django.db import IntegrityError
 
 from .models import CustomUser
 
+
 @receiver(post_save, sender=CustomUser)
 def create_username(sender, instance, created, **kwargs):
     if created:

@@ -13,35 +13,33 @@ import { ChatProvider } from "./context/chat";
 import "./app.css";
 
 const App = () => {
-	return (
-		<Router
-			root={(props) => (
-				<MetaProvider>
-					<Title>Telegram</Title>
-					<Link
-						rel="icon"
-						href="/favicon.svg"
-						type="image/svg+xml"
-					/>
+  return (
+    <Router
+      root={(props) => (
+        <MetaProvider>
+          <Title>Telegram</Title>
+          <Link
+            rel="icon"
+            href="/favicon.svg"
+            type="image/svg+xml"
+          />
 
-					<MultiProvider
-						values={[AuthProvider, SharedProvider, ChatProvider]}
-					>
-						<Toaster
-							position="bottom-center"
-							toastOptions={{
-								className:
-									"!bg-neutral !text-accent md:!text-sm md:!px-3 md:!py-2 !rounded-lg"
-							}}
-						/>
-						<Suspense>{props.children}</Suspense>
-					</MultiProvider>
-				</MetaProvider>
-			)}
-		>
-			<FileRoutes />
-		</Router>
-	);
+          <MultiProvider values={[AuthProvider, SharedProvider, ChatProvider]}>
+            <Toaster
+              position="bottom-center"
+              toastOptions={{
+                className:
+                  "!bg-neutral !text-accent md:!text-sm md:!px-3 md:!py-2 !rounded-lg"
+              }}
+            />
+            <Suspense>{props.children}</Suspense>
+          </MultiProvider>
+        </MetaProvider>
+      )}
+    >
+      <FileRoutes />
+    </Router>
+  );
 };
 
 export default App;

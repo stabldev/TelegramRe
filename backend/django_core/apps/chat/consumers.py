@@ -132,7 +132,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
             # when user edits a message
             message_id = data["message_id"]
             new_message = data["new_message"]
-            send_message = await database_sync_to_async(self.edit_message)(message_id, new_message)
+            send_message = await database_sync_to_async(self.edit_message)(
+                message_id, new_message
+            )
 
         # send socket message to that specific channel (room)
         await self.channel_layer.group_send(

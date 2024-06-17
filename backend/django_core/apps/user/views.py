@@ -40,6 +40,7 @@ class EmailVerificaionAPIView(APIView):
         send an otp to that email and continue validation
     else: creates a user with given email and begin validation
     """
+
     def post(self, request: HttpRequest):
         data = json.loads(request.body)
         email = data.get("email")
@@ -55,7 +56,9 @@ class EmailVerificaionAPIView(APIView):
         user.save()
 
         # send_otp(email, otp)
-        return Response(data={"detail": f"OTP sended: {otp}"}) # sending OTP as response for debugging
+        return Response(
+            data={"detail": f"OTP sended: {otp}"}
+        )  # sending OTP as response for debugging
 
 
 class OTPVerificationAPIVIew(APIView):
@@ -69,7 +72,9 @@ class OTPVerificationAPIVIew(APIView):
             user = User.objects.get(email=email)
             if user.otp == otp:
                 # use custom passwordless auth backend
-                login(request, user, backend="apps.user.backends.PasswordlessAuthBackend")
+                login(
+                    request, user, backend="apps.user.backends.PasswordlessAuthBackend"
+                )
                 return Response(data={"detail": "Login success"})
             else:
                 return Response(
@@ -124,6 +129,7 @@ class UserDetailView(generics.RetrieveUpdateAPIView):
             serializer.validated_data["avatar"] = instance.avatar
             serializer.save()
 
+
 class UserDetailViewV2(generics.RetrieveAPIView):
     lookup_field = "username"
     serializer_class = CustomUserSerializer
@@ -143,6 +149,7 @@ class SearchUserView(generics.ListAPIView):
         ).exclude(id=request_user.id)
 
         return search_users
+
 
 class CheckUserView(APIView):
     def get(self, request: HttpRequest, username: str, format=None):

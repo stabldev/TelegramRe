@@ -10,7 +10,7 @@ from .views import (
     UserDetailView,
     SearchUserView,
     CheckUserView,
-    UserDetailViewV2
+    UserDetailViewV2,
 )
 
 # fmt: off

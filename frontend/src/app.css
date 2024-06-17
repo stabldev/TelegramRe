@@ -5,26 +5,26 @@
 @tailwind utilities;
 
 body {
-	margin: 0;
-	font-family: "Roboto", sans-serif;
-	-webkit-font-smoothing: antialiased;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 * {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 @layer base {
-	:root {
-		--primary: 118 106 200;
-		--base-100: 15 15 15;
-		--base-200: 33 33 33;
-		--base-300: 44 44 44;
-		--neutral-100: 166 166 166;
-		--neutral-200: 113 117 121;
-		--neutral-300: 48 48 48;
-		--accent: 255 255 255;
-		--error: 255 87 51;
-	}
+  :root {
+    --primary: 118 106 200;
+    --base-100: 15 15 15;
+    --base-200: 33 33 33;
+    --base-300: 44 44 44;
+    --neutral-100: 166 166 166;
+    --neutral-200: 113 117 121;
+    --neutral-300: 48 48 48;
+    --accent: 255 255 255;
+    --error: 255 87 51;
+  }
 }
