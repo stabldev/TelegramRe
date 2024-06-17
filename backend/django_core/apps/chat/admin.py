@@ -7,6 +7,7 @@ from .models import ChatMessage, ChatRoom
 @admin.register(ChatRoom)
 class CharRoomAdmin(admin.ModelAdmin):
     list_display = ("__str__", "name", "type", "get_member_count")
+    readonly_fields = ("created_at",)
 
     def get_member_count(self, obj):
         return obj.member.count()
