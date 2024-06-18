@@ -1,9 +1,10 @@
 from django.contrib.auth.models import AbstractUser
-from django.db import models
+from django.db import IntegrityError, models
 from dynamic_filenames import FilePattern
 from django.utils.translation import gettext_lazy as _
 
 from .managers import UserManager
+from django_core.utilities.numeric_uuid import generate_numeric_uuid
 
 # Dynamic avatar filename
 avatar_pattern = FilePattern(filename_pattern="avatar/{uuid:s}{ext}")
@@ -28,6 +29,11 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+
+    def save(self, *args, **kwargs):
+        if self.username is None:
+            self.username = self.email.split("@")[0]
+        super().save(*args, **kwargs)
 
 
 class OnlineUser(models.Model):
