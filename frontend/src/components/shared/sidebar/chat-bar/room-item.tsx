@@ -12,9 +12,9 @@ import Gif from "~/icons/gif";
 import { cn } from "~/functions/cn";
 import Avatar from "~/components/ui/avatar";
 
-const ProfileItem = (props: ChatRoom) => {
+const RoomItem = (props: ChatRoom) => {
   const { user } = useAuth();
-  const { onlineUsers, setActiveRoom } = useChat();
+  const { onlineUsers } = useChat();
   const params = useParams<{ room: string }>();
 
   const [isActive, setIsActive] = createSignal(false);
@@ -26,10 +26,6 @@ const ProfileItem = (props: ChatRoom) => {
   const self_message = message().sender === user()?.id;
   const formated_timestamp = new FormatDate(message().timestamp)
     .format_to_relative_time;
-
-  const handleChatClick = () => {
-    setActiveRoom(props);
-  };
 
   createEffect(() => {
     setIsOnline(
@@ -49,7 +45,6 @@ const ProfileItem = (props: ChatRoom) => {
         isActive() && "!bg-primary",
         "flex h-auto w-full select-none flex-nowrap items-center gap-3 rounded-xl border-none bg-transparent p-2 hover:bg-base-300"
       )}
-      onClick={handleChatClick}
     >
       <div class="relative size-14 flex-shrink-0">
         <Avatar
@@ -165,4 +160,4 @@ const ProfileItem = (props: ChatRoom) => {
   );
 };
 
-export default ProfileItem;
+export default RoomItem;
