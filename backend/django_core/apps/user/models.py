@@ -1,10 +1,9 @@
 from django.contrib.auth.models import AbstractUser
-from django.db import IntegrityError, models
+from django.db import models
 from dynamic_filenames import FilePattern
 from django.utils.translation import gettext_lazy as _
 
 from .managers import UserManager
-from django_core.utilities.numeric_uuid import generate_numeric_uuid
 
 # Dynamic avatar filename
 avatar_pattern = FilePattern(filename_pattern="avatar/{uuid:s}{ext}")
