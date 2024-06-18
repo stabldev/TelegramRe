@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView, CreateAPIView
+from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework import mixins, generics, status
 from rest_framework.response import Response
