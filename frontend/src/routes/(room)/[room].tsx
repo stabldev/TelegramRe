@@ -3,18 +3,18 @@ import {
   RouteDefinition,
   RouteSectionProps,
   cache,
-  createAsync,
-  redirect,
-  useParams
+  redirect
 } from "@solidjs/router";
 import { Intent } from "@solidjs/router/dist/types";
 import { Show, createEffect, createSignal } from "solid-js";
 import ChatView from "~/components/pages/chat";
 import ChatSidebar from "~/components/shared/chat/chat-sidebar";
+import { useAuth } from "~/context/auth";
 import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
 import ApiEndpoints from "~/endpoints/api/api-endpoints";
 import { fetchAPI } from "~/functions/api/fetch";
+import { formatChatRoom } from "~/functions/chat/format-room";
 import DefaultLayout from "~/layouts/default";
 import { ChatMessage, ChatRoom } from "~/types/chat";
 
@@ -35,10 +35,8 @@ const getRoom = cache(async (room: string, intent: Intent) => {
     }
 
     const data = (await fetchAPI(url)) as ChatRoomData;
-    console.log(data);
     return data;
   } catch (err) {
-    console.log(err);
     throw redirect("/");
   }
 }, "room");
@@ -54,21 +52,32 @@ export const route = {
 } satisfies RouteDefinition;
 
 const UserChat = (props: RouteSectionProps) => {
-  const { setActiveRoom } = useChat();
+  const { user } = useAuth();
+  const { setActiveRoom, activeRoom } = useChat();
   const { showSidebar } = useShared();
 
   const [title, setTitle] = createSignal("Telegram");
-  const data = createAsync(() => props.data as Promise<ChatRoomData>);
+  const [roomData, setRoomData] = createSignal<ChatRoomData>();
+
+  const fetchRoomData = async (room: string, intent: Intent) => {
+    const data = await getRoom(room, intent);
+    setRoomData(data);
+  };
 
   createEffect(() => {
-    const roomData = data();
-    if (roomData) {
-      setActiveRoom(roomData.chat_room);
+    const room = props.params.room.slice(1);
+    fetchRoomData(room, "navigate");
+  });
+
+  createEffect(() => {
+    const data = roomData();
+    if (data) {
+      setActiveRoom(formatChatRoom([data.chat_room])?.[0]);
       // check if room type is DM or group
-      if (roomData.chat_room.type === "DM") {
-        setTitle(roomData.chat_room.member[0].full_name);
+      if (data.chat_room.type === "DM") {
+          setTitle(activeRoom()?.member[0].full_name ?? "");
       } else {
-        setTitle(roomData.chat_room.name as string);
+        setTitle(data.chat_room.name as string);
       }
     }
   });
@@ -77,7 +86,7 @@ const UserChat = (props: RouteSectionProps) => {
     <>
       <Title>{title()}</Title>
       <DefaultLayout>
-        <ChatView messages={data()?.chat_messages as ChatMessage[]} />
+        <ChatView messages={roomData()?.chat_messages as ChatMessage[]} />
         <Show when={showSidebar()}>
           <ChatSidebar />
         </Show>

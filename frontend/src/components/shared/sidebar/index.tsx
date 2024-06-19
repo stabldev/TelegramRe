@@ -38,7 +38,8 @@ const Sidebar: Component = () => {
   const toggleView = () => setIsChatBarOpen((prev) => !prev);
 
   createEffect(() => {
-    setChatRooms(formatChatRoom(data()));
+    const formatedRoom = formatChatRoom(data());
+    setChatRooms(formatedRoom);
     setOnlineUsers(online_users());
   });
 

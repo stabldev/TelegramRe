@@ -1,35 +1,30 @@
-import { A, useParams } from "@solidjs/router";
 import { destructure } from "@solid-primitives/destructure";
-import { FormatDate } from "~/functions/format-date";
 import { Match, Show, Switch, createEffect, createSignal } from "solid-js";
-import { useAuth } from "~/context/auth";
-import Tick from "~/icons/tick";
-import type { ChatRoom } from "~/types/chat";
-import { useChat } from "~/context/chat";
-import Verified from "~/icons/verified";
-import Photo from "~/icons/photo";
-import Gif from "~/icons/gif";
-import { cn } from "~/functions/cn";
 import Avatar from "~/components/ui/avatar";
+import { useAuth } from "~/context/auth";
+import { useChat } from "~/context/chat";
+import { FormatDate } from "~/functions/format-date";
+import Gif from "~/icons/gif";
+import Photo from "~/icons/photo";
+import Tick from "~/icons/tick";
+import Verified from "~/icons/verified";
+import { ChatRoom } from "~/types/chat";
 
-const ProfileItem = (props: ChatRoom) => {
+interface Props {
+  room: ChatRoom;
+  isActive: boolean;
+};
+
+const DMRoom = (props: Props) => {
+  const { room, isActive } = destructure(props);
   const { user } = useAuth();
-  const { onlineUsers, setActiveRoom } = useChat();
-  const params = useParams<{ room: string }>();
-
-  const [isActive, setIsActive] = createSignal(false);
+  const { onlineUsers } = useChat();
   const [isOnline, setIsOnline] = createSignal(false);
 
-  const { message, member, unreads, id } = destructure(props);
-
-  const chat_user = member()[0];
-  const self_message = message().sender === user()?.id;
-  const formated_timestamp = new FormatDate(message().timestamp)
+  const chat_user = room().member[0];
+  const self_message = room().member[0].id === user()?.id;
+  const formated_timestamp = new FormatDate(room().message.timestamp)
     .format_to_relative_time;
-
-  const handleChatClick = () => {
-    setActiveRoom(props);
-  };
 
   createEffect(() => {
     setIsOnline(
@@ -37,23 +32,11 @@ const ProfileItem = (props: ChatRoom) => {
     );
   });
 
-  createEffect(() => {
-    if (!params.room) return;
-    setIsActive(params.room.slice(1) === id().toString());
-  });
-
   return (
-    <A
-      href={`/~${id()}`}
-      class={cn(
-        isActive() && "!bg-primary",
-        "flex h-auto w-full select-none flex-nowrap items-center gap-3 rounded-xl border-none bg-transparent p-2 hover:bg-base-300"
-      )}
-      onClick={handleChatClick}
-    >
-      <div class="relative size-14 flex-shrink-0">
-        <Avatar
-          src={chat_user.avatar}
+    <>
+    <div class="relative size-14 flex-shrink-0">
+      <Avatar
+        src={chat_user.avatar}
           alt={chat_user.username}
           class={"size-full rounded-full text-2xl font-bold text-accent"}
         />
@@ -87,7 +70,7 @@ const ProfileItem = (props: ChatRoom) => {
           <div class="flex items-center gap-1">
             <Show when={self_message}>
               <Show
-                when={message().is_read}
+                when={room().message.is_read}
                 fallback={
                   <Tick
                     variant="single"
@@ -119,7 +102,7 @@ const ProfileItem = (props: ChatRoom) => {
         </div>
         <div class="flex items-center justify-between md:gap-1">
           <Show
-            when={message().type === "gif"}
+            when={room().message.type === "gif"}
             fallback={
               <span
                 class="line-clamp-1 text-base font-normal text-neutral-100"
@@ -127,7 +110,7 @@ const ProfileItem = (props: ChatRoom) => {
                   "!text-accent": isActive()
                 }}
               >
-                {message().content}
+                {room().message.content}
               </span>
             }
           >
@@ -143,26 +126,26 @@ const ProfileItem = (props: ChatRoom) => {
           <Show
             when={self_message}
             fallback={
-              <Show when={unreads() && !isActive()}>
+              <Show when={room().unreads && !isActive()}>
                 <span class="grid place-items-center rounded-full bg-primary font-semibold leading-none md:size-5 md:text-xs">
-                  {unreads()}
+                  {room().unreads}
                 </span>
               </Show>
             }
           >
             <Switch>
-              <Match when={message().type === "image"}>
+              <Match when={room().message.type === "image"}>
                 <Photo class="flex-shrink-0 md:size-4" />
               </Match>
-              <Match when={message().type === "gif"}>
+              <Match when={room().message.type === "gif"}>
                 <Gif class="flex-shrink-0 md:size-4" />
-              </Match>
-            </Switch>
-          </Show>
-        </div>
+            </Match>
+          </Switch>
+        </Show>
       </div>
-    </A>
-  );
-};
+    </div>
+    </>
+  )
+ }
 
-export default ProfileItem;
+export default DMRoom;
