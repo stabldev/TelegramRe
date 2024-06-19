@@ -9,8 +9,6 @@ const RoomItem = (props: ChatRoom) => {
   const params = useParams<{ room: string }>();
   const [isActive, setIsActive] = createSignal(false);
 
-  console.log(props);
-
   createEffect(() => {
     if (!params.room) return;
     setIsActive(params.room.slice(1) === props.id.toString());
