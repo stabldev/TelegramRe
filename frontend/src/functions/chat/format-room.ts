@@ -22,6 +22,7 @@ export function formatChatRoom(chatRooms: ChatRoom[] | undefined) {
       acumulator.push(newRoom);
       return acumulator;
     }
+    acumulator.push(room);
     return acumulator;
   }, initialValue);
 }

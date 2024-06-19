@@ -9,6 +9,7 @@ from mixins.models.created_at import CreatedAtMixin
 class ChatRoom(UUIDMixin, CreatedAtMixin):
     class ChatRoomType(models.TextChoices):
         DM = "DM", _("DM")
+        GROUP = "GROUP", _("GROUP")
 
     type = models.CharField(
         max_length=10, choices=ChatRoomType, default=ChatRoomType.DM

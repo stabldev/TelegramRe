@@ -3,10 +3,13 @@ import { Match, Switch, createEffect, createSignal } from "solid-js";
 import type { ChatRoom } from "~/types/chat";
 import { cn } from "~/functions/cn";
 import DMRoom from "./room/dm";
+import GroupRoom from "./room/group";
 
 const RoomItem = (props: ChatRoom) => {
   const params = useParams<{ room: string }>();
   const [isActive, setIsActive] = createSignal(false);
+
+  console.log(props);
 
   createEffect(() => {
     if (!params.room) return;
@@ -24,6 +27,12 @@ const RoomItem = (props: ChatRoom) => {
       <Switch>
         <Match when={props.type === "DM"}>
           <DMRoom
+            room={props}
+            isActive={isActive()}
+          />
+        </Match>
+        <Match when={props.type === "GROUP"}>
+          <GroupRoom
             room={props}
             isActive={isActive()}
           />
