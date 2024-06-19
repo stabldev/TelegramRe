@@ -2,7 +2,7 @@ export type ChatMessage = {
   id: number;
   type: "text" | "image" | "gif";
   room: number;
-  sender: number;
+  sender: ChatMember;
   content: string;
   file: string | null;
   is_read: boolean;

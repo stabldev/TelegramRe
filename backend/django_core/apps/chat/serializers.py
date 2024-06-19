@@ -16,6 +16,8 @@ class ChatMemberSerializer(serializers.ModelSerializer):
 
 
 class ChatMessageSerializer(serializers.ModelSerializer):
+    sender = ChatMemberSerializer()
+
     class Meta:
         model = ChatMessage
         fields = [
@@ -32,7 +34,7 @@ class ChatMessageSerializer(serializers.ModelSerializer):
 
 
 class ChatRoomSerializer(serializers.ModelSerializer):
-    member = ChatMemberSerializer(many=True, read_only=True)
+    member = ChatMemberSerializer(many=True)
     message = serializers.SerializerMethodField()
     unreads = serializers.SerializerMethodField()
 

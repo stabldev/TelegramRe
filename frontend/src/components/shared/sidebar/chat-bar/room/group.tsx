@@ -18,7 +18,7 @@ const GroupRoom = (props: Props) => {
   const { room, isActive } = destructure(props);
   const { user } = useAuth();
 
-  const self_message = room().message.sender === user()?.id;
+  const self_message = room().message.sender.id === user()?.id;
   const formated_timestamp = new FormatDate(room().message.created_at)
     .format_to_relative_time;
 
@@ -91,7 +91,8 @@ const GroupRoom = (props: Props) => {
                   "!text-accent": isActive()
                 }}
               >
-                {room().message.sender + ": " + room().message.content}
+                    <span class="text-accent">{room().message.sender.full_name || room().message.sender.username}: </span>
+                {room().message.content}
               </span>
             }
           >
