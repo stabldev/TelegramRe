@@ -19,7 +19,7 @@ const GroupRoom = (props: Props) => {
   const { user } = useAuth();
 
   const self_message = room().message.sender === user()?.id;
-  const formated_timestamp = new FormatDate(room().message.timestamp)
+  const formated_timestamp = new FormatDate(room().message.created_at)
     .format_to_relative_time;
 
   return (

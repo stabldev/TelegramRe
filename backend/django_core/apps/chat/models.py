@@ -27,7 +27,7 @@ class ChatRoom(UUIDMixin, CreatedAtMixin):
         return f"{self.id}: {self.name}"
 
 
-class ChatMessage(models.Model):
+class ChatMessage(CreatedAtMixin):
     class ChatType(models.TextChoices):
         TXT = "text", "text"
         IMG = "image", "image"
@@ -44,7 +44,6 @@ class ChatMessage(models.Model):
     file = models.FileField(upload_to="chat_files/", null=True, blank=True)
     is_read = models.BooleanField(default=False)
     edited = models.BooleanField(default=False)
-    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.sender} -> {self.room}"
@@ -53,6 +52,3 @@ class ChatMessage(models.Model):
         # DB
         db_table = "chat_message"
         db_table_comment = "Chat messages"
-
-        ordering = ["timestamp"]
-        get_latest_by = ["order_timestamp"]

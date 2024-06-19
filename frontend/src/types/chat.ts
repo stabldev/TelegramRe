@@ -7,7 +7,7 @@ export type ChatMessage = {
   file: string | null;
   is_read: boolean;
   edited: boolean;
-  timestamp: string;
+  created_at: string;
 };
 
 export type ChatMember = {
