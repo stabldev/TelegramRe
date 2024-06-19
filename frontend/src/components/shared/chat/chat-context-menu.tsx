@@ -31,7 +31,7 @@ const ChatContextMenu = (props: Props) => {
 
   const dispatch = createEventDispatcher(props);
   let ref: HTMLDivElement;
-  const formatedDate = new FormatDate(message()().timestamp)
+  const formatedDate = new FormatDate(message()().created_at)
     .format_to_relative_time;
 
   const handleOutsideClick = (event: MouseEvent) => {

@@ -21,7 +21,7 @@ const ChatBubble = (props: Props) => {
   const [contextPos, setContextPos] = createSignal({ x: 0, y: 0 });
 
   const { message, self, firstMsg, lastMsg } = destructure(props);
-  const formatedDate = new FormatDate(message().timestamp)
+  const formatedDate = new FormatDate(message().created_at)
     .format_to_relative_time;
 
   let el: HTMLDivElement;

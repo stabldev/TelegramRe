@@ -23,7 +23,7 @@ const DMRoom = (props: Props) => {
 
   const chat_user = room().member[0];
   const self_message = room().member[0].id === user()?.id;
-  const formated_timestamp = new FormatDate(room().message.timestamp)
+  const formated_timestamp = new FormatDate(room().message.created_at)
     .format_to_relative_time;
 
   createEffect(() => {
