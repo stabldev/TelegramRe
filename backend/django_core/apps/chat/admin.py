@@ -10,7 +10,7 @@ class CharRoomAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at",)
 
     def get_member_count(self, obj):
-        return obj.member.count()
+        return obj.members.count()
 
     get_member_count.short_description = "member count"
 

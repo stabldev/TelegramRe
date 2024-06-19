@@ -18,7 +18,7 @@ export function formatChatRoom(chatRooms: ChatRoom[] | undefined) {
   return chatRooms.reduce((acumulator, room) => {
     if (room.type === "DM") {
       const newRoom = { ...room };
-      newRoom.member = room.member.filter((user) => user.id !== userId);
+      newRoom.members = room.members.filter((user) => user.id !== userId);
       acumulator.push(newRoom);
       return acumulator;
     }

@@ -84,7 +84,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         """
         self.user = self.scope["user"]
         self.rooms = await database_sync_to_async(list)(
-            ChatRoom.objects.filter(member=self.user)
+            ChatRoom.objects.filter(members=self.user)
         )
         for room in self.rooms:
             await self.channel_layer.group_add(room.id, self.channel_name)

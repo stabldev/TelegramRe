@@ -9,7 +9,7 @@ const GroupProfile = (props: ChatRoom) => {
 
   createEffect(() => {
     setOnlineMembers(
-      activeRoom()?.member.filter((mem) => onlineUsers()?.includes({ user: mem.id })).length ?? 0
+      activeRoom()?.members.filter((mem) => onlineUsers()?.includes({ user: mem.id })).length ?? 0
     )
   })
 
@@ -17,8 +17,8 @@ const GroupProfile = (props: ChatRoom) => {
     <>
       <div class="size-10">
         <Avatar
-          src={props.member[0].avatar ?? ""}
-          alt={props.member[0].full_name ?? "Telegram User"}
+          src={props.members[0].avatar ?? ""}
+          alt={props.members[0].full_name ?? "Telegram User"}
           class="rounded-full text-lg font-bold text-accent"
         />
       </div>

@@ -21,8 +21,8 @@ const DMRoom = (props: Props) => {
   const { onlineUsers } = useChat();
   const [isOnline, setIsOnline] = createSignal(false);
 
-  const chat_user = room().member[0];
-  const self_message = room().member[0].id === user()?.id;
+  const chat_user = room().members[0];
+  const self_message = room().members[0].id === user()?.id;
   const formated_timestamp = new FormatDate(room().message.created_at)
     .format_to_relative_time;
 
