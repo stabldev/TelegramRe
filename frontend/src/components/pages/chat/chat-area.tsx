@@ -25,20 +25,20 @@ const ChatArea = (props: Props) => {
             <div
               class="flex flex-col gap-1.5"
               classList={{
-                "items-end": group.sender === user()?.id
+                "items-end": group.senderId === user()?.id
               }}
             >
               <For each={group.chats}>
                 {(message, idx) => {
                   const isFirstMsg =
-                    group.chats[idx() - 1]?.sender !== message.sender;
+                    group.chats[idx() - 1]?.sender.id !== message.sender.id;
                   const isLastMsg =
-                    group.chats[idx() + 1]?.sender !== message.sender;
+                    group.chats[idx() + 1]?.sender.id !== message.sender.id;
 
                   return (
                     <ChatBubble
                       message={message}
-                      self={message.sender === user()?.id}
+                      self={message.sender.id === user()?.id}
                       firstMsg={isFirstMsg}
                       lastMsg={isLastMsg}
                     />
