@@ -12,7 +12,7 @@ import { ChatRoom } from "~/types/chat";
 interface Props {
   room: ChatRoom;
   isActive: boolean;
-};
+}
 
 const GroupRoom = (props: Props) => {
   const { room, isActive } = destructure(props);
@@ -24,8 +24,8 @@ const GroupRoom = (props: Props) => {
 
   return (
     <>
-    <div class="relative size-14 flex-shrink-0">
-      <Avatar
+      <div class="relative size-14 flex-shrink-0">
+        <Avatar
           src={""}
           alt={room().name ?? ""}
           class={"size-full rounded-full text-2xl font-bold text-accent"}
@@ -34,9 +34,7 @@ const GroupRoom = (props: Props) => {
       <div class="flex w-full flex-col">
         <div class="flex items-center justify-between">
           <div class="flex items-center md:gap-1">
-            <span class="text-base font-medium text-accent">
-              {room().name}
-            </span>
+            <span class="text-base font-medium text-accent">{room().name}</span>
             <Show when={true}>
               <div
                 classList={{
@@ -91,7 +89,11 @@ const GroupRoom = (props: Props) => {
                   "!text-accent": isActive()
                 }}
               >
-                    <span class="text-accent">{room().message.sender.full_name || room().message.sender.username}: </span>
+                <span class="text-accent">
+                  {room().message.sender.full_name ||
+                    room().message.sender.username}
+                  :{" "}
+                </span>
                 {room().message.content}
               </span>
             }
@@ -121,13 +123,13 @@ const GroupRoom = (props: Props) => {
               </Match>
               <Match when={room().message.type === "gif"}>
                 <Gif class="flex-shrink-0 md:size-4" />
-            </Match>
-          </Switch>
-        </Show>
+              </Match>
+            </Switch>
+          </Show>
+        </div>
       </div>
-    </div>
     </>
-  )
- }
+  );
+};
 
 export default GroupRoom;

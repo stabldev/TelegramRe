@@ -5,7 +5,7 @@ import { ChatRoom } from "~/types/chat";
 
 const DMProfile = (props: ChatRoom) => {
   const [isOnline, setIsOnline] = createSignal(false);
-    const { onlineUsers, activeRoom } = useChat();
+  const { onlineUsers, activeRoom } = useChat();
 
   createEffect(() => {
     setIsOnline(
@@ -40,7 +40,7 @@ const DMProfile = (props: ChatRoom) => {
         </Show>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default DMProfile;

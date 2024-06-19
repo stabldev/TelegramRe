@@ -9,9 +9,11 @@ const GroupProfile = (props: ChatRoom) => {
 
   createEffect(() => {
     setOnlineMembers(
-      activeRoom()?.members.filter((mem) => onlineUsers()?.includes({ user: mem.id })).length ?? 0
-    )
-  })
+      activeRoom()?.members.filter((mem) =>
+        onlineUsers()?.includes({ user: mem.id })
+      ).length ?? 0
+    );
+  });
 
   return (
     <>
@@ -23,16 +25,14 @@ const GroupProfile = (props: ChatRoom) => {
         />
       </div>
       <div class="text-secondary flex flex-col items-start leading-none">
-        <span class="text-base font-medium text-accent">
-          {props.name}
-        </span>
+        <span class="text-base font-medium text-accent">{props.name}</span>
         <span class="text-sm font-normal text-neutral-100">
           {/* +1 for current user */}
           {onlineMembers() + 1} online
         </span>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default GroupProfile;
