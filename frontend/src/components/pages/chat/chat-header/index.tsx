@@ -4,6 +4,7 @@ import { useShared } from "~/context/shared";
 import Menu from "~/icons/menu";
 import Search from "~/icons/search";
 import DMProfile from "./dm-profile";
+import GroupProfile from "./group-profile";
 
 const ChatHeader= () => {
     const { toggleShowSidebar } = useShared();
@@ -35,6 +36,9 @@ const ChatHeader= () => {
         <Switch>
           <Match when={activeRoom()?.type === "DM"}>
             <DMProfile {...activeRoom()!} />
+          </Match>
+          <Match when={activeRoom()?.type === "GROUP"}>
+            <GroupProfile {...activeRoom()!} />
           </Match>
         </Switch>
       </button>
