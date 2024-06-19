@@ -15,11 +15,11 @@ export function formatChatRoom(chatRooms: ChatRoom[] | undefined) {
 
   const initialValue: ChatRoom[] = [];
 
-  return chatRooms.reduce((acumulator, chat) => {
-    if (chat.type === "DM") {
-      const newChat = { ...chat };
-      newChat.member = chat.member.filter((user) => user.id !== userId);
-      acumulator.push(newChat);
+  return chatRooms.reduce((acumulator, room) => {
+    if (room.type === "DM") {
+      const newRoom = { ...room };
+      newRoom.member = room.member.filter((user) => user.id !== userId);
+      acumulator.push(newRoom);
       return acumulator;
     }
     return acumulator;

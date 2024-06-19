@@ -11,6 +11,7 @@ import { Intent } from "@solidjs/router/dist/types";
 import { Show, createEffect, createSignal } from "solid-js";
 import ChatView from "~/components/pages/chat";
 import ChatSidebar from "~/components/shared/chat/chat-sidebar";
+import { useAuth } from "~/context/auth";
 import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
 import ApiEndpoints from "~/endpoints/api/api-endpoints";
@@ -54,6 +55,7 @@ export const route = {
 } satisfies RouteDefinition;
 
 const UserChat = (props: RouteSectionProps) => {
+  const { user } = useAuth();
   const { setActiveRoom } = useChat();
   const { showSidebar } = useShared();
 
@@ -66,7 +68,7 @@ const UserChat = (props: RouteSectionProps) => {
       setActiveRoom(roomData.chat_room);
       // check if room type is DM or group
       if (roomData.chat_room.type === "DM") {
-        setTitle(roomData.chat_room.member[0].full_name);
+          setTitle(roomData.chat_room.member.filter((mem) => mem.id !== user()?.id)[0].full_name);
       } else {
         setTitle(roomData.chat_room.name as string);
       }
