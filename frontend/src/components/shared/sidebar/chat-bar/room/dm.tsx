@@ -13,7 +13,7 @@ import { ChatRoom } from "~/types/chat";
 interface Props {
   room: ChatRoom;
   isActive: boolean;
-};
+}
 
 const DMRoom = (props: Props) => {
   const { room, isActive } = destructure(props);
@@ -21,8 +21,8 @@ const DMRoom = (props: Props) => {
   const { onlineUsers } = useChat();
   const [isOnline, setIsOnline] = createSignal(false);
 
-  const chat_user = room().member[0];
-  const self_message = room().member[0].id === user()?.id;
+  const chat_user = room().members[0];
+  const self_message = room().members[0].id === user()?.id;
   const formated_timestamp = new FormatDate(room().message.created_at)
     .format_to_relative_time;
 
@@ -34,9 +34,9 @@ const DMRoom = (props: Props) => {
 
   return (
     <>
-    <div class="relative size-14 flex-shrink-0">
-      <Avatar
-        src={chat_user.avatar}
+      <div class="relative size-14 flex-shrink-0">
+        <Avatar
+          src={chat_user.avatar}
           alt={chat_user.username}
           class={"size-full rounded-full text-2xl font-bold text-accent"}
         />
@@ -139,13 +139,13 @@ const DMRoom = (props: Props) => {
               </Match>
               <Match when={room().message.type === "gif"}>
                 <Gif class="flex-shrink-0 md:size-4" />
-            </Match>
-          </Switch>
-        </Show>
+              </Match>
+            </Switch>
+          </Show>
+        </div>
       </div>
-    </div>
     </>
-  )
- }
+  );
+};
 
 export default DMRoom;

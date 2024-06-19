@@ -6,9 +6,9 @@ import Search from "~/icons/search";
 import DMProfile from "./dm-profile";
 import GroupProfile from "./group-profile";
 
-const ChatHeader= () => {
-    const { toggleShowSidebar } = useShared();
-    const { activeRoom } = useChat();
+const ChatHeader = () => {
+  const { toggleShowSidebar } = useShared();
+  const { activeRoom } = useChat();
 
   const icon_mapping: {
     [key: string]: {

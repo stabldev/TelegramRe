@@ -14,7 +14,7 @@ class ChatRoom(UUIDMixin, CreatedAtMixin):
     type = models.CharField(
         max_length=10, choices=ChatRoomType, default=ChatRoomType.DM
     )
-    member = models.ManyToManyField(CustomUser)
+    members = models.ManyToManyField(CustomUser)
     name = models.CharField(max_length=50, null=True, blank=True)
 
     def save(self, *args, **kwargs):

@@ -67,7 +67,6 @@ const ChatView = (props: Props) => {
       );
     } else if (data.action === SocketActions.EDIT_MESSAGE) {
       if (data.message?.room === activeRoom()?.id) {
-        const room_id = activeRoom()?.room_id ?? "";
         setMessages((prevMessages) =>
           prevMessages.map((message) =>
             message.id === data.message?.id ? data.message : message

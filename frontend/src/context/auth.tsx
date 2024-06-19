@@ -137,7 +137,7 @@ export function AuthProvider(props: { children?: JSX.Element }) {
   // delete session and logout user
   // and update states
   const logoutUser = async () => {
-    const data = await fetchAPI(ApiEndpoints.user.auth.LOGOUT, {
+    await fetchAPI(ApiEndpoints.user.auth.LOGOUT, {
       credentials: "include"
     });
     setIsAuthenticated(false);

@@ -5,11 +5,11 @@ import { ChatRoom } from "~/types/chat";
 
 const DMProfile = (props: ChatRoom) => {
   const [isOnline, setIsOnline] = createSignal(false);
-    const { onlineUsers, activeRoom } = useChat();
+  const { onlineUsers, activeRoom } = useChat();
 
   createEffect(() => {
     setIsOnline(
-      onlineUsers()?.some((user) => user.user === activeRoom()?.member[0].id)
+      onlineUsers()?.some((user) => user.user === activeRoom()?.members[0].id)
         ? true
         : false
     );
@@ -19,14 +19,14 @@ const DMProfile = (props: ChatRoom) => {
     <>
       <div class="size-10">
         <Avatar
-          src={props.member[0].avatar ?? ""}
-          alt={props.member[0].full_name ?? "Telegram User"}
+          src={props.members[0].avatar ?? ""}
+          alt={props.members[0].full_name ?? "Telegram User"}
           class="rounded-full text-lg font-bold text-accent"
         />
       </div>
       <div class="text-secondary flex flex-col items-start leading-none">
         <span class="text-base font-medium text-accent">
-          {props.member[0].full_name}
+          {props.members[0].full_name}
         </span>
         <Show
           when={isOnline()}
@@ -40,7 +40,7 @@ const DMProfile = (props: ChatRoom) => {
         </Show>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default DMProfile;
