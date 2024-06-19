@@ -27,7 +27,8 @@ const GroupProfile = (props: ChatRoom) => {
           {props.name}
         </span>
         <span class="text-sm font-normal text-neutral-100">
-          {onlineMembers()} online
+          {/* +1 for current user */}
+          {onlineMembers() + 1} online
         </span>
       </div>
     </>
