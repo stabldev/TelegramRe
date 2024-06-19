@@ -14,6 +14,7 @@ import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
 import ApiEndpoints from "~/endpoints/api/api-endpoints";
 import { fetchAPI } from "~/functions/api/fetch";
+import { formatChatRoom } from "~/functions/chat/format-room";
 import DefaultLayout from "~/layouts/default";
 import { ChatMessage, ChatRoom } from "~/types/chat";
 
@@ -52,7 +53,7 @@ export const route = {
 
 const UserChat = (props: RouteSectionProps) => {
   const { user } = useAuth();
-  const { setActiveRoom } = useChat();
+  const { setActiveRoom, activeRoom } = useChat();
   const { showSidebar } = useShared();
 
   const [title, setTitle] = createSignal("Telegram");
@@ -71,10 +72,10 @@ const UserChat = (props: RouteSectionProps) => {
   createEffect(() => {
     const data = roomData();
     if (data) {
-      setActiveRoom(data.chat_room);
+      setActiveRoom(formatChatRoom([data.chat_room])?.[0]);
       // check if room type is DM or group
       if (data.chat_room.type === "DM") {
-          setTitle(data.chat_room.member.filter((mem) => mem.id !== user()?.id)[0].full_name);
+          setTitle(activeRoom()?.member[0].full_name ?? "");
       } else {
         setTitle(data.chat_room.name as string);
       }
