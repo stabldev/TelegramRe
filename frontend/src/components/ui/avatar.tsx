@@ -12,7 +12,7 @@ interface Props {
 const color_mapping = ["#fab387", "#eba0ac", "#a6e3a1"];
 
 const Avatar = (props: Props) => {
-  const has_avatar = props.src !== null && props.src !== "";
+  const hasAvatar = props.src !== null && props.src !== "";
 
   const getName = (str: string): string => {
     return str.charAt(0).toUpperCase();
@@ -21,7 +21,7 @@ const Avatar = (props: Props) => {
   return (
     <>
       <Show
-        when={has_avatar}
+        when={hasAvatar}
         fallback={
           <div
             class={cn(

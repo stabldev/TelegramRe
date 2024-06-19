@@ -1,4 +1,4 @@
-import { Show, createEffect, createSignal } from "solid-js";
+import { createEffect, createSignal } from "solid-js";
 import Avatar from "~/components/ui/avatar";
 import { useChat } from "~/context/chat";
 import { ChatRoom } from "~/types/chat";
