@@ -16,6 +16,7 @@ import { fetchAPI } from "~/functions/api/fetch";
 import { formatChatRoom } from "~/functions/chat/format-room";
 import DefaultLayout from "~/layouts/default";
 import { ChatMessage, ChatRoom } from "~/types/chat";
+import { isDmChat } from "~/utils/type-guards";
 
 interface ChatRoomData {
   chat_room: ChatRoom;
@@ -51,7 +52,7 @@ export const route = {
 } satisfies RouteDefinition;
 
 const UserChat = (props: RouteSectionProps) => {
-  const { setActiveRoom, activeRoom } = useChat();
+  const { setActiveRoom } = useChat();
   const { showSidebar } = useShared();
 
   const [title, setTitle] = createSignal("Telegram");
@@ -72,8 +73,8 @@ const UserChat = (props: RouteSectionProps) => {
     if (data) {
       setActiveRoom(formatChatRoom([data.chat_room])?.[0]);
       // check if room type is DM or group
-      if (data.chat_room.type === "DM") {
-        setTitle(activeRoom()?.members[0].full_name ?? "");
+      if (isDmChat(data.chat_room)) {
+        setTitle(data.chat_room?.members[0].full_name ?? "");
       } else {
         setTitle(data.chat_room.name as string);
       }

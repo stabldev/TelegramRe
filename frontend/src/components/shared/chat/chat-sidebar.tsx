@@ -29,9 +29,9 @@ const ChatSidebar = () => {
           <Show
             when={IS_DM}
             fallback={
-                <Avatar
-                  src={activeRoom()?.avatar ?? ""}
-                  alt={activeRoom()?.name ?? ""}
+              <Avatar
+                src={activeRoom()?.avatar ?? ""}
+                alt={activeRoom()?.name ?? ""}
                 class="object-cover text-[15rem] font-bold text-accent"
               />
             }
@@ -58,16 +58,20 @@ const ChatSidebar = () => {
               <span>
                 {IS_DM ? activeRoom()?.members[0].username : activeRoom()?.id}
               </span>
-              <span class="select-none text-sm text-neutral-100">Username/Id</span>
+              <span class="select-none text-sm text-neutral-100">
+                Username/Id
+              </span>
             </div>
           </div>
-            <div class="grid grid-cols-8">
-              <Info class="col-span-1 size-[1.4rem] self-center text-neutral-100" />
-              <div class="col-span-7 flex flex-col">
-                          <span class="whitespace-pre-line">{IS_DM ? activeRoom()?.members[0].bio : activeRoom()?.bio}</span>
-                <span class="select-none text-sm text-neutral-100">Bio</span>
-              </div>
+          <div class="grid grid-cols-8">
+            <Info class="col-span-1 size-[1.4rem] self-center text-neutral-100" />
+            <div class="col-span-7 flex flex-col">
+              <span class="whitespace-pre-line">
+                {IS_DM ? activeRoom()?.members[0].bio : activeRoom()?.bio}
+              </span>
+              <span class="select-none text-sm text-neutral-100">Bio</span>
             </div>
+          </div>
         </div>
       </div>
     </>

@@ -19,14 +19,26 @@ export type ChatMember = {
   bio: string;
 };
 
-export type ChatRoom = {
+type BaseChatRoom = {
   id: number;
   type: string;
   name: string | null;
   bio: string | null;
   unreads: number;
   message: ChatMessage;
-  members: ChatMember[];
   avatar: string | null;
   is_verified: boolean;
 };
+
+export type GroupChatRoom = BaseChatRoom & {
+  type: "GROUP";
+  members: number[];
+};
+
+export type DMChatRoom = BaseChatRoom & {
+  type: "DM";
+  members: ChatMember[];
+};
+
+// Union type
+export type ChatRoom = GroupChatRoom | BaseChatRoom;

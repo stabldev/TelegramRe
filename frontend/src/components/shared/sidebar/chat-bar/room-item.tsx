@@ -1,9 +1,10 @@
 import { A, useParams } from "@solidjs/router";
 import { Match, Switch, createEffect, createSignal } from "solid-js";
-import type { ChatRoom } from "~/types/chat";
+import type { ChatRoom, DMChatRoom, GroupChatRoom } from "~/types/chat";
 import { cn } from "~/functions/cn";
 import DMRoom from "./room/dm";
 import GroupRoom from "./room/group";
+import { isDmChat, isGroupChat } from "~/utils/type-guards";
 
 const RoomItem = (props: ChatRoom) => {
   const params = useParams<{ room: string }>();
@@ -23,15 +24,15 @@ const RoomItem = (props: ChatRoom) => {
       )}
     >
       <Switch>
-        <Match when={props.type === "DM"}>
+        <Match when={isDmChat(props)}>
           <DMRoom
-            room={props}
+            room={props as DMChatRoom}
             isActive={isActive()}
           />
         </Match>
-        <Match when={props.type === "GROUP"}>
+        <Match when={isGroupChat(props)}>
           <GroupRoom
-            room={props}
+            room={props as GroupChatRoom}
             isActive={isActive()}
           />
         </Match>

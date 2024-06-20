@@ -8,10 +8,10 @@ import Gif from "~/icons/gif";
 import Photo from "~/icons/photo";
 import Tick from "~/icons/tick";
 import Verified from "~/icons/verified";
-import { ChatRoom } from "~/types/chat";
+import { DMChatRoom } from "~/types/chat";
 
 interface Props {
-  room: ChatRoom;
+  room: DMChatRoom;
   isActive: boolean;
 }
 
