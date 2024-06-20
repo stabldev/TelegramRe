@@ -64,7 +64,7 @@ const ChatSidebar = () => {
             <div class="grid grid-cols-8">
               <Info class="col-span-1 size-[1.4rem] self-center text-neutral-100" />
               <div class="col-span-7 flex flex-col">
-                <span>{activeRoom()?.members[0].bio}</span>
+                          <span class="whitespace-pre-line">{IS_DM ? activeRoom()?.members[0].bio : activeRoom()?.bio}</span>
                 <span class="select-none text-sm text-neutral-100">Bio</span>
               </div>
             </div>

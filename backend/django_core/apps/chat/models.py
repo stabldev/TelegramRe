@@ -20,6 +20,7 @@ class ChatRoom(UUIDMixin, CreatedAtMixin):
     )
     members = models.ManyToManyField(CustomUser)
     name = models.CharField(max_length=50, null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
     avatar = models.ImageField(upload_to=avatar_pattern, null=True, blank=True)
     is_verified = models.BooleanField(default=False)
 

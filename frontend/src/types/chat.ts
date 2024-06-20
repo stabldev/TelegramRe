@@ -23,6 +23,7 @@ export type ChatRoom = {
   id: number;
   type: string;
   name: string | null;
+  bio: string | null;
   unreads: number;
   message: ChatMessage;
   members: ChatMember[];
