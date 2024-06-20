@@ -19,8 +19,8 @@ const GroupProfile = (props: ChatRoom) => {
     <>
       <div class="size-10">
         <Avatar
-          src={props.members[0].avatar ?? ""}
-          alt={props.members[0].full_name ?? "Telegram User"}
+          src={props.avatar ?? ""}
+          alt={props.name ?? ""}
           class="rounded-full text-lg font-bold text-accent"
         />
       </div>
