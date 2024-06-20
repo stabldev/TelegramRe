@@ -50,7 +50,7 @@ const ChatView = (props: Props) => {
         )
       );
     } else if (data.action === SocketActions.READ_MESSAGE) {
-      if (data.message?.room !== activeRoom()?.room_id) {
+      if (data.message?.room !== activeRoom()?.id) {
         setMessages((prevMessages) =>
           prevMessages.map((message) =>
             message.id === data.message?.id ? data.message : message

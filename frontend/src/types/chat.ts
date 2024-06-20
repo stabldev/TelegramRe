@@ -21,10 +21,11 @@ export type ChatMember = {
 
 export type ChatRoom = {
   id: number;
-  room_id: string;
   type: string;
   name: string | null;
   unreads: number;
   message: ChatMessage;
   members: ChatMember[];
+  avatar: string | null;
+  is_verified: boolean;
 };
