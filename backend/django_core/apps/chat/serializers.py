@@ -34,9 +34,9 @@ class ChatMessageSerializer(serializers.ModelSerializer):
 
 
 class ChatRoomSerializer(serializers.ModelSerializer):
-    members = ChatMemberSerializer(many=True)
     message = serializers.SerializerMethodField()
     unreads = serializers.SerializerMethodField()
+    members = serializers.SerializerMethodField()
 
     class Meta:
         model = ChatRoom
@@ -46,11 +46,16 @@ class ChatRoomSerializer(serializers.ModelSerializer):
             "name",
             "unreads",
             "message",
-            "members",
             "is_verified",
             "avatar",
             "bio",
+            "members",
         ]
+
+    def get_members(self, obj):
+        if obj.type == "GROUP":
+            return list(obj.members.only("id").values_list("id", flat=True))
+        return ChatMemberSerializer(obj.members, many=True).data
 
     def get_message(self, obj):
         chat_message = obj.chat_message.last()
