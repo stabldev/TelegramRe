@@ -1,9 +1,13 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from dynamic_filenames import FilePattern
 
 from apps.user.models import CustomUser
 from mixins.models.uuid import UUIDMixin
 from mixins.models.created_at import CreatedAtMixin
+
+# Dynamic avatar filename
+avatar_pattern = FilePattern(filename_pattern="avatar/{uuid:s}{ext}")
 
 
 class ChatRoom(UUIDMixin, CreatedAtMixin):
@@ -16,6 +20,8 @@ class ChatRoom(UUIDMixin, CreatedAtMixin):
     )
     members = models.ManyToManyField(CustomUser)
     name = models.CharField(max_length=50, null=True, blank=True)
+    avatar = models.ImageField(upload_to=avatar_pattern, null=True, blank=True)
+    is_verified = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         # assign a default name if empty
