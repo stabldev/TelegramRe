@@ -33,12 +33,12 @@ type BaseChatRoom = {
 export type GroupChatRoom = BaseChatRoom & {
   type: "GROUP";
   members: number[];
-}
+};
 
 export type DMChatRoom = BaseChatRoom & {
   type: "DM";
   members: ChatMember[];
-}
+};
 
 // Union type
 export type ChatRoom = GroupChatRoom | BaseChatRoom;

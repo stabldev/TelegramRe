@@ -28,7 +28,7 @@ const RoomItem = (props: ChatRoom) => {
           <DMRoom
             room={props as DMChatRoom}
             isActive={isActive()}
-        />
+          />
         </Match>
         <Match when={isGroupChat(props)}>
           <GroupRoom
