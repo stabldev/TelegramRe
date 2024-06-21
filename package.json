@@ -9,10 +9,10 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": [
+    "frontend/**/*.{js,ts,tsx}": [
       "cd frontend && npm run lint"
     ],
-    "*.py": [
+    "backend/**/*.py": [
       "cd backend && poetry run black ."
     ]
   }
