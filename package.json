@@ -7,14 +7,12 @@
   },
   "scripts": {
     "prepare": "husky"
-    "commitlint": "commitlint",
-    "lint-staged": "lint-staged"
   },
   "lint-staged": {
-    "frontend/**/*.{js,ts,tsx}": [
+    "*.{js,ts,tsx}": [
       "cd frontend && npm run lint"
     ],
-    "backend/**/*.py": [
+    "*.py": [
       "cd backend && poetry run black ."
     ]
   }
