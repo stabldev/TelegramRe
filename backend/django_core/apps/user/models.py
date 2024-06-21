@@ -9,14 +9,6 @@ from .managers import UserManager
 # Dynamic avatar filename
 avatar_pattern = FilePattern(filename_pattern="avatar/{uuid:s}{ext}")
 
-test = [
-    "afasdfasdfasdfasdfasdfasfasdfasfasdfasdf",
-    "dafadsfadfasfdf",
-    "dafasfasfadfdddddd",
-    "dxxxxxxxxxxxxxxxxxxxxx",
-    "ddddd",
-]
-
 
 # Custom user with extra fields
 class CustomUser(AbstractUser):
