@@ -16,7 +16,7 @@
   },
   "lint-staged": {
     "frontend/**/*.{js,ts,tsx}": [
-      "cd frontend && npm run lint"
+      "cd frontend && npm run lintasdfasdf"
     ],
     "backend/**/*.py": [
       "cd backend && poetry run black ."
