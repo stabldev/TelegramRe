@@ -16,6 +16,7 @@ export type ChatMember = {
   full_name: string;
   is_verified: boolean;
   avatar: string;
+  color: string;
   bio: string;
 };
 
@@ -27,6 +28,7 @@ type BaseChatRoom = {
   unreads: number;
   message: ChatMessage;
   avatar: string | null;
+  color: string;
   is_verified: boolean;
 };
 

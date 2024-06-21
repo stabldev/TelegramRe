@@ -26,6 +26,7 @@ const GroupRoom = (props: Props) => {
     <>
       <div class="relative size-14 flex-shrink-0">
         <Avatar
+          color={room().color}
           src={room().avatar ?? ""}
           alt={room().name ?? ""}
           class={"size-full rounded-full text-2xl font-bold text-accent"}

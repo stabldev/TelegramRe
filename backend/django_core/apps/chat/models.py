@@ -5,6 +5,7 @@ from dynamic_filenames import FilePattern
 from apps.user.models import CustomUser
 from mixins.models.uuid import UUIDMixin
 from mixins.models.created_at import CreatedAtMixin
+from django_core.utilities.get_color import get_color
 
 # Dynamic avatar filename
 avatar_pattern = FilePattern(filename_pattern="avatar/{uuid:s}{ext}")
@@ -22,13 +23,16 @@ class ChatRoom(UUIDMixin, CreatedAtMixin):
     name = models.CharField(max_length=50, null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
     avatar = models.ImageField(upload_to=avatar_pattern, null=True, blank=True)
+    color = models.CharField(null=True, blank=True)
     is_verified = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         # assign a default name if empty
         if not self.name:
             self.name = "DM"
-        super().save(*args, **kwargs)
+        if not self.color and self.type == "GROUP":
+            self.color = get_color()
+        super(ChatRoom, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.id}: {self.name}"

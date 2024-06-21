@@ -19,6 +19,7 @@ const GroupProfile = (props: GroupChatRoom) => {
     <>
       <div class="size-10">
         <Avatar
+          color={props.color}
           src={props.avatar ?? ""}
           alt={props.name ?? ""}
           class="rounded-full text-lg font-bold text-accent"

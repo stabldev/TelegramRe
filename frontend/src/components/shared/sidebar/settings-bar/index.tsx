@@ -19,6 +19,7 @@ const SettingsBar = (props: Props) => {
       <div class="text-accent">
         <div class="relative aspect-square">
           <Avatar
+            color={user()?.color ?? ""}
             src={user()?.avatar ?? ""}
             alt={user()?.username ?? ""}
             class="object-cover text-[15rem] font-bold text-accent"

@@ -36,6 +36,7 @@ const DMRoom = (props: Props) => {
     <>
       <div class="relative size-14 flex-shrink-0">
         <Avatar
+          color={chat_user.color}
           src={chat_user.avatar}
           alt={chat_user.username}
           class={"size-full rounded-full text-2xl font-bold text-accent"}

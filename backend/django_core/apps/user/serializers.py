@@ -14,6 +14,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             "is_verified",
             "avatar",
             "bio",
+            "color",
             "last_login",
             "date_joined",
         ]
