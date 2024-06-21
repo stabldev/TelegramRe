@@ -7,14 +7,15 @@
   },
   "scripts": {
     "prepare": "husky",
-    "lint:frontend": "cd ./frontend && npm run lint"
+    "lint:frontend": "cd ./frontend && npm run lint",
+    "format:frontend": "cd ./frontend && npm run format"
   },
   "lint-staged": {
     "frontend/**/*.{js,ts,tsx}": [
       "npm run lint:frontend"
     ],
     "backend/**/*.py": [
-      "black"
+      "black ."
     ]
   }
 }
