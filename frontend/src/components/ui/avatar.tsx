@@ -9,31 +9,25 @@ interface Props {
 }
 
 const Avatar = (props: Props) => {
-  const hasAvatar = props.src !== null && props.src !== "";
-
-  const getName = (str: string): string => {
-    return str.charAt(0).toUpperCase();
-  };
+  const hasAvatar = props.src !== null && props.src.length;
 
   return (
-    <>
-      <Show
-        when={hasAvatar}
-        fallback={
-          <div
-            class={cn(
-              props.class,
-              "grid size-full select-none place-items-center"
-            )}
-            style={{ "background-color": props.color }}
-          >
-            {getName(props.alt)}
-          </div>
-        }
-      >
-        <img {...props} />
-      </Show>
-    </>
+    <Show
+      when={hasAvatar}
+      fallback={
+        <div
+          class={cn(
+            props.class,
+            "grid size-full select-none place-items-center"
+          )}
+          style={{ "background-color": props.color }}
+        >
+          {props.alt.charAt(0).toUpperCase()}
+        </div>
+      }
+    >
+      <img {...props} />
+    </Show>
   );
 };
 
