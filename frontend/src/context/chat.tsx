@@ -34,7 +34,7 @@ export function ChatProvider(props: { children?: JSX.Element }) {
   onMount(() => {
     setSocket(new WebSocket(SocketUrls.CHAT));
 
-    socket()!.onclose = function (e: CloseEvent) {
+    socket()!.onclose = function () {
       console.log("Connection closed");
     };
 

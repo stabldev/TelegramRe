@@ -42,12 +42,12 @@ const ChatBubble = (props: Props) => {
       JSON.stringify({
         action: "read_message",
         message_id: id,
-        room_id: activeRoom()?.room_id
+        room_id: activeRoom()?.id
       })
     );
   }
 
-  const handleContextMenu = (e: any) => {
+  const handleContextMenu = (e: MouseEvent) => {
     e.preventDefault();
     setContextPos({
       x: e.x,
