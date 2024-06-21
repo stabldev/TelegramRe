@@ -53,6 +53,7 @@ class CustomUserAdmin(UserAdmin):
                     "last_name",
                     "avatar",
                     "bio",
+                    "color",
                     "is_verified",
                     "otp",
                 )

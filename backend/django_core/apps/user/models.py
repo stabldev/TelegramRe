@@ -3,6 +3,7 @@ from django.db import models
 from dynamic_filenames import FilePattern
 from django.utils.translation import gettext_lazy as _
 
+from django_core.utilities.get_color import get_color
 from .managers import UserManager
 
 # Dynamic avatar filename
@@ -17,7 +18,7 @@ class CustomUser(AbstractUser):
     is_verified = models.BooleanField(default=False)
     bio = models.TextField(blank=True)
     otp = models.CharField(max_length=5, null=True, blank=True)
-
+    color = models.CharField(null=True, blank=True)
     avatar = models.ImageField(
         upload_to=avatar_pattern,
         blank=True,
@@ -32,7 +33,9 @@ class CustomUser(AbstractUser):
     def save(self, *args, **kwargs):
         if self.username is None:
             self.username = self.email.split("@")[0]
-        super().save(*args, **kwargs)
+        if self.color is None:
+            self.color = get_color()
+        super(CustomUser, self).save(*args, **kwargs)
 
 
 class OnlineUser(models.Model):
