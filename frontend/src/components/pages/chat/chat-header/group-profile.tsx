@@ -10,9 +10,8 @@ const GroupProfile = (props: GroupChatRoom) => {
   createEffect(() => {
     const room = activeRoom() as GroupChatRoom;
     setOnlineMembers(
-      room?.members.filter((memId) =>
-        onlineUsers()?.includes({ user: memId })
-      ).length ?? 0
+      room?.members.filter((memId) => onlineUsers()?.includes({ user: memId }))
+        .length ?? 0
     );
   });
 

@@ -6,14 +6,15 @@
     "lint-staged": "^15.2.7"
   },
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky",
+    "lint:frontend": "cd ./frontend && npm run lint"
   },
   "lint-staged": {
     "frontend/**/*.{js,ts,tsx}": [
-      "cd frontend && npm run lint"
+      "npm run lint:frontend"
     ],
     "backend/**/*.py": [
-      "cd backend && poetry run black ."
+      "black"
     ]
   }
 }

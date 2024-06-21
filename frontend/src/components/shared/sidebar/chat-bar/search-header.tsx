@@ -16,12 +16,12 @@ const SearchHeader = (props: Props) => {
   const [showMenu, setShowMenu] = createSignal(false);
 
   const { toggleView } = destructure(props);
-  let menuRef: HTMLButtonElement | undefined = undefined;
+  const [menuRef, setMenuRef] = createSignal<HTMLButtonElement>();
 
   return (
     <div class="flex h-14 items-center gap-3 px-3 py-2">
       <button
-        ref={menuRef}
+        ref={setMenuRef}
         onClick={() => setShowMenu((prev) => !prev)}
         class="grid size-10 flex-shrink-0 place-items-center rounded-full text-xl text-neutral-100 hover:bg-base-300"
       >
@@ -29,7 +29,7 @@ const SearchHeader = (props: Props) => {
       </button>
       <Show when={showMenu() && menuRef !== undefined}>
         <Popover
-          triggerRef={menuRef}
+          triggerRef={menuRef()}
           setOpen={setShowMenu}
           position="bottom-left"
           class="z-50 h-max w-52 rounded-xl bg-base-100 p-1"

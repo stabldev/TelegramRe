@@ -12,9 +12,10 @@ export const useLocalStorageSignal = <T>(
 ): Signal<T> => {
   const storage = typeof window !== "undefined" ? window.localStorage : null;
   // get item from localStorage or use defaultValue
-  const initialValue = storage?.getItem(key)
-    ? JSON.parse(storage?.getItem(key)!)
-    : defaultValue;
+  const initialValue =
+    storage && storage.getItem(key)
+      ? JSON.parse(storage.getItem(key)!)
+      : defaultValue;
 
   const [value, setValue] = createSignal<T>(initialValue);
   // handle Setter as value and function

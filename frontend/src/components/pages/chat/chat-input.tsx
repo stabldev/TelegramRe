@@ -25,8 +25,9 @@ const ChatInput = () => {
   const [showMediaPopover, setShowMediaPopover] = createSignal(false);
   const [file, setFile] = createSignal<File>();
 
-  let inputRef: HTMLTextAreaElement;
-  let mediaPopoverBtnRef: HTMLElement | undefined = undefined;
+  const [inputRef, setInputRef] = createSignal<HTMLTextAreaElement>();
+  const [mediaPopoverBtnRef, setMediaPopoverBtnRef] =
+    createSignal<HTMLElement>();
 
   const handleSubmit = (e?: SubmitEvent) => {
     e?.preventDefault();
@@ -47,7 +48,7 @@ const ChatInput = () => {
           action: "edit_message",
           message_id: editMessage()?.id,
           new_message: message(),
-          room_id: activeRoom()?.room_id
+          room_id: activeRoom()?.id
         })
       );
     } else {
@@ -56,14 +57,14 @@ const ChatInput = () => {
           action: "message",
           type: detail.type,
           content: detail.content,
-          room_id: activeRoom()?.room_id
+          room_id: activeRoom()?.id
         })
       );
     }
 
     setMessage(""); // clear input
     setEditMessage(undefined);
-    inputRef.focus();
+    inputRef()?.focus();
   };
 
   const handleFileSubmit = async (
@@ -86,7 +87,7 @@ const ChatInput = () => {
       formData.append("file", content.file);
 
       const res = await fetch(
-        ApiEndpoints.chat.CHAT_ROOMS + activeRoom()?.room_id + "/",
+        ApiEndpoints.chat.CHAT_ROOMS + activeRoom()?.id + "/",
         {
           method: "POST",
           headers: {
@@ -119,8 +120,8 @@ const ChatInput = () => {
   };
 
   createEffect(() => {
-    inputRef.focus();
-    isEditingMessage() && inputRef.focus();
+    inputRef()?.focus();
+    isEditingMessage() && inputRef()?.focus();
   });
 
   return (
@@ -183,7 +184,7 @@ const ChatInput = () => {
               <Emoji class="md:size-6" />
             </button>
             <TextareaAutosize
-              ref={(ref) => (inputRef = ref)}
+              ref={setInputRef}
               value={isEditingMessage() ? editMessage()?.content : message()}
               onInput={(e) => setMessage(e.currentTarget.value)}
               onKeyDown={handleKeyDown}
@@ -192,7 +193,7 @@ const ChatInput = () => {
               maxRows={5}
             />
             <button
-              ref={mediaPopoverBtnRef}
+              ref={setMediaPopoverBtnRef}
               onClick={() => setShowMediaPopover((prev) => !prev)}
               type="button"
               class="text-neutral-100 transition-colors hover:text-primary"
@@ -201,7 +202,7 @@ const ChatInput = () => {
             </button>
             <Show when={showMediaPopover()}>
               <Popover
-                triggerRef={mediaPopoverBtnRef}
+                triggerRef={mediaPopoverBtnRef()}
                 setOpen={setShowMediaPopover}
                 class="z-50 h-max w-52 rounded-xl bg-base-100 p-1"
                 position="top-right"
