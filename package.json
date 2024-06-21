@@ -9,14 +9,14 @@
     "prepare": "husky",
     "frontend:lint": "cd ./frontend && npm run lint",
     "frontend:format": "cd ./frontend && npm run format",
-    "backend:lint": "cd ./backend && poetry run black ."
+    "backend:format": "cd ./backend && poetry run black ."
   },
   "lint-staged": {
     "frontend/**/*.{js,ts,tsx}": [
       "npm run frontend:lint"
     ],
     "backend/**/*.py": [
-      "npm run backend:lint"
+      "npm run backend:format"
     ]
   }
 }
