@@ -30,7 +30,7 @@ class ChatRoom(UUIDMixin, CreatedAtMixin):
         # assign a default name if empty
         if not self.name:
             self.name = "DM"
-        if not self.color:
+        if not self.color and self.type == "GROUP":
             self.color = get_color()
         super(ChatRoom, self).save(*args, **kwargs)
 
