@@ -1,0 +1,25 @@
+{
+  "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.7"
+  },
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "frontend/**/*.{js,ts,tsx}": [
+      "cd frontend && npm run lint"
+    ],
+    "backend/**/*.py": [
+      "cd backend && poetry run black ."
+    ]
+  }
+}
