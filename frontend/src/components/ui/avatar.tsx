@@ -1,15 +1,12 @@
 import { Show } from "solid-js";
-import { sample } from "~/functions/array/sample";
 import { cn } from "~/functions/cn";
 
 interface Props {
+  color: string;
   src: string;
   alt: string;
   class?: string;
 }
-
-// TODO add more colors later
-const color_mapping = ["#fab387", "#eba0ac", "#a6e3a1"];
 
 const Avatar = (props: Props) => {
   const hasAvatar = props.src !== null && props.src !== "";
@@ -28,7 +25,7 @@ const Avatar = (props: Props) => {
               props.class,
               "grid size-full select-none place-items-center"
             )}
-            style={{ "background-color": sample(color_mapping) }}
+            style={{ "background-color": props.color }}
           >
             {getName(props.alt)}
           </div>

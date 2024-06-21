@@ -30,6 +30,7 @@ const ChatSidebar = () => {
             when={IS_DM}
             fallback={
               <Avatar
+                color={activeRoom()?.color ?? ""}
                 src={activeRoom()?.avatar ?? ""}
                 alt={activeRoom()?.name ?? ""}
                 class="object-cover text-[15rem] font-bold text-accent"
@@ -37,6 +38,7 @@ const ChatSidebar = () => {
             }
           >
             <Avatar
+              color={activeRoom()?.members[0].color}
               src={activeRoom()?.members[0].avatar ?? ""}
               alt={activeRoom()?.members[0].full_name ?? ""}
               class="object-cover text-[15rem] font-bold text-accent"

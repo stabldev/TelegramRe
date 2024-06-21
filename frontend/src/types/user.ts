@@ -6,6 +6,7 @@ export type User = {
   last_name: string;
   avatar: string | null;
   bio: string;
+  color: string;
   is_verified: boolean;
   last_login: string;
   date_joined: string;

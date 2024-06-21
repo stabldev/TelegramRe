@@ -1,9 +1,9 @@
 import { Show, createEffect, createSignal } from "solid-js";
 import Avatar from "~/components/ui/avatar";
 import { useChat } from "~/context/chat";
-import { ChatRoom } from "~/types/chat";
+import { DMChatRoom } from "~/types/chat";
 
-const DMProfile = (props: ChatRoom) => {
+const DMProfile = (props: DMChatRoom) => {
   const [isOnline, setIsOnline] = createSignal(false);
   const { onlineUsers, activeRoom } = useChat();
 
@@ -19,6 +19,7 @@ const DMProfile = (props: ChatRoom) => {
     <>
       <div class="size-10">
         <Avatar
+          color={props.members[0].color}
           src={props.members[0].avatar ?? ""}
           alt={props.members[0].full_name ?? "Telegram User"}
           class="rounded-full text-lg font-bold text-accent"
