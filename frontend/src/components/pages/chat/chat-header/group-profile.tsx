@@ -1,16 +1,17 @@
 import { createEffect, createSignal } from "solid-js";
 import Avatar from "~/components/ui/avatar";
 import { useChat } from "~/context/chat";
-import { ChatRoom } from "~/types/chat";
+import { GroupChatRoom } from "~/types/chat";
 
-const GroupProfile = (props: ChatRoom) => {
+const GroupProfile = (props: GroupChatRoom) => {
   const { onlineUsers, activeRoom } = useChat();
   const [onlineMembers, setOnlineMembers] = createSignal(0);
 
   createEffect(() => {
+    const room = activeRoom() as GroupChatRoom;
     setOnlineMembers(
-      activeRoom()?.members.filter((mem) =>
-        onlineUsers()?.includes({ user: mem.id })
+      room?.members.filter((memId) =>
+        onlineUsers()?.includes({ user: memId })
       ).length ?? 0
     );
   });
@@ -28,7 +29,7 @@ const GroupProfile = (props: ChatRoom) => {
         <span class="text-base font-medium text-accent">{props.name}</span>
         <span class="text-sm font-normal text-neutral-100">
           {/* +1 for current user */}
-          {onlineMembers() + 1} online
+          {props.members.length} members, {onlineMembers() + 1} online
         </span>
       </div>
     </>
