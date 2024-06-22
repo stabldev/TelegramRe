@@ -74,7 +74,7 @@ const ChatBubble = (props: Props) => {
           el = ref;
         }}
         onContextMenu={handleContextMenu}
-        class="relative flex w-max max-w-md flex-col gap-1 rounded-2xl px-2.5 py-1 text-accent before:absolute before:bottom-0 before:size-5 before:[mask-image:_url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMycgaGVpZ2h0PSczJyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnPjxwYXRoIGZpbGw9J2JsYWNrJyBkPSdtIDAgMyBMIDMgMyBMIDMgMCBDIDMgMSAxIDMgMCAzJy8+PC9zdmc+)] before:[mask-size:_contain]"
+        class="relative flex w-max max-w-md flex-col gap-1 rounded-2xl px-2.5 py-1 text-accent"
         classList={{
           "bg-primary rounded-r-lg": self(),
           "bg-base-200 rounded-l-lg": !self(),
@@ -145,6 +145,36 @@ const ChatBubble = (props: Props) => {
             </Show>
           </Show>
         </div>
+        <Show when={lastMsg()}>
+          <svg
+            viewBox="0 0 11 20"
+            class="absolute -bottom-px md:size-5"
+            classList={{
+              "fill-base-200 left-0 md:-start-3": !self(),
+              "scale-x-[-1] fill-primary right-0 md:-end-3 ": self()
+            }}
+          >
+            <use href="#message-tail-filled">
+              <symbol
+                id="message-tail-filled"
+                viewBox="0 0 11 20"
+              >
+                <g
+                  transform="translate(9 -14)"
+                  fill="inherit"
+                  fill-rule="evenodd"
+                >
+                  <path
+                    d="M-6 16h6v17c-.193-2.84-.876-5.767-2.05-8.782-.904-2.325-2.446-4.485-4.625-6.48A1 1 0 01-6 16z"
+                    transform="matrix(1 0 0 -1 0 49)"
+                    id="corner-fill"
+                    fill="inherit"
+                  ></path>
+                </g>
+              </symbol>
+            </use>
+          </svg>
+        </Show>
       </div>
     </>
   );
