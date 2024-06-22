@@ -81,11 +81,9 @@ const ChatBubble = (props: Props) => {
           "!p-0 !max-w-60": message().type === "image",
           "!p-0 overflow-visible bg-transparent": message().type === "gif",
           "rounded-tr-2xl": self() && firstMsg(),
-          "rounded-br-none before:scale-x-[-1] before:bg-primary before:-end-3":
-            self() && lastMsg(),
+          "rounded-br-none": self() && lastMsg(),
           "rounded-tl-2xl": !self() && firstMsg(),
-          "rounded-bl-none before:bg-base-200 before:-start-3":
-            !self() && lastMsg()
+          "rounded-bl-none": !self() && lastMsg()
         }}
       >
         <Show when={message().type == "image" || message().type === "gif"}>
