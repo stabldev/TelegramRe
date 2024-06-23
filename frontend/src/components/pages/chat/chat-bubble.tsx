@@ -2,11 +2,12 @@ import { Show, createEffect, createSignal } from "solid-js";
 import { destructure } from "@solid-primitives/destructure";
 import { FormatDate } from "~/functions/format-date";
 import Tick from "~/icons/tick";
-import type { ChatMessage } from "~/types/chat";
+import type { ChatMessage, ChatRoom } from "~/types/chat";
 import { createVisibilityObserver } from "@solid-primitives/intersection-observer";
 import { useChat } from "~/context/chat";
 import ChatContextMenu from "~/components/shared/chat/chat-context-menu";
 import { Portal } from "solid-js/web";
+import { isGroupChat } from "~/utils/type-guards";
 
 interface Props {
   message: ChatMessage;
@@ -74,7 +75,7 @@ const ChatBubble = (props: Props) => {
           el = ref;
         }}
         onContextMenu={handleContextMenu}
-        class="relative flex w-max max-w-md flex-col gap-1 rounded-2xl px-2.5 py-1 text-accent"
+        class="relative flex w-max max-w-md flex-col rounded-2xl px-2.5 py-1 text-accent"
         classList={{
           "bg-primary rounded-r-lg": self(),
           "bg-base-200 rounded-l-lg": !self(),
@@ -86,6 +87,18 @@ const ChatBubble = (props: Props) => {
           "rounded-bl-none": !self() && lastMsg()
         }}
       >
+        <Show
+          when={isGroupChat(activeRoom() as ChatRoom) && firstMsg() && !self()}
+        >
+          {/* TODO: redirect to user chat room */}
+          <a
+            href={"/@" + message().sender.username}
+            class="font-medium md:text-sm"
+            style={{ color: message().sender.color }}
+          >
+            {message().sender.full_name || "~" + message().sender.username}
+          </a>
+        </Show>
         <Show when={message().type == "image" || message().type === "gif"}>
           <img
             src={message().file!}
