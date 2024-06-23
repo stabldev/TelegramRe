@@ -71,10 +71,16 @@ const UserChat = (props: RouteSectionProps) => {
   createEffect(() => {
     const data = roomData();
     if (data) {
-      setActiveRoom(formatChatRoom([data.chat_room])?.[0]);
+      const formatedChatRoom = (
+        formatChatRoom([data.chat_room]) as ChatRoom[]
+      )[0];
+      setActiveRoom(formatedChatRoom);
       // check if room type is DM or group
-      if (isDmChat(data.chat_room)) {
-        setTitle(data.chat_room?.members[0].full_name ?? "");
+      if (isDmChat(formatedChatRoom)) {
+        setTitle(
+          formatedChatRoom.members[0].full_name ??
+            "~" + formatedChatRoom.members[0].username
+        );
       } else {
         setTitle(data.chat_room.name as string);
       }

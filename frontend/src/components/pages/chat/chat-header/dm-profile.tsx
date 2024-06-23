@@ -8,11 +8,13 @@ const DMProfile = (props: DMChatRoom) => {
   const { onlineUsers, activeRoom } = useChat();
 
   createEffect(() => {
-    setIsOnline(
-      onlineUsers()?.some((user) => user.user === activeRoom()?.members[0].id)
-        ? true
-        : false
-    );
+    const room = activeRoom() as DMChatRoom;
+    room &&
+      setIsOnline(
+        onlineUsers()?.some((user) => user.user === room.members[0].id)
+          ? true
+          : false
+      );
   });
 
   return (
