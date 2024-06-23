@@ -127,8 +127,14 @@ const DMRoom = (props: Props) => {
           <Show
             when={self_message}
             fallback={
-              <Show when={room().unreads && !isActive()}>
-                <span class="grid place-items-center rounded-full bg-primary font-semibold leading-none md:size-5 md:text-xs">
+              <Show when={room().unreads}>
+                <span
+                  class="grid aspect-square place-items-center rounded-full font-semibold leading-none md:size-5 md:text-xs"
+                  classList={{
+                    "bg-accent text-primary": isActive(),
+                    "bg-primary": !isActive()
+                  }}
+                >
                   {room().unreads}
                 </span>
               </Show>

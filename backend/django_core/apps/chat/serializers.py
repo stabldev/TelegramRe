@@ -72,8 +72,14 @@ class ChatRoomSerializer(serializers.ModelSerializer):
         return serializer.data
 
     def get_unreads(self, obj):
-        unreads = obj.chat_message.filter(is_read=False).count()
-        return unreads
+        request = self.context.get("request")
+        if request and request.user.is_authenticated:
+            user = request.user
+            unreads = (
+                obj.chat_message.filter(is_read=False).exclude(sender=user).count()
+            )
+            return unreads
+        return 0
 
 
 class OnlineUserSerializer(serializers.ModelSerializer):
