@@ -1,4 +1,4 @@
-import type { ChatMessage } from "~/types/chat";
+import type { ChatMember, ChatMessage } from "~/types/chat";
 
 /**
  * Format chat messages based on sender
@@ -12,17 +12,17 @@ export function groupChatBySender(chat?: ChatMessage[]) {
   if (!chat) return;
 
   const groupedChat: {
-    senderId: number;
+    sender: ChatMember;
     chats: ChatMessage[];
   }[] = [];
   // store previous data for comparing with new
-  let prevSender: number | null = null;
+  let prevSender: ChatMember | null = null;
   let prevChat: ChatMessage[] = [];
 
   chat.forEach((message) => {
     // check if current message sender is previously passed sender
     // ps: this won't run on first message
-    if (message.sender.id === prevSender) {
+    if (message.sender.id === prevSender?.id) {
       // push current message to array with same sender
       prevChat.push(message);
     } else {
@@ -31,12 +31,12 @@ export function groupChatBySender(chat?: ChatMessage[]) {
       // ps: this wont run on first message
       if (prevSender !== null) {
         groupedChat.push({
-          senderId: prevSender,
+          sender: prevSender,
           chats: prevChat
         });
       }
       // update states for next iteration
-      prevSender = message.sender.id;
+      prevSender = message.sender;
       prevChat = [message];
     }
   });
@@ -45,7 +45,7 @@ export function groupChatBySender(chat?: ChatMessage[]) {
   if (prevSender !== null) {
     // push last saved message to final array
     groupedChat.push({
-      senderId: prevSender,
+      sender: prevSender,
       chats: prevChat
     });
   }
