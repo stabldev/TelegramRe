@@ -50,19 +50,20 @@ const ChatView = (props: Props) => {
         )
       );
     } else if (data.action === SocketActions.READ_MESSAGE) {
+      console.log(data.message);
       if (data.message?.room !== activeRoom()?.id) {
         setMessages((prevMessages) =>
           prevMessages.map((message) =>
-            message.id === data.message?.id ? data.message : message
+            message.id === data.message?.id
+              ? { ...message, is_read: true }
+              : message
           )
         );
       }
 
       setChatRooms((chatRooms) =>
         chatRooms?.map((room) =>
-          room.id === data.message?.room
-            ? { ...room, message: data.message!, unreads: 0 }
-            : room
+          room.id === data.message?.room ? { ...room, unreads: 0 } : room
         )
       );
     } else if (data.action === SocketActions.EDIT_MESSAGE) {

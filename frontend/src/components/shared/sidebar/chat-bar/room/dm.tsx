@@ -127,7 +127,7 @@ const DMRoom = (props: Props) => {
           <Show
             when={self_message}
             fallback={
-              <Show when={room().unreads && !isActive()}>
+              <Show when={room().unreads}>
                 <span class="grid place-items-center rounded-full bg-primary font-semibold leading-none md:size-5 md:text-xs">
                   {room().unreads}
                 </span>
