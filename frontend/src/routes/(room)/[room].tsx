@@ -77,7 +77,10 @@ const UserChat = (props: RouteSectionProps) => {
       setActiveRoom(formatedChatRoom);
       // check if room type is DM or group
       if (isDmChat(formatedChatRoom)) {
-        setTitle(formatedChatRoom.members[0].full_name ?? "");
+        setTitle(
+          formatedChatRoom.members[0].full_name ??
+            "~" + formatedChatRoom.members[0].username
+        );
       } else {
         setTitle(data.chat_room.name as string);
       }
