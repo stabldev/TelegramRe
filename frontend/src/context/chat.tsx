@@ -4,12 +4,12 @@ import {
   Setter,
   createContext,
   createSignal,
-  onMount,
   useContext
 } from "solid-js";
 import SocketActions from "~/endpoints/socket/socket-actions";
-import SocketUrls from "~/endpoints/socket/socket-endpoints";
-import type { ChatMessage, ChatRoom } from "~/types/chat";
+import { useWebSocket } from "~/hooks/useWebSocket";
+import { WebSocketData } from "~/types/WebSocket";
+import type { ChatRoom } from "~/types/chat";
 import type { OnlineUser } from "~/types/user";
 
 type ChatContextReturnType = {
@@ -28,56 +28,40 @@ export function ChatProvider(props: { children?: JSX.Element }) {
   const [chatRooms, setChatRooms] = createSignal<ChatRoom[]>();
   const [onlineUsers, setOnlineUsers] = createSignal<OnlineUser[]>();
   const [activeRoom, setActiveRoom] = createSignal<ChatRoom>();
-  const [socket, setSocket] = createSignal<WebSocket>();
 
-  // on context initialize: connect to socket
-  onMount(() => {
-    setSocket(new WebSocket(SocketUrls.CHAT));
-
-    socket()!.onclose = function () {
-      console.log("Connection closed");
-    };
-
-    // handle socket incomming messages based on message type
-    socket()!.onmessage = function (e: MessageEvent) {
-      const data: {
-        action: "online_users" | "message" | "edit_message";
-        message?: ChatMessage;
-        online_users_list?: OnlineUser[];
-      } = JSON.parse(e.data);
-
-      // handle sending messages
-      if (data.action === SocketActions.MESSAGE) {
-        // update sidebar
-        setChatRooms((chatRooms) => {
-          const updatedChatRoom = chatRooms?.map((room) => {
-            if (room.id === data.message?.room) {
-              return {
-                ...room,
-                message: data.message!,
-                unreads: room.unreads + 1
-              };
-            }
-            return room;
-          });
-          return updatedChatRoom;
-        });
-      } else if (data.action === SocketActions.ONLINE_USERS) {
-        // handle online users updates
-        setOnlineUsers(data.online_users_list);
-      } else if (data.action === SocketActions.EDIT_MESSAGE) {
-        // handle edit message event
-        setChatRooms((chatRooms) =>
-          chatRooms?.map((room) =>
-            room.id === data.message?.room &&
+  const handleSocketMessage = (data: WebSocketData) => {
+    if (data.action === SocketActions.MESSAGE) {
+      setChatRooms(
+        (chatRooms) =>
+          chatRooms &&
+          chatRooms.map((room) =>
+            room.id === data.message?.room
+              ? {
+                  ...room,
+                  message: data.message!,
+                  unreads: room.unreads + 1
+                }
+              : room
+          )
+      );
+    } else if (data.action === SocketActions.ONLINE_USERS) {
+      setOnlineUsers(data.online_users_list);
+    } else if (data.action === SocketActions.EDIT_MESSAGE) {
+      setChatRooms(
+        (chatRooms) =>
+          chatRooms &&
+          chatRooms.map((room) =>
+            data.message &&
+            room.id === data.message.room &&
             room.message.id === data.message.id
               ? { ...room, message: data.message }
               : room
           )
-        );
-      }
-    };
-  });
+      );
+    }
+  };
+
+  const { socket } = useWebSocket(handleSocketMessage);
 
   const context_value: ChatContextReturnType = {
     chatRooms: chatRooms,
