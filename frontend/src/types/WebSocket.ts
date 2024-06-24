@@ -1,7 +1,7 @@
 import type { ChatMessage } from "./chat";
 import type { OnlineUser } from "./user";
 
-export type SocketData = {
+export type WebSocketData = {
   // TODO: add seperate type for "action"
   action: "online_message";
   message?: ChatMessage;
