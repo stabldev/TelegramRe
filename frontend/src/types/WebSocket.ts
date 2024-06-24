@@ -1,7 +1,7 @@
 import type { ChatMessage } from "./chat";
 import type { OnlineUser } from "./user";
 
-type DataActions =
+type WebSocketActions =
   | "online_users"
   | "message"
   | "edit_message"
@@ -10,7 +10,7 @@ type DataActions =
 
 export type WebSocketData = {
   // TODO: add seperate type for "action"
-  action: DataActions;
+  action: WebSocketActions;
 } & Partial<{
   message: ChatMessage;
   online_users_list: OnlineUser[];
