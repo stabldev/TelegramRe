@@ -1,6 +1,6 @@
 import { createSignal, onCleanup, onMount } from "solid-js";
 import SocketEndpoints from "~/endpoints/socket/socket-endpoints";
-import type { SocketData } from "~/types/Socket";
+import { SocketData } from "~/types/Socket";
 
 export const useWebSocket = (onMessage: (data: SocketData) => void) => {
   const [socket, setSocket] = createSignal<WebSocket>();
