@@ -9,7 +9,6 @@ type WebSocketActions =
   | "read_message";
 
 export type WebSocketData = {
-  // TODO: add seperate type for "action"
   action: WebSocketActions;
 } & Partial<{
   message: ChatMessage;
