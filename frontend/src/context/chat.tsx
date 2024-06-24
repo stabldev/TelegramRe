@@ -30,34 +30,40 @@ export function ChatProvider(props: { children?: JSX.Element }) {
   const [activeRoom, setActiveRoom] = createSignal<ChatRoom>();
 
   const handleSocketMessage = (data: WebSocketData) => {
-    if (data.action === SocketActions.MESSAGE) {
-      setChatRooms(
-        (chatRooms) =>
-          chatRooms &&
-          chatRooms.map((room) =>
-            room.id === data.message?.room
-              ? {
-                  ...room,
-                  message: data.message!,
-                  unreads: room.unreads + 1
-                }
-              : room
-          )
-      );
-    } else if (data.action === SocketActions.ONLINE_USERS) {
-      setOnlineUsers(data.online_users_list);
-    } else if (data.action === SocketActions.EDIT_MESSAGE) {
-      setChatRooms(
-        (chatRooms) =>
-          chatRooms &&
-          chatRooms.map((room) =>
-            data.message &&
-            room.id === data.message.room &&
-            room.message.id === data.message.id
-              ? { ...room, message: data.message }
-              : room
-          )
-      );
+    switch (data.action) {
+      case SocketActions.MESSAGE:
+        setChatRooms(
+          (chatRooms) =>
+            chatRooms &&
+            chatRooms.map((room) =>
+              room.id === data.message?.room
+                ? {
+                    ...room,
+                    message: data.message!,
+                    unreads: room.unreads + 1
+                  }
+                : room
+            )
+        );
+        break;
+      case SocketActions.ONLINE_USERS:
+        setOnlineUsers(data.online_users_list);
+        break;
+      case SocketActions.EDIT_MESSAGE:
+        setChatRooms(
+          (chatRooms) =>
+            chatRooms &&
+            chatRooms.map((room) =>
+              data.message &&
+              room.id === data.message.room &&
+              room.message.id === data.message.id
+                ? { ...room, message: data.message }
+                : room
+            )
+        );
+        break;
+      default:
+        break;
     }
   };
 
