@@ -29,7 +29,9 @@ export function ChatProvider(props: { children?: JSX.Element }) {
   const [onlineUsers, setOnlineUsers] = createSignal<OnlineUser[]>();
   const [activeRoom, setActiveRoom] = createSignal<ChatRoom>();
 
-  const handleSocketMessage = (data: WebSocketData) => {
+  const [socket] = useWebSocket(handleSocketMessage);
+
+  function handleSocketMessage(data: WebSocketData) {
     switch (data.action) {
       case SocketActions.MESSAGE:
         setChatRooms(
@@ -65,9 +67,7 @@ export function ChatProvider(props: { children?: JSX.Element }) {
       default:
         break;
     }
-  };
-
-  const { socket } = useWebSocket(handleSocketMessage);
+  }
 
   const context_value: ChatContextReturnType = {
     chatRooms: chatRooms,
