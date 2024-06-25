@@ -14,6 +14,7 @@ import ChatMediaMenu from "~/components/shared/chat/chat-media-menu";
 import ChatFileModal from "~/components/shared/chat/chat-file-modal";
 import Modal from "~/components/ui/modal";
 import Pencil from "~/icons/pencil";
+import SocketActions from "~/endpoints/socket/socket-actions";
 
 const ChatInput = () => {
   const { socket, activeRoom } = useChat();
@@ -43,18 +44,18 @@ const ChatInput = () => {
     };
 
     if (isEditingMessage()) {
-      socket()!.send(
+      socket()?.send(
         JSON.stringify({
-          action: "edit_message",
+          action: SocketActions.EDIT_MESSAGE,
           message_id: editMessage()?.id,
           new_message: message(),
           room_id: activeRoom()?.id
         })
       );
     } else {
-      socket()!.send(
+      socket()?.send(
         JSON.stringify({
-          action: "message",
+          action: SocketActions.MESSAGE,
           type: detail.type,
           content: detail.content,
           room_id: activeRoom()?.id

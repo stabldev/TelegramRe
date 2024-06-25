@@ -6,15 +6,15 @@ import {
   createSignal,
   useContext
 } from "solid-js";
+import { produce } from "solid-js/store";
 import SocketActions from "~/endpoints/socket/socket-actions";
 import { useWebSocket } from "~/hooks/useWebSocket";
+import { setChatRooms } from "~/stores/chatStore";
 import { WebSocketData } from "~/types/WebSocket";
 import type { ChatRoom } from "~/types/chat";
 import type { OnlineUser } from "~/types/user";
 
 type ChatContextReturnType = {
-  chatRooms: Accessor<ChatRoom[] | undefined>;
-  setChatRooms: Setter<ChatRoom[] | undefined>;
   onlineUsers: Accessor<OnlineUser[] | undefined>;
   setOnlineUsers: Setter<OnlineUser[] | undefined>;
   activeRoom: Accessor<ChatRoom | undefined>;
@@ -25,7 +25,6 @@ type ChatContextReturnType = {
 const ChatContext = createContext<ChatContextReturnType>();
 
 export function ChatProvider(props: { children?: JSX.Element }) {
-  const [chatRooms, setChatRooms] = createSignal<ChatRoom[]>();
   const [onlineUsers, setOnlineUsers] = createSignal<OnlineUser[]>();
   const [activeRoom, setActiveRoom] = createSignal<ChatRoom>();
 
@@ -35,17 +34,12 @@ export function ChatProvider(props: { children?: JSX.Element }) {
     switch (data.action) {
       case SocketActions.MESSAGE:
         setChatRooms(
-          (chatRooms) =>
-            chatRooms &&
-            chatRooms.map((room) =>
-              room.id === data.message?.room
-                ? {
-                    ...room,
-                    message: data.message!,
-                    unreads: room.unreads + 1
-                  }
-                : room
-            )
+          (room) => room.id === data.message?.room,
+          produce((room) => {
+            (room.message = data.message!),
+              (room.unreads =
+                room.id !== activeRoom()?.id ? room.unreads + 1 : 0);
+          })
         );
         break;
       case SocketActions.ONLINE_USERS:
@@ -53,15 +47,11 @@ export function ChatProvider(props: { children?: JSX.Element }) {
         break;
       case SocketActions.EDIT_MESSAGE:
         setChatRooms(
-          (chatRooms) =>
-            chatRooms &&
-            chatRooms.map((room) =>
-              data.message &&
-              room.id === data.message.room &&
-              room.message.id === data.message.id
-                ? { ...room, message: data.message }
-                : room
-            )
+          (chatRoom) =>
+            chatRoom.id === data.message?.room &&
+            chatRoom.message.id === data.message?.id,
+          "message",
+          data.message!
         );
         break;
       default:
@@ -70,8 +60,6 @@ export function ChatProvider(props: { children?: JSX.Element }) {
   }
 
   const context_value: ChatContextReturnType = {
-    chatRooms: chatRooms,
-    setChatRooms: setChatRooms,
     onlineUsers: onlineUsers,
     setOnlineUsers: setOnlineUsers,
     activeRoom: activeRoom,
