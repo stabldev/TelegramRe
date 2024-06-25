@@ -10,6 +10,7 @@ type StateType = {
   chatRooms: ChatRoom[];
   activeRoom: ChatRoom;
   onlineUsers: OnlineUser[];
+  messages: ChatMessage[];
 };
 
 type ChatContextType = {
@@ -25,7 +26,8 @@ export function ChatProvider(props: { children?: JSX.Element }) {
   const [state, setState] = createStore<StateType>({
     chatRooms: [],
     activeRoom: {} as ChatRoom,
-    onlineUsers: []
+    onlineUsers: [],
+    messages: []
   });
 
   function handleSocketMessage(data: WebSocketData) {

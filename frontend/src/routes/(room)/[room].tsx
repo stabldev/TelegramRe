@@ -7,7 +7,9 @@ import {
 } from "@solidjs/router";
 import { Intent } from "@solidjs/router/dist/types";
 import { Show, createEffect, createSignal } from "solid-js";
-import ChatView from "~/components/pages/chat";
+import ChatArea from "~/components/pages/chat/chat-area";
+import ChatHeader from "~/components/pages/chat/chat-header";
+import ChatInput from "~/components/pages/chat/chat-input";
 import ChatSidebar from "~/components/shared/chat/chat-sidebar";
 import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
@@ -71,6 +73,8 @@ const UserChat = (props: RouteSectionProps) => {
   createEffect(() => {
     const data = roomData();
     if (data) {
+      setChatStore("messages", data.chat_messages);
+
       const formatedChatRoom = (
         formatChatRoom([data.chat_room]) as ChatRoom[]
       )[0];
@@ -92,7 +96,11 @@ const UserChat = (props: RouteSectionProps) => {
     <>
       <Title>{title()}</Title>
       <DefaultLayout>
-        <ChatView messages={roomData()?.chat_messages as ChatMessage[]} />
+        <div class="relative grid h-screen grid-rows-[min-content_1fr_min-content]">
+          <ChatHeader />
+          <ChatArea />
+          <ChatInput />
+        </div>
         <Show when={showSidebar()}>
           <ChatSidebar />
         </Show>
