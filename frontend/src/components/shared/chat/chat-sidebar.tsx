@@ -4,16 +4,17 @@ import At from "~/icons/at";
 import Close from "~/icons/close";
 import Info from "~/icons/info";
 import Avatar from "~/components/ui/avatar";
-import { activeRoom } from "~/stores/chatStore";
 import { isDmChat } from "~/utils/type-guards";
 import { DMChatRoom, GroupChatRoom } from "~/types/chat";
+import { useChat } from "~/context/chat";
 
 const ChatSidebar = () => {
+  const { chatStore } = useChat();
   const { toggleShowSidebar } = useShared();
-  const isDM = isDmChat(activeRoom);
+  const isDM = isDmChat(chatStore.activeRoom);
 
-  const dmChatRoom = activeRoom as DMChatRoom,
-    groupChatRoom = activeRoom as GroupChatRoom;
+  const dmChatRoom = chatStore.activeRoom as DMChatRoom,
+    groupChatRoom = chatStore.activeRoom as GroupChatRoom;
 
   return (
     <>

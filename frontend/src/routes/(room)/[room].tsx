@@ -9,12 +9,12 @@ import { Intent } from "@solidjs/router/dist/types";
 import { Show, createEffect, createSignal } from "solid-js";
 import ChatView from "~/components/pages/chat";
 import ChatSidebar from "~/components/shared/chat/chat-sidebar";
+import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
 import ApiEndpoints from "~/endpoints/api/api-endpoints";
 import { fetchAPI } from "~/functions/api/fetch";
 import { formatChatRoom } from "~/functions/chat/format-room";
 import DefaultLayout from "~/layouts/default";
-import { setActiveRoom } from "~/stores/chatStore";
 import { ChatMessage, ChatRoom } from "~/types/chat";
 import { isDmChat } from "~/utils/type-guards";
 
@@ -52,6 +52,7 @@ export const route = {
 } satisfies RouteDefinition;
 
 const UserChat = (props: RouteSectionProps) => {
+  const { setChatStore } = useChat();
   const { showSidebar } = useShared();
 
   const [title, setTitle] = createSignal("Telegram");
@@ -73,7 +74,8 @@ const UserChat = (props: RouteSectionProps) => {
       const formatedChatRoom = (
         formatChatRoom([data.chat_room]) as ChatRoom[]
       )[0];
-      setActiveRoom(formatedChatRoom);
+
+      setChatStore("activeRoom", formatedChatRoom);
       // check if room type is DM or group
       if (isDmChat(formatedChatRoom)) {
         setTitle(

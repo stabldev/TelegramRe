@@ -8,7 +8,6 @@ import { useChat } from "~/context/chat";
 import ChatContextMenu from "~/components/shared/chat/chat-context-menu";
 import { Portal } from "solid-js/web";
 import { isGroupChat } from "~/utils/type-guards";
-import { activeRoom } from "~/stores/chatStore";
 
 interface Props {
   message: ChatMessage;
@@ -18,7 +17,7 @@ interface Props {
 }
 
 const ChatBubble = (props: Props) => {
-  const { socket } = useChat();
+  const { chatSocket, chatStore } = useChat();
   const [showContextMenu, setShowContextMenu] = createSignal(false);
   const [contextPos, setContextPos] = createSignal({ x: 0, y: 0 });
 
@@ -40,11 +39,11 @@ const ChatBubble = (props: Props) => {
   async function handleReadMessage(id: number) {
     message().is_read = true;
     // send socket action
-    socket()!.send(
+    chatSocket()?.send(
       JSON.stringify({
         action: "read_message",
         message_id: id,
-        room_id: activeRoom.id
+        room_id: chatStore.activeRoom.id
       })
     );
   }
@@ -88,7 +87,7 @@ const ChatBubble = (props: Props) => {
           "rounded-bl-none": !self() && lastMsg()
         }}
       >
-        <Show when={isGroupChat(activeRoom) && firstMsg() && !self()}>
+        <Show when={isGroupChat(chatStore.activeRoom) && firstMsg() && !self()}>
           {/* TODO: redirect to user chat room */}
           <a
             href={"/@" + message().sender.username}

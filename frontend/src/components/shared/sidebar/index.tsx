@@ -11,8 +11,7 @@ import type { OnlineUser } from "~/types/user";
 import ApiEndpoints from "~/endpoints/api/api-endpoints";
 import ChatBar from "./chat-bar";
 import SettingsBar from "./settings-bar";
-import { setChatRooms } from "~/stores/chatStore";
-import { setOnlineUsers } from "~/stores/userStore";
+import { useChat } from "~/context/chat";
 
 async function getChatRooms() {
   const res = await fetch(ApiEndpoints.chat.CHAT_ROOMS, {
@@ -31,6 +30,8 @@ async function getOnlineUsers() {
 }
 
 const Sidebar: Component = () => {
+  const { setChatStore } = useChat();
+
   const [data] = createResource<ChatRoom[]>(getChatRooms);
   const [onlineUsersData] = createResource<OnlineUser[]>(getOnlineUsers);
   const [isChatBarOpen, setIsChatBarOpen] = createSignal(true);
@@ -39,8 +40,10 @@ const Sidebar: Component = () => {
 
   createEffect(() => {
     const formatedRoom = formatChatRoom(data());
-    if (formatedRoom) setChatRooms(formatedRoom);
-    setOnlineUsers(onlineUsersData() ?? []);
+    if (formatedRoom) {
+      setChatStore("chatRooms", formatedRoom);
+    }
+    setChatStore("onlineUsers", onlineUsersData() ?? []);
   });
 
   return (

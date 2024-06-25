@@ -5,10 +5,11 @@ import Search from "~/icons/search";
 import DMProfile from "./dm-profile";
 import GroupProfile from "./group-profile";
 import { isDmChat, isGroupChat } from "~/utils/type-guards";
-import { activeRoom } from "~/stores/chatStore";
 import { DMChatRoom, GroupChatRoom } from "~/types/chat";
+import { useChat } from "~/context/chat";
 
 const ChatHeader = () => {
+  const { chatStore } = useChat();
   const { toggleShowSidebar } = useShared();
 
   const icon_mapping: {
@@ -35,11 +36,11 @@ const ChatHeader = () => {
         class="flex items-center gap-3"
       >
         <Switch>
-          <Match when={isDmChat(activeRoom)}>
-            <DMProfile {...(activeRoom as DMChatRoom)} />
+          <Match when={isDmChat(chatStore.activeRoom)}>
+            <DMProfile {...(chatStore.activeRoom as DMChatRoom)} />
           </Match>
-          <Match when={isGroupChat(activeRoom)}>
-            <GroupProfile {...(activeRoom as GroupChatRoom)} />
+          <Match when={isGroupChat(chatStore.activeRoom)}>
+            <GroupProfile {...(chatStore.activeRoom as GroupChatRoom)} />
           </Match>
         </Switch>
       </button>
