@@ -1,14 +1,15 @@
 import { createEffect, createSignal } from "solid-js";
 import Avatar from "~/components/ui/avatar";
 import { useChat } from "~/context/chat";
+import { activeRoom } from "~/stores/chatStore";
 import { GroupChatRoom } from "~/types/chat";
 
 const GroupProfile = (props: GroupChatRoom) => {
-  const { onlineUsers, activeRoom } = useChat();
+  const { onlineUsers } = useChat();
   const [onlineMembers, setOnlineMembers] = createSignal(0);
 
   createEffect(() => {
-    const room = activeRoom() as GroupChatRoom;
+    const room = activeRoom as GroupChatRoom;
     setOnlineMembers(
       room?.members.filter((memId) => onlineUsers()?.includes({ user: memId }))
         .length ?? 0

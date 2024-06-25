@@ -1,15 +1,19 @@
 import { Show } from "solid-js";
-import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
 import At from "~/icons/at";
 import Close from "~/icons/close";
 import Info from "~/icons/info";
 import Avatar from "~/components/ui/avatar";
+import { activeRoom } from "~/stores/chatStore";
+import { isDmChat } from "~/utils/type-guards";
+import { DMChatRoom, GroupChatRoom } from "~/types/chat";
 
 const ChatSidebar = () => {
   const { toggleShowSidebar } = useShared();
-  const { activeRoom } = useChat();
-  const IS_DM = activeRoom()?.type === "DM";
+  const isDM = isDmChat(activeRoom);
+
+  const dmChatRoom = activeRoom as DMChatRoom,
+    groupChatRoom = activeRoom as GroupChatRoom;
 
   return (
     <>
@@ -27,26 +31,29 @@ const ChatSidebar = () => {
         </div>
         <div class="relative aspect-square object-cover">
           <Show
-            when={IS_DM}
+            when={isDM}
             fallback={
               <Avatar
-                color={activeRoom()?.color ?? ""}
-                src={activeRoom()?.avatar ?? ""}
-                alt={activeRoom()?.name ?? ""}
+                color={groupChatRoom.color}
+                src={groupChatRoom.avatar ?? ""}
+                alt={groupChatRoom.id.toString()}
                 class="object-cover text-[15rem] font-bold text-accent"
               />
             }
           >
             <Avatar
-              color={activeRoom()?.members[0].color}
-              src={activeRoom()?.members[0].avatar ?? ""}
-              alt={activeRoom()?.members[0].full_name ?? ""}
+              color={dmChatRoom.members[0].color}
+              src={dmChatRoom.members[0].avatar ?? ""}
+              alt={
+                dmChatRoom.members[0].full_name ??
+                dmChatRoom.members[0].username
+              }
               class="object-cover text-[15rem] font-bold text-accent"
             />
           </Show>
           <div class="absolute inset-x-0 bottom-0 flex h-1/2 flex-col justify-end bg-gradient-to-t from-base-200/50 to-transparent md:gap-1.5 md:px-5 md:py-2">
             <span class="text-xl font-medium leading-none text-accent">
-              {IS_DM ? activeRoom()?.members[0].full_name : activeRoom()?.name}
+              {isDM ? dmChatRoom.members[0].full_name : groupChatRoom.name}
             </span>
             <span class="text-sm leading-none text-accent/50">
               last seen recently
@@ -58,7 +65,7 @@ const ChatSidebar = () => {
             <At class="col-span-1 size-6 self-center text-neutral-100" />
             <div class="col-span-7 flex flex-col">
               <span>
-                {IS_DM ? activeRoom()?.members[0].username : activeRoom()?.id}
+                {isDM ? dmChatRoom.members[0].username : groupChatRoom.id}
               </span>
               <span class="select-none text-sm text-neutral-100">
                 Username/Id
@@ -69,7 +76,7 @@ const ChatSidebar = () => {
             <Info class="col-span-1 size-[1.4rem] self-center text-neutral-100" />
             <div class="col-span-7 flex flex-col">
               <span class="whitespace-pre-line">
-                {IS_DM ? activeRoom()?.members[0].bio : activeRoom()?.bio}
+                {isDM ? dmChatRoom.members[0].bio : groupChatRoom.bio}
               </span>
               <span class="select-none text-sm text-neutral-100">Bio</span>
             </div>

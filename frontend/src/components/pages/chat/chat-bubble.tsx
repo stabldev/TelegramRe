@@ -2,12 +2,13 @@ import { Show, createEffect, createSignal } from "solid-js";
 import { destructure } from "@solid-primitives/destructure";
 import { FormatDate } from "~/functions/format-date";
 import Tick from "~/icons/tick";
-import type { ChatMessage, ChatRoom } from "~/types/chat";
+import type { ChatMessage } from "~/types/chat";
 import { createVisibilityObserver } from "@solid-primitives/intersection-observer";
 import { useChat } from "~/context/chat";
 import ChatContextMenu from "~/components/shared/chat/chat-context-menu";
 import { Portal } from "solid-js/web";
 import { isGroupChat } from "~/utils/type-guards";
+import { activeRoom } from "~/stores/chatStore";
 
 interface Props {
   message: ChatMessage;
@@ -17,7 +18,7 @@ interface Props {
 }
 
 const ChatBubble = (props: Props) => {
-  const { socket, activeRoom } = useChat();
+  const { socket } = useChat();
   const [showContextMenu, setShowContextMenu] = createSignal(false);
   const [contextPos, setContextPos] = createSignal({ x: 0, y: 0 });
 
@@ -43,7 +44,7 @@ const ChatBubble = (props: Props) => {
       JSON.stringify({
         action: "read_message",
         message_id: id,
-        room_id: activeRoom()?.id
+        room_id: activeRoom.id
       })
     );
   }
@@ -87,9 +88,7 @@ const ChatBubble = (props: Props) => {
           "rounded-bl-none": !self() && lastMsg()
         }}
       >
-        <Show
-          when={isGroupChat(activeRoom() as ChatRoom) && firstMsg() && !self()}
-        >
+        <Show when={isGroupChat(activeRoom) && firstMsg() && !self()}>
           {/* TODO: redirect to user chat room */}
           <a
             href={"/@" + message().sender.username}

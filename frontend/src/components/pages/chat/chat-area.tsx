@@ -2,11 +2,11 @@ import { For, Show } from "solid-js";
 import { groupChatBySender } from "~/functions/chat/group";
 import ChatBubble from "./chat-bubble";
 import { useAuth } from "~/context/auth";
-import type { ChatMessage, ChatRoom } from "~/types/chat";
+import type { ChatMessage } from "~/types/chat";
 import { destructure } from "@solid-primitives/destructure";
 import Avatar from "~/components/ui/avatar";
-import { useChat } from "~/context/chat";
 import { isGroupChat } from "~/utils/type-guards";
+import { activeRoom } from "~/stores/chatStore";
 
 interface Props {
   chat: ChatMessage[];
@@ -14,7 +14,6 @@ interface Props {
 }
 
 const ChatArea = (props: Props) => {
-  const { activeRoom } = useChat();
   const { user } = useAuth();
   const { ref, chat } = destructure(props);
 
@@ -28,10 +27,7 @@ const ChatArea = (props: Props) => {
           {(group) => (
             <div class="flex items-end md:gap-1.5">
               <Show
-                when={
-                  isGroupChat(activeRoom() as ChatRoom) &&
-                  group.sender.id !== user()?.id
-                }
+                when={isGroupChat(activeRoom) && group.sender.id !== user()?.id}
               >
                 {/* TODO: use chatroom reference here as well */}
                 <a href={"/@" + group.sender.username}>

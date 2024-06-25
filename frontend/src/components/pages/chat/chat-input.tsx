@@ -15,9 +15,10 @@ import ChatFileModal from "~/components/shared/chat/chat-file-modal";
 import Modal from "~/components/ui/modal";
 import Pencil from "~/icons/pencil";
 import SocketActions from "~/endpoints/socket/socket-actions";
+import { activeRoom } from "~/stores/chatStore";
 
 const ChatInput = () => {
-  const { socket, activeRoom } = useChat();
+  const { socket } = useChat();
   const { csrfToken, user } = useAuth();
   const { editMessage, isEditingMessage, setEditMessage } = useShared();
 
@@ -49,7 +50,7 @@ const ChatInput = () => {
           action: SocketActions.EDIT_MESSAGE,
           message_id: editMessage()?.id,
           new_message: message(),
-          room_id: activeRoom()?.id
+          room_id: activeRoom.id
         })
       );
     } else {
@@ -58,7 +59,7 @@ const ChatInput = () => {
           action: SocketActions.MESSAGE,
           type: detail.type,
           content: detail.content,
-          room_id: activeRoom()?.id
+          room_id: activeRoom.id
         })
       );
     }
@@ -82,13 +83,13 @@ const ChatInput = () => {
 
       const formData = new FormData();
       formData.append("type", type);
-      formData.append("room", String(activeRoom()?.id));
+      formData.append("room", String(activeRoom.id));
       formData.append("sender", String(user()?.id));
       formData.append("content", content.message);
       formData.append("file", content.file);
 
       const res = await fetch(
-        ApiEndpoints.chat.CHAT_ROOMS + activeRoom()?.id + "/",
+        ApiEndpoints.chat.CHAT_ROOMS + activeRoom.id + "/",
         {
           method: "POST",
           headers: {

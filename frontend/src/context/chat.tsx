@@ -9,16 +9,13 @@ import {
 import { produce } from "solid-js/store";
 import SocketActions from "~/endpoints/socket/socket-actions";
 import { useWebSocket } from "~/hooks/useWebSocket";
-import { setChatRooms } from "~/stores/chatStore";
+import { activeRoom, setChatRooms } from "~/stores/chatStore";
 import { WebSocketData } from "~/types/WebSocket";
-import type { ChatRoom } from "~/types/chat";
 import type { OnlineUser } from "~/types/user";
 
 type ChatContextReturnType = {
   onlineUsers: Accessor<OnlineUser[] | undefined>;
   setOnlineUsers: Setter<OnlineUser[] | undefined>;
-  activeRoom: Accessor<ChatRoom | undefined>;
-  setActiveRoom: Setter<ChatRoom | undefined>;
   socket: Accessor<WebSocket | undefined>;
 };
 
@@ -26,8 +23,6 @@ const ChatContext = createContext<ChatContextReturnType>();
 
 export function ChatProvider(props: { children?: JSX.Element }) {
   const [onlineUsers, setOnlineUsers] = createSignal<OnlineUser[]>();
-  const [activeRoom, setActiveRoom] = createSignal<ChatRoom>();
-
   const [socket] = useWebSocket(handleSocketMessage);
 
   function handleSocketMessage(data: WebSocketData) {
@@ -37,8 +32,7 @@ export function ChatProvider(props: { children?: JSX.Element }) {
           (room) => room.id === data.message?.room,
           produce((room) => {
             (room.message = data.message!),
-              (room.unreads =
-                room.id !== activeRoom()?.id ? room.unreads + 1 : 0);
+              (room.unreads = room.id !== activeRoom.id ? room.unreads + 1 : 0);
           })
         );
         break;
@@ -62,8 +56,6 @@ export function ChatProvider(props: { children?: JSX.Element }) {
   const context_value: ChatContextReturnType = {
     onlineUsers: onlineUsers,
     setOnlineUsers: setOnlineUsers,
-    activeRoom: activeRoom,
-    setActiveRoom: setActiveRoom,
     socket: socket
   };
 
