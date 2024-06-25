@@ -1,4 +1,4 @@
-import { Accessor, JSX, createContext, useContext } from "solid-js";
+import { JSX, createContext, useContext } from "solid-js";
 import { produce } from "solid-js/store";
 import SocketActions from "~/endpoints/socket/socket-actions";
 import { useWebSocket } from "~/hooks/useWebSocket";
@@ -6,11 +6,9 @@ import { activeRoom, setChatRooms } from "~/stores/chatStore";
 import { setOnlineUsers } from "~/stores/userStore";
 import { WebSocketData } from "~/types/WebSocket";
 
-type ChatContextReturnType = {
-  socket: Accessor<WebSocket | undefined>;
-};
+type ChatContextType = [ReturnType<typeof useWebSocket>[0]];
 
-const ChatContext = createContext<ChatContextReturnType>();
+const ChatContext = createContext<ChatContextType>();
 
 export function ChatProvider(props: { children?: JSX.Element }) {
   const [socket] = useWebSocket(handleSocketMessage);
@@ -43,12 +41,10 @@ export function ChatProvider(props: { children?: JSX.Element }) {
     }
   }
 
-  const context_value: ChatContextReturnType = {
-    socket: socket
-  };
+  const contextValue: ChatContextType = [socket];
 
   return (
-    <ChatContext.Provider value={context_value}>
+    <ChatContext.Provider value={contextValue}>
       {props.children}
     </ChatContext.Provider>
   );

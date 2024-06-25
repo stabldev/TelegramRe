@@ -18,7 +18,7 @@ import SocketActions from "~/endpoints/socket/socket-actions";
 import { activeRoom } from "~/stores/chatStore";
 
 const ChatInput = () => {
-  const { socket } = useChat();
+  const [socket] = useChat();
   const { csrfToken, user } = useAuth();
   const { editMessage, isEditingMessage, setEditMessage } = useShared();
 
