@@ -1,18 +1,17 @@
 import { Show, createEffect, createSignal } from "solid-js";
 import Avatar from "~/components/ui/avatar";
-import { useChat } from "~/context/chat";
 import { activeRoom } from "~/stores/chatStore";
+import { onlineUsers } from "~/stores/userStore";
 import { DMChatRoom } from "~/types/chat";
 
 const DMProfile = (props: DMChatRoom) => {
   const [isOnline, setIsOnline] = createSignal(false);
-  const { onlineUsers } = useChat();
 
   createEffect(() => {
     const room = activeRoom as DMChatRoom;
     room &&
       setIsOnline(
-        onlineUsers()?.some((user) => user.user === room.members[0].id)
+        onlineUsers.some((user) => user.user === room.members[0].id)
           ? true
           : false
       );

@@ -1,28 +1,18 @@
-import {
-  Accessor,
-  JSX,
-  Setter,
-  createContext,
-  createSignal,
-  useContext
-} from "solid-js";
+import { Accessor, JSX, createContext, useContext } from "solid-js";
 import { produce } from "solid-js/store";
 import SocketActions from "~/endpoints/socket/socket-actions";
 import { useWebSocket } from "~/hooks/useWebSocket";
 import { activeRoom, setChatRooms } from "~/stores/chatStore";
+import { setOnlineUsers } from "~/stores/userStore";
 import { WebSocketData } from "~/types/WebSocket";
-import type { OnlineUser } from "~/types/user";
 
 type ChatContextReturnType = {
-  onlineUsers: Accessor<OnlineUser[] | undefined>;
-  setOnlineUsers: Setter<OnlineUser[] | undefined>;
   socket: Accessor<WebSocket | undefined>;
 };
 
 const ChatContext = createContext<ChatContextReturnType>();
 
 export function ChatProvider(props: { children?: JSX.Element }) {
-  const [onlineUsers, setOnlineUsers] = createSignal<OnlineUser[]>();
   const [socket] = useWebSocket(handleSocketMessage);
 
   function handleSocketMessage(data: WebSocketData) {
@@ -37,7 +27,7 @@ export function ChatProvider(props: { children?: JSX.Element }) {
         );
         break;
       case SocketActions.ONLINE_USERS:
-        setOnlineUsers(data.online_users_list);
+        setOnlineUsers(data.online_users_list ?? []);
         break;
       case SocketActions.EDIT_MESSAGE:
         setChatRooms(
@@ -54,8 +44,6 @@ export function ChatProvider(props: { children?: JSX.Element }) {
   }
 
   const context_value: ChatContextReturnType = {
-    onlineUsers: onlineUsers,
-    setOnlineUsers: setOnlineUsers,
     socket: socket
   };
 

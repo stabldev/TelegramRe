@@ -2,12 +2,12 @@ import { destructure } from "@solid-primitives/destructure";
 import { Match, Show, Switch, createEffect, createSignal } from "solid-js";
 import Avatar from "~/components/ui/avatar";
 import { useAuth } from "~/context/auth";
-import { useChat } from "~/context/chat";
 import { FormatDate } from "~/functions/format-date";
 import Gif from "~/icons/gif";
 import Photo from "~/icons/photo";
 import Tick from "~/icons/tick";
 import Verified from "~/icons/verified";
+import { onlineUsers } from "~/stores/userStore";
 import { DMChatRoom } from "~/types/chat";
 
 interface Props {
@@ -18,7 +18,6 @@ interface Props {
 const DMRoom = (props: Props) => {
   const { room, isActive } = destructure(props);
   const { user } = useAuth();
-  const { onlineUsers } = useChat();
   const [isOnline, setIsOnline] = createSignal(false);
 
   const chat_user = room().members[0];
@@ -28,7 +27,7 @@ const DMRoom = (props: Props) => {
 
   createEffect(() => {
     setIsOnline(
-      onlineUsers()?.some((user) => user.user === chat_user.id) ? true : false
+      onlineUsers.some((user) => user.user === chat_user.id) ? true : false
     );
   });
 
