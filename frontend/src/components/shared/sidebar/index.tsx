@@ -6,12 +6,12 @@ import {
   createSignal
 } from "solid-js";
 import { formatChatRoom } from "~/functions/chat/format-room";
-import { useChat } from "~/context/chat";
 import type { ChatRoom } from "~/types/chat";
 import type { OnlineUser } from "~/types/user";
 import ApiEndpoints from "~/endpoints/api/api-endpoints";
 import ChatBar from "./chat-bar";
 import SettingsBar from "./settings-bar";
+import { useChat } from "~/context/chat";
 
 async function getChatRooms() {
   const res = await fetch(ApiEndpoints.chat.CHAT_ROOMS, {
@@ -30,17 +30,20 @@ async function getOnlineUsers() {
 }
 
 const Sidebar: Component = () => {
-  const { setChatRooms, setOnlineUsers } = useChat();
+  const { setChatStore } = useChat();
+
   const [data] = createResource<ChatRoom[]>(getChatRooms);
-  const [online_users] = createResource<OnlineUser[]>(getOnlineUsers);
+  const [onlineUsersData] = createResource<OnlineUser[]>(getOnlineUsers);
   const [isChatBarOpen, setIsChatBarOpen] = createSignal(true);
 
   const toggleView = () => setIsChatBarOpen((prev) => !prev);
 
   createEffect(() => {
     const formatedRoom = formatChatRoom(data());
-    setChatRooms(formatedRoom);
-    setOnlineUsers(online_users());
+    if (formatedRoom) {
+      setChatStore("chatRooms", formatedRoom);
+    }
+    setChatStore("onlineUsers", onlineUsersData() ?? []);
   });
 
   return (

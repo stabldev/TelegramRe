@@ -1,8 +1,8 @@
 import SearchHeader from "./search-header";
 import { For } from "solid-js";
-import { useChat } from "~/context/chat";
 import RoomItem from "./room-item";
 import Pencil from "~/icons/pencil";
+import { useChat } from "~/context/chat";
 
 type Props = {
   toggleView: () => void;
@@ -10,13 +10,17 @@ type Props = {
 };
 
 const ChatBar = (props: Props) => {
-  const { chatRooms } = useChat();
+  const { chatStore } = useChat();
 
   return (
     <>
       <SearchHeader toggleView={props.toggleView} />
       <div class="overflow-y-scroll px-2 [scrollbar-width:_thin]">
-        <For each={chatRooms()?.sort((a, b) => b.message.id - a.message.id)}>
+        <For
+          each={chatStore.chatRooms.toSorted(
+            (a, b) => b.message.id - a.message.id
+          )}
+        >
           {(room) => <RoomItem {...room} />}
         </For>
       </div>

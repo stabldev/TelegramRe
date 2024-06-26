@@ -17,8 +17,8 @@ interface Props {
 
 const DMRoom = (props: Props) => {
   const { room, isActive } = destructure(props);
+  const { chatStore } = useChat();
   const { user } = useAuth();
-  const { onlineUsers } = useChat();
   const [isOnline, setIsOnline] = createSignal(false);
 
   const chat_user = room().members[0];
@@ -28,7 +28,9 @@ const DMRoom = (props: Props) => {
 
   createEffect(() => {
     setIsOnline(
-      onlineUsers()?.some((user) => user.user === chat_user.id) ? true : false
+      chatStore.onlineUsers.some((user) => user.user === chat_user.id)
+        ? true
+        : false
     );
   });
 

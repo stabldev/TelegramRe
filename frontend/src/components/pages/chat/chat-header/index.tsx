@@ -1,14 +1,16 @@
 import { For, JSX, Match, Switch } from "solid-js";
-import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
 import Menu from "~/icons/menu";
 import Search from "~/icons/search";
 import DMProfile from "./dm-profile";
 import GroupProfile from "./group-profile";
+import { isDmChat, isGroupChat } from "~/utils/type-guards";
+import { DMChatRoom, GroupChatRoom } from "~/types/chat";
+import { useChat } from "~/context/chat";
 
 const ChatHeader = () => {
+  const { chatStore } = useChat();
   const { toggleShowSidebar } = useShared();
-  const { activeRoom } = useChat();
 
   const icon_mapping: {
     [key: string]: {
@@ -34,11 +36,11 @@ const ChatHeader = () => {
         class="flex items-center gap-3"
       >
         <Switch>
-          <Match when={activeRoom()?.type === "DM"}>
-            <DMProfile {...activeRoom()!} />
+          <Match when={isDmChat(chatStore.activeRoom)}>
+            <DMProfile {...(chatStore.activeRoom as DMChatRoom)} />
           </Match>
-          <Match when={activeRoom()?.type === "GROUP"}>
-            <GroupProfile {...activeRoom()!} />
+          <Match when={isGroupChat(chatStore.activeRoom)}>
+            <GroupProfile {...(chatStore.activeRoom as GroupChatRoom)} />
           </Match>
         </Switch>
       </button>

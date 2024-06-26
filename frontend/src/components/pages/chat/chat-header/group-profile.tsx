@@ -4,14 +4,15 @@ import { useChat } from "~/context/chat";
 import { GroupChatRoom } from "~/types/chat";
 
 const GroupProfile = (props: GroupChatRoom) => {
-  const { onlineUsers, activeRoom } = useChat();
+  const { chatStore } = useChat();
   const [onlineMembers, setOnlineMembers] = createSignal(0);
 
   createEffect(() => {
-    const room = activeRoom() as GroupChatRoom;
+    const room = chatStore.activeRoom as GroupChatRoom;
     setOnlineMembers(
-      room?.members.filter((memId) => onlineUsers()?.includes({ user: memId }))
-        .length ?? 0
+      room?.members.filter((memId) =>
+        chatStore.onlineUsers.includes({ user: memId })
+      ).length ?? 0
     );
   });
 

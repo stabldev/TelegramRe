@@ -4,14 +4,14 @@ import { useChat } from "~/context/chat";
 import { DMChatRoom } from "~/types/chat";
 
 const DMProfile = (props: DMChatRoom) => {
+  const { chatStore } = useChat();
   const [isOnline, setIsOnline] = createSignal(false);
-  const { onlineUsers, activeRoom } = useChat();
 
   createEffect(() => {
-    const room = activeRoom() as DMChatRoom;
+    const room = chatStore.activeRoom as DMChatRoom;
     room &&
       setIsOnline(
-        onlineUsers()?.some((user) => user.user === room.members[0].id)
+        chatStore.onlineUsers.some((user) => user.user === room.members[0].id)
           ? true
           : false
       );
