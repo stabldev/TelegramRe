@@ -60,6 +60,7 @@ class ChatMessage(CreatedAtMixin):
         return f"{self.sender} -> {self.room}"
 
     class Meta:
+        ordering = ["created_at"]
         # DB
         db_table = "chat_message"
         db_table_comment = "Chat messages"
