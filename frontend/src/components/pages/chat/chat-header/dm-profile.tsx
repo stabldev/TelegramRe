@@ -39,7 +39,7 @@ const DMProfile = (props: DMChatRoom) => {
             </span>
           }
         >
-          <span class="text-xs font-normal">online</span>
+          <span class="text-sm font-normal text-neutral-100">online</span>
         </Show>
       </div>
     </>
