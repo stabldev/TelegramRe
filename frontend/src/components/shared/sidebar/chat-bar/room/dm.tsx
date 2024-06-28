@@ -1,11 +1,9 @@
 import { destructure } from "@solid-primitives/destructure";
-import { Match, Show, Switch, createEffect, createSignal } from "solid-js";
+import { Show, createEffect, createSignal } from "solid-js";
 import Avatar from "~/components/ui/avatar";
 import { useAuth } from "~/context/auth";
 import { useChat } from "~/context/chat";
 import { FormatDate } from "~/functions/format-date";
-import Gif from "~/icons/gif";
-import Photo from "~/icons/photo";
 import Tick from "~/icons/tick";
 import Verified from "~/icons/verified";
 import { DMChatRoom } from "~/types/chat";
@@ -22,7 +20,7 @@ const DMRoom = (props: Props) => {
   const [isOnline, setIsOnline] = createSignal(false);
 
   const chat_user = room().members[0];
-  const self_message = room().members[0].id === user()?.id;
+  const self_message = room().message.sender.id === user()?.id;
   const formated_timestamp = new FormatDate(room().message.created_at)
     .format_to_relative_time;
 
@@ -77,7 +75,7 @@ const DMRoom = (props: Props) => {
                 fallback={
                   <Tick
                     variant="single"
-                    class="flex-shrink-0 text-primary md:size-4"
+                    class="flex-shrink-0 text-primary md:size-5"
                     classList={{
                       "!text-accent": isActive()
                     }}
@@ -126,30 +124,16 @@ const DMRoom = (props: Props) => {
               GIF
             </span>
           </Show>
-          <Show
-            when={self_message}
-            fallback={
-              <Show when={room().unreads}>
-                <span
-                  class="grid aspect-square place-items-center rounded-full font-semibold leading-none md:size-5 md:text-xs"
-                  classList={{
-                    "bg-accent text-primary": isActive(),
-                    "bg-primary": !isActive()
-                  }}
-                >
-                  {room().unreads}
-                </span>
-              </Show>
-            }
-          >
-            <Switch>
-              <Match when={room().message.type === "image"}>
-                <Photo class="flex-shrink-0 md:size-4" />
-              </Match>
-              <Match when={room().message.type === "gif"}>
-                <Gif class="flex-shrink-0 md:size-4" />
-              </Match>
-            </Switch>
+          <Show when={room().unreads}>
+            <span
+              class="grid aspect-square place-items-center rounded-full font-semibold leading-none md:size-5 md:text-xs"
+              classList={{
+                "bg-accent text-primary": isActive(),
+                "bg-primary": !isActive()
+              }}
+            >
+              {room().unreads}
+            </span>
           </Show>
         </div>
       </div>

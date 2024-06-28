@@ -30,7 +30,7 @@ class ChatMessageView(mixins.CreateModelMixin, generics.GenericAPIView):
         try:
             room_id = self.kwargs["room_id"]
             chat_room = ChatRoom.objects.get(id=room_id)
-            chat_messages = chat_room.chat_message.all()
+            chat_messages = chat_room.chat_message.all().order_by("created_at")
 
             serialize_chat_room = ChatRoomSerializer(chat_room, many=False)
             serialize_chat_messages = ChatMessageSerializer(chat_messages, many=True)
