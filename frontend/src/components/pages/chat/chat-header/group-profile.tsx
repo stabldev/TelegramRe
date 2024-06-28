@@ -11,7 +11,7 @@ const GroupProfile = (props: GroupChatRoom) => {
     const room = chatStore.activeRoom as GroupChatRoom;
     setOnlineMembers(
       room?.members.filter((memId) =>
-        chatStore.onlineUsers.includes({ user: memId })
+        chatStore.onlineUsers.find((obj) => obj.user === memId)
       ).length ?? 0
     );
   });
@@ -29,8 +29,7 @@ const GroupProfile = (props: GroupChatRoom) => {
       <div class="text-secondary flex flex-col items-start leading-none">
         <span class="text-base font-medium text-accent">{props.name}</span>
         <span class="text-sm font-normal text-neutral-100">
-          {/* +1 for current user */}
-          {props.members.length} members, {onlineMembers() + 1} online
+          {props.members.length} members, {onlineMembers()} online
         </span>
       </div>
     </>
