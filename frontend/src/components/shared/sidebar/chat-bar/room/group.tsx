@@ -91,8 +91,10 @@ const GroupRoom = (props: Props) => {
                 }}
               >
                 <span class="text-accent">
-                  {room().message.sender.full_name ||
-                    room().message.sender.username}
+                  {room().message.sender.id === user()?.id
+                    ? "You"
+                    : room().message.sender.full_name ||
+                      room().message.sender.username}
                   :{" "}
                 </span>
                 {room().message.content}
