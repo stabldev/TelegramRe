@@ -7,18 +7,18 @@ import {
 } from "@solidjs/router";
 import { Intent } from "@solidjs/router/dist/types";
 import { Show, createEffect, createSignal } from "solid-js";
-import ChatArea from "~/components/pages/chat/ChatArea";
-import ChatHeader from "~/components/pages/chat/ChatHeader";
-import ChatInput from "~/components/pages/chat/ChatInput";
-import ChatSidebar from "~/components/shared/chat/ChatSidebar";
+import ChatArea from "~/components/pages/chat/chat-area";
+import ChatHeader from "~/components/pages/chat/chat-header";
+import ChatInput from "~/components/pages/chat/chat-input";
+import ChatSidebar from "~/components/shared/chat/chat-sidebar";
 import { useChat } from "~/context/chat";
 import { useShared } from "~/context/shared";
 import ApiEndpoints from "~/endpoints/api/api-endpoints";
-import { fetchAPI } from "~/functions/api/fetchApi";
-import { formatChatRoom } from "~/functions/chat/formatRoom";
-import DefaultLayout from "~/layouts/DefaultLayout";
-import { ChatMessage, ChatRoom } from "~/types/Chat";
-import { isDmChat } from "~/utils/typeGuards";
+import { fetchAPI } from "~/functions/api/fetch";
+import { formatChatRoom } from "~/functions/chat/format-room";
+import DefaultLayout from "~/layouts/default";
+import { ChatMessage, ChatRoom } from "~/types/chat";
+import { isDmChat } from "~/utils/type-guards";
 
 interface ChatRoomData {
   chat_room: ChatRoom;
