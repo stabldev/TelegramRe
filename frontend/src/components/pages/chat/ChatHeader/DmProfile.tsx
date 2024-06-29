@@ -1,7 +1,7 @@
 import { Show, createEffect, createSignal } from "solid-js";
-import Avatar from "~/components/ui/avatar";
+import Avatar from "~/components/ui/Avatar";
 import { useChat } from "~/context/chat";
-import { DMChatRoom } from "~/types/chat";
+import { DMChatRoom } from "~/types/Chat";
 
 const DMProfile = (props: DMChatRoom) => {
   const { chatStore } = useChat();

@@ -1,19 +1,19 @@
 import { Show, createEffect, createSignal } from "solid-js";
 import TextareaAutosize from "solid-textarea-autosize";
-import Emoji from "~/icons/emoji";
-import Mic from "~/icons/mic";
-import Send from "~/icons/send";
-import Clip from "~/icons/clip";
+import Emoji from "~/icons/Emoji";
+import Mic from "~/icons/Mic";
+import Send from "~/icons/Send";
+import Clip from "~/icons/Clip";
 import { useChat } from "~/context/chat";
 import ApiEndpoints from "~/endpoints/api/api-endpoints";
 import { useAuth } from "~/context/auth";
 import { useShared } from "~/context/shared";
-import Close from "~/icons/close";
-import Popover from "~/components/ui/popover";
-import ChatMediaMenu from "~/components/shared/chat/chat-media-menu";
-import ChatFileModal from "~/components/shared/chat/chat-file-modal";
-import Modal from "~/components/ui/modal";
-import Pencil from "~/icons/pencil";
+import Close from "~/icons/Close";
+import Popover from "~/components/ui/Popover";
+import ChatMediaMenu from "~/components/shared/chat/ChatMediaMenu";
+import ChatFileModal from "~/components/shared/chat/ChatFileModal";
+import Modal from "~/components/ui/Modal";
+import Pencil from "~/icons/Pencil";
 import SocketActions from "~/endpoints/socket/socket-actions";
 
 const ChatInput = () => {

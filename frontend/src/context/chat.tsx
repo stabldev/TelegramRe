@@ -3,8 +3,8 @@ import { SetStoreFunction, createStore, produce } from "solid-js/store";
 import SocketActions from "~/endpoints/socket/socket-actions";
 import { useWebSocket } from "~/hooks/useWebSocket";
 import { WebSocketData } from "~/types/WebSocket";
-import { ChatMessage, ChatRoom } from "~/types/chat";
-import { OnlineUser } from "~/types/user";
+import { ChatMessage, ChatRoom } from "~/types/Chat";
+import { OnlineUser } from "~/types/User";
 
 type StateType = {
   chatRooms: ChatRoom[];

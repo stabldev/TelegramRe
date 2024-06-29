@@ -1,7 +1,7 @@
 import { createEffect, createSignal } from "solid-js";
-import Avatar from "~/components/ui/avatar";
+import Avatar from "~/components/ui/Avatar";
 import { useChat } from "~/context/chat";
-import { GroupChatRoom } from "~/types/chat";
+import { GroupChatRoom } from "~/types/Chat";
 
 const GroupProfile = (props: GroupChatRoom) => {
   const { chatStore } = useChat();

@@ -1,6 +1,6 @@
 import { Show, createSignal } from "solid-js";
-import Spinner from "~/components/ui/spinner";
-import TextInput from "~/components/ui/text-input";
+import Spinner from "~/components/ui/Spinner";
+import TextInput from "~/components/ui/TextInput";
 import { useAuth } from "~/context/auth";
 
 const OtpForm = () => {

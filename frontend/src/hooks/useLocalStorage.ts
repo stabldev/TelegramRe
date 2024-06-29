@@ -6,10 +6,7 @@ import { Signal, createSignal } from "solid-js";
  * => const [value, setValue] = useLocalStorageSignal("theme", "dark");
  * pass key and defaultValue to set new localStorage item
  */
-export const useLocalStorageSignal = <T>(
-  key: string,
-  defaultValue: T
-): Signal<T> => {
+export const useLocalStorage = <T>(key: string, defaultValue: T): Signal<T> => {
   const storage = typeof window !== "undefined" ? window.localStorage : null;
   // get item from localStorage or use defaultValue
   const initialValue =

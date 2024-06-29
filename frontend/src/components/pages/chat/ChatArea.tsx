@@ -1,9 +1,9 @@
 import { For, Show } from "solid-js";
-import { groupChatBySender } from "~/functions/chat/group";
-import ChatBubble from "./chat-bubble";
+import { groupChatBySender } from "~/functions/chat/groupChat";
+import ChatBubble from "./ChatBubble";
 import { useAuth } from "~/context/auth";
-import Avatar from "~/components/ui/avatar";
-import { isGroupChat } from "~/utils/type-guards";
+import Avatar from "~/components/ui/Avatar";
+import { isGroupChat } from "~/utils/typeGuards";
 import { useChat } from "~/context/chat";
 
 const ChatArea = () => {

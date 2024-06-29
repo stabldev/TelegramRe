@@ -1,4 +1,4 @@
-import { ChatRoom, GroupChatRoom, DMChatRoom } from "~/types/chat";
+import { ChatRoom, GroupChatRoom, DMChatRoom } from "~/types/Chat";
 
 export function isGroupChat(chatRoom: ChatRoom): chatRoom is GroupChatRoom {
   return chatRoom.type === "GROUP";

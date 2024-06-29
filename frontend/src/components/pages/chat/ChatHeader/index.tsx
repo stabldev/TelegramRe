@@ -1,11 +1,11 @@
 import { For, JSX, Match, Switch } from "solid-js";
 import { useShared } from "~/context/shared";
-import Menu from "~/icons/menu";
-import Search from "~/icons/search";
-import DMProfile from "./dm-profile";
-import GroupProfile from "./group-profile";
-import { isDmChat, isGroupChat } from "~/utils/type-guards";
-import { DMChatRoom, GroupChatRoom } from "~/types/chat";
+import Menu from "~/icons/Menu";
+import Search from "~/icons/Search";
+import DMProfile from "./DmProfile";
+import GroupProfile from "./GroupProfile";
+import { isDmChat, isGroupChat } from "~/utils/typeGuards";
+import { DMChatRoom, GroupChatRoom } from "~/types/Chat";
 import { useChat } from "~/context/chat";
 
 const ChatHeader = () => {

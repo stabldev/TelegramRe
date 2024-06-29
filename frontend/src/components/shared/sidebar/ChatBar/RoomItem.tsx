@@ -1,10 +1,10 @@
 import { A, useParams } from "@solidjs/router";
 import { Match, Switch, createEffect, createSignal } from "solid-js";
-import type { ChatRoom, DMChatRoom, GroupChatRoom } from "~/types/chat";
+import type { ChatRoom, DMChatRoom, GroupChatRoom } from "~/types/Chat";
 import { cn } from "~/functions/cn";
-import DMRoom from "./room/dm";
-import GroupRoom from "./room/group";
-import { isDmChat, isGroupChat } from "~/utils/type-guards";
+import DMRoom from "./room/Dm";
+import GroupRoom from "./room/Group";
+import { isDmChat, isGroupChat } from "~/utils/typeGuards";
 
 const RoomItem = (props: ChatRoom) => {
   const params = useParams<{ room: string }>();

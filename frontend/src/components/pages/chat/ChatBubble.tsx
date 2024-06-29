@@ -1,13 +1,13 @@
 import { Show, createEffect, createSignal } from "solid-js";
 import { destructure } from "@solid-primitives/destructure";
-import { FormatDate } from "~/functions/format-date";
-import Tick from "~/icons/tick";
-import type { ChatMessage } from "~/types/chat";
+import { FormatDate } from "~/functions/formatDate";
+import Tick from "~/icons/Tick";
+import type { ChatMessage } from "~/types/Chat";
 import { createVisibilityObserver } from "@solid-primitives/intersection-observer";
 import { useChat } from "~/context/chat";
-import ChatContextMenu from "~/components/shared/chat/chat-context-menu";
+import ChatContextMenu from "~/components/shared/chat/ChatContextMenu";
 import { Portal } from "solid-js/web";
-import { isGroupChat } from "~/utils/type-guards";
+import { isGroupChat } from "~/utils/typeGuards";
 
 interface Props {
   message: ChatMessage;

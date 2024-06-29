@@ -1,6 +1,6 @@
 import { useAuth } from "~/context/auth";
-import type { ChatRoom } from "~/types/chat";
-import { isDmChat } from "~/utils/type-guards";
+import type { ChatRoom } from "~/types/Chat";
+import { isDmChat } from "~/utils/typeGuards";
 
 /**
  * Format chat rooms response

@@ -7,7 +7,7 @@ import {
   createSignal,
   useContext
 } from "solid-js";
-import type { ChatMessage } from "~/types/chat";
+import type { ChatMessage } from "~/types/Chat";
 
 type SharedContextReturnType = {
   showSidebar: Accessor<boolean>;

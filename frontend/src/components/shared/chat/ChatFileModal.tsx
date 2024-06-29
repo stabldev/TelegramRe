@@ -1,10 +1,10 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import { createEffect, createSignal, onCleanup, onMount } from "solid-js";
 import TextareaAutosize from "solid-textarea-autosize";
-import Close from "~/icons/close";
+import Close from "~/icons/Close";
 import { filesize } from "filesize";
-import Send from "~/icons/send";
-import Emoji from "~/icons/emoji";
+import Send from "~/icons/Send";
+import Emoji from "~/icons/Emoji";
 
 type Props = {
   file: File;

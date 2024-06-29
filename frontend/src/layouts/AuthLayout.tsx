@@ -1,6 +1,6 @@
 import { Match, Switch, createSignal } from "solid-js";
-import EmailForm from "~/components/pages/auth/email-form";
-import OtpForm from "~/components/pages/auth/otp-form";
+import EmailForm from "~/components/pages/auth/EmailForm";
+import OtpForm from "~/components/pages/auth/OtpForm";
 import { VERSION } from "~/config";
 
 const AuthLayout = () => {

@@ -7,8 +7,8 @@ import {
   onMount
 } from "solid-js";
 import ApiEndpoints from "~/endpoints/api/api-endpoints";
-import { fetchAPI } from "~/functions/api/fetch";
-import type { User } from "~/types/user";
+import { fetchAPI } from "~/functions/api/fetchApi";
+import type { User } from "~/types/User";
 
 type AuthState = {
   country?: string;

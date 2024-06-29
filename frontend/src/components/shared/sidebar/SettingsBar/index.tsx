@@ -1,10 +1,10 @@
 import { useAuth } from "~/context/auth";
-import { SettingsHeader } from "./settings-header";
-import At from "~/icons/at";
-import Info from "~/icons/info";
-import Verified from "~/icons/verified";
+import { SettingsHeader } from "./SettingsHeader";
+import At from "~/icons/At";
+import Info from "~/icons/Info";
+import Verified from "~/icons/Verified";
 import { Show } from "solid-js";
-import Avatar from "~/components/ui/avatar";
+import Avatar from "~/components/ui/Avatar";
 
 type Props = {
   toggleView: () => void;

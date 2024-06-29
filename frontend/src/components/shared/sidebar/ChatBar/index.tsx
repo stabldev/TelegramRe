@@ -1,7 +1,7 @@
-import SearchHeader from "./search-header";
+import SearchHeader from "./SearchHeader";
 import { For } from "solid-js";
-import RoomItem from "./room-item";
-import Pencil from "~/icons/pencil";
+import RoomItem from "./RoomItem";
+import Pencil from "~/icons/Pencil";
 import { useChat } from "~/context/chat";
 
 type Props = {

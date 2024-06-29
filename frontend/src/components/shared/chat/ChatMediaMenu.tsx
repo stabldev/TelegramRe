@@ -1,5 +1,5 @@
-import Gif from "~/icons/gif";
-import Photo from "~/icons/photo";
+import Gif from "~/icons/Gif";
+import Photo from "~/icons/Photo";
 
 const ChatMediaMenu = () => {
   return (

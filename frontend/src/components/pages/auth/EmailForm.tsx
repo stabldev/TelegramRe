@@ -1,10 +1,10 @@
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import { Show } from "solid-js";
-import CheckBox from "~/components/ui/checkbox";
-import Spinner from "~/components/ui/spinner";
-import TextInput from "~/components/ui/text-input";
+import CheckBox from "~/components/ui/Checkbox";
+import Spinner from "~/components/ui/Spinner";
+import TextInput from "~/components/ui/TextInput";
 import { useAuth } from "~/context/auth";
-import Arrow from "~/icons/arrow";
+import Arrow from "~/icons/Arrow";
 
 interface Props {
   onEmailSubmit: (e: CustomEvent) => void;

@@ -1,12 +1,12 @@
 import { destructure } from "@solid-primitives/destructure";
 import { Show, createSignal } from "solid-js";
-import Popover from "~/components/ui/popover";
-import Code from "~/icons/code";
-import License from "~/icons/license";
-import Menu from "~/icons/menu";
-import BugReport from "~/icons/report";
-import Search from "~/icons/search";
-import UserSettings from "~/icons/settings/user";
+import Popover from "~/components/ui/Popover";
+import Code from "~/icons/Code";
+import License from "~/icons/License";
+import Menu from "~/icons/Menu";
+import BugReport from "~/icons/Report";
+import Search from "~/icons/Search";
+import UserSettings from "~/icons/Settings/User";
 
 type Props = {
   toggleView: () => void;

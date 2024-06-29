@@ -5,12 +5,12 @@ import {
   createResource,
   createSignal
 } from "solid-js";
-import { formatChatRoom } from "~/functions/chat/format-room";
-import type { ChatRoom } from "~/types/chat";
-import type { OnlineUser } from "~/types/user";
+import { formatChatRoom } from "~/functions/chat/formatRoom";
+import type { ChatRoom } from "~/types/Chat";
+import type { OnlineUser } from "~/types/User";
 import ApiEndpoints from "~/endpoints/api/api-endpoints";
-import ChatBar from "./chat-bar";
-import SettingsBar from "./settings-bar";
+import ChatBar from "./ChatBar";
+import SettingsBar from "./SettingsBar";
 import { useChat } from "~/context/chat";
 
 async function getChatRooms() {

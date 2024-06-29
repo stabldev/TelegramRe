@@ -2,12 +2,12 @@ import { destructure } from "@solid-primitives/destructure";
 import { createEventDispatcher } from "@solid-primitives/event-dispatcher";
 import { Accessor, Show, createSignal, onCleanup, onMount } from "solid-js";
 import { useShared } from "~/context/shared";
-import { FormatDate } from "~/functions/format-date";
-import Copy from "~/icons/copy";
-import Delete from "~/icons/delete";
-import Pencil from "~/icons/pencil";
-import Tick from "~/icons/tick";
-import type { ChatMessage } from "~/types/chat";
+import { FormatDate } from "~/functions/formatDate";
+import Copy from "~/icons/Copy";
+import Delete from "~/icons/Delete";
+import Pencil from "~/icons/Pencil";
+import Tick from "~/icons/Tick";
+import type { ChatMessage } from "~/types/Chat";
 import { Motion } from "solid-motionone";
 
 type Props = {

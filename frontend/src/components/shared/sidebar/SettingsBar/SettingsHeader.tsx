@@ -1,7 +1,7 @@
 import { destructure } from "@solid-primitives/destructure";
-import Arrow from "~/icons/arrow";
-import Menu from "~/icons/menu";
-import Pencil from "~/icons/pencil";
+import Arrow from "~/icons/Arrow";
+import Menu from "~/icons/Menu";
+import Pencil from "~/icons/Pencil";
 
 type Props = {
   toggleView: () => void;

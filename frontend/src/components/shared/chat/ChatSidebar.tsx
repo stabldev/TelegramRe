@@ -1,11 +1,11 @@
 import { Show } from "solid-js";
 import { useShared } from "~/context/shared";
-import At from "~/icons/at";
-import Close from "~/icons/close";
-import Info from "~/icons/info";
-import Avatar from "~/components/ui/avatar";
-import { isDmChat } from "~/utils/type-guards";
-import { DMChatRoom, GroupChatRoom } from "~/types/chat";
+import At from "~/icons/At";
+import Close from "~/icons/Close";
+import Info from "~/icons/Info";
+import Avatar from "~/components/ui/Avatar";
+import { isDmChat } from "~/utils/typeGuards";
+import { DMChatRoom, GroupChatRoom } from "~/types/Chat";
 import { useChat } from "~/context/chat";
 
 const ChatSidebar = () => {

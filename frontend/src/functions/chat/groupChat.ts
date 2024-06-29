@@ -1,4 +1,4 @@
-import type { ChatMember, ChatMessage } from "~/types/chat";
+import type { ChatMember, ChatMessage } from "~/types/Chat";
 
 /**
  * Format chat messages based on sender
