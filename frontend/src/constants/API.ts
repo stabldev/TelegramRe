@@ -1,11 +1,11 @@
 import { API_URL } from "~/config";
 
-const ApiEndpoints = {
-  chat: {
+export const apiEndpoints = {
+  CHAT: {
     CHAT_ROOMS: API_URL + "/v1/chat/chat-rooms/",
     ONLINE_USERS: API_URL + "/v1/chat/online-users/"
   },
-  user: {
+  USER: {
     GET_USER: API_URL + "/v1/user/",
     SEARCH_USER: API_URL + "/v1/user/search/",
     auth: {
@@ -18,5 +18,3 @@ const ApiEndpoints = {
     }
   }
 };
-
-export default ApiEndpoints;
