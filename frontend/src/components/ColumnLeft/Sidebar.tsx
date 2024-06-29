@@ -1,5 +1,6 @@
 import {
   Component,
+  For,
   Show,
   createEffect,
   createResource,
@@ -9,9 +10,11 @@ import { formatChatRoom } from "~/functions/chat/formatRoom";
 import type { ChatRoom } from "~/types/Chat";
 import type { OnlineUser } from "~/types/User";
 import ApiEndpoints from "~/endpoints/api/api-endpoints";
-import ChatBar from "./ChatBar";
 import SettingsBar from "./SettingsBar";
 import { useChat } from "~/context/chat";
+import SearchHeader from "./SearchHeader";
+import RoomItem from "./RoomItem";
+import Pencil from "~/icons/Pencil";
 
 async function getChatRooms() {
   const res = await fetch(ApiEndpoints.chat.CHAT_ROOMS, {
@@ -52,10 +55,19 @@ const Sidebar: Component = () => {
         when={isChatBarOpen()}
         fallback={<SettingsBar toggleView={toggleView} />}
       >
-        <ChatBar
-          isLoading={data.loading}
-          toggleView={toggleView}
-        />
+        <SearchHeader toggleView={props.toggleView} />
+        <div class="overflow-y-scroll px-2 [scrollbar-width:_thin]">
+          <For
+            each={chatStore.chatRooms.toSorted(
+              (a, b) => b.message.id - a.message.id
+            )}
+          >
+            {(room) => <RoomItem {...room} />}
+          </For>
+        </div>
+        <button class="absolute bottom-5 right-5 grid size-14 place-items-center rounded-full bg-primary opacity-0 transition-opacity group-hover:opacity-100">
+          <Pencil class="size-6 text-accent" />
+        </button>
       </Show>
     </div>
   );
