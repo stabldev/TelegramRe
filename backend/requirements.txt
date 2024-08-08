@@ -1,5 +1,5 @@
 asgiref==3.8.1
-attrs==24.1.0
+attrs==24.2.0
 autobahn==24.4.2
 Automat==22.10.0
 black==24.8.0
